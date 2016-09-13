@@ -2,7 +2,6 @@ package scenarios;
 
 import listeners.ScreenshootsListener;
 import module.LoginWithFBModule;
-import module.LoginWithGplusModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.ListingPage;
@@ -56,6 +55,7 @@ public class LoginFBTest extends AndroidSetup {
     public void userAbleGoToListingAfterSuccessFBLogin() {
         LoginWithFBModule fbLogin = new LoginWithFBModule(driver);
         ListingPage listingPage = fbLogin.verifyListingPage();
+        listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
 
@@ -65,46 +65,11 @@ public class LoginFBTest extends AndroidSetup {
     @Test(priority = 5)
     public void userAbleToLogoutAfterSuccessFBLogin() {}
 
+    @Stories("As A User i want be able to Logout FB")
     @Title("Logout Fb account")
     @Test(priority = 99)
     public void logoutFBAccount() {
         LoginWithFBModule fb = new LoginWithFBModule(driver);
         fb.removeLoginApps_logout();
     }
-
-    // login with Gplus
-    @Test(enabled = false)
-    public void userAbleToRedirectToGmailLogin() {
-        LoginPage loginPage = new LoginPage(driver);
-        LoginWithGplusModule gplus = loginPage.clickLoginWithGPlus();
-        gplus.verifyAccountExist();
-    }
-
-    @Stories("As A User I Will not be Able to Login with Google+")
-    @Title("Verify User Not Able to Login with Invalid Google+ Credentials")
-    @TestCaseId("TC_LBG_03_001")
-    @Test(priority = 6)
-    public void userNotAbleToLoginWithInvalidGplusCredentials() {}
-
-    @Stories("As A User I want able to Login Using Google+")
-    @Title("Verify Google+ ask permissions from users to give the granted access")
-    @TestCaseId("TC_LBG_03_003")
-    @Test(priority = 8)
-    public void userAbleToGiveGrantedAccessToGplus() {}
-
-    @Stories("As A User I want able to Login with Google+")
-    @Title("Verify User Able to Login with Google+ Credentials")
-    @TestCaseId("TC_LBG_03_002")
-    @Test(priority = 7)
-    public void userAbleToLoginWithValidGplusCredentials() {}
-    public void userAbleToLogoutAfterSuccessGplusLogin() {}
-
-    // login with SMS
-    public void userNotAbleToLoginWithBlankPIN() {}
-    public void userAbleToMintaPIN() {}
-    public void userAbleToMintaUlangPIN() {}
-    public void userNotAbleToLoginWithInvalidPIN() {}
-    public void userNotAbleToLoginWithInvalidPhoneNumber() {}
-    public void userAbleToLoginWithValidPIN() {}
-
 }

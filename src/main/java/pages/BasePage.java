@@ -76,8 +76,7 @@ public class BasePage  {
     {
         try
         {
-            if (driver.findElement(by).isDisplayed()) {
-                isWaitElementPresent(by);
+            if (isWaitElementPresent(by)) {
                 clickElement(by);
                 return true;
             }
@@ -343,7 +342,7 @@ public class BasePage  {
 
     public void switchWebViewCtx() {
         Log.debug("Switch to Webview Mode");
-        driver = ((AndroidDriver)driver).context("WEBVIEW_com.app.sulley");
+        driver = ((AndroidDriver)driver).context("WEBVIEW_com.app.tokobagus.betterb");
     }
 
     public void switchNativeCtx() {

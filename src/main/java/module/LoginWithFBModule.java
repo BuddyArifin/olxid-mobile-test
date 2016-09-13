@@ -165,9 +165,7 @@ public class LoginWithFBModule extends BasePage {
     }
 
     public void removeLoginApps_logout() {
-        if (!isNative) {
-            Log.debug("Success FB Test Login");
-        } else {
+        if (isNative) {
             String hamburgerBar = "com.facebook.katana:id/bookmarks_tab";
             String accountSettings = "Account Settings";
             String logout = "Log Out";
@@ -175,8 +173,14 @@ public class LoginWithFBModule extends BasePage {
             ((AndroidDriver)driver).startActivity("com.facebook.katana", "com.facebook.katana.LoginActivity");
             clickElement(getIdLocator(hamburgerBar));
             ((AndroidDriver)driver).scrollTo(logout);
-            clickElement(By.xpath("//android.view.ViewGroup[@content-desc='"+logout+"']"));
+            if (isElementPresent(By.xpath("//android.view.ViewGroup[@content-desc='"+logout+"']"))) {
+                clickElement(By.xpath("//android.view.ViewGroup[@content-desc='"+logout+"']"));
+            } else {
+                clickElement(By.xpath("//android.view.View[@content-desc='"+logout+"']"));
+            }
             clickElement(getIdLocator(okId));
+        } else {
+            Log.debug("Success FB Test Login");
         }
     }
 
