@@ -49,11 +49,6 @@ public class BasePage  {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
-
-    protected void hideKeyboardPopUp()
-    {
-        ((AndroidDriver)driver).hideKeyboard();
-    }
     
     protected void WaitForClickabilityOf(By locator,int time){
     	WebDriverWait wait = new WebDriverWait(driver, time);

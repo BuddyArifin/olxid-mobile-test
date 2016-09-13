@@ -1,6 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -18,10 +19,10 @@ import ru.yandex.qatools.allure.annotations.Title;
 @Listeners(ScreenshootsListener.class)
 @Features("Listing Feature")
 public class ListingTest extends AndroidSetup {
-    CategoryPreferencesPage categoryPreferencesPage;
     ListingPage listingPage;
     LoginPage loginPage;
     HamburgerBarModule hamburgerBarModule;
+    FilterByMapsLocationModule filterByMapsLocationModule;
 
     @Stories("As a User I want to See Content in ListingPage")
     @Title("Verify System able to Display Content in ListingPage")
@@ -30,10 +31,7 @@ public class ListingTest extends AndroidSetup {
     public void verifyContentDisplayInListingPage()
     {
         loginPage = new LoginPage(driver);
-        categoryPreferencesPage = new CategoryPreferencesPage(driver);
-        listingPage = new ListingPage(driver);
-        loginPage.clickSkipButton();
-        categoryPreferencesPage.clickSkipBtn();
+        listingPage = loginPage.clickSkipButton();;
         listingPage.clickAllowAccessLocationButton();
         listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
@@ -42,34 +40,30 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User i want to able see Content in Navigation Menu")
     @Title("Verify System display All Content in Navigation Menu")
     @TestCaseId("TC_LISTING_06_027")
-    @Test(priority = 2)
+    @Test(priority = 2, enabled = false)
     public void verifyAllContentsInHamburgerBar()
     {
         listingPage = new ListingPage(driver);
-        hamburgerBarModule = new HamburgerBarModule(driver);
-        listingPage.clickHamburgerBar();
+        hamburgerBarModule = listingPage.clickHamburgerBar();;
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
     }
 
     @Stories("As a User I want enable Search ads")
     @Title("Verify Search ads by Keyword in Search Box")
     @TestCaseId("TC_LISTING_06_002")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void userAbleSearchAdsByInputtedKeyword()
     {
-        loginPage.clickSkipButton();
-        categoryPreferencesPage.clickSkipBtn();
+
     }
 
     @Stories("As a User I want to Click 1Km dari Kamu")
     @Title("Verify User able to redirect to Radius Selection Page")
     @TestCaseId("TC_LISTING_06_004")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 4)
     public void userAbleToClick1KMDariKamuButton()
     {
-        loginPage.clickSkipButton();
-        categoryPreferencesPage.clickSkipBtn();
-        listingPage.clickJarakDariKamuBtn();
+        filterByMapsLocationModule = listingPage.clickJarakDariKamuBtn();
     }
 
     @Stories("As A User I want to able Click Filter/Advance on the primary tool")
@@ -79,7 +73,6 @@ public class ListingTest extends AndroidSetup {
     public void userAbleToClickFilterButton()
     {
         loginPage = new LoginPage(driver);
-        categoryPreferencesPage = new CategoryPreferencesPage(driver);
         listingPage = new ListingPage(driver);
         listingPage.clickFilterBtnPrm();
     }

@@ -18,9 +18,10 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public static final String backBtn = "";
-    public static final String searchField = "";
-    public static final String myCurrentLocationBtn = "";
-    public static final String cancelChooseBtn = "";
+    public static final String searchField = "com.app.tokobagus.betterb:id/edtLocation";
+    public static final String myCurrentLocationBtn = "com.app.tokobagus.betterb:id/btnDetectMyLocation";
+    public static final String cancelChooseBtn = "com.app.tokobagus.betterb:id/imgClearIcon";
+    public static final String expandDockBtn = "com.app.tokobagus.betterb:id/imgMinimize";
     public static final String sliderRadius = "";
     public static final String cariDiLokasiIniBtn = "";
 
@@ -61,8 +62,9 @@ public class FilterByMapsLocationModule extends BasePage {
         Log.info("Verify All Content in Filter Page");
     }
 
-    public void inputKeywordInSearchFields()
+    public void inputKeywordInSearchFields(String input)
     {
+        sendKeysById(getContentLocator(searchField), input);
         Log.info("Input Keyword in Search Fields");
     }
 

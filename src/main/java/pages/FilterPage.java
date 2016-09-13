@@ -5,11 +5,13 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import module.FilterByMapsLocationModule;
 import module.FilterBySubCategory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.properties.utils.PropertiesUtils;
 import utils.Log;
 
 import java.util.List;
@@ -23,8 +25,6 @@ public class FilterPage extends BasePage {
     public static final String cancelBtn = "com.app.tokobagus.betterb:id/btnClearSearch";
     public static final String locationBtn = "com.app.tokobagus.betterb:id/btnOpenMap";
     public static final String myLocationBtn = "";
-    public static final String minHarga = "com.app.tokobagus.betterb:id/edtMinPrice";
-    public static final String maksHarga = "com.app.tokobagus.betterb:id/edtMaxPrice";
     public static final String terdekatRBtn = "com.app.tokobagus.betterb:id/rbNearest";
     public static final String terbaruRBtn = "com.app.tokobagus.betterb:id/rbNewest";
     public static final String termurahRBtn = "com.app.tokobagus.betterb:id/rbCheapest";
@@ -32,6 +32,7 @@ public class FilterPage extends BasePage {
     public static final String ubahBtn = "com.app.tokobagus.betterb:id/btnChooseCategory";
     public static final String resetBtn = "com.app.tokobagus.betterb:id/btnReset";
     public static final String simpanBtn = "com.app.tokobagus.betterb:id/btnSearch";
+    private FilterByMapsLocationModule filterByMapsLocationModule;
     private FilterBySubCategory filterBySubCategory;
 
     public FilterPage(WebDriver driver) {
@@ -46,8 +47,6 @@ public class FilterPage extends BasePage {
         verifySearchField();
         verifyLocationButton();
         verifyMyLocationButton();
-        verifyMinHargaButton();
-        verifyMaksHargaButton();
         verifyTerdekatRadioButton();
         verifyTerbaruRadioButton();
         verifyTermurahRadioButton();
@@ -81,14 +80,6 @@ public class FilterPage extends BasePage {
     {
         Log.info("Verify MyLocation Button");
     }
-    public void verifyMinHargaButton()
-    {
-        Log.info("Verify MinHarga Button");
-    }
-    public void verifyMaksHargaButton()
-    {
-        Log.info("Verify MaksHarga Button");
-    }
     public void verifyTerdekatRadioButton()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(terdekatRBtn)));
@@ -109,10 +100,8 @@ public class FilterPage extends BasePage {
         Assert.assertTrue(isElementPresent(getIdLocator(termahalRBtn)));
         Log.info("Verify Termahal Radio Button");
     }
-
     public void verifyUbahButton()
     {
-        hideKeyboardPopUp();
         Assert.assertTrue(isElementPresent(getIdLocator(ubahBtn)));
         Log.info("Verify Ubah Button");
     }
@@ -144,6 +133,7 @@ public class FilterPage extends BasePage {
     @Step("Click Cancel Button in Search Field")
     public void clickCancelButtonSearchField()
     {
+        Log.info("Click Cancel Button in Search Field");
         clickElement(getIdLocator(cancelBtn));
     }
 
@@ -153,65 +143,53 @@ public class FilterPage extends BasePage {
         Log.info("Click MyLocation Button");
     }
 
-    @Step("Click Location Button")
-    public void clickLocationButton()
+    public FilterByMapsLocationModule clickLocationButton()
     {
         Log.info("Click Location Button");
+        clickElement(getIdLocator(locationBtn));
+        return new FilterByMapsLocationModule(driver);
     }
 
-    @Step("Input MinPrice Range")
-    public void inputMinPriceRange()
-    {
-        Log.info("Input MinPrice Range");
-    }
-
-    @Step("Input MaxPrice Range")
-    public void inputMaxPriceRange()
-    {
-        Log.info("Input MaxPrice Range");
-    }
-
-    @Step("Click Terdekat Radio Button in Urutkan Column")
     public void clickRadioButtonTerdekatInUrutkanColumn()
     {
         clickElement(getIdLocator(terdekatRBtn));
         Log.info("Click Terdekat Radio Button in Urutkan Column");
     }
 
-    @Step("Click One of Kondisi Column")
-    public void clickRadioButtonInKondisiColumn()
+    public void clickRadioButtonTerbaruInUrutkanColumn()
     {
-        Log.info("Click One of Kondisi Column");
+        clickElement(getIdLocator(terbaruRBtn));
+        Log.info("Click Terbaru Radio Button in Urutkan Column");
     }
 
-    @Step("Click Ubah Button")
-    public void clickUbahButton()
+    public void clickRadioButtonTermurahInUrutkanColumn()
     {
-        filterBySubCategory.verifySubCategoryElementOne();
-        filterBySubCategory.clickSubCatergoryElementOne();
-        filterBySubCategory.verifySubCategoryElementTwo();
-        filterBySubCategory.clickSubCatergoryElementTwo();
-        filterBySubCategory.verifySubCategoryElementThird();
-        filterBySubCategory.clickSubCatergoryElementThird();
+        clickElement(getIdLocator(termurahRBtn));
+        Log.info("Click Termurah Radio Button in Urutkan Column");
+    }
+
+    public void clickRadioButtonTermahalInUrutkanColumn()
+    {
+        clickElement(getIdLocator(termahalRBtn));
+        Log.info("Click Termahal Radio Button in Urutkan Column");
+    }
+
+    public FilterBySubCategory clickUbahButton()
+    {
         Log.info("Click Ubah Button");
+        clickElement(getIdLocator(ubahBtn));
+        return new FilterBySubCategory(driver);
     }
 
-    @Step("Click Sub-Kategori")
-    public void clickSubKategori()
-    {
-        Log.info("Click Sub-Kategory");
-    }
-
-    @Step("Click Reset Button")
     public void clickResetButton()
     {
         clickElement(getIdLocator(resetBtn));
         Log.info("Click Reset Button");
     }
 
-    @Step("Click Simpan Button")
     public void clickSimpanButton()
     {
+        clickElement(getIdLocator(simpanBtn));
         Log.info("Click Simpan Button");
     }
 }

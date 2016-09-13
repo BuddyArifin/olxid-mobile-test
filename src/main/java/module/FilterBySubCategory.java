@@ -32,30 +32,4 @@ public class FilterBySubCategory extends BasePage {
     {
         Log.info("Verify Content in Additional Filter");
     }
-
-    public void verifySubCategoryElementOne()
-    {
-        Log.info("Verify Sub Category Element One Appear");
-    }
-    public void verifySubCategoryElementTwo()
-    {
-        Log.info("Verify Sub Category Element Two Appear");
-    }
-    public void verifySubCategoryElementThird()
-    {
-        Log.info("Verify Sub Category Element Third Appear");
-    }
-
-    public void clickSubCatergoryElementOne()
-    {
-        Log.info("Click One of Sub-Category First Element");
-    }
-    public void clickSubCatergoryElementTwo()
-    {
-        Log.info("Click One of Sub-Category Second Element");
-    }
-    public void clickSubCatergoryElementThird()
-    {
-        Log.info("Click One of Sub-Category Third Element");
-    }
 }

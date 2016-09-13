@@ -106,6 +106,7 @@ public class ListingPage extends BasePage{
     @Step("Verify Gambar Iklan")
     public void verifyGambarIklan()
     {
+        WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
         Assert.assertTrue(isElementPresent(getIdLocator(gambarIklan)));
         Log.info("Verify Gambar Iklan");
     }

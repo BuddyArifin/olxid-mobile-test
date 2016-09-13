@@ -19,7 +19,6 @@ import ru.yandex.qatools.allure.annotations.Title;
 @Features("Login Feature")
 public class FilterTest extends AndroidSetup{
     LoginPage loginPage;
-    CategoryPreferencesPage categoryPreferencesPage;
     ListingPage listingPage;
     FilterPage filterPage;
 
@@ -30,25 +29,30 @@ public class FilterTest extends AndroidSetup{
     public void verifyAllContentInFilterPage()
     {
         loginPage = new LoginPage(driver);
-        categoryPreferencesPage = new CategoryPreferencesPage(driver);
-        listingPage = new ListingPage(driver);
-        filterPage = new FilterPage(driver);
-        loginPage.clickSkipButton();
-        categoryPreferencesPage.clickSkipBtn();
+        listingPage = loginPage.clickSkipButton();
         listingPage.clickAllowAccessLocationButton();
         listingPage.clickAllowAccessLocationButton();
-        listingPage.clickFilterBtnPrm();
+        filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
+    }
+
+    @Stories("As a User I want See cancel input button")
+    @Title("Verify System Display cancel input button")
+    @TestCaseId("TC_FILTER_08_003")
+    @Test(priority = 2)
+    public void verifyButtonXExist()
+    {
+        filterPage.clickSearchField();
+        filterPage.inputKeywordSearchField("jazz");
+        filterPage.verifyCancelButton();
     }
 
     @Stories("As a User i want to be able cancel inputted keyword")
     @Title("Verify Search Field null")
     @TestCaseId("TC_FILTER_08_003")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifySearchFieldNull()
     {
-        filterPage.clickSearchField();
-        filterPage.inputKeywordSearchField("sss");
         filterPage.clickCancelButtonSearchField();
     }
 
@@ -82,8 +86,6 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickMyLocationButton();
-        filterPage.inputMinPriceRange();
-        filterPage.inputMaxPriceRange();
         filterPage.clickSimpanButton();
     }
 
@@ -95,8 +97,6 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickMyLocationButton();
-        filterPage.inputMinPriceRange();
-        filterPage.inputMaxPriceRange();
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.clickSimpanButton();
     }
@@ -109,10 +109,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickMyLocationButton();
-        filterPage.inputMinPriceRange();
-        filterPage.inputMaxPriceRange();
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
-        filterPage.clickRadioButtonInKondisiColumn();
         filterPage.clickSimpanButton();
     }
 
