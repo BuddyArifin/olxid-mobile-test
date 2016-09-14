@@ -129,13 +129,8 @@ public class FilterTest extends AndroidSetup{
     @Title("Verify User back to Listing Page")
     @TestCaseId("TC_FILTER_08_021")
     @Test(priority = 99)
-    public void verifyBackButtonClickec()
+    public void verifyBackButtonClicked()
     {
-        loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
-        listingPage.clickAllowAccessLocationButton();
-        filterPage = listingPage.clickFilterBtnPrm();
-        listingPage.clickAllowAccessLocationButton();
         filterPage.clickBackBtn();
     }
 }

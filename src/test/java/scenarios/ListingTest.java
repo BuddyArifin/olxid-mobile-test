@@ -31,8 +31,7 @@ public class ListingTest extends AndroidSetup {
     public void verifyContentDisplayInListingPage()
     {
         loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();;
-        listingPage.clickAllowAccessLocationButton();
+        listingPage = loginPage.clickSkipButton();
         listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
@@ -87,7 +86,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User I want to able Click Filter/Advance on the primary tool")
     @Title("Verify User able to click Filter on the primary toolbar")
     @TestCaseId("TC_LISTING_06_021")
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void userAbleToClickFilterButton()
     {
         loginPage = new LoginPage(driver);

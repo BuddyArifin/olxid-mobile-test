@@ -58,7 +58,7 @@ public class FilterPage extends BasePage {
     }
     public void verifyBackButton()
     {
-        Assert.assertTrue(isElementPresent(getContentDescLocator(backBtn)));
+        Assert.assertTrue(isElementPresent(getContentLocator(backBtn)));
         Log.info("Verify Back Button");
     }
     public void verifySearchField()
@@ -119,7 +119,7 @@ public class FilterPage extends BasePage {
     public ListingPage clickBackBtn()
     {
         Log.info("Click Back Button");
-        clickElement(getIdLocator(backBtn));
+        clickElement(getContentLocator(backBtn));
         return new ListingPage(driver);
     }
 
