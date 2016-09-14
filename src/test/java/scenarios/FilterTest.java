@@ -3,7 +3,6 @@ package scenarios;
 import listeners.ScreenshootsListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.CategoryPreferencesPage;
 import pages.FilterPage;
 import pages.ListingPage;
 import pages.LoginPage;
@@ -31,8 +30,8 @@ public class FilterTest extends AndroidSetup{
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipButton();
         listingPage.clickAllowAccessLocationButton();
-        listingPage.clickAllowAccessLocationButton();
         filterPage = listingPage.clickFilterBtnPrm();
+        listingPage.clickAllowAccessLocationButton();
         filterPage.verifyAllContentOfFilterPage();
     }
 

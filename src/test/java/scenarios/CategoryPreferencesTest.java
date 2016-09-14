@@ -27,7 +27,7 @@ public class CategoryPreferencesTest extends AndroidSetup {
     @Test(priority = 1)
     public void verifyAllContensOfCategoryPreferencesPage() {
         LoginPage loginPage = new LoginPage(driver);
-        categoryPreferencesPage = loginPage.clickSkipButton();
+        categoryPreferencesPage = loginPage.skipPreferences();
         categoryPreferencesPage.verifyAllContentsOfCategoryPage();
     }
 

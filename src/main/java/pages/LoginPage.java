@@ -133,6 +133,11 @@ public class LoginPage extends BasePage {
         return new ListingPage(driver);
     }
 
+    @Deprecated
+    public CategoryPreferencesPage skipPreferences() {
+        return new CategoryPreferencesPage(driver);
+    }
+
     @Step("Verify Sliders Contents")
     public void verifySlidersContents() {
         Log.info("Sliders available size : "+paginations.size());
