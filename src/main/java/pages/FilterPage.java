@@ -20,7 +20,7 @@ import java.util.List;
  * Created by NugrohoSantoso on 9/2/16.
  */
 public class FilterPage extends BasePage {
-    public static final String backBtn = "";
+    public static final String backBtn = "Navigate up";
     public static final String searchField = "com.app.tokobagus.betterb:id/edtSearch";
     public static final String cancelBtn = "com.app.tokobagus.betterb:id/btnClearSearch";
     public static final String locationBtn = "com.app.tokobagus.betterb:id/btnOpenMap";
@@ -58,7 +58,7 @@ public class FilterPage extends BasePage {
     }
     public void verifyBackButton()
     {
-//        Assert.assertTrue(isElementPresent(getIdLocator(backBtn)));
+        Assert.assertTrue(isElementPresent(getContentDescLocator(backBtn)));
         Log.info("Verify Back Button");
     }
     public void verifySearchField()
@@ -116,28 +116,31 @@ public class FilterPage extends BasePage {
         Log.info("Verify Simpan Button");
     }
 
-    @Step("Click Search Field")
+    public ListingPage clickBackBtn()
+    {
+        Log.info("Click Back Button");
+        clickElement(getIdLocator(backBtn));
+        return new ListingPage(driver);
+    }
+
     public void clickSearchField()
     {
         Log.info("Click Search Field");
         clickElement(getIdLocator(searchField));
     }
 
-    @Step("Input Keyword in Search Field")
     public void inputKeywordSearchField(String keyword)
     {
         Log.info("Input Keyword in Search Field : "+keyword);
         sendKeysById(getIdLocator(searchField), keyword);
     }
 
-    @Step("Click Cancel Button in Search Field")
     public void clickCancelButtonSearchField()
     {
         Log.info("Click Cancel Button in Search Field");
         clickElement(getIdLocator(cancelBtn));
     }
 
-    @Step("Click MyLocation Button")
     public void clickMyLocationButton()
     {
         Log.info("Click MyLocation Button");

@@ -115,7 +115,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able reset filter")
     @Title("Verify System all column back to default")
     @TestCaseId("TC_FILTER_08_019")
-    @Test(priority = 99)
+    @Test(priority = 98)
     public void verifyResetButtonClicked()
     {
         filterPage = new FilterPage(driver);
@@ -123,5 +123,19 @@ public class FilterTest extends AndroidSetup{
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.clickResetButton();
+    }
+
+    @Stories("As user i want to be able back to Listing Page")
+    @Title("Verify User back to Listing Page")
+    @TestCaseId("TC_FILTER_08_021")
+    @Test(priority = 99)
+    public void verifyBackButtonClickec()
+    {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.clickAllowAccessLocationButton();
+        filterPage = listingPage.clickFilterBtnPrm();
+        listingPage.clickAllowAccessLocationButton();
+        filterPage.clickBackBtn();
     }
 }

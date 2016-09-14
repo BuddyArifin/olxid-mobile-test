@@ -36,6 +36,7 @@ public class ListingPage extends BasePage{
     public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_Messages";
     public static final String pesanNotif = "";
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
+    public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -67,99 +68,74 @@ public class ListingPage extends BasePage{
         verifyFavoritBtnBtm();
     }
 
-    @Step("Verify Hamburger Bar")
     public void verifyHamburgerBar()
     {
         WaitForClickabilityOf(getContentLocator(hamburgerBar), 40);
         Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerBar)));
         Log.info("Verify Hamburger Bar");
     }
-
-    @Step("Verify Title Page")
     public void verifyTitlePage()
     {
         Assert.assertTrue(isElementPresent(getTextLocator(titlePage)));
         Log.info("Verify Title Page");
     }
-
-    @Step("Verify Search Button")
     public void verifySearchBtnPrm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(searchBtnPrmID)));
         Log.info("Verify Search Button");
     }
-
-    @Step("Verify Filter Button")
     public void verifyFilterBtnPrm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(filterBtnPrmID)));
         Log.info("Verify Filter Button");
     }
-
-    @Step("Verify Jarak Dari Kamu Button")
     public void verifyJarakDariKamuBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(jarakDariKamuBtnID)));
         Log.info("Verify Jarak Dari Kamu Button");
     }
-
-    @Step("Verify Gambar Iklan")
     public void verifyGambarIklan()
     {
         WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
         Assert.assertTrue(isElementPresent(getIdLocator(gambarIklan)));
         Log.info("Verify Gambar Iklan");
     }
-
-    @Step("Verify Harga Iklan")
     public void verifyHargaIklan()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(hargaIklan)));
         Log.info("Verify Harga Iklan");
     }
-
-    @Step("Verify Home Button")
     public void verifyHomeBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(homeBtnBtmID)));
         Log.info("Verify Home Button");
     }
-
-    @Step("Verify Kategori Button")
     public void verifyKategoriBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(kategoriBtnBtmID)));
         Log.info("Verify Kategori Button");
     }
-
-    @Step("Verify Jual Button")
     public void verifyJualBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(jualBtnBtmID)));
         Log.info("Verify Jual Button");
     }
-
-    @Step("Verify Pesan Button")
     public void verifyPesanBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(pesanBtnBtmID)));
         Log.info("Verify Pesan Button");
     }
-
-    @Step("Verify Pesan Notif")
     public void verifyPesanNotif()
     {
         Log.info("Verify Pesan Notif");
     }
 
-    @Step("Verify Favorit Button")
     public void verifyFavoritBtnBtm()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(favoritBtnBtmId)));
         Log.info("Verify Favorit Button");
     }
 
-    @Step("Click Hamburger Primary Bar Bar")
     public HamburgerBarModule clickHamburgerBar()
     {
         Log.info("Click Hamburger Bar");
@@ -167,14 +143,12 @@ public class ListingPage extends BasePage{
         return new HamburgerBarModule(driver);
     }
 
-    @Step("Click Search Primary Bar Button")
     public void clickSearchBtnPrm()
     {
         clickElement(getIdLocator(searchBtnPrmID));
         Log.info("Click Search Button");
     }
 
-    @Step("Click Filter Primary Bar Button")
     public FilterPage clickFilterBtnPrm()
     {
         Log.info("Click Filter Button");
@@ -182,7 +156,6 @@ public class ListingPage extends BasePage{
         return new FilterPage(driver);
     }
 
-    @Step("Click Jarak Dari Kamu Button")
     public FilterByMapsLocationModule clickJarakDariKamuBtn()
     {
         Log.info("Click Jarak Dari Kamu Button");
@@ -190,7 +163,6 @@ public class ListingPage extends BasePage{
         return new FilterByMapsLocationModule(driver);
     }
 
-    @Step("Click Kategori Bottom Bar Button")
     public KategoriPage clickKategoriBtnBtm()
     {
         Log.info("Click Kategori Bottom Bar Button");
@@ -198,11 +170,24 @@ public class ListingPage extends BasePage{
         return new KategoriPage(driver);
     }
 
-    @Step("Click Jual Bottom Bar Button")
     public PostAdsPage clickJualBtnBtm()
     {
         Log.info("Click Jual Bottom Bar Button");
         clickElement(getIdLocator(jualBtnBtmID));
         return new PostAdsPage(driver);
+    }
+
+    public void verifyBtmBarDissappear()
+    {
+        Log.info("Verify Bottom Bar Dissapear as User Scrolling Down");
+        swipePageBtmtToTop();
+        Assert.assertFalse(isElementPresent(getIdLocator(btmBarId)));
+    }
+
+    public void verifyBtmBarAppear()
+    {
+        Log.info("Verify Bottom Bar Appear as User Scrolling Up");
+        swipePageTopToBtm();
+        Assert.assertTrue(isElementPresent(getIdLocator(btmBarId)));
     }
 }
