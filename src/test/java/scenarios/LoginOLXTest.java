@@ -37,13 +37,13 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As A User I Will not be Able to Login")
     @Title("Verify User Not Able to Login with OLX Account and with unregistered Email")
     @TestCaseId("TC_LOGIN_04_002")
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 5)
     public void userNotAbleToLoginWithUnregisteredEmail() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
         loginOlx.inputEmail("remote@gmail.com");
         loginOlx.inputPassword("Welcome123");
         loginOlx.clickLoginWithOlxBtn();
-        loginOlx.verifyErrorInvalidEmail();
+        loginOlx.verifyErrorWrongCredentials();
     }
 
     @Stories("As A User I Will not be Able to Login")
@@ -83,13 +83,14 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As A User I want able to Login")
     @Title("Verify User Able to Login with OLX Account")
     @TestCaseId("TC_LOGIN_04_005")
-    @Test(priority = 5)
+    @Test(priority = 6)
     public void userAbleToLoginWithValidCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
         loginOlx.inputEmail("krisna.parahita@olx.co.id");
         loginOlx.inputPassword("testing");
         loginOlx.clickLoginWithOlxBtn();
         listingPage = loginOlx.verifyListingPage();
+        listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
 

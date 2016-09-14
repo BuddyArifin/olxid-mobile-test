@@ -12,6 +12,7 @@ import utils.Log;
  * Created by buddyarifin on 8/5/16.
  */
 public class LoginWithOlxModule extends BasePage {
+    public static final String showHiddenPass = "com.app.tokobagus.betterb:id/text_input_password_toggle";
     public static String titlePage = "Masuk dengan akun OLX";
     public static String emailField = "com.app.tokobagus.betterb:id/entranceLogin_txtEmail";
     public static String passField = "com.app.tokobagus.betterb:id/entranceLogin_txtPass";
@@ -21,6 +22,7 @@ public class LoginWithOlxModule extends BasePage {
     public static String emailBlankErrorText = "Kolom email tidak boleh kosong";
     public static String passBlankErrorText = "Kolom password tidak boleh kosong";
     public static String emailNotValidText = "Email tidak valid";
+    public static String loginGagal = "Login Gagal";
     public static String passErrorMsg = "";
 
     public LoginWithOlxModule(WebDriver driver) {
@@ -77,7 +79,7 @@ public class LoginWithOlxModule extends BasePage {
     @Step("Verify Error Wrong Credentials")
     public void verifyErrorWrongCredentials() {
         Log.info("verify Error Wrong Credentials");
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(loginGagal));
     }
 
     @Step("Verify Show Password")
@@ -92,7 +94,9 @@ public class LoginWithOlxModule extends BasePage {
 
     public void inputPassword(String passwordText) {
         Log.info("Input pass "+passwordText);
+        clickElement(getIdLocator(showHiddenPass));
         sendKeysById(getIdLocator(passField), passwordText);
+        clickElement(getIdLocator(showHiddenPass));
     }
 
     @Step("Verify Click Login With OLX Button")

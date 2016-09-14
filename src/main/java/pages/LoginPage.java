@@ -87,6 +87,7 @@ public class LoginPage extends BasePage {
     @Step("Verify Skip Button")
     public void verifySkipBtn() {
         Log.info("Verify Skip Button");
+        WaitForClickabilityOf(getIdLocator(skipBtnID), 100);
         Assert.assertTrue(isWaitElementPresent(getIdLocator(skipBtnID)));
     }
 
@@ -121,6 +122,7 @@ public class LoginPage extends BasePage {
     @Step("Click OLX Login Button")
     public LoginWithOlxModule clickLoginWithOlx() {
         Log.info("Click OLX Login Button");
+        WaitForClickabilityOf(getIdLocator(olxLoginID), 100);
         clickElement(getIdLocator(olxLoginID));
         return new LoginWithOlxModule(driver);
     }
@@ -146,7 +148,7 @@ public class LoginPage extends BasePage {
             Log.info("  * "+getStringText(getIdLocator(introTitleID)));
             androidDriver = ((AndroidDriver) driver);
             androidDriver.swipe(androidDriver.manage().window().getSize().getWidth()-10,
-                    300, 20, 300, 10000);
+                    300, 20, 300, 1000);
             Assert.assertNotNull(getStringText(getIdLocator(introTitleID)));
         }
     }
