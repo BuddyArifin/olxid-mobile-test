@@ -256,7 +256,7 @@ public class BasePage  {
         int starty = (int) (driver.manage().window().getSize().getHeight() * 0.80);
         int endy = (int) (driver.manage().window().getSize().getHeight() * 0.20);
         int startx = driver.manage().window().getSize().getWidth() / 2;
-        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 10000);
+        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 500);
     }
 
     public void swipePageTopToBtm()
@@ -264,7 +264,7 @@ public class BasePage  {
         int starty = (int)(driver.manage().window().getSize().getHeight() * 0.80);
         int endy = (int) (driver.manage().window().getSize().getHeight() * 0.20);
         int startx = driver.manage().window().getSize().getWidth() / 2;
-        ((AndroidDriver)driver).swipe(startx, endy, startx, starty, 10000);
+        ((AndroidDriver)driver).swipe(startx, endy, startx, starty, 500);
     }
 
 
