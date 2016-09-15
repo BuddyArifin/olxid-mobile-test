@@ -75,7 +75,6 @@ public class LoginWithFBModule extends BasePage {
         clickElement(By.cssSelector(loginCss));
         if (isWaitElementPresent(By.cssSelector(confirmBtnCss))) {
             clickElement(By.cssSelector(confirmBtnCss));
-            isNative = false;
             switchNativeCtx();
         }
     }
@@ -99,7 +98,7 @@ public class LoginWithFBModule extends BasePage {
     }
     public void verifyAlert() {
         try {
-            if (isWaitElementPresent(getIdLocator(okButton))) {
+            if (isNative) {
                 Log.info("Verify Alert display");
                 Assert.assertTrue(isWaitElementPresent(getIdLocator(alertIncorrectCredentials)));
                 clickElement(getIdLocator(okButton));
@@ -108,7 +107,7 @@ public class LoginWithFBModule extends BasePage {
                 Assert.assertTrue(isWaitElementPresent(By.cssSelector(alertIncorrectCredentialsCss)));
                 clickElement(By.cssSelector(emailCss));
             }
-        }catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             Log.info("Verify Alert display");
             Assert.assertTrue(isWaitElementPresent(By.cssSelector(alertIncorrectCredentialsCss)));
             clickElement(By.cssSelector(emailCss));
@@ -139,6 +138,7 @@ public class LoginWithFBModule extends BasePage {
             clickLogin();
         } else {
             switchWebViewCtx();
+            isNative = false;
             isWaitElementPresent(By.cssSelector(emailCss));
             clickElement(By.cssSelector(emailCss));
             inputWebEmail(emailText);

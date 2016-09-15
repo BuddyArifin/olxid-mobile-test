@@ -71,7 +71,7 @@ public class BasePage  {
     {
         try
         {
-            if (isWaitElementPresent(by)) {
+            if (waitForVisibility(by)) {
                 clickElement(by);
                 return true;
             }
@@ -344,6 +344,18 @@ public class BasePage  {
             @Override
             public Boolean apply(WebDriver driver) {
                 ((AndroidDriver) driver).scrollTo(text);
+                return driver.findElement(locator).isDisplayed();
+            }
+        });
+    }
+
+    public Boolean waitForVisibility(final By locator){
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(2, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver input) {
                 return driver.findElement(locator).isDisplayed();
             }
         });
