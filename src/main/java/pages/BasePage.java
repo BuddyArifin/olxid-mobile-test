@@ -251,6 +251,22 @@ public class BasePage  {
         js.executeScript("mobile: swipe", swipeObject);
     }
 
+    public void swipePageRightToLeft()
+    {
+        int startx = (int) (driver.manage().window().getSize().getWidth() * 0.70);
+        int endx = (int) (driver.manage().window().getSize().getWidth() * 0.30);
+        int starty = driver.manage().window().getSize().getHeight() / 2;
+        ((AndroidDriver)driver).swipe(startx, starty, endx, starty, 3000);
+    }
+
+    public void swipePageLeftToRight()
+    {
+        int startx = (int) (driver.manage().window().getSize().getWidth() * 0.70);
+        int endx = (int) (driver.manage().window().getSize().getWidth() * 0.30);
+        int starty = driver.manage().window().getSize().getHeight() / 2;
+        ((AndroidDriver)driver).swipe(endx, starty, startx, starty, 3000);
+    }
+
     public void swipePageBtmtToTop()
     {
         int starty = (int) (driver.manage().window().getSize().getHeight() * 0.80);
