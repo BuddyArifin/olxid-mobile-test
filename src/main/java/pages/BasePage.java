@@ -73,7 +73,15 @@ public class BasePage  {
         {
             if (waitForVisibility(by)) {
                 clickElement(by);
-                return true;
+                if (waitForVisibility(by))
+                {
+                    clickElement(by);
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else {
                 return true;
