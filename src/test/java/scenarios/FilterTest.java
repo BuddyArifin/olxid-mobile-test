@@ -1,6 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.FilterBySubCategory;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.FilterPage;
@@ -20,6 +21,7 @@ public class FilterTest extends AndroidSetup{
     LoginPage loginPage;
     ListingPage listingPage;
     FilterPage filterPage;
+    FilterBySubCategory filterBySubCategory;
 
     @Stories("As a User I want See Content in Filter Page")
     @Title("Verify System Display Content in Filter Page")
@@ -29,9 +31,8 @@ public class FilterTest extends AndroidSetup{
     {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipButton();
-        listingPage.clickAllowAccessLocationButton();
+        listingPage.verifyContentsOfListingPage();
         filterPage = listingPage.clickFilterBtnPrm();
-        listingPage.clickAllowAccessLocationButton();
         filterPage.verifyAllContentOfFilterPage();
     }
 
@@ -132,5 +133,38 @@ public class FilterTest extends AndroidSetup{
     public void verifyBackButtonClicked()
     {
         filterPage.clickBackBtn();
+    }
+
+    @Stories("As user i want to see sub-category option")
+    @Title("Verify System display sub-category option")
+    @TestCaseId("TC_FILTER_08_015")
+    @Test(priority = 100)
+    public void verifyCategoryElementAppear()
+    {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.verifyContentsOfListingPage();
+        filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.verifyAllContentOfFilterPage();
+        filterBySubCategory = filterPage.clickUbahButton();
+        filterBySubCategory.verifyCategoryListingElement1();
+    }
+
+    @Stories("As user i want to be able select sub-category")
+    @Title("Verify Listing ads sorted by selected sub-category")
+    @TestCaseId("TC_FILTER_08_016")
+    @Test(priority = 101)
+    public void verifyListingAdsSortedBySelectedSubCategory()
+    {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.verifyContentsOfListingPage();
+        filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.verifyAllContentOfFilterPage();
+        filterBySubCategory = filterPage.clickUbahButton();
+        filterBySubCategory.verifyCategoryListingElement1();
+        filterBySubCategory.clickMobilCategory();
+        filterBySubCategory.verifyCategoryListingElement1();
+        filterBySubCategory.clickSemuaDiMobilCategory();
     }
 }

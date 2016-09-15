@@ -25,6 +25,7 @@ public class FilterPage extends BasePage {
     public static final String cancelBtn = "com.app.tokobagus.betterb:id/btnClearSearch";
     public static final String locationBtn = "com.app.tokobagus.betterb:id/btnOpenMap";
     public static final String myLocationBtn = "";
+    public static final String locationAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String terdekatRBtn = "com.app.tokobagus.betterb:id/rbNearest";
     public static final String terbaruRBtn = "com.app.tokobagus.betterb:id/rbNewest";
     public static final String termurahRBtn = "com.app.tokobagus.betterb:id/rbCheapest";
@@ -43,6 +44,7 @@ public class FilterPage extends BasePage {
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage()
     {
+        isAutoAcept(getIdLocator(locationAllowAccessBtn));
         verifyBackButton();
         verifySearchField();
         verifyLocationButton();

@@ -55,7 +55,6 @@ public class LoginFBTest extends AndroidSetup {
     public void userAbleGoToListingAfterSuccessFBLogin() {
         LoginWithFBModule fbLogin = new LoginWithFBModule(driver);
         ListingPage listingPage = fbLogin.verifyListingPage();
-        listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
 

@@ -43,16 +43,11 @@ public class ListingPage extends BasePage{
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    @Step("Click Allow Access Google Location Button ")
-    public void clickAllowAccessLocationButton() {
-        isAutoAcept(getIdLocator(locationAllowAccessBtn));
-        Log.info("Click Allow Access Location Button");
-    }
-
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
+        isAutoAcept(getIdLocator(locationAllowAccessBtn));
         verifyHamburgerBar();
         verifyTitlePage();
         verifySearchBtnPrm();

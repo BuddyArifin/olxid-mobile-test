@@ -32,7 +32,6 @@ public class ListingTest extends AndroidSetup {
     {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipButton();
-        listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
 

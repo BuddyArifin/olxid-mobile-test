@@ -283,7 +283,6 @@ public class BasePage  {
         ((AndroidDriver)driver).swipe(startx, endy, startx, starty, 500);
     }
 
-
     public void swipeLeftToRight() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         HashMap<String, Double> swipeObject = new HashMap<String, Double>();

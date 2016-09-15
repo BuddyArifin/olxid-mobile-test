@@ -90,7 +90,6 @@ public class LoginOLXTest extends AndroidSetup {
         loginOlx.inputPassword("testing");
         loginOlx.clickLoginWithOlxBtn();
         listingPage = loginOlx.verifyListingPage();
-        listingPage.clickAllowAccessLocationButton();
         listingPage.verifyContentsOfListingPage();
     }
 
