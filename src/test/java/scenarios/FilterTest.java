@@ -147,7 +147,7 @@ public class FilterTest extends AndroidSetup{
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
         filterBySubCategory = filterPage.clickUbahButton();
-        filterBySubCategory.verifyCategoryListingElement1();
+        filterBySubCategory.verifyAllCategory();
     }
 
     @Stories("As user i want to be able select sub-category")
@@ -162,9 +162,10 @@ public class FilterTest extends AndroidSetup{
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
         filterBySubCategory = filterPage.clickUbahButton();
-        filterBySubCategory.verifyCategoryListingElement1();
+        filterBySubCategory.verifyAllCategory();
         filterBySubCategory.clickMobilCategory();
-        filterBySubCategory.verifyCategoryListingElement1();
-        filterBySubCategory.clickSemuaDiMobilCategory();
+        filterBySubCategory.verifySubCategory();
+        filterBySubCategory.clickMobilBekasCategory();
+        filterBySubCategory.verifySubCategory1();
     }
 }
