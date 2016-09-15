@@ -1,21 +1,13 @@
 package pages;
 
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.server.handler.FindElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
-
-import java.util.List;
 
 /**
  * Created by buddyarifin on 8/24/16.
@@ -47,6 +39,7 @@ public class ListingPage extends BasePage{
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
+        isAutoAcept(getIdLocator(locationAllowAccessBtn));
         isAutoAcept(getIdLocator(locationAllowAccessBtn));
         verifyHamburgerBar();
         verifyTitlePage();

@@ -1,9 +1,5 @@
 package pages;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.FilterBySubCategory;
@@ -11,10 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
-import ru.yandex.qatools.properties.utils.PropertiesUtils;
 import utils.Log;
-
-import java.util.List;
 
 /**
  * Created by NugrohoSantoso on 9/2/16.
@@ -44,7 +37,6 @@ public class FilterPage extends BasePage {
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage()
     {
-        isAutoAcept(getIdLocator(locationAllowAccessBtn));
         verifyBackButton();
         verifySearchField();
         verifyLocationButton();

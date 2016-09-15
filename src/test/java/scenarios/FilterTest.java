@@ -141,9 +141,6 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 100)
     public void verifyCategoryElementAppear()
     {
-        loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
-        listingPage.verifyContentsOfListingPage();
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
         filterBySubCategory = filterPage.clickUbahButton();
@@ -156,13 +153,6 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 101)
     public void verifyListingAdsSortedBySelectedSubCategory()
     {
-        loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
-        listingPage.verifyContentsOfListingPage();
-        filterPage = listingPage.clickFilterBtnPrm();
-        filterPage.verifyAllContentOfFilterPage();
-        filterBySubCategory = filterPage.clickUbahButton();
-        filterBySubCategory.verifyAllCategory();
         filterBySubCategory.clickMobilCategory();
         filterBySubCategory.verifySubCategory();
         filterBySubCategory.clickMobilBekasCategory();

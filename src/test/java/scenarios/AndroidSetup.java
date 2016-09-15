@@ -28,12 +28,12 @@ public class AndroidSetup extends InstanceDriver {
     
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
-        File app = new File(appDir, "app-debug-1.0.0.1.apk");
+        File app = new File(appDir, "app-debug-7.0.0.1.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("device","Android");
 
         capabilities.setCapability("appPackage", "com.app.tokobagus.betterb");
-        capabilities.setCapability("appActivity", "sea.olxsulley.presentation.view.activities.OlxIdEntranceActivity");
+        capabilities.setCapability("appActivity", "sea.olxsulley.presentation.view.entrance.OlxIdEntranceActivity");
 
         capabilities.setCapability("deviceName","Galaxy S4");
         capabilities.setCapability("platformName","Android");

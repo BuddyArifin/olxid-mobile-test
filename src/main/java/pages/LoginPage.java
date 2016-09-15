@@ -34,6 +34,7 @@ public class LoginPage extends BasePage {
     public static final String imageView = "android.widget.ImageView";
     public static final String introTitleID = "com.app.tokobagus.betterb:id/intro_tv";
     AndroidDriver androidDriver;
+    public static final String alertShake = "com.app.tokobagus.betterb:id/animation_description";
 
     LoginWithFBModule fb = new LoginWithFBModule(driver);
 
@@ -47,6 +48,8 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
+        clickElement(getIdLocator(alertShake));
     }
 
     @Step("Verify All Contents of LoginPage")
