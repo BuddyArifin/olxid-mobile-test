@@ -16,13 +16,14 @@ import listeners.ScreenshootsListener;
 @Listeners(ScreenshootsListener.class)
 @Features("Login Feature")
 public class LoginPageTest extends AndroidSetup {
+    LoginPage loginPage;
 
     @Stories("As A User I Want to see overall Login Page Details")
     @Title("Verify All Contents of Home Page")
     @TestCaseId("TC_HOME_01_001")
     @Test(priority = 1)
     public void verifyHomePageContents() {
-        LoginPage loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(driver);
         loginPage.verifyContentsOfLoginPage();
     }
 
@@ -31,7 +32,6 @@ public class LoginPageTest extends AndroidSetup {
     @TestCaseId("TC_HOME_01_002")
     @Test(priority = 3)
     public void userAbleToSkipLogin() {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSkipButton();
     }
 
@@ -40,7 +40,6 @@ public class LoginPageTest extends AndroidSetup {
     @TestCaseId("TC_HOME_01_008")
     @Test(priority = 2)
     public void userAbleToSwipeSlide() {
-        LoginPage loginPage = new LoginPage(driver);
         loginPage.verifySlidersContents();
     }
 }

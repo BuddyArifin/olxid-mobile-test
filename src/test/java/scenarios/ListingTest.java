@@ -5,7 +5,6 @@ import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.CategoryPreferencesPage;
 import pages.ListingPage;
 import pages.LoginPage;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -88,8 +87,6 @@ public class ListingTest extends AndroidSetup {
     @Test(priority = 7)
     public void userAbleToClickFilterButton()
     {
-        loginPage = new LoginPage(driver);
-        listingPage = new ListingPage(driver);
         listingPage.clickFilterBtnPrm();
     }
 }

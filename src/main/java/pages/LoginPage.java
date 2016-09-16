@@ -49,7 +49,7 @@ public class LoginPage extends BasePage {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
-        clickElement(getIdLocator(alertShake));
+        clickElement(getIdLocator(introTitleID));
     }
 
     @Step("Verify All Contents of LoginPage")
