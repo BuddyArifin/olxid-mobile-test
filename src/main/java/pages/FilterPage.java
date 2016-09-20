@@ -1,6 +1,5 @@
 package pages;
 
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -332,7 +331,6 @@ public class FilterPage extends BasePage {
         verifyMinPrice();
         verifyMaxPrice();
         verifyLuasTanah();
-        swipePageBtmtToTop();
         verifyLuasBangunan();
         verifyLantai();
         verifyKamarTidur();
@@ -390,15 +388,19 @@ public class FilterPage extends BasePage {
     }
     public void verifyLuasTanah()
     {
-        verifyTextLayout(0);
+        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(luasTanahLayout)));
+        Log.info("Verify Luas Tanah");
     }
     public void verifyLuasBangunan()
     {
-        verifyTextLayout(0);
+        swipePageBtmtToTop();
+        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(luasBangunanLayout)));
+        Log.info("Verify Luas Bangunan");
     }
     public void verifyLantai()
     {
-        verifyTextLayout(1);
+        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(lantaiLayout)));
+        Log.info("Verify Lantai");
     }
     public void verifyKamarTidur()
     {
@@ -412,7 +414,6 @@ public class FilterPage extends BasePage {
     }
     public void verifySertifikasi()
     {
-        swipePageBtmtToTop();
         Assert.assertTrue(isElementPresent(getTextLocator(sertifikasiLayout)));
         Log.info("Verify Sertifikasi");
     }
@@ -423,7 +424,9 @@ public class FilterPage extends BasePage {
     }
     public void verifyAlamatLokasi()
     {
-        verifyTextLayout(2);
+        swipePageBtmtToTop();
+        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(alamatLokasiLayout)));
+        Log.info("Verify Alamat Lokasi");
     }
 
     public void inputMinPrice(String keyword)
@@ -436,6 +439,72 @@ public class FilterPage extends BasePage {
     {
         sendKeysById(getIdLocator(maxPrice), keyword);
         Log.info("Input Maksimum Harga");
+    }
+
+    public void inputLuasTanah(String keyword)
+    {
+        Log.info("Input Luas Tanah : " + keyword);
+    }
+
+    public void inputLuasBangunan(String keyword)
+    {
+        Log.info("Input Luas Bangunan : " + keyword);
+    }
+
+    public void inputLantai(String keyword)
+    {
+        Log.info("Input Lantai : " + keyword);
+    }
+
+    public void inputAlamatLokasi(String keyword)
+    {
+        Log.info("Input Alamat Lokasi : " + keyword);
+    }
+
+    public void pilihKamarTidur()
+    {
+        swipePageBtmtToTop();
+        String kamarTidur = "2";
+        dropDownListElement.get(0).click();
+        verifyCheckBoxElement(checkBoxElement);
+        ((AndroidDriver)driver).scrollToExact(kamarTidur);
+        clickElement(getTextLocator(kamarTidur));
+        clickElement(getIdLocator(pilihBtn));
+        Log.info("Pilih Kamar Tidur : 2");
+    }
+
+    public void pilihKamarMandi()
+    {
+        swipePageBtmtToTop();
+        String kamarMandi = "2";
+        dropDownListElement.get(1).click();
+        verifyCheckBoxElement(checkBoxElement);
+        ((AndroidDriver)driver).scrollToExact(kamarMandi);
+        clickElement(getTextLocator(kamarMandi));
+        clickElement(getIdLocator(pilihBtn));
+        Log.info("Pilih Kamar Mandi : 2");
+    }
+
+    public void pilihSertifikasi()
+    {
+        String sertifikasi = "SHM - Sertifikat Hak Milik";
+        dropDownListElement.get(2).click();
+        verifyCheckBoxElement(checkBoxElement);
+        ((AndroidDriver)driver).scrollToExact(sertifikasi);
+        clickElement(getTextLocator(sertifikasi));
+        clickElement(getIdLocator(pilihBtn));
+        Log.info("Pilih Sertifikasi : SHM - Sertifikat Hak Milik");
+    }
+
+    public void pilihFasilitas()
+    {
+        String fasilitas = "AC";
+        dropDownListElement.get(3).click();
+        verifyCheckBoxElement(checkBoxElement);
+        ((AndroidDriver)driver).scrollToExact(fasilitas);
+        clickElement(getTextLocator(fasilitas));
+        clickElement(getIdLocator(pilihBtn));
+        Log.info("Pilih Fasilitas : AC");
     }
 
     public void pilihTipeKendaraanJazz()
@@ -458,7 +527,7 @@ public class FilterPage extends BasePage {
         verifyCheckBoxElement(checkBoxElement);
         clickElement(getTextLocator(manual));
         clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Tipe Kendaraan : Manual");
+        Log.info("Pilih Tipe Transmisi : Manual");
     }
 
     public void pilihTahun()
@@ -469,13 +538,19 @@ public class FilterPage extends BasePage {
         ((AndroidDriver)driver).scrollToExact(tahun);
         clickElement(getTextLocator(tahun));
         clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Tipe Kendaraan : Tahun 2013");
+        Log.info("Pilih Tahun : Tahun 2013");
     }
 
-    public void verifyTextLayout(int i)
+    public void verifyTextLayout()
     {
+        ((AndroidDriver)driver).scrollTo("Cari");
         List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        Log.info("Verify "+list.get(i).getText());
+        for (int i = 0; i < list.size(); i++)
+        {
+            //list.get(i).findElement(By.className("android.widget.EditText"));
+            Log.info("Verify "+list.get(i).findElement(By.className("android.widget.EditText")).getText());
+        }
+
     }
 
     public void inputMethod(int i, String text)

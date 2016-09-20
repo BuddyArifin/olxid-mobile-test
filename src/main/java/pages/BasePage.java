@@ -169,6 +169,11 @@ public class BasePage  {
     	return By.id(locator);
     }
 
+    public By getTextInputLayoutLocator(String locator)
+    {
+        return By.xpath("//TextInputLayout[@text='"+locator+"']");
+    }
+
     public By getImageLocator(String locator){
     	return By.xpath("//android.widget.ImageButton[@index='"+locator+"']");
     }
