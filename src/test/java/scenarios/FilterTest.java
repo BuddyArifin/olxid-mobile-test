@@ -159,6 +159,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyListingAdsSortedBySelectedSubCategoryMobilBekasHonda()
     {
         filterPage.clickMobilBekasHondaCategory();
+        filterPage.verifyContentInAdditionalFilterMobilBekasHonda();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
         filterPage.pilihTipeKendaraanJazz();
@@ -178,6 +179,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickUbahButton();
         filterPage.verifyAllCategory();
         filterPage.clickSemuaDiMobilCategory();
+        filterPage.verifyContentInAdditionalFilterSemuaDiMobil();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
         filterPage.clickSimpanButton();
@@ -189,14 +191,21 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 16)
     public void verifyListingAdsSortedBySelectedSubCategoryPropertiRumahDijual()
     {
-        loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
-        listingPage.verifyContentsOfListingPage();
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
         filterPage.verifyAllCategory();
         filterPage.clickPropertiRumahDijualCategory();
+        filterPage.verifyContentInAdditionalFilterRumahDijual();
+        filterPage.inputLuasTanah("100");
+        filterPage.inputLuasBangunan("100");
+        filterPage.inputLantai("2");
+        filterPage.pilihKamarTidur();
+        filterPage.pilihKamarMandi();
+        filterPage.pilihSertifikasi();
+        filterPage.pilihFasilitas();
+        filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
+        filterPage.clickSimpanButton();
     }
 
     @Stories("As user i want to be able reset filter")
@@ -216,6 +225,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihTipeTransmisi();
         filterPage.pilihTahun();
         filterPage.clickResetButton();
+        filterPage.clickSimpanButton();
     }
 
     @Stories("As user i want to be able back to Listing Page")

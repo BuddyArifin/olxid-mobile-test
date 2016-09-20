@@ -443,21 +443,33 @@ public class FilterPage extends BasePage {
 
     public void inputLuasTanah(String keyword)
     {
+        clickElement(getTextInputLayoutLocator(luasTanahLayout));
+        List<WebElement> list = getListElements(By.className("TextInputLayout"));
+        list.get(0).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
         Log.info("Input Luas Tanah : " + keyword);
     }
 
     public void inputLuasBangunan(String keyword)
     {
+        clickElement(getTextInputLayoutLocator(luasBangunanLayout));
+        List<WebElement> list = getListElements(By.className("TextInputLayout"));
+        list.get(1).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
         Log.info("Input Luas Bangunan : " + keyword);
     }
 
     public void inputLantai(String keyword)
     {
+        clickElement(getTextInputLayoutLocator(lantaiLayout));
+        List<WebElement> list = getListElements(By.className("TextInputLayout"));
+        list.get(2).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
         Log.info("Input Lantai : " + keyword);
     }
 
     public void inputAlamatLokasi(String keyword)
     {
+        clickElement(getTextInputLayoutLocator(alamatLokasiLayout));
+        List<WebElement> list = getListElements(By.className("TextInputLayout"));
+        list.get(3).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
         Log.info("Input Alamat Lokasi : " + keyword);
     }
 
