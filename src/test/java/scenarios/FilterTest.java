@@ -1,7 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
-import module.FilterBySubCategory;
+import module.FilterByMapsLocationModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.FilterPage;
@@ -21,7 +21,7 @@ public class FilterTest extends AndroidSetup{
     LoginPage loginPage;
     ListingPage listingPage;
     FilterPage filterPage;
-    FilterBySubCategory filterBySubCategory;
+    FilterByMapsLocationModule filterByMapsLocationModule;
 
     @Stories("As a User I want See Content in Filter Page")
     @Title("Verify System Display Content in Filter Page")
@@ -49,7 +49,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As a User i want to be able cancel inputted keyword")
     @Title("Verify Search Field null")
-    @TestCaseId("TC_FILTER_08_003")
+    @TestCaseId("TC_FILTER_08_004")
     @Test(priority = 3)
     public void verifySearchFieldNull()
     {
@@ -58,8 +58,8 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As a User I want to Able Input Keyword Search")
     @Title("Verify Listing ads sorted by inputted keyword")
-    @TestCaseId("TC_FILTER_08_003")
-    @Test(priority = 3, enabled = false)
+    @TestCaseId("TC_FILTER_08_005")
+    @Test(priority = 4, enabled = false)
     public void verifyListingAdsSortedByInputtedKeyword()
     {
         filterPage.clickSearchField();
@@ -69,93 +69,162 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As a user i want see listing by current location")
     @Title("Verify Listing ads sorted by current location")
-    @TestCaseId("TC_FILTER_08_004")
-    @Test(priority = 3, enabled = false)
+    @TestCaseId("TC_FILTER_08_006")
+    @Test(priority = 5, enabled = false)
     public void verifyListingAdsSortedByCurrentLocation()
     {
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickMyLocationButton();
-        filterPage.clickSimpanButton();
+        filterByMapsLocationModule = filterPage.clickLocationButton();
     }
 
     @Stories("As a user i want see listing by input price range")
     @Title("Verify Listing ads sorted by inputted price range")
-    @TestCaseId("TC_FILTER_08_005")
-    @Test(priority = 4, enabled = false)
+    @TestCaseId("TC_FILTER_08_007")
+    @Test(priority = 5, enabled = false)
     public void verifyListingAdsSortedByInputtedPriceRange()
     {
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickMyLocationButton();
-        filterPage.clickSimpanButton();
     }
 
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
-    @TestCaseId("TC_FILTER_08_006")
-    @Test(priority = 5, enabled = false)
+    @TestCaseId("TC_FILTER_08_008")
+    @Test(priority = 6, enabled = false)
     public void verifyListingAdsSortedByUrutkanColumn()
     {
         filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickMyLocationButton();
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.clickSimpanButton();
     }
 
     @Stories("As a user i want see listing by new or second condition")
     @Title("Verify Listing ads sorted by selected condition")
-    @TestCaseId("TC_FILTER_08_007")
-    @Test(priority = 6, enabled = false)
+    @TestCaseId("TC_FILTER_08_009")
+    @Test(priority = 7, enabled = false)
     public void verifyListingAdsSortedByConditionColumn()
     {
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickMyLocationButton();
-        filterPage.clickRadioButtonTerdekatInUrutkanColumn();
+    }
+
+    @Stories("As a user i want to be able select detail location")
+    @Title("Verify user redirect to Detail Location Page")
+    @TestCaseId("TC_FILTER_08_010")
+    @Test(priority = 8)
+    public void verifyUserRedirectToDetailLocationPage()
+    {
+    }
+
+    @Stories("As user i want to see suggestion location")
+    @Title("Verify System able to display suggestion as user input location")
+    @TestCaseId("TC_FILTER_08_012")
+    @Test(priority = 9)
+    public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
+    {
+    }
+
+    @Stories("As user i want to be able select location")
+    @Title("Verify Listing ads sorted by selected suggestion location")
+    @TestCaseId("TC_FILTER_08_013")
+    @Test(priority = 10)
+    public void verifyUserAbleToSelectLocationSuggestion()
+    {
+    }
+
+    @Stories("As user i want to be able change radius")
+    @Title("Verify Listing ads sorted by selected radius location")
+    @TestCaseId("TC_FILTER_08_014")
+    @Test(priority = 11, enabled = false)
+    public void verifySliderSlideRight()
+    {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.verifyContentsOfListingPage();
+        filterByMapsLocationModule = listingPage.clickJarakDariKamuBtn();
+        filterByMapsLocationModule.verifyAllContentInLocationPage();
+        filterByMapsLocationModule.slideRightSliderRadius();
+    }
+
+    @Stories("As user i want to see sub-category option")
+    @Title("Verify System display sub-category option")
+    @TestCaseId("TC_FILTER_08_015")
+    @Test(priority = 12)
+    public void verifyCategoryElementAppear()
+    {
+        filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.verifyAllContentOfFilterPage();
+        filterPage.clickUbahButton();
+        filterPage.verifyAllCategory();
+    }
+
+    @Stories("As user i want to be able select sub-category Mobil Bekas Honda")
+    @Title("Verify Listing ads sorted by selected sub-category Mobil Bekas Honda")
+    @TestCaseId("TC_FILTER_08_016")
+    @Test(priority = 13)
+    public void verifyListingAdsSortedBySelectedSubCategoryMobilBekasHonda()
+    {
+        filterPage.clickMobilBekasHondaCategory();
+        filterPage.inputMinPrice("10000000000");
+        filterPage.inputMaxPrice("20000000000");
+        filterPage.pilihTipeKendaraanJazz();
+        filterPage.pilihTipeTransmisi();
+        filterPage.pilihTahun();
         filterPage.clickSimpanButton();
+    }
+
+    @Stories("As user i want to be able select sub-category Mobil Semua Di Mobil")
+    @Title("Verify Listing ads sorted by selected sub-category Mobil Semua Di Mobil")
+    @TestCaseId("TC_FILTER_08_017")
+    @Test(priority = 14)
+    public void verifyListingAdsSortedBySelectedSubCategoryMobilSemuaDiMobil()
+    {
+        filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.verifyAllContentOfFilterPage();
+        filterPage.clickUbahButton();
+        filterPage.verifyAllCategory();
+        filterPage.clickSemuaDiMobilCategory();
+        filterPage.inputMinPrice("10000000000");
+        filterPage.inputMaxPrice("20000000000");
+        filterPage.clickSimpanButton();
+    }
+
+    @Stories("As user i want to be able select sub-category Properti Rumah Dijual")
+    @Title("Verify Listing ads sorted by selected sub-category Properti Rumah Dijual")
+    @TestCaseId("TC_FILTER_08_018")
+    @Test(priority = 15)
+    public void verifyListingAdsSortedBySelectedSubCategoryPropertiRumahDijual()
+    {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.verifyContentsOfListingPage();
+        filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.verifyAllContentOfFilterPage();
+        filterPage.clickUbahButton();
+        filterPage.verifyAllCategory();
+        filterPage.clickPropertiRumahDijualCategory();
     }
 
     @Stories("As user i want to be able reset filter")
     @Title("Verify System all column back to default")
     @TestCaseId("TC_FILTER_08_019")
-    @Test(priority = 98)
+    @Test(priority = 16)
     public void verifyResetButtonClicked()
     {
-        filterPage = new FilterPage(driver);
+        filterPage = listingPage.clickFilterBtnPrm();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
+        filterPage.clickMobilBekasHondaCategory();
+        filterPage.inputMinPrice("10000000000");
+        filterPage.inputMaxPrice("20000000000");
+        filterPage.pilihTipeKendaraanJazz();
+        filterPage.pilihTipeTransmisi();
+        filterPage.pilihTahun();
         filterPage.clickResetButton();
     }
 
     @Stories("As user i want to be able back to Listing Page")
     @Title("Verify User back to Listing Page")
     @TestCaseId("TC_FILTER_08_021")
-    @Test(priority = 99)
+    @Test(priority = 17)
     public void verifyBackButtonClicked()
     {
         filterPage.clickBackBtn();
-    }
-
-    @Stories("As user i want to see sub-category option")
-    @Title("Verify System display sub-category option")
-    @TestCaseId("TC_FILTER_08_015")
-    @Test(priority = 100)
-    public void verifyCategoryElementAppear()
-    {
-        filterPage = listingPage.clickFilterBtnPrm();
-        filterPage.verifyAllContentOfFilterPage();
-        filterBySubCategory = filterPage.clickUbahButton();
-        filterBySubCategory.verifyAllCategory();
-    }
-
-    @Stories("As user i want to be able select sub-category")
-    @Title("Verify Listing ads sorted by selected sub-category")
-    @TestCaseId("TC_FILTER_08_016")
-    @Test(priority = 101)
-    public void verifyListingAdsSortedBySelectedSubCategory()
-    {
-        filterBySubCategory.clickMobilCategory();
-        filterBySubCategory.verifySubCategory();
-        filterBySubCategory.clickMobilBekasCategory();
-        filterBySubCategory.verifySubCategory1();
     }
 }
