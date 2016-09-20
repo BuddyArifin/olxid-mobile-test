@@ -2,16 +2,13 @@ package module;
 
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.jetty.html.Element;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -31,40 +28,50 @@ public class FilterByMapsLocationModule extends BasePage {
 
     public static final String backBtn = "";
     public static final String searchField = "com.app.tokobagus.betterb:id/edtLocation";
+    public static final String autoSuggest = "com.app.tokobagus.betterb:id/primaryText";
+    public static final String autoSuggestFound = "com.app.tokobagus.betterb:id/secondaryText";
     public static final String myCurrentLocationBtn = "com.app.tokobagus.betterb:id/btnDetectMyLocation";
-    public static final String clearSearchBtn = "com.app.tokobagus.betterb:id/imgClearIcon";
+    public static final String eraseSearchBtn = "com.app.tokobagus.betterb:id/imgClearIcon";
     public static final String expandDockBtn = "com.app.tokobagus.betterb:id/imgMinimize";
+    public static final String addressTitle = "com.app.tokobagus.betterb:id/tvPlaceName";
+    public static final String jarakIklanMax = "com.app.tokobagus.betterb:id/tvMaxDistanceTitle";
     public static final String sliderRadius = "com.app.tokobagus.betterb:id/sbRadius";
     public static final String cariDiLokasiIniBtn = "com.app.tokobagus.betterb:id/btnSetLocation";
-    public static final String suggestionTitle = "com.app.tokobagus.betterb:id/primaryText";
-    public static final String listViewPlaces = "com.app.tokobagus.betterb:id/lvPlaces";
-    public static final String linearLayoutPlaces = "android.widget.LinearLayout";
+    public static final String baloonGmaps = "Lokasi saat ini.";
+    public static final String listView = "com.app.tokobagus.betterb:id/lvPlaces";
+
 
     @AndroidFindBys({
-        @AndroidFindBy(id = listViewPlaces),
-        @AndroidFindBy(className = linearLayoutPlaces)
+            @AndroidFindBy(id = listView),
+            @AndroidFindBy(id = autoSuggest)
     })
-    protected List<AndroidElement> suggestionList;
+    private List<AndroidElement> suggestionFoundList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = listView),
+            @AndroidFindBy(id = autoSuggestFound)
+    })
+    private List<AndroidElement> suggestionAddressList;
 
     public void verifyBackBtn()
     {
         Log.info("Verify Back Button");
+
     }
     public void verifySearchField()
     {
-        WaitForClickabilityOf(getIdLocator(searchField), 50);
-        Assert.assertTrue(isElementPresent(getIdLocator(searchField)));
         Log.info("Verify Search Fields");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(searchField)));
     }
     public void verifyMyCurrentLocationBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(myCurrentLocationBtn)));
         Log.info("Verify My Current Location Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(myCurrentLocationBtn)));
     }
     public void verifyClearSearchBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(clearSearchBtn)));
         Log.info("Verify Cancel Choose Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(eraseSearchBtn)));
     }
     public void verifyExpandDockBtn()
     {
@@ -73,67 +80,77 @@ public class FilterByMapsLocationModule extends BasePage {
     }
     public void verifySliderRadius()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(sliderRadius)));
         Log.info("Verify Slider Radius");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(sliderRadius)));
     }
     public void verifyCariDiLokasiIniBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(cariDiLokasiIniBtn)));
         Log.info("Verify Cari Di Lokasi Ini Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(cariDiLokasiIniBtn)));
+    }
+    public void verifyGoogleBaloon()
+    {
+        Log.info("Verify google baloon displays");
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(baloonGmaps)));
+    }
+    public void verifyCurrentLocationAddress()
+    {
+        Log.info("Verify Current Location Address");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(addressTitle)));
+    }
+    public void verifyJarakIklanTitle() {
+        Log.info("Verify Jarak Iklan Maximum Text");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(jarakIklanMax)));
     }
 
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentInLocationPage()
     {
-        //verifyBackBtn();
+//        verifyBackBtn();
         verifySearchField();
         verifyMyCurrentLocationBtn();
-        verifyExpandDockBtn();
+//        verifyCancelChooseBtn();
+//        verifyGoogleBaloon();
+        verifyCurrentLocationAddress();
+        verifyJarakIklanTitle();
         verifySliderRadius();
         verifyCariDiLokasiIniBtn();
         Log.info("Verify All Content in Filter Page");
     }
 
-    public void verifySuggestionListing(List<AndroidElement> elements)
-    {
-        int i;
-        Log.info("Verify Available Category on Listing");
-        isWaitElementPresent(getIdLocator(listViewPlaces));
-        Log.info("Category Available ["+elements.size()+"]: ");
-        for (i = 0 ; i < elements.size() ; i++) {
-            String category = getSuggestionInfo(i, elements);
-            Log.info("* " + category + " ");
-            Assert.assertNotNull(category);
+    public void verifySuggestions() {
+        Log.debug("Available Suggestions ["+suggestionFoundList.size()+"] :");
+        for (int i = 0 ; i < suggestionFoundList.size() ; i++) {
+            Log.info("* " +suggestionFoundList.get(i).getText()+ ": "
+                    +suggestionAddressList.get(i).getText());
+            if ( i >= 2 && suggestionFoundList.size() >= 2) {
+                Log.info("...");
+                break;
+            }
         }
     }
 
-    public String getSuggestionInfo(int index, List<AndroidElement> elements)
-    {
-        return elements.get(index).findElementById(suggestionTitle).getText();
-    }
-
-    public void verifySuggestionList()
-    {
-        verifySuggestionListing(suggestionList);
-        Log.info("Suggestion List Verified");
+    public void chooseSuggestion(int index) {
+        Log.debug("User choose : "+suggestionFoundList.get(index).getText());
+        suggestionFoundList.get(index).click();
     }
 
     public void inputKeywordInSearchFields(String input)
     {
-        sendKeysById(getContentLocator(searchField), input);
+        sendKeysById(getIdLocator(searchField), input);
         Log.info("Input Keyword in Search Fields");
     }
 
     public void clickMyCurrentLocationBtn()
     {
-        clickElement(getIdLocator(myCurrentLocationBtn));
         Log.info("Click My Current Location Button");
+        clickElement(getIdLocator(myCurrentLocationBtn));
     }
 
     public void clickClearSearchBtn()
     {
-        clickElement(getIdLocator(clearSearchBtn));
         Log.info("Click Cancel Choose Button");
+        clickElement(getIdLocator(eraseSearchBtn));
     }
 
     public void clickFirstIndexSuggestion()
@@ -153,16 +170,21 @@ public class FilterByMapsLocationModule extends BasePage {
         int start = seek_bar.getLocation().getX();
         int end = seek_bar.getSize().getWidth();
         int y = seek_bar.getLocation().getY();
-        TouchAction action = new TouchAction((MobileDriver)driver);
+        TouchAction action = new TouchAction((MobileDriver) driver);
         //Move it 40%
         int moveTo=(int)(end*0.4);
-        action.press(start,y).moveTo(moveTo,y).release().perform();
+        action.longPress(start,y).moveTo(moveTo,y).release().perform();
         Log.info("Slide Right Direction Slider Radius");
     }
 
     public void clickCariDiLokasiIniBtn()
     {
-        clickElement(getIdLocator(cariDiLokasiIniBtn));
         Log.info("Click Cari Di Lokasi Ini Button");
+        clickElement(getIdLocator(cariDiLokasiIniBtn));
+    }
+
+    public void openedTrayLocation() {
+        Log.info("Expand Location Tray Menus");
+        clickElement(getIdLocator(addressTitle));
     }
 }

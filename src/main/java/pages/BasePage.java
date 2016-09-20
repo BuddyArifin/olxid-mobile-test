@@ -191,6 +191,10 @@ public class BasePage  {
     	return (By.xpath("//android.view.View[@clickable='True']"));
     }
 
+    public By getAndroidViewTextLocator(String locator){
+    	return (By.xpath("//android.view.View[@content-desc='"+locator+"']"));
+    }
+
     public By getToogleTextLocator(String locator ) { return (By.xpath("//android.widget.ToggleButton[@text='"+locator+"']")); }
     
     public By getSpinnerLocator(String locator){
