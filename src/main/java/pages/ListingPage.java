@@ -35,6 +35,7 @@ public class ListingPage extends BasePage{
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
     public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
+    public static final String FILTER = "Filter";
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -150,7 +151,7 @@ public class ListingPage extends BasePage{
     public FilterPage clickFilterBtnPrm()
     {
         Log.info("Click Filter Button");
-        clickElement(getIdLocator(filterBtnPrmID));
+        clickElement(getContentDescLocator(FILTER));
         return new FilterPage(driver);
     }
 

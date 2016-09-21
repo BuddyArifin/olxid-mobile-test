@@ -20,7 +20,7 @@ public class LoginPageTest extends AndroidSetup {
 
     @Stories("As A User I Want to see overall Login Page Details")
     @Title("Verify All Contents of Home Page")
-    @TestCaseId("TC_HOME_01_001")
+    @TestCaseId("TC_HOME_01_001, TC_HOME_01_001, TC_HOME_01_008")
     @Test(priority = 1)
     public void verifyHomePageContents() {
         loginPage = new LoginPage(driver);
@@ -37,7 +37,7 @@ public class LoginPageTest extends AndroidSetup {
 
     @Stories("As a User I Want to be able to Swipe/Scroll the Intro Image")
     @Title("Verify User Able to Swipe/Scroll the Intro Images")
-    @TestCaseId("TC_HOME_01_008")
+    @TestCaseId("TC_HOME_01_009")
     @Test(priority = 2)
     public void userAbleToSwipeSlide() {
         loginPage.verifySlidersContents();

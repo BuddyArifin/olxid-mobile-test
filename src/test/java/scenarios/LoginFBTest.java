@@ -50,7 +50,7 @@ public class LoginFBTest extends AndroidSetup {
 
     @Stories("As A User I want Able to Redirect to Destination Page after Success Login")
     @Title("Verify User Able to Redirect to Destination Page After Success Login")
-    @TestCaseId("TC_LBF_02_004, TC_LBF_02_005")
+    @TestCaseId("TC_LBF_02_004")
     @Test(priority = 4)
     public void userAbleGoToListingAfterSuccessFBLogin() {
         LoginWithFBModule fbLogin = new LoginWithFBModule(driver);
@@ -60,7 +60,7 @@ public class LoginFBTest extends AndroidSetup {
 
     @Stories("As A User i want be able to Logout after Success Login FB")
     @Title("Verify User Able to Logout after Success FB login")
-    @TestCaseId("TC_LBF_02_006")
+    @TestCaseId("TC_LBF_02_005")
     @Test(priority = 5)
     public void userAbleToLogoutAfterSuccessFBLogin() {}
 

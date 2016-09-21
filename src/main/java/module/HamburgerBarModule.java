@@ -19,7 +19,7 @@ import utils.Log;
  */
 public class HamburgerBarModule extends BasePage {
 
-    public static final String avatarSaya = "";
+    public static final String avatarSaya = "com.app.tokobagus.betterb:id/sidemenu_tvAvatarName";
     public static final String profilSayaBtn = "Profil Saya";
     public static final String iklanSayaBtn = "Iklan Saya";
     public static final String saldoOLXBtn = "Saldo OLX";
@@ -46,7 +46,7 @@ public class HamburgerBarModule extends BasePage {
 
     public void verifyAvatarSaya()
     {
-        WaitForClickabilityOf(getTextLocator(avatarSaya), 100);
+        WaitForClickabilityOf(getIdLocator(avatarSaya), 100);
         Assert.assertTrue(isElementPresent(getIdLocator(avatarSaya)));
         Log.info("Verify Avatar Profil");
     }

@@ -72,7 +72,7 @@ public class LoginOLXTest extends AndroidSetup {
 
     @Stories("As A User I want not able to Login")
     @Title("Verify User not Able to Login with Empty Credentials")
-    @TestCaseId("TC_LOGIN_04_006")
+    @TestCaseId("TC_LOGIN_04_007")
     @Test(priority = 2)
     public void userNotAbleToLoginWithBlankCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);

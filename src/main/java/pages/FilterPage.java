@@ -193,6 +193,10 @@ public class FilterPage extends BasePage {
             String category = getCategoryTitle(i, elements);
             Log.info("* " + category + " ");
             Assert.assertNotNull(category);
+            if (i >=2 && elements.size() >=2 ) {
+                Log.info("... ");
+                break;
+            }
         }
     }
     public String getCategoryTitle(int index, List<AndroidElement> elements)
@@ -209,6 +213,10 @@ public class FilterPage extends BasePage {
             Log.debug("Isi urutan ["+i+"] "+elements.get(i).getText());
             Log.info("* " + checkBox + " ");
             Assert.assertNotNull(checkBox);
+            if (i >=2 && elements.size() >=2 ) {
+                Log.info("... ");
+                break;
+            }
         }
     }
     public String getCheckBoxTitle(int index, List<AndroidElement> elements)

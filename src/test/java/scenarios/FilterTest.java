@@ -59,7 +59,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a User I want to Able Input Keyword Search")
     @Title("Verify Listing ads sorted by inputted keyword")
     @TestCaseId("TC_FILTER_08_005")
-    @Test(priority = 4, enabled = false)
+    @Test(priority = 4)
     public void verifyListingAdsSortedByInputtedKeyword()
     {
         filterPage.clickSearchField();
@@ -73,13 +73,14 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 8, enabled = false)
     public void verifyListingAdsSortedByCurrentLocation()
     {
+        listingPage.clickFilterBtnPrm();
         filterByMapsLocationModule = filterPage.clickLocationButton();
     }
 
     @Stories("As a user i want see listing by input price range")
     @Title("Verify Listing ads sorted by inputted price range")
     @TestCaseId("TC_FILTER_08_007")
-    @Test(priority = 5, enabled = false)
+    @Test(priority = 5)
     public void verifyListingAdsSortedByInputtedPriceRange()
     {
     }
@@ -87,9 +88,10 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
     @TestCaseId("TC_FILTER_08_008")
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 6)
     public void verifyListingAdsSortedByUrutkanColumn()
     {
+        listingPage.clickFilterBtnPrm();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.clickSimpanButton();
@@ -98,7 +100,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by new or second condition")
     @Title("Verify Listing ads sorted by selected condition")
     @TestCaseId("TC_FILTER_08_009")
-    @Test(priority = 7, enabled = false)
+    @Test(priority = 7)
     public void verifyListingAdsSortedByConditionColumn()
     {
     }
@@ -106,7 +108,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 9)
+    @Test(priority = 9, enabled = false)
     public void verifyUserRedirectToDetailLocationPage()
     {
         filterByMapsLocationModule.verifyAllContentInLocationPage();
@@ -115,16 +117,17 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
     @TestCaseId("TC_FILTER_08_012")
-    @Test(priority = 10)
+    @Test(priority = 10, enabled = false)
     public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
     {
+        filterByMapsLocationModule.inputKeywordInSearchFields("Menara");
         filterByMapsLocationModule.verifySuggestions();
     }
 
     @Stories("As user i want to be able select location")
     @Title("Verify Listing ads sorted by selected suggestion location")
     @TestCaseId("TC_FILTER_08_013")
-    @Test(priority = 11)
+    @Test(priority = 11, enabled = false)
     public void verifyUserAbleToSelectLocationSuggestion()
     {
         filterByMapsLocationModule.chooseSuggestion(0);
@@ -146,7 +149,6 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 13)
     public void verifyCategoryElementAppear()
     {
-        filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
         filterPage.verifyAllCategory();

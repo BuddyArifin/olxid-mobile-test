@@ -5,11 +5,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import pages.InstanceDriver;
 import pages.Constants;
+import pages.InstanceDriver;
 import tracking.NetClient;
 import utils.Log;
 
@@ -46,10 +47,15 @@ public class AndroidSetup extends InstanceDriver {
 
         //No Keyboard Layout
         capabilities.setCapability("unicodeKeyboard", "true");
+        capabilities.setCapability("locationContextEnabled", "true");
 
         //other caps
         capabilities.setCapability("app", app.getAbsolutePath());
         driver =  new AndroidDriver(new URL(Constants.hubIP), capabilities);
+
+        //set location for maps - based on Menara Sentraya
+        Location location = new Location(-6.2454429, 106.8026181, 0.0);
+        driver.setLocation(location);
         Log.debug("SESSION CREATED : "+driver.getSessionId().toString()+" "+udid+" ");
     }
 
