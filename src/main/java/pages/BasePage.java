@@ -385,7 +385,8 @@ public class BasePage  {
     public Boolean waitForVisibility(final By locator){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(2, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS);
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver input) {
