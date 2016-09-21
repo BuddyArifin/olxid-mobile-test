@@ -1,10 +1,16 @@
 package module;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
@@ -19,7 +25,8 @@ public class HamburgerBarModule extends BasePage {
     public static final String saldoOLXBtn = "Saldo OLX";
     public static final String pusatBantuanBtn = "Pusat Bantuan";
     public static final String tentangOLXBtn = "Tentang OLX";
-
+    public static final String hamburgerBarLayout = "com.app.tokobagus.betterb:id/left_drawer";
+    
     public HamburgerBarModule(WebDriver driver)
     {
         super(driver);
@@ -102,5 +109,15 @@ public class HamburgerBarModule extends BasePage {
     {
         clickElement(getTextLocator(tentangOLXBtn));
         Log.info("Click Tentang OLX Button");
+    }
+
+    public ListingPage closeHamburgerBarDrawer()
+    {
+        WebElement hamburgerDrawerLayout = driver.findElement(getIdLocator(hamburgerBarLayout));
+        int heightMiddleHamburgerDrawerLayout = hamburgerDrawerLayout.getSize().getHeight() / 2;
+        int widthEndHamburgerDrawerLayout = hamburgerDrawerLayout.getSize().getWidth();
+        int widthStartHamburgerDrawerLayout = hamburgerDrawerLayout.getSize().getWidth() * 0 + 10;
+        ((AndroidDriver)driver).swipe(widthEndHamburgerDrawerLayout, heightMiddleHamburgerDrawerLayout, widthStartHamburgerDrawerLayout, heightMiddleHamburgerDrawerLayout, 1000);
+        return new ListingPage(driver);
     }
 }

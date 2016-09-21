@@ -3,6 +3,7 @@ package pages;
 import athena.Sinon;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -54,7 +55,22 @@ public class BasePage  {
     	WebDriverWait wait = new WebDriverWait(driver, time);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
-    
+
+    protected boolean isListElementPresent(List<AndroidElement> list)
+    {
+        try {
+            if (list.isEmpty()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
+
     protected boolean isElementPresent(By by) {
    	try {   
 			if (driver.findElement(by).isDisplayed()){

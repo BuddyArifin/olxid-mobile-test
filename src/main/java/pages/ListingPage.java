@@ -1,5 +1,8 @@
 package pages;
 
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
@@ -9,12 +12,14 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.util.List;
+
 /**
  * Created by buddyarifin on 8/24/16.
  */
 public class ListingPage extends BasePage{
 
-    public static final String hamburgerBar = "Navigate up";
+    public static final String hamburgerBar = "android.widget.ImageButton";
     public static final String titlePage = "Sulley";
     public static final String searchBtnPrmID = "com.app.tokobagus.betterb:id/search_item";
     public static final String filterBtnPrmID = "com.app.tokobagus.betterb:id/filter_item";
@@ -29,17 +34,23 @@ public class ListingPage extends BasePage{
     public static final String pesanNotif = "";
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
+    public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
 
     public ListingPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
+    @AndroidFindBys({
+            @AndroidFindBy(id = toolBarPrimaryId),
+            @AndroidFindBy(className = hamburgerBar)
+    })
+    protected List<AndroidElement> hamburgerBarLayout;
+
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-        isAutoAcept(getIdLocator(locationAllowAccessBtn));
         isAutoAcept(getIdLocator(locationAllowAccessBtn));
         verifyHamburgerBar();
         verifyTitlePage();
@@ -58,8 +69,7 @@ public class ListingPage extends BasePage{
 
     public void verifyHamburgerBar()
     {
-        WaitForClickabilityOf(getContentLocator(hamburgerBar), 40);
-        Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerBar)));
+        Assert.assertTrue(isListElementPresent(hamburgerBarLayout));
         Log.info("Verify Hamburger Bar");
     }
     public void verifyTitlePage()
@@ -127,7 +137,7 @@ public class ListingPage extends BasePage{
     public HamburgerBarModule clickHamburgerBar()
     {
         Log.info("Click Hamburger Bar");
-        clickElement(getIdLocator(hamburgerBar));
+        hamburgerBarLayout.get(0).click();
         return new HamburgerBarModule(driver);
     }
 
