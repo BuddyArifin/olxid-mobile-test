@@ -27,7 +27,7 @@ public class ListingTest extends AndroidSetup {
 
     @Stories("As a User I want to See Content in ListingPage")
     @Title("Verify System able to Display Content in ListingPage")
-    @TestCaseId("TC_LISTING_06_001")
+    @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_003, TC_LISTING_06_009")
     @Test(priority = 1)
     public void verifyContentDisplayInListingPage()
     {
@@ -38,7 +38,7 @@ public class ListingTest extends AndroidSetup {
 
     @Stories("As A User i want to able see Content in Navigation Menu")
     @Title("Verify System display All Content in Navigation Menu")
-    @TestCaseId("TC_LISTING_06_027")
+    @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_027, TC_LISTING_06_026")
     @Test(priority = 2)
     public void verifyAllContentsInHamburgerBar()
     {
@@ -49,7 +49,7 @@ public class ListingTest extends AndroidSetup {
 
     @Stories("As a user i want to be able close Navigation Menu")
     @Title("Verify System didn't display navigation menu")
-    @TestCaseId("TC_LISTING_06_33")
+    @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_33")
     @Test(priority = 3)
     public void closeNavigationMenu()
     {
@@ -66,6 +66,9 @@ public class ListingTest extends AndroidSetup {
 
     }
 
+    /**
+     * Mas Buddy yang dibawah ini sama yang dibagian Maps Section Beda ya?
+
     @Stories("As a User I want to Click 1Km dari Kamu")
     @Title("Verify User able to redirect to Radius Selection Page")
     @TestCaseId("TC_LISTING_06_004")
@@ -74,6 +77,8 @@ public class ListingTest extends AndroidSetup {
     {
         filterByMapsLocationModule = listingPage.clickJarakDariKamuBtn();
     }
+
+     */
 
     @Stories("As A User I want Bottom Bar Disappear")
     @Title("Verify ads Scrolling Unlimited and Bottom Bar Disappear when Scrolling")

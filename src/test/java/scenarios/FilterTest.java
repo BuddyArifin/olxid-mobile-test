@@ -175,6 +175,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyListingAdsSortedBySelectedSubCategoryMobilSemuaDiMobil()
     {
         filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
         filterPage.verifyAllCategory();
@@ -192,6 +193,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyListingAdsSortedBySelectedSubCategoryPropertiRumahDijual()
     {
         filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
         filterPage.verifyAllCategory();

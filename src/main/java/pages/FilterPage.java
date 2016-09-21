@@ -285,6 +285,8 @@ public class FilterPage extends BasePage {
 
     public void clickResetButton()
     {
+        swipePageBtmtToTop();
+        swipePageBtmtToTop();
         clickElement(getIdLocator(resetBtn));
         Log.info("Click Reset Button");
     }
