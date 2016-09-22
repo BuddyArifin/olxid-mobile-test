@@ -33,16 +33,9 @@ public class FilterPage extends BasePage {
     public static final String simpanBtn = "com.app.tokobagus.betterb:id/btnSearch";
     public static final String minPrice = "com.app.tokobagus.betterb:id/edtMinPrice";
     public static final String maxPrice = "com.app.tokobagus.betterb:id/edtMaxPrice";
-    public static final String tipeKendaraanLayout = "Tipe kendaraan";
-    public static final String transmisiLayout = "Transmisi";
-    public static final String tahunLayout = "Tahun";
     public static final String luasTanahLayout = "Luas tanah";
     public static final String luasBangunanLayout = "Luas bangunan";
     public static final String lantaiLayout = "Lantai";
-    public static final String kamarTidurLayout = "Kamar tidur";
-    public static final String kamarMandiLayout = "Kamar mandi";
-    public static final String sertifikasiLayout = "Sertifikasi";
-    public static final String fasilitasLayout = "Fasilitas";
     public static final String alamatLokasiLayout = "Alamat lokasi";
     public static final String editTextAdditionalFilter = "android.widget.EditText";
     public static final String categoryTitle = "com.app.tokobagus.betterb:id/tvCategoryTitle";
@@ -51,10 +44,15 @@ public class FilterPage extends BasePage {
     public static final String linearLayoutContainer = "com.app.tokobagus.betterb:id/layoutContainer";
     public static final String linearLayoutCategoryParams = "com.app.tokobagus.betterb:id/categoryParamsLayout";
     public static final String linearLayoutDropDownSelection = "android.widget.LinearLayout";
+    public static final String textViewClass = "TextInputLayout";
+    public static final String textInputLayoutId = "com.app.tokobagus.betterb:id/inputLayout";
+    public static final String editInputLayoutId = "com.app.tokobagus.betterb:id/edtInput";
     public static final String textViewLayout = "com.app.tokobagus.betterb:id/btnSelection";
     public static final String recycleViewLayout = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
     public static final String textViewDropDownSelectionTitle = "com.app.tokobagus.betterb:id/tvOptionName";
     public static final String pilihBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
+    public static final String imageButtonBack = "android.widget.ImageButton";
 
     private FilterByMapsLocationModule filterByMapsLocationModule;
 
@@ -64,27 +62,33 @@ public class FilterPage extends BasePage {
     };
 
     @AndroidFindBys({
-            @AndroidFindBy(id = recycleViewCategory),
-            @AndroidFindBy(id = linearLayoutContainer)
+        @AndroidFindBy(id = actionBar),
+        @AndroidFindBy(className = imageButtonBack)
+    })
+    protected List<AndroidElement> backBtnTopPrm;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = recycleViewCategory),
+        @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement0;
 
     @AndroidFindBys({
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(id = recycleViewCategory),
-            @AndroidFindBy(id = linearLayoutContainer)
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(id = recycleViewCategory),
+        @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement1;
 
     @AndroidFindBys({
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(className = relativeLayout),
-            @AndroidFindBy(id = recycleViewCategory),
-            @AndroidFindBy(id = linearLayoutContainer)
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(className = relativeLayout),
+        @AndroidFindBy(id = recycleViewCategory),
+        @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement2;
 
@@ -99,6 +103,18 @@ public class FilterPage extends BasePage {
         @AndroidFindBy(className =  linearLayoutDropDownSelection)
     })
     protected List<AndroidElement> checkBoxElement;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = linearLayoutCategoryParams),
+        @AndroidFindBy(className = textViewClass)
+    })
+    protected List<AndroidElement> additionalFilterInput;
+
+    @AndroidFindBys({
+        @AndroidFindBy(className = textViewClass),
+            @AndroidFindBy(className = editTextAdditionalFilter)
+    })
+    protected List<AndroidElement> editInputList;
 
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage()
@@ -227,7 +243,8 @@ public class FilterPage extends BasePage {
     public ListingPage clickBackBtn()
     {
         Log.info("Click Back Button");
-        clickElement(getContentLocator(backBtn));
+        backBtnTopPrm.get(0).click();
+//        clickElement(getContentLocator(backBtn));
         return new ListingPage(driver);
     }
 
@@ -301,6 +318,8 @@ public class FilterPage extends BasePage {
 
     public ListingPage clickSimpanButton()
     {
+        swipePageBtmtToTop();
+        swipePageBtmtToTop();
         clickElement(getIdLocator(simpanBtn));
         Log.info("Click Simpan Button");
         return new ListingPage(driver);
@@ -317,9 +336,9 @@ public class FilterPage extends BasePage {
     {
         String honda = "Honda";
         categoryElement0.get(0).click();
-        verifySubCategory();
+        //verifySubCategory();
         categoryElement1.get(1).click();
-        verifySubCategory1();
+        //verifySubCategory1();
         ((AndroidDriver)driver).scrollToExact(honda);
         clickElement(getTextLocator(honda));
         Log.info("Click Mobil Bekas Honda");
@@ -328,115 +347,18 @@ public class FilterPage extends BasePage {
     public void clickPropertiRumahDijualCategory()
     {
         categoryElement0.get(2).click();
-        verifySubCategory();
+        //verifySubCategory();
         categoryElement1.get(1).click();
-        verifySubCategory1();
+        //verifySubCategory1();
         categoryElement2.get(1).click();
         Log.info("Click Properti Category");
     }
 
-    @Step("Verify Content in Additional Filter Properti Rumah Dijual")
-    public void verifyContentInAdditionalFilterRumahDijual()
+    @Step("Verify Content Additional Filter in Selected Sub-Category")
+    public void verifyContentAdditionalFilterInSelectedSubCategory()
     {
-        verifyMinPrice();
-        verifyMaxPrice();
-        verifyLuasTanah();
-        verifyLuasBangunan();
-        verifyLantai();
-        verifyKamarTidur();
-        verifyKamarMandi();
-        verifySertifikasi();
-        verifyFaslitas();
-        verifyAlamatLokasi();
-        Log.info("Verify Content in Additional Filter");
-    }
-
-    @Step("Verify Content in Additional Filter Semua Di Mobil")
-    public void verifyContentInAdditionalFilterSemuaDiMobil()
-    {
-        verifyMinPrice();
-        verifyMaxPrice();
-        Log.info("Verify Content in Additional Filter Semua Di Mobil");
-    }
-
-    @Step("Verify Content in Additional Filter Mobil Bekas Honda")
-    public void verifyContentInAdditionalFilterMobilBekasHonda()
-    {
-        verifyMinPrice();
-        verifyMaxPrice();
-        verifyTipeKendaraan();
-        verifyTransmisi();
-        verifyTahun();
-        Log.info("Verify Content in Additional Filter Mobil Bekas Honda");
-    }
-
-    public void verifyMinPrice()
-    {
-        waitForVisibility(getIdLocator(minPrice));
-        Assert.assertTrue(isElementPresent(getIdLocator(minPrice)));
-        Log.info("Verify Minimum Price Edit Text");
-    }
-    public void verifyMaxPrice()
-    {
-        Assert.assertTrue(isElementPresent(getIdLocator(maxPrice)));
-        Log.info("Verify Maksimum Price Edit Text");
-    }
-    public void verifyTipeKendaraan()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(tipeKendaraanLayout)));
-        Log.info("Verify Tipe Kendaraan");
-    }
-    public void verifyTransmisi()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(transmisiLayout)));
-        Log.info("Verify Transmisi");
-    }
-    public void verifyTahun()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(tahunLayout)));
-        Log.info("Verify Tahun");
-    }
-    public void verifyLuasTanah()
-    {
-        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(luasTanahLayout)));
-        Log.info("Verify Luas Tanah");
-    }
-    public void verifyLuasBangunan()
-    {
-        swipePageBtmtToTop();
-        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(luasBangunanLayout)));
-        Log.info("Verify Luas Bangunan");
-    }
-    public void verifyLantai()
-    {
-        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(lantaiLayout)));
-        Log.info("Verify Lantai");
-    }
-    public void verifyKamarTidur()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(kamarTidurLayout)));
-        Log.info("Verify Kamar Tidur");
-    }
-    public void verifyKamarMandi()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(kamarMandiLayout)));
-        Log.info("Verify Kamar Mandi");
-    }
-    public void verifySertifikasi()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(sertifikasiLayout)));
-        Log.info("Verify Sertifikasi");
-    }
-    public void verifyFaslitas()
-    {
-        Assert.assertTrue(isElementPresent(getTextLocator(fasilitasLayout)));
-        Log.info("Verify Fasilitas");
-    }
-    public void verifyAlamatLokasi()
-    {
-        swipePageBtmtToTop();
-        Assert.assertTrue(isElementPresent(getTextInputLayoutLocator(alamatLokasiLayout)));
-        Log.info("Verify Alamat Lokasi");
+        isListElementPresent(additionalFilterInput);
+        Log.info("Verify Content Additional Filter in Selected Sub-Category");
     }
 
     public void inputMinPrice(String keyword)
@@ -453,33 +375,60 @@ public class FilterPage extends BasePage {
 
     public void inputLuasTanah(String keyword)
     {
-        clickElement(getTextInputLayoutLocator(luasTanahLayout));
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        list.get(0).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
+        List<WebElement> parentElement = getListElements(By.className(textViewClass));
+        int i;
+        for (i = 0; i < editInputList.size(); i++) {
+            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
+            if (parentElement.get(i).getText().equalsIgnoreCase(luasTanahLayout)) {
+                editInputList.get(i).sendKeys(keyword);
+            }
+            Log.info("Ini adalah Index dari EditInput LuasTanah = "+i);
+        }
         Log.info("Input Luas Tanah : " + keyword);
     }
 
     public void inputLuasBangunan(String keyword)
     {
-        clickElement(getTextInputLayoutLocator(luasBangunanLayout));
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        list.get(1).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
+        isElementPresentAfterScroll(getTextInputLayoutLocator(luasBangunanLayout));
+        List<WebElement> parentElement = getListElements(By.className(textViewClass));
+        int i;
+        for (i = 0; i < editInputList.size(); i++) {
+            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
+            if (parentElement.get(i).getText().equalsIgnoreCase(luasBangunanLayout)) {
+                editInputList.get(i).sendKeys(keyword);
+            }
+            Log.info("Ini adalah Index dari EditInput LuasBangunan = "+i);
+        }
         Log.info("Input Luas Bangunan : " + keyword);
     }
 
     public void inputLantai(String keyword)
     {
-        clickElement(getTextInputLayoutLocator(lantaiLayout));
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        list.get(2).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
+        isElementPresentAfterScroll(getTextInputLayoutLocator(lantaiLayout));
+        List<WebElement> parentElement = getListElements(By.className(textViewClass));
+        int i;
+        for (i = 0; i < editInputList.size(); i++) {
+            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
+            if (parentElement.get(i).getText().equalsIgnoreCase(lantaiLayout)) {
+                editInputList.get(i).sendKeys(keyword);
+            }
+            Log.info("Ini adalah Index dari EditInput Lantai = "+i);
+        }
         Log.info("Input Lantai : " + keyword);
     }
 
     public void inputAlamatLokasi(String keyword)
     {
-        clickElement(getTextInputLayoutLocator(alamatLokasiLayout));
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        list.get(3).findElement(By.className(editTextAdditionalFilter)).sendKeys(keyword);
+        isElementPresentAfterScroll(getTextInputLayoutLocator(alamatLokasiLayout));
+        List<WebElement> parentElement = getListElements(By.className(textViewClass));
+        int i;
+        for (i = 0; i < editInputList.size(); i++) {
+            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
+            if (parentElement.get(i).getText().equalsIgnoreCase(alamatLokasiLayout)) {
+                editInputList.get(i).sendKeys(keyword);
+            }
+            Log.info("Ini adalah Index dari EditInput Alamat Lokasi = "+i);
+        }
         Log.info("Input Alamat Lokasi : " + keyword);
     }
 
