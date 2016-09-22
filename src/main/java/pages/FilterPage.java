@@ -93,6 +93,12 @@ public class FilterPage extends BasePage {
     protected List<AndroidElement> categoryElement2;
 
     @AndroidFindBys({
+        @AndroidFindBy(id = recycleViewCategory),
+        @AndroidFindBy(id = categoryTitle)
+    })
+    protected List<AndroidElement> subCategoryTitle;
+
+    @AndroidFindBys({
         @AndroidFindBy(id = linearLayoutCategoryParams),
         @AndroidFindBy(id = textViewLayout)
     })
@@ -191,6 +197,9 @@ public class FilterPage extends BasePage {
         Assert.assertTrue(isElementPresent(getIdLocator(simpanBtn)));
         Log.info("Verify Simpan Button");
     }
+    /**
+     * Mas Buddy baiknya method2 dibawah ini dihapus atau tidak?
+     *
     public void verifyAllCategory(){
         verifyCategoryListingElement1(categoryElement0);
     }
@@ -204,8 +213,10 @@ public class FilterPage extends BasePage {
     {
         Log.info("Verify Available Category on Listing");
         isWaitElementPresent(getIdLocator(recycleViewCategory));
+
         Log.info("Category Available ["+elements.size()+"]: ");
         for (int i = 0 ; i < elements.size() ; i++) {
+
             String category = getCategoryTitle(i, elements);
             Log.info("* " + category + " ");
             Assert.assertNotNull(category);
@@ -215,10 +226,32 @@ public class FilterPage extends BasePage {
             }
         }
     }
-    public String getCategoryTitle(int index, List<AndroidElement> elements)
+     public String getCategoryTitle(int index, List<AndroidElement> elements)
+     {
+     return elements.get(index).findElementById(categoryTitle).getText();
+     }
+     */
+
+    /**
+     * This below method has made with 2 function
+     * 1. to Verify Size of a ListElement
+     * 2. Click the Index of a ListElement
+     */
+    public void verifyListElementMethodAndClickElement(String layoutClass, List<AndroidElement> parentElements, List<AndroidElement> childElements, String comparisonWord)
     {
-        return elements.get(index).findElementById(categoryTitle).getText();
+        isWaitElementPresent(getIdLocator(layoutClass));
+        String elementValueText = "";
+        Log.info("Category Available ["+parentElements.size()+"]: ");
+        for (int i = 0 ; i < parentElements.size() ; i++) {
+            elementValueText = childElements.get(i).getText();
+            if (parentElements.size() >= 2 && elementValueText.equalsIgnoreCase(comparisonWord)) {
+                parentElements.get(i).click();
+                Log.info("Click Element Index : " + i + ", ValueText : " + elementValueText);
+                break;
+            }
+        }
     }
+
     public void verifyCheckBoxElement(List<AndroidElement> elements)
     {
         Log.info("Verify Available Category on Listing");
@@ -244,7 +277,6 @@ public class FilterPage extends BasePage {
     {
         Log.info("Click Back Button");
         backBtnTopPrm.get(0).click();
-//        clickElement(getContentLocator(backBtn));
         return new ListingPage(driver);
     }
 
@@ -327,31 +359,34 @@ public class FilterPage extends BasePage {
 
     public void clickSemuaDiMobilCategory()
     {
-        categoryElement0.get(0).click();
-        categoryElement1.get(0).click();
-        Log.info("Click Semua Di Mobil");
+        String mobil = "Mobil";
+        String semuaDiMobil = "Semua di Mobil";
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, semuaDiMobil);
+        Log.info("Click Semua Di Mobil Sub-Category");
     }
 
     public void clickMobilBekasHondaCategory()
     {
+        String mobil = "Mobil";
+        String mobilBekas = "Mobil Bekas";
         String honda = "Honda";
-        categoryElement0.get(0).click();
-        //verifySubCategory();
-        categoryElement1.get(1).click();
-        //verifySubCategory1();
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
         ((AndroidDriver)driver).scrollToExact(honda);
         clickElement(getTextLocator(honda));
-        Log.info("Click Mobil Bekas Honda");
+        Log.info("Click Mobil Bekas Honda Sub-Category");
     }
 
     public void clickPropertiRumahDijualCategory()
     {
-        categoryElement0.get(2).click();
-        //verifySubCategory();
-        categoryElement1.get(1).click();
-        //verifySubCategory1();
-        categoryElement2.get(1).click();
-        Log.info("Click Properti Category");
+        String properti = "Properti";
+        String rumah = "Rumah";
+        String dijual = "Dijual";
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, properti);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, rumah);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, dijual);
+        Log.info("Click Properti Rumah Di Jual Sub-Category");
     }
 
     @Step("Verify Content Additional Filter in Selected Sub-Category")
@@ -373,63 +408,45 @@ public class FilterPage extends BasePage {
         Log.info("Input Maksimum Harga");
     }
 
+    /**
+     * This below method has made to input Keyword in ListElement with class TextInputLayout at AdditionalFilter
+     */
+    public void inputMethod(List<AndroidElement> childElement, String parentClass, String comparisonWord, String inputText) {
+        List<WebElement> parentElement = getListElements(By.className(parentClass));
+        String parentValueText = "";
+        for (int i = 0; i < childElement.size(); i++)
+        {
+            parentValueText = parentElement.get(i).getText();
+            Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
+            if (parentValueText.equalsIgnoreCase(comparisonWord)) {
+                childElement.get(i).sendKeys(inputText);
+            }
+            Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
+        }
+        Log.info("Input " + parentValueText + " : " + inputText);
+    }
+
     public void inputLuasTanah(String keyword)
     {
-        List<WebElement> parentElement = getListElements(By.className(textViewClass));
-        int i;
-        for (i = 0; i < editInputList.size(); i++) {
-            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
-            if (parentElement.get(i).getText().equalsIgnoreCase(luasTanahLayout)) {
-                editInputList.get(i).sendKeys(keyword);
-            }
-            Log.info("Ini adalah Index dari EditInput LuasTanah = "+i);
-        }
-        Log.info("Input Luas Tanah : " + keyword);
+        inputMethod(editInputList, textViewClass, luasTanahLayout, keyword);
     }
 
     public void inputLuasBangunan(String keyword)
     {
         isElementPresentAfterScroll(getTextInputLayoutLocator(luasBangunanLayout));
-        List<WebElement> parentElement = getListElements(By.className(textViewClass));
-        int i;
-        for (i = 0; i < editInputList.size(); i++) {
-            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
-            if (parentElement.get(i).getText().equalsIgnoreCase(luasBangunanLayout)) {
-                editInputList.get(i).sendKeys(keyword);
-            }
-            Log.info("Ini adalah Index dari EditInput LuasBangunan = "+i);
-        }
-        Log.info("Input Luas Bangunan : " + keyword);
+        inputMethod(editInputList, textViewClass, luasBangunanLayout, keyword);
     }
 
     public void inputLantai(String keyword)
     {
         isElementPresentAfterScroll(getTextInputLayoutLocator(lantaiLayout));
-        List<WebElement> parentElement = getListElements(By.className(textViewClass));
-        int i;
-        for (i = 0; i < editInputList.size(); i++) {
-            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
-            if (parentElement.get(i).getText().equalsIgnoreCase(lantaiLayout)) {
-                editInputList.get(i).sendKeys(keyword);
-            }
-            Log.info("Ini adalah Index dari EditInput Lantai = "+i);
-        }
-        Log.info("Input Lantai : " + keyword);
+        inputMethod(editInputList, textViewClass, lantaiLayout, keyword);
     }
 
     public void inputAlamatLokasi(String keyword)
     {
         isElementPresentAfterScroll(getTextInputLayoutLocator(alamatLokasiLayout));
-        List<WebElement> parentElement = getListElements(By.className(textViewClass));
-        int i;
-        for (i = 0; i < editInputList.size(); i++) {
-            Log.info("Ini Text Yang Ada di Parent Element ["+i+"] Dan Textnya adalah "+parentElement.get(i).getText());
-            if (parentElement.get(i).getText().equalsIgnoreCase(alamatLokasiLayout)) {
-                editInputList.get(i).sendKeys(keyword);
-            }
-            Log.info("Ini adalah Index dari EditInput Alamat Lokasi = "+i);
-        }
-        Log.info("Input Alamat Lokasi : " + keyword);
+        inputMethod(editInputList, textViewClass, alamatLokasiLayout, keyword);
     }
 
     public void pilihKamarTidur()
@@ -510,30 +527,5 @@ public class FilterPage extends BasePage {
         clickElement(getTextLocator(tahun));
         clickElement(getIdLocator(pilihBtn));
         Log.info("Pilih Tahun : Tahun 2013");
-    }
-
-    public void verifyTextLayout()
-    {
-        ((AndroidDriver)driver).scrollTo("Cari");
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-        for (int i = 0; i < list.size(); i++)
-        {
-            //list.get(i).findElement(By.className("android.widget.EditText"));
-            Log.info("Verify "+list.get(i).findElement(By.className("android.widget.EditText")).getText());
-        }
-
-    }
-
-    public void inputMethod(int i, String text)
-    {
-        //((AndroidDriver)driver).scrollTo("Alamat lokasi");
-        List<WebElement> list = getListElements(By.className("TextInputLayout"));
-//        Log.debug("Isi dari element ini list ini : "+list.size());
-//        for (int j  = 0; j < list.size(); j++)
-//        {
-//            Log.debug("Isi urutan ["+j+"] "+list.get(j).getText());
-//            list.get(j).findElement(By.className("android.widget.EditText")).sendKeys("ini Urutan : "+j);
-//        }
-        list.get(i).findElement(By.className(editTextAdditionalFilter)).sendKeys(text);
     }
 }

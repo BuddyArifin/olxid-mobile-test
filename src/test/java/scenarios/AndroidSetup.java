@@ -29,7 +29,7 @@ public class AndroidSetup extends InstanceDriver {
     
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
-        File app = new File(appDir, "app-debug-7.0.0.1.apk");
+        File app = new File(appDir, Constants.apkName);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("device","Android");
 
@@ -46,6 +46,12 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("fullReset", true);
 
         //No Keyboard Layout
+        /**
+         * This below method make your emulator device or device physic is no keyboard because,
+         * in setting is appear new Keyboard(Appium Unicode Keyboard).
+         * If you wanna make that keyboard in your device appear again,
+         * switch the Unicode Keyboard Appium in setting to GoogleKeyboard or something else.
+         */
         capabilities.setCapability("unicodeKeyboard", "true");
         capabilities.setCapability("locationContextEnabled", "true");
 

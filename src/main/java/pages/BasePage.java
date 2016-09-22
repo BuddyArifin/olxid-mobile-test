@@ -56,6 +56,9 @@ public class BasePage  {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    /**
+     * This below method has made to verify that size ListELement is not Empty
+     */
     protected boolean isListElementPresent(List<AndroidElement> list)
     {
         try {
@@ -83,6 +86,9 @@ public class BasePage  {
 		}
 	}
 
+    /**
+     * This below method has made to always allow alert pop-up
+     */
     public boolean isAutoAcept(By by)
     {
         try
@@ -185,6 +191,9 @@ public class BasePage  {
     	return By.id(locator);
     }
 
+    /**
+     * This below method to get locator by text value with classname TextInputLayout
+     */
     public By getTextInputLayoutLocator(String locator)
     {
         return By.xpath("//TextInputLayout[@text='"+locator+"']");
@@ -284,6 +293,9 @@ public class BasePage  {
         js.executeScript("mobile: swipe", swipeObject);
     }
 
+    /**
+     * This below method has made to scroll right page
+     */
     public void swipePageRightToLeft()
     {
         int startx = (int) (driver.manage().window().getSize().getWidth() * 0.70);
@@ -292,6 +304,9 @@ public class BasePage  {
         ((AndroidDriver)driver).swipe(startx, starty, endx, starty, 3000);
     }
 
+    /**
+     * This below method has made to scroll left page
+     */
     public void swipePageLeftToRight()
     {
         int startx = (int) (driver.manage().window().getSize().getWidth() * 0.70);
@@ -300,6 +315,9 @@ public class BasePage  {
         ((AndroidDriver)driver).swipe(endx, starty, startx, starty, 3000);
     }
 
+    /**
+     * This below method has made to scroll down page
+     */
     public void swipePageBtmtToTop()
     {
         int starty = (int) (driver.manage().window().getSize().getHeight() * 0.80);
@@ -308,6 +326,9 @@ public class BasePage  {
         ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 500);
     }
 
+    /**
+     * This below method has made to scroll up page
+     */
     public void swipePageTopToBtm()
     {
         int starty = (int)(driver.manage().window().getSize().getHeight() * 0.80);
@@ -368,7 +389,7 @@ public class BasePage  {
      * @param text is to spesific text scroll scroll will stop
      * @return boolean value
     */
-    public Boolean isElementPresentAfterScroll(final By locator, final String text) {
+    public Boolean isElementPresentAfterScroll(final By locator) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(30, TimeUnit.SECONDS)
                 .pollingEvery(5, TimeUnit.SECONDS)
@@ -376,7 +397,7 @@ public class BasePage  {
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                ((AndroidDriver) driver).scrollTo(text);
+                ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
                 return driver.findElement(locator).isDisplayed();
             }
         });

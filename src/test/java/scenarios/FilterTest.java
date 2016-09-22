@@ -64,7 +64,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickSimpanButton();
+//        filterPage.clickSimpanButton();
     }
 
     @Stories("As a user i want see listing by current location")
@@ -80,7 +80,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by input price range")
     @Title("Verify Listing ads sorted by inputted price range")
     @TestCaseId("TC_FILTER_08_007")
-    @Test(priority = 5)
+    @Test(priority = 5, enabled = false)
     public void verifyListingAdsSortedByInputtedPriceRange()
     {
     }
@@ -88,7 +88,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
     @TestCaseId("TC_FILTER_08_008")
-    @Test(priority = 6)
+    @Test(priority = 6, enabled = false)
     public void verifyListingAdsSortedByUrutkanColumn()
     {
         listingPage.clickFilterBtnPrm();
@@ -149,9 +149,8 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 13)
     public void verifyCategoryElementAppear()
     {
-        filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
-        filterPage.verifyAllCategory();
+        //filterPage.verifyAllCategory();
     }
 
     @Stories("As user i want to be able select sub-category Mobil Bekas Honda")
@@ -161,7 +160,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyListingAdsSortedBySelectedSubCategoryMobilBekasHonda()
     {
         filterPage.clickMobilBekasHondaCategory();
-        filterPage.verifyContentInAdditionalFilterMobilBekasHonda();
+        filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
         filterPage.pilihTipeKendaraanJazz();
@@ -180,9 +179,8 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
-        filterPage.verifyAllCategory();
         filterPage.clickSemuaDiMobilCategory();
-        filterPage.verifyContentInAdditionalFilterSemuaDiMobil();
+        filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
         filterPage.clickSimpanButton();
@@ -198,9 +196,8 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickUbahButton();
-        filterPage.verifyAllCategory();
         filterPage.clickPropertiRumahDijualCategory();
-        filterPage.verifyContentInAdditionalFilterRumahDijual();
+        filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputLuasTanah("100");
         filterPage.inputLuasBangunan("100");
         filterPage.inputLantai("2");
@@ -219,10 +216,12 @@ public class FilterTest extends AndroidSetup{
     public void verifyResetButtonClicked()
     {
         filterPage = listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.clickMobilBekasHondaCategory();
+        filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
         filterPage.pilihTipeKendaraanJazz();
