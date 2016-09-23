@@ -1,5 +1,6 @@
 package pages;
 
+import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -7,13 +8,18 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
+
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by NugrohoSantoso on 9/2/16.
@@ -53,6 +59,7 @@ public class FilterPage extends BasePage {
     public static final String pilihBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
     public static final String imageButtonBack = "android.widget.ImageButton";
+    public boolean isOldVersionDevices = false;
 
     private FilterByMapsLocationModule filterByMapsLocationModule;
 
@@ -121,6 +128,17 @@ public class FilterPage extends BasePage {
             @AndroidFindBy(className = editTextAdditionalFilter)
     })
     protected List<AndroidElement> editInputList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
+            @AndroidFindBy(className = editTextAdditionalFilter)
+    })
+    protected List<AndroidElement> editInputListOldVersion;
+
+    @AndroidFindBys({
+            @AndroidFindBy(className = textViewClass)
+    })
+    protected List<AndroidElement> inputList;
 
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage()
@@ -408,18 +426,62 @@ public class FilterPage extends BasePage {
         Log.info("Input Maksimum Harga");
     }
 
+    //handle old version of Android
+    public List<WebElement> isTextInputLayoutDisplays() {
+        if (isListElementPresent(inputList)){
+            return getListElements(By.className("TextInputLayout"));
+        } else {
+            isOldVersionDevices = true;
+            return getListElements(By.id("com.app.tokobagus.betterb:id/inputLayout"));
+        }
+    }
+
+    //handle old version of Android
+    public List<AndroidElement> isTextEditLayoutDisplays() {
+        if (isOldVersionDevices){
+            return editInputListOldVersion;
+        } else {
+            return editInputList;
+        }
+    }
+
+    /**
+     * Adopt method from BasePage
+     * */
+    public Boolean isElementPresentAfterScroll(String locator) {
+        String classname;
+        if (isOldVersionDevices) {
+            classname = "android.widget.LinearLayout";
+        } else {
+            classname = "TextInputLayout";
+        }
+        final String classFinal = classname;
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(30, TimeUnit.SECONDS)
+                .pollingEvery(5, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
+                return driver.findElement(By.xpath("//"+classFinal+"[@text='"+locator+"']")).isDisplayed();
+            }
+        });
+    }
+
     /**
      * This below method has made to input Keyword in ListElement with class TextInputLayout at AdditionalFilter
      */
-    public void inputMethod(List<AndroidElement> childElement, String parentClass, String comparisonWord, String inputText) {
-        List<WebElement> parentElement = getListElements(By.className(parentClass));
+    public void inputMethod(String comparisonWord, String inputText) {
+        List<WebElement> parentElement = isTextInputLayoutDisplays();
+        List<AndroidElement> childElement2 = isTextEditLayoutDisplays();
         String parentValueText = "";
-        for (int i = 0; i < childElement.size(); i++)
+        for (int i = 0; i < childElement2.size(); i++)
         {
             parentValueText = parentElement.get(i).getText();
             Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
-                childElement.get(i).sendKeys(inputText);
+                childElement2.get(i).replaceValue(inputText);
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
         }
@@ -428,25 +490,25 @@ public class FilterPage extends BasePage {
 
     public void inputLuasTanah(String keyword)
     {
-        inputMethod(editInputList, textViewClass, luasTanahLayout, keyword);
+        inputMethod(luasTanahLayout, keyword);
     }
 
     public void inputLuasBangunan(String keyword)
     {
-        isElementPresentAfterScroll(getTextInputLayoutLocator(luasBangunanLayout));
-        inputMethod(editInputList, textViewClass, luasBangunanLayout, keyword);
+        isElementPresentAfterScroll(luasBangunanLayout);
+        inputMethod(luasBangunanLayout, keyword);
     }
 
     public void inputLantai(String keyword)
     {
-        isElementPresentAfterScroll(getTextInputLayoutLocator(lantaiLayout));
-        inputMethod(editInputList, textViewClass, lantaiLayout, keyword);
+        isElementPresentAfterScroll(lantaiLayout);
+        inputMethod(lantaiLayout, keyword);
     }
 
     public void inputAlamatLokasi(String keyword)
     {
-        isElementPresentAfterScroll(getTextInputLayoutLocator(alamatLokasiLayout));
-        inputMethod(editInputList, textViewClass, alamatLokasiLayout, keyword);
+        isElementPresentAfterScroll(alamatLokasiLayout);
+        inputMethod(alamatLokasiLayout, keyword);
     }
 
     public void pilihKamarTidur()

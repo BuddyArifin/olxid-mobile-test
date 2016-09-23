@@ -64,7 +64,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
-//        filterPage.clickSimpanButton();
+        filterPage.clickSimpanButton();
     }
 
     @Stories("As a user i want see listing by current location")
@@ -88,7 +88,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
     @TestCaseId("TC_FILTER_08_008")
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 6)
     public void verifyListingAdsSortedByUrutkanColumn()
     {
         listingPage.clickFilterBtnPrm();
@@ -149,6 +149,7 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 13)
     public void verifyCategoryElementAppear()
     {
+        listingPage.clickFilterBtnPrm();
         filterPage.clickUbahButton();
         //filterPage.verifyAllCategory();
     }
@@ -220,6 +221,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
+        filterPage.clickUbahButton();
         filterPage.clickMobilBekasHondaCategory();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
@@ -234,7 +236,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able back to Listing Page")
     @Title("Verify User back to Listing Page")
     @TestCaseId("TC_FILTER_08_021")
-    @Test(priority = 18)
+    @Test(priority = 18, enabled = false)
     public void verifyBackButtonClicked()
     {
         filterPage.clickBackBtn();
