@@ -205,7 +205,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihKamarTidur();
         filterPage.pilihKamarMandi();
         filterPage.pilihSertifikasi();
-        filterPage.pilihFasilitas();
+        filterPage.pilihFasilitas("AC,Telephone,PAM");
         filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
         filterPage.clickSimpanButton();
     }

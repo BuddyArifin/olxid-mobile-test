@@ -18,6 +18,8 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,13 +51,12 @@ public class FilterPage extends BasePage {
     public static final String recycleViewCategory = "com.app.tokobagus.betterb:id/rvCategory";
     public static final String linearLayoutContainer = "com.app.tokobagus.betterb:id/layoutContainer";
     public static final String linearLayoutCategoryParams = "com.app.tokobagus.betterb:id/categoryParamsLayout";
+    public static final String textViewParamsTitle = "com.app.tokobagus.betterb:id/paramTitle";
     public static final String linearLayoutDropDownSelection = "android.widget.LinearLayout";
     public static final String textViewClass = "TextInputLayout";
-    public static final String textInputLayoutId = "com.app.tokobagus.betterb:id/inputLayout";
-    public static final String editInputLayoutId = "com.app.tokobagus.betterb:id/edtInput";
     public static final String textViewLayout = "com.app.tokobagus.betterb:id/btnSelection";
     public static final String recycleViewLayout = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
-    public static final String textViewDropDownSelectionTitle = "com.app.tokobagus.betterb:id/tvOptionName";
+    public static final String textViewCheckBoxId = "com.app.tokobagus.betterb:id/tvOptionName";
     public static final String pilihBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
     public static final String imageButtonBack = "android.widget.ImageButton";
@@ -125,20 +126,32 @@ public class FilterPage extends BasePage {
 
     @AndroidFindBys({
         @AndroidFindBy(className = textViewClass),
-            @AndroidFindBy(className = editTextAdditionalFilter)
+        @AndroidFindBy(className = editTextAdditionalFilter)
     })
     protected List<AndroidElement> editInputList;
 
     @AndroidFindBys({
-            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
-            @AndroidFindBy(className = editTextAdditionalFilter)
+        @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
+        @AndroidFindBy(className = editTextAdditionalFilter)
     })
     protected List<AndroidElement> editInputListOldVersion;
 
     @AndroidFindBys({
-            @AndroidFindBy(className = textViewClass)
+        @AndroidFindBy(className = textViewClass)
     })
     protected List<AndroidElement> inputList;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = linearLayoutCategoryParams),
+        @AndroidFindBy(id = textViewParamsTitle)
+    })
+    protected List<AndroidElement> textViewDropDownTitle;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = recycleViewLayout),
+        @AndroidFindBy(id = textViewCheckBoxId)
+    })
+    protected List<AndroidElement> textViewCheckBoxTitle;
 
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage()
@@ -269,7 +282,6 @@ public class FilterPage extends BasePage {
             }
         }
     }
-
     public void verifyCheckBoxElement(List<AndroidElement> elements)
     {
         Log.info("Verify Available Category on Listing");
@@ -288,9 +300,8 @@ public class FilterPage extends BasePage {
     }
     public String getCheckBoxTitle(int index, List<AndroidElement> elements)
     {
-        return elements.get(index).findElementById(textViewDropDownSelectionTitle).getText();
+        return elements.get(index).findElementById(textViewCheckBoxId).getText();
     }
-
     public ListingPage clickBackBtn()
     {
         Log.info("Click Back Button");
@@ -488,6 +499,12 @@ public class FilterPage extends BasePage {
         Log.info("Input " + parentValueText + " : " + inputText);
     }
 
+    public void splitInputCheckBoxValuText(String inputText)
+    {
+        String[] splitText = inputText.split(",");
+
+    }
+
     public void inputLuasTanah(String keyword)
     {
         inputMethod(luasTanahLayout, keyword);
@@ -546,15 +563,46 @@ public class FilterPage extends BasePage {
         Log.info("Pilih Sertifikasi : SHM - Sertifikat Hak Milik");
     }
 
-    public void pilihFasilitas()
+    /**
+     * This below method has made that can click several selection checkbox with several selection inputText
+     */
+    public void pilihFasilitas(String inputText)
     {
-        String fasilitas = "AC";
-        dropDownListElement.get(3).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(fasilitas);
-        clickElement(getTextLocator(fasilitas));
+        String fasilitasLayout = "Fasilitas";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
+        String[] splitText = inputText.split(",");
+        List<String> listString = new ArrayList<String>(Arrays.asList(splitText));
+        String parentElementValue = "";
+        for (int i = 0; i < checkBoxElement.size(); i++)
+        {
+            parentElementValue = textViewCheckBoxTitle.get(i).getText();
+            if (listString.size() > 0) {
+                for (int j = 0; j <= listString.size(); j++) {
+                    String splitTextPart = listString.get(j);
+                    if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
+                        checkBoxElement.get(i).click();
+                        listString.remove(splitTextPart);
+                        Log.info("Sekarang Size dari string Array : " + listString.size());
+                        break;
+                    } else {
+                        break;
+//                    WebElement mdRecycleViewLayout = driver.findElement(getIdLocator(recycleViewLayout));
+//                    int heightStartmdRecycleViewLayout = mdRecycleViewLayout.getSize().getHeight();
+//                    int heightEndmdRecycleViewLayout = mdRecycleViewLayout.getSize().getHeight();
+//                    int widthMiddlemdRecycleViewLayout = mdRecycleViewLayout.getSize().getWidth() / 2;
+//                    ((AndroidDriver)driver).swipe(widthMiddlemdRecycleViewLayout, heightEndmdRecycleViewLayout, widthMiddlemdRecycleViewLayout, heightStartmdRecycleViewLayout, 1000);
+                    }
+                }
+            }
+        }
         clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Fasilitas : AC");
+//        String fasilitas = "AC";
+//        dropDownListElement.get(3).click();
+//        verifyCheckBoxElement(checkBoxElement);
+//        ((AndroidDriver)driver).scrollToExact(fasilitas);
+//        clickElement(getTextLocator(fasilitas));
+//        clickElement(getIdLocator(pilihBtn));
+//        Log.info("Pilih Fasilitas : AC");
     }
 
     public void pilihTipeKendaraanJazz()
