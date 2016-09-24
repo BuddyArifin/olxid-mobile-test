@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
+import org.apache.xpath.operations.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -493,6 +494,7 @@ public class FilterPage extends BasePage {
             Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
                 childElement2.get(i).replaceValue(inputText);
+                break;
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
         }
@@ -528,114 +530,114 @@ public class FilterPage extends BasePage {
         inputMethod(alamatLokasiLayout, keyword);
     }
 
-    public void pilihKamarTidur()
+    public void pilihTipeKendaraan(String inputText)
     {
         swipePageBtmtToTop();
-        String kamarTidur = "2";
-        dropDownListElement.get(0).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(kamarTidur);
-        clickElement(getTextLocator(kamarTidur));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Kamar Tidur : 2");
+        String tipeKendaraanLayout = "Tipe kendaraan";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tipeKendaraanLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
     }
 
-    public void pilihKamarMandi()
+    public void pilihTransmisi(String inputText)
+    {
+        String transmisiLayout = "Transmisi";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, transmisiLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+    }
+
+    public void pilihTahun(String inputText)
+    {
+        String tahunLayout = "Tahun";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tahunLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+    }
+
+    public void pilihKamarTidur(String inputText)
     {
         swipePageBtmtToTop();
-        String kamarMandi = "2";
-        dropDownListElement.get(1).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(kamarMandi);
-        clickElement(getTextLocator(kamarMandi));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Kamar Mandi : 2");
+        String kamarTidurLayout = "Kamar tidur";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarTidurLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
     }
 
-    public void pilihSertifikasi()
+    public void pilihKamarMandi(String inputText)
     {
-        String sertifikasi = "SHM - Sertifikat Hak Milik";
-        dropDownListElement.get(2).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(sertifikasi);
-        clickElement(getTextLocator(sertifikasi));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Sertifikasi : SHM - Sertifikat Hak Milik");
+        swipePageBtmtToTop();
+        String kamarMandiLayout = "Kamar mandi";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarMandiLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
     }
 
-    /**
-     * This below method has made that can click several selection checkbox with several selection inputText
-     */
+    public void pilihSertifikasi(String inputText)
+    {
+        String sertifikasiLayout = "Sertifikasi";
+        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, sertifikasiLayout);
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+    }
+
+
     public void pilihFasilitas(String inputText)
     {
         String fasilitasLayout = "Fasilitas";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
-        String[] splitText = inputText.split(",");
+        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+    }
+
+    /**
+     * This below method has made for swipe from bottom to top your Active Layout
+     */
+    public void swipeActiveLayoutBtmToTop(String activeLayoutId)
+    {
+        WebElement activeLayout = driver.findElement(getIdLocator(activeLayoutId));
+        int upperHeight = activeLayout.getLocation().getY();
+        int middleHeight = activeLayout.getSize().getHeight() / 2;
+        int bottomHeight = activeLayout.getSize().getHeight() - upperHeight;
+        int leftWidth = activeLayout.getLocation().getX();
+        int middleWidth = activeLayout.getSize().getWidth() / 2;
+        int rightWidth = activeLayout.getSize().getWidth();
+        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 1000);
+    }
+
+    /**
+     * This below method has made that can click several selection checkbox with several selection inputText
+     * the method can scroll automatically if needed
+     */
+    public void clickCheckBoxElement(String inputText, String activeLayoutId,
+                                     List<AndroidElement> parentElement, List<AndroidElement> childElement, String acceptBtnId)
+    {
+        String[] splitText = inputText.split("/");
         List<String> listString = new ArrayList<String>(Arrays.asList(splitText));
         String parentElementValue = "";
-        for (int i = 0; i < checkBoxElement.size(); i++)
+        String splitTextPart = "";
+        for (int i = 0; i <= parentElement.size(); i++)
         {
-            parentElementValue = textViewCheckBoxTitle.get(i).getText();
-            if (listString.size() > 0) {
-                for (int j = 0; j <= listString.size(); j++) {
-                    String splitTextPart = listString.get(j);
-                    if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
-                        checkBoxElement.get(i).click();
-                        listString.remove(splitTextPart);
-                        Log.info("Sekarang Size dari string Array : " + listString.size());
-                        break;
-                    } else {
-                        break;
-//                    WebElement mdRecycleViewLayout = driver.findElement(getIdLocator(recycleViewLayout));
-//                    int heightStartmdRecycleViewLayout = mdRecycleViewLayout.getSize().getHeight();
-//                    int heightEndmdRecycleViewLayout = mdRecycleViewLayout.getSize().getHeight();
-//                    int widthMiddlemdRecycleViewLayout = mdRecycleViewLayout.getSize().getWidth() / 2;
-//                    ((AndroidDriver)driver).swipe(widthMiddlemdRecycleViewLayout, heightEndmdRecycleViewLayout, widthMiddlemdRecycleViewLayout, heightStartmdRecycleViewLayout, 1000);
+            if (i == parentElement.size()) {
+                swipeActiveLayoutBtmToTop(activeLayoutId);
+                i = 0;
+            }
+            else
+            {
+                parentElementValue = childElement.get(i).getText();
+                if (listString.size() > 0) {
+                    for (int j = 0; j < listString.size(); j++) {
+                        splitTextPart = listString.get(j);
+                        if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
+                            parentElement.get(i).click();
+                            Log.info("Click : " + splitTextPart);
+                            listString.remove(splitTextPart);
+//                            Log.info("Sekarang Size dari string Array : " + listString.size());
+                            break;
+                        }
                     }
+                }
+                else
+                {
+                    clickElement(getIdLocator(acceptBtnId));
+                    break;
                 }
             }
         }
-        clickElement(getIdLocator(pilihBtn));
-//        String fasilitas = "AC";
-//        dropDownListElement.get(3).click();
-//        verifyCheckBoxElement(checkBoxElement);
-//        ((AndroidDriver)driver).scrollToExact(fasilitas);
-//        clickElement(getTextLocator(fasilitas));
-//        clickElement(getIdLocator(pilihBtn));
-//        Log.info("Pilih Fasilitas : AC");
     }
 
-    public void pilihTipeKendaraanJazz()
-    {
-        swipePageBtmtToTop();
-        String jazz = "Jazz";
-        //Log.debug("Ini Loh Size nya = " + dropDownListElement.size());
-        dropDownListElement.get(0).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(jazz);
-        clickElement(getTextLocator(jazz));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Tipe Kendaraan : Jazz");
-    }
 
-    public void pilihTipeTransmisi()
-    {
-        String manual = "Manual";
-        dropDownListElement.get(1).click();
-        verifyCheckBoxElement(checkBoxElement);
-        clickElement(getTextLocator(manual));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Tipe Transmisi : Manual");
-    }
-
-    public void pilihTahun()
-    {
-        String tahun = "2013";
-        dropDownListElement.get(2).click();
-        verifyCheckBoxElement(checkBoxElement);
-        ((AndroidDriver)driver).scrollToExact(tahun);
-        clickElement(getTextLocator(tahun));
-        clickElement(getIdLocator(pilihBtn));
-        Log.info("Pilih Tahun : Tahun 2013");
-    }
 }

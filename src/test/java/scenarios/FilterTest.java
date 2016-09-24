@@ -151,7 +151,6 @@ public class FilterTest extends AndroidSetup{
     {
         listingPage.clickFilterBtnPrm();
         filterPage.clickUbahButton();
-        //filterPage.verifyAllCategory();
     }
 
     @Stories("As user i want to be able select sub-category Mobil Bekas Honda")
@@ -164,9 +163,9 @@ public class FilterTest extends AndroidSetup{
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
-        filterPage.pilihTipeKendaraanJazz();
-        filterPage.pilihTipeTransmisi();
-        filterPage.pilihTahun();
+        filterPage.pilihTipeKendaraan("Jazz");
+        filterPage.pilihTransmisi("Manual");
+        filterPage.pilihTahun("2013");
         filterPage.clickSimpanButton();
     }
 
@@ -202,10 +201,10 @@ public class FilterTest extends AndroidSetup{
         filterPage.inputLuasTanah("100");
         filterPage.inputLuasBangunan("100");
         filterPage.inputLantai("2");
-        filterPage.pilihKamarTidur();
-        filterPage.pilihKamarMandi();
-        filterPage.pilihSertifikasi();
-        filterPage.pilihFasilitas("AC,Telephone,PAM");
+        filterPage.pilihKamarTidur("2");
+        filterPage.pilihKamarMandi("2");
+        filterPage.pilihSertifikasi("SHM - Sertifikat Hak Milik/HGB - Hak Guna Bangun/Lainnya  (PPJB,Girik,Adat,dll)");
+        filterPage.pilihFasilitas("AC/Telephone/PAM/Microwave");
         filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
         filterPage.clickSimpanButton();
     }
@@ -226,9 +225,9 @@ public class FilterTest extends AndroidSetup{
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.inputMinPrice("10000000000");
         filterPage.inputMaxPrice("20000000000");
-        filterPage.pilihTipeKendaraanJazz();
-        filterPage.pilihTipeTransmisi();
-        filterPage.pilihTahun();
+        filterPage.pilihTipeKendaraan("Jazz");
+        filterPage.pilihTransmisi("Manual");
+        filterPage.pilihTahun("2013");
         filterPage.clickResetButton();
         filterPage.clickSimpanButton();
     }
