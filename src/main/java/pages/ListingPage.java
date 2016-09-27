@@ -189,4 +189,9 @@ public class ListingPage extends BasePage{
         swipePageTopToBtm();
         Assert.assertTrue(isElementPresent(getIdLocator(btmBarId)));
     }
+
+    public AdsDetailsPage selectAdsFromListing() {
+        Log.info("Select Ads From Listing");
+        return new AdsDetailsPage(driver);
+    }
 }
