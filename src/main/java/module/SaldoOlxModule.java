@@ -172,13 +172,19 @@ public class SaldoOlxModule extends BasePage {
 
     public void clickNextInfoImageBanner()
     {
-        clickElement(getIdLocator(nextImageSlideBtn));
+        do {
+            clickElement(getIdLocator(nextImageSlideBtn));
+
+        }while (isElementPresent(getIdLocator(nextImageSlideBtn)));
         Log.info("Click Next Image Slide");
     }
 
     public void clickPrevInfoImageBanner()
     {
-        clickElement(getIdLocator(prevImageSlideBtn));
+        do {
+            clickElement(getIdLocator(prevImageSlideBtn));
+
+        }while (isElementPresent(getIdLocator(prevImageSlideBtn)));
         Log.info("Click Next Image Slide");
     }
 
