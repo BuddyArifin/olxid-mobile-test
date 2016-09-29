@@ -26,7 +26,7 @@ public class HamburgerBarModule extends BasePage {
     public static final String pusatBantuanBtn = "Pusat Bantuan";
     public static final String tentangOLXBtn = "Tentang OLX";
     public static final String hamburgerBarLayout = "com.app.tokobagus.betterb:id/left_drawer";
-    
+
     public HamburgerBarModule(WebDriver driver)
     {
         super(driver);
@@ -91,10 +91,11 @@ public class HamburgerBarModule extends BasePage {
     }
 
     @Step("Click Saldo OLX Button")
-    public void clickSaldoOLXBtn()
+    public SaldoOlxModule clickSaldoOLXBtn()
     {
         clickElement(getTextLocator(saldoOLXBtn));
         Log.info("Click Saldo OLX Button");
+        return new SaldoOlxModule(driver);
     }
 
     @Step("Click Pusat Bantuan Button")
