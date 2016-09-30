@@ -7,7 +7,6 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
-import org.apache.xpath.operations.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,9 +18,7 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,7 +49,7 @@ public class FilterPage extends BasePage {
     public static final String recycleViewCategory = "com.app.tokobagus.betterb:id/rvCategory";
     public static final String linearLayoutContainer = "com.app.tokobagus.betterb:id/layoutContainer";
     public static final String linearLayoutCategoryParams = "com.app.tokobagus.betterb:id/categoryParamsLayout";
-    public static final String textViewParamsTitle = "com.app.tokobagus.betterb:id/paramTitle";
+    public static final String textViewParamsTitle = "com.app.tokobagus.betterb:id/tvTitle";
     public static final String linearLayoutDropDownSelection = "android.widget.LinearLayout";
     public static final String textViewClass = "TextInputLayout";
     public static final String textViewLayout = "com.app.tokobagus.betterb:id/btnSelection";
@@ -535,21 +532,21 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String tipeKendaraanLayout = "Tipe kendaraan";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tipeKendaraanLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     public void pilihTransmisi(String inputText)
     {
         String transmisiLayout = "Transmisi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, transmisiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     public void pilihTahun(String inputText)
     {
         String tahunLayout = "Tahun";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tahunLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     public void pilihKamarTidur(String inputText)
@@ -557,7 +554,7 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String kamarTidurLayout = "Kamar tidur";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarTidurLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     public void pilihKamarMandi(String inputText)
@@ -565,14 +562,14 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String kamarMandiLayout = "Kamar mandi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarMandiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     public void pilihSertifikasi(String inputText)
     {
         String sertifikasiLayout = "Sertifikasi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, sertifikasiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
 
@@ -580,7 +577,7 @@ public class FilterPage extends BasePage {
     {
         String fasilitasLayout = "Fasilitas";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,checkBoxElement,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
     }
 
     /**
@@ -595,7 +592,7 @@ public class FilterPage extends BasePage {
         int leftWidth = activeLayout.getLocation().getX();
         int middleWidth = activeLayout.getSize().getWidth() / 2;
         int rightWidth = activeLayout.getSize().getWidth();
-        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 1000);
+        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 3000);
     }
 
     /**
@@ -603,40 +600,67 @@ public class FilterPage extends BasePage {
      * the method can scroll automatically if needed
      */
     public void clickCheckBoxElement(String inputText, String activeLayoutId,
-                                     List<AndroidElement> parentElement, List<AndroidElement> childElement, String acceptBtnId)
+                                     List<AndroidElement> childElement, String acceptBtnId)
     {
-        String[] splitText = inputText.split("/");
-        List<String> listString = new ArrayList<String>(Arrays.asList(splitText));
+        List<String> listString = new ArrayList<String>(Arrays.asList(inputText.split("/")));
+        Collections.sort(listString);
         String parentElementValue = "";
         String splitTextPart = "";
-        for (int i = 0; i <= parentElement.size(); i++)
+        for(int i = 0; i < childElement.size(); i++)
         {
-            if (i == parentElement.size()) {
-                swipeActiveLayoutBtmToTop(activeLayoutId);
-                i = 0;
+            parentElementValue = childElement.get(i).getText();
+            if(listString.size() == 0)
+            {
+                break;
             }
             else
             {
-                parentElementValue = childElement.get(i).getText();
-                if (listString.size() > 0) {
-                    for (int j = 0; j < listString.size(); j++) {
-                        splitTextPart = listString.get(j);
-                        if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
-                            parentElement.get(i).click();
-                            Log.info("Click : " + splitTextPart);
-                            listString.remove(splitTextPart);
-//                            Log.info("Sekarang Size dari string Array : " + listString.size());
-                            break;
-                        }
-                    }
-                }
-                else
+                for(int j = 0; j < listString.size(); j++)
                 {
-                    clickElement(getIdLocator(acceptBtnId));
-                    break;
+                    splitTextPart = listString.get(j);
+                    if (parentElementValue.equalsIgnoreCase(splitTextPart))
+                    {
+                        listString.remove(splitTextPart);
+                        childElement.get(i).click();
+                    }
+                    else if (i == childElement.size() - 1 && listString.size() > 0)
+                    {
+                        swipeActiveLayoutBtmToTop(activeLayoutId);
+                        i = 0;
+                    }
                 }
             }
         }
+        clickElement((getIdLocator(acceptBtnId)));
+
+//        for (int i = 0; i <= parentElement.size(); i++)
+//        {
+//            if (i == parentElement.size()) {
+//                swipeActiveLayoutBtmToTop(activeLayoutId);
+//                i = 0;
+//            }
+//            else
+//            {
+//                parentElementValue = childElement.get(i).getText();
+//                if (listString.size() > 0) {
+//                    for (int j = 0; j < listString.size(); j++) {
+//                        splitTextPart = listString.get(j);
+//                        if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
+//                            parentElement.get(i).click();
+//                            Log.info("Click : " + splitTextPart);
+//                            listString.remove(splitTextPart);
+////                            Log.info("Sekarang Size dari string Array : " + listString.size());
+////                            break;
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    clickElement(getIdLocator(acceptBtnId));
+//                    break;
+//                }
+//            }
+//        }
     }
 
 
