@@ -36,10 +36,39 @@ public class ListingTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
     }
 
+    @Stories("As a user i want be able to see GPS Turn On Confirmations Alert ")
+    @Title("Verify User able to get Confirmation Pop up to Turn On GPS")
+    @TestCaseId("TC_LISTING_06_007, TC_LISTING_06_009")
+    @Test(priority = 2)
+    public void verifyAlertDisplayWhenGPSOff() {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipButton();
+        listingPage.verifyContentsOfListingPage();
+        listingPage.turnOffGPS();
+        listingPage.verifyGPSAlertDisplay();
+    }
+
+    @Stories("As a User i want to able choose \"Tolak\" in pop-up Aktivasi GPS")
+    @Title("Verify User able to choose \"Tolak\" in Pop-Up Aktivasi GPS")
+    @TestCaseId("TC_LISTING_06_008")
+    @Test(priority = 3)
+    public void verifyUserAbletoSkipPopUpActivating() {
+        listingPage.clickGPSCancelBtn();
+    }
+
+    @Stories("As a user i want be able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
+    @Title("Verify User able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
+    @TestCaseId("TC_LISTING_06_010")
+    @Test(priority = 4)
+    public void verifyUserAbleToChooseAktivasiGPS() {
+        listingPage.turnOnGPS();
+        listingPage.verifyContentsOfListingPage();
+    }
+
     @Stories("As A User i want to able see Content in Navigation Menu")
     @Title("Verify System display All Content in Navigation Menu")
     @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_027, TC_LISTING_06_026")
-    @Test(priority = 2)
+    @Test(priority = 5)
     public void verifyAllContentsInHamburgerBar()
     {
         listingPage = new ListingPage(driver);
@@ -50,7 +79,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a user i want to be able close Navigation Menu")
     @Title("Verify System didn't display navigation menu")
     @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_33")
-    @Test(priority = 3)
+    @Test(priority = 6)
     public void closeNavigationMenu()
     {
         listingPage = hamburgerBarModule.closeHamburgerBarDrawer();
@@ -60,14 +89,10 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a User I want enable Search ads")
     @Title("Verify Search ads by Keyword in Search Box")
     @TestCaseId("TC_LISTING_06_002")
-    @Test(priority = 4)
+    @Test(priority = 7)
     public void userAbleSearchAdsByInputtedKeyword()
     {
     }
-
-    /**
-     * Mas Buddy yang dibawah ini sama yang dibagian Maps Section Beda ya?
-     * */
 
     @Stories("As a User I want to Click 1Km dari Kamu")
     @Title("Verify User able to redirect to Radius Selection Page")
@@ -82,7 +107,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User I want Bottom Bar Disappear")
     @Title("Verify ads Scrolling Unlimited and Bottom Bar Disappear when Scrolling")
     @TestCaseId("TC_LISTING_06_012")
-    @Test(priority = 5)
+    @Test(priority = 9)
     public void verifyBtmBarDissappear()
     {
         listingPage.verifyBtmBarDissappear();
@@ -91,7 +116,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User I want Bottom Bar Appear")
     @Title("Verify Bottom Bar Appear when Scrolling Up")
     @TestCaseId("TC_LISTING_06_013")
-    @Test(priority = 6)
+    @Test(priority = 10)
     public void verifyBtmBarAppear()
     {
         listingPage.verifyBtmBarAppear();
@@ -100,7 +125,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User I want to able Click Filter/Advance on the primary tool")
     @Title("Verify User able to click Filter on the primary toolbar")
     @TestCaseId("TC_LISTING_06_021")
-    @Test(priority = 7)
+    @Test(priority = 11)
     public void userAbleToClickFilterButton()
     {
         filterPage = listingPage.clickFilterBtnPrm();
@@ -115,7 +140,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 9)
+    @Test(priority = 12)
     public void verifyUserAbleToRedirectToMaps() {
         filterByMapsLocationModule.verifyAllContentInLocationPage();
     }
@@ -123,7 +148,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able input location")
     @Title("Verify Listing ads sorted by inputted location")
     @TestCaseId("TC_FILTER_08_011")
-    @Test(priority = 10)
+    @Test(priority = 13)
     public void userAbleToSearchLocationByTypingAddress() {
         filterByMapsLocationModule.inputKeywordInSearchFields("Menara");
     }
@@ -131,7 +156,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
     @TestCaseId("TC_FILTER_08_012")
-    @Test(priority = 11)
+    @Test(priority = 14)
     public void userAbleToSeeSuggesstionAfterTyping() {
         filterByMapsLocationModule.verifySuggestions();
     }
@@ -139,7 +164,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able select location")
     @Title("Verify Listing ads sorted by selected suggestion location")
     @TestCaseId("TC_FILTER_08_013")
-    @Test(priority = 12)
+    @Test(priority = 15)
     public void userAbleToSelectLocationFromSuggestions() {
         filterByMapsLocationModule.chooseSuggestion(1);
     }
@@ -147,7 +172,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able change radius")
     @Title("Verify Listing ads sorted by selected radius location")
     @TestCaseId("TC_FILTER_08_014")
-    @Test(priority = 13)
+    @Test(priority = 16)
     public void userAbleToChangeRadius() {
         filterByMapsLocationModule.slideRightSliderRadius();
         filterByMapsLocationModule.clickCariDiLokasiIniBtn();

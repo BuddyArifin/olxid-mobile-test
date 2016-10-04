@@ -1,5 +1,6 @@
 package pages;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
@@ -36,6 +37,13 @@ public class ListingPage extends BasePage{
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
     public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
     public static final String FILTER = "Filter";
+    public static final String adsId = "com.app.tokobagus.betterb:id/iv_ad_item_image";
+
+    public static final String gpsAlertTitle = "GPS belum dihidupkan";
+    public static final String gpsAlertDesc = "Mohon hidupkan fitur GPS untuk mencari iklan terdekat";
+    public static final String gpsActiveBtn = "com.app.tokobagus.betterb:id/ok_button";
+    public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
+    public static final String switchOnGPS = "com.android.settings:id/switch_widget";
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -47,6 +55,11 @@ public class ListingPage extends BasePage{
             @AndroidFindBy(className = hamburgerBar)
     })
     protected List<AndroidElement> hamburgerBarLayout;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = adsId)
+    })
+    protected List<AndroidElement> adsList;
 
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
@@ -135,6 +148,30 @@ public class ListingPage extends BasePage{
         Log.info("Verify Favorit Button");
     }
 
+    public void verifyGpsNonActiveAlertTitle()
+    {
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertTitle)));
+        Log.info("Verify GPS non Active Title");
+    }
+
+    public void verifyGpsNonActiveAlertDesc()
+    {
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertDesc)));
+        Log.info("Verify GPS non Active Desc");
+    }
+
+    public void verifyGpsActiveBtn()
+    {
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsActiveBtn)));
+        Log.info("Verify GPS Activeted Button");
+    }
+
+    public void verifyGpsCancelBtn()
+    {
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsCancelPopup)));
+        Log.info("Verify GPS Activeted Button");
+    }
+
     public HamburgerBarModule clickHamburgerBar()
     {
         Log.info("Click Hamburger Bar");
@@ -176,6 +213,19 @@ public class ListingPage extends BasePage{
         return new PostAdsPage(driver);
     }
 
+    public ListingPage clickGPSCancelBtn()
+    {
+        Log.info("Click Tidak Sekarang Button");
+        clickElement(getIdLocator(gpsCancelPopup));
+        return new ListingPage(driver);
+    }
+
+    public void clickGPSActiveBtn()
+    {
+        Log.info("Click Tidak Sekarang Button");
+        clickElement(getIdLocator(gpsActiveBtn));
+    }
+
     public void verifyBtmBarDissappear()
     {
         Log.info("Verify Bottom Bar Dissapear as User Scrolling Down");
@@ -192,6 +242,54 @@ public class ListingPage extends BasePage{
 
     public AdsDetailsPage selectAdsFromListing() {
         Log.info("Select Ads From Listing");
+        adsList.get(0).click();
         return new AdsDetailsPage(driver);
+    }
+
+    @Override
+    public void swipePageTopToBtm() {
+        int starty = (int) (driver.manage().window().getSize().getHeight() * 0.004);
+        int endy = (int) (driver.manage().window().getSize().getHeight() * 0.95);
+        int startx = driver.manage().window().getSize().getWidth() / 2;
+        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
+    }
+
+    public void turnOffGPS() {
+        Log.info("Turn Off GPS");
+        swipePageTopToBtm();
+        swipePageTopToBtm();
+        clickElement(getTextLocator("Location"));
+        swipePageBtmtToTop();
+        swipePageBtmtToTop();
+        String currentActivity = ((AndroidDriver)driver).currentActivity();
+        ((AndroidDriver)driver).closeApp();
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+    }
+
+    public void turnOnGPS() {
+        Log.info("Turn On GPS");
+        String currentActivity = ((AndroidDriver)driver).currentActivity();
+        ((AndroidDriver)driver).closeApp();
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+        clickElement(getIdLocator(gpsActiveBtn));
+        clickElement(getIdLocator(switchOnGPS));
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+    }
+
+    @Step("Verify All Content of GPS alert non active")
+    public void verifyGPSAlertDisplay() {
+        verifyGpsAlertImage();
+        verifyGpsNonActiveAlertTitle();
+        verifyGpsNonActiveAlertDesc();
+        verifyGpsActiveBtn();
+        verifyGpsCancelBtn();
+    }
+
+    public void verifyGpsAlertImage() {
+        Log.info("Verify Logo of Alert Pop Up");
+        Assert.assertTrue(isWaitElementPresent(getImageViewLocator(0)));
     }
 }

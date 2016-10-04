@@ -4,9 +4,11 @@ import athena.Sinon;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -20,6 +22,8 @@ import utils.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -199,10 +203,14 @@ public class BasePage  {
         return By.xpath("//TextInputLayout[@text='"+locator+"']");
     }
 
-    public By getImageLocator(String locator){
-    	return By.xpath("//android.widget.ImageButton[@index='"+locator+"']");
+    public By getImageLocator(int index){
+    	return By.xpath("//android.widget.ImageButton[@index='"+index+"']");
     }
-    
+
+    public By getImageViewLocator(int index){
+    	return By.xpath("//android.widget.ImageView[@index='"+index+"']");
+    }
+
     public By getContentLocator(String locator){
     	return By.xpath("//android.widget.ImageButton[@content-desc='"+locator+"']");
     }

@@ -34,7 +34,7 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("device","Android");
 
         capabilities.setCapability("appPackage", "com.app.tokobagus.betterb");
-        capabilities.setCapability("appActivity", "sea.olxsulley.presentation.view.entrance.OlxIdEntranceActivity");
+        capabilities.setCapability("appActivity", "sea.olxsulley.entrance.presentation.OlxIdEntranceActivity");
 
         capabilities.setCapability("deviceName","Galaxy S4");
         capabilities.setCapability("platformName","Android");
@@ -46,12 +46,6 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("fullReset", true);
 
         //No Keyboard Layout
-        /**
-         * This below method make your emulator device or device physic is no keyboard because,
-         * in setting is appear new Keyboard(Appium Unicode Keyboard).
-         * If you wanna make that keyboard in your device appear again,
-         * switch the Unicode Keyboard Appium in setting to GoogleKeyboard or something else.
-         */
         capabilities.setCapability("unicodeKeyboard", "true");
         capabilities.setCapability("locationContextEnabled", "true");
 
