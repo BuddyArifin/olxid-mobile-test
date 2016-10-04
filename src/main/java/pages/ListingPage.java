@@ -44,6 +44,11 @@ public class ListingPage extends BasePage{
     public static final String gpsActiveBtn = "com.app.tokobagus.betterb:id/ok_button";
     public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
     public static final String switchOnGPS = "com.android.settings:id/switch_widget";
+    public static final String searchByKeyword = "com.app.tokobagus.betterb:id/searchEditText_input";
+    public static final String backBtnSearchKeyword = "com.app.tokobagus.betterb:id/imageView_arrow_back";
+    public static final String suggesstionSearchlist = "com.app.tokobagus.betterb:id/recyclerView_result";
+    public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
+    public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -60,6 +65,15 @@ public class ListingPage extends BasePage{
             @AndroidFindBy(id = adsId)
     })
     protected List<AndroidElement> adsList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = suggesstionSearchlist),
+            @AndroidFindBy(id = suggesstionSearchKeyword)
+    })
+    protected List<AndroidElement> suggestList;
+
+    @AndroidFindBy(id = suggesstionSemuaDiKategory)
+    protected AndroidElement semuaDiKategory;
 
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
@@ -172,6 +186,12 @@ public class ListingPage extends BasePage{
         Log.info("Verify GPS Activeted Button");
     }
 
+    public void verifySuggestionList()
+    {
+        Log.info("Verify Suggestion List after tapping keyword");
+        Assert.assertTrue(isListElementPresent(suggestList));
+    }
+
     public HamburgerBarModule clickHamburgerBar()
     {
         Log.info("Click Hamburger Bar");
@@ -181,8 +201,18 @@ public class ListingPage extends BasePage{
 
     public void clickSearchBtnPrm()
     {
-        clickElement(getIdLocator(searchBtnPrmID));
         Log.info("Click Search Button");
+        clickElement(getIdLocator(searchBtnPrmID));
+    }
+
+    public void inputSearchKeyword(String keyword){
+        sendKeysById(getIdLocator(searchByKeyword), keyword);
+    }
+
+    public void clickSuggestions() {
+        Log.info("Click Suggestion from Keyword");
+        semuaDiKategory.click();
+        verifyJarakDariKamuBtnBtm();
     }
 
     public FilterPage clickFilterBtnPrm()

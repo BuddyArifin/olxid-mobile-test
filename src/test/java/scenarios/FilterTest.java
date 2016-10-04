@@ -111,6 +111,34 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 9, enabled = false)
     public void verifyUserRedirectToDetailLocationPage()
     {
+        listingPage.clickFilterBtnPrm();
+        filterByMapsLocationModule = filterPage.clickLocationButton();
+        filterByMapsLocationModule.verifyAllContentInLocationPage();
+    }
+
+    @Stories("As a user i want be able to see GPS Turn On Confirmations Alert ")
+    @Title("Verify User able to get Confirmation Pop up to Turn On GPS")
+    @TestCaseId("TC_LISTING_06_015, TC_LISTING_06_017")
+    @Test(priority = 2)
+    public void verifyAlertDisplayWhenGPSOff() {
+        filterByMapsLocationModule.turnOffGPS();
+        filterByMapsLocationModule.verifyGPSAlertDisplay();
+    }
+
+    @Stories("As a User i want to able choose \"Tolak\" in pop-up Aktivasi GPS")
+    @Title("Verify User able to choose \"Tolak\" in Pop-Up Aktivasi GPS")
+    @TestCaseId("TC_LISTING_06_016")
+    @Test(priority = 3)
+    public void verifyUserAbletoSkipPopUpActivating() {
+        filterByMapsLocationModule.clickGPSCancelBtn();
+    }
+
+    @Stories("As a user i want be able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
+    @Title("Verify User able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
+    @TestCaseId("TC_LISTING_06_018")
+    @Test(priority = 4)
+    public void verifyUserAbleToChooseAktivasiGPS() {
+        filterByMapsLocationModule.turnOnGPS();
         filterByMapsLocationModule.verifyAllContentInLocationPage();
     }
 
@@ -145,7 +173,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to see sub-category option")
     @Title("Verify System display sub-category option")
-    @TestCaseId("TC_FILTER_08_015")
+    @TestCaseId("TC_FILTER_08_020")
     @Test(priority = 13)
     public void verifyCategoryElementAppear()
     {
@@ -155,7 +183,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to be able select sub-category Mobil Bekas Honda")
     @Title("Verify Listing ads sorted by selected sub-category Mobil Bekas Honda")
-    @TestCaseId("TC_FILTER_08_016")
+    @TestCaseId("TC_FILTER_08_021")
     @Test(priority = 14)
     public void verifyListingAdsSortedBySelectedSubCategoryMobilBekasHonda()
     {
@@ -171,7 +199,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to be able select sub-category Mobil Semua Di Mobil")
     @Title("Verify Listing ads sorted by selected sub-category Mobil Semua Di Mobil")
-    @TestCaseId("TC_FILTER_08_017")
+    @TestCaseId("TC_FILTER_08_022")
     @Test(priority = 15)
     public void verifyListingAdsSortedBySelectedSubCategoryMobilSemuaDiMobil()
     {
@@ -188,7 +216,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to be able select sub-category Properti Rumah Dijual")
     @Title("Verify Listing ads sorted by selected sub-category Properti Rumah Dijual")
-    @TestCaseId("TC_FILTER_08_018")
+    @TestCaseId("TC_FILTER_08_024")
     @Test(priority = 16)
     public void verifyListingAdsSortedBySelectedSubCategoryPropertiRumahDijual()
     {
@@ -212,7 +240,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able reset filter")
     @Title("Verify System all column back to default")
     @TestCaseId("TC_FILTER_08_019")
-    @Test(priority = 17)
+    @Test(priority = 26)
     public void verifyResetButtonClicked()
     {
         filterPage = listingPage.clickFilterBtnPrm();
@@ -234,7 +262,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to be able back to Listing Page")
     @Title("Verify User back to Listing Page")
-    @TestCaseId("TC_FILTER_08_021")
+    @TestCaseId("TC_FILTER_08_027")
     @Test(priority = 18, enabled = false)
     public void verifyBackButtonClicked()
     {

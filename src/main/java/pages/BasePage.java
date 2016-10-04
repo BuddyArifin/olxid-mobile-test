@@ -399,13 +399,13 @@ public class BasePage  {
     */
     public Boolean isElementPresentAfterScroll(final By locator) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(30, TimeUnit.SECONDS)
+                .withTimeout(2, TimeUnit.SECONDS)
                 .pollingEvery(5, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
+                ((AndroidDriver)driver).swipe(200, 1000, 200, 45, 500);
                 return driver.findElement(locator).isDisplayed();
             }
         });

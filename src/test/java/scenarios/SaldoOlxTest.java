@@ -55,7 +55,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As a user i want to be able swipe infobanner")
     @Title("Verify user able to swipe info banner")
     @TestCaseId("TC_SALDO_12_003")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToSwipeInfoBanner() {
         saldoOlxModule = hamburgerBarModule.clickSaldoOLXBtn();
         saldoOlxModule.clickNextInfoImageBanner();
@@ -89,6 +89,9 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_006")
     @Test(priority = 7)
     public void verifyUserAbleToRedirectToIsiUlangOLXPageAfterClickIsiUlangSaldoButton() {
+        hamburgerBarModule.clickSaldoOLXBtn();
+        saldoOlxModule.verifyAllContentOfSaldoOlx();
+        saldoOlxModule.clickIsiUlangSaldoOLX();
     }
 
     @Stories("As A User i want to be able to verify All Contents of ISI Ulang Saldo Page")
@@ -96,6 +99,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_007")
     @Test(priority = 8)
     public void verifyUserAbleToVerifyAllContentsOfIsiUlangPage() {
+        saldoOlxModule.verifyContentIsiUlangPage();
     }
 
     @Stories("As A User i want to be able to Choose Nominal Price Saldo.")
@@ -103,6 +107,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_008")
     @Test(priority = 9)
     public void verifyUserAbleToChooseNominalPriceSaldo() {
+        saldoOlxModule.clickOneOfNominalSaldoRadioButton();
     }
 
     @Stories("As A User i want to be able to Accept \"Syarat dan Ketentuan\"")
@@ -110,6 +115,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_009")
     @Test(priority = 10)
     public void verifyUserAbleToAcceptSyaratDanKetentuan() {
+        saldoOlxModule.checkSyaratDanKetentuan();
     }
 
     @Stories("As A User I want to be able to Click Bayar Button")
@@ -117,5 +123,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_010")
     @Test(priority = 11)
     public void verifyUserAbleToClickBayarButton() {
+        saldoOlxModule.clickBayarButton();
+        // needs to verify
     }
 }

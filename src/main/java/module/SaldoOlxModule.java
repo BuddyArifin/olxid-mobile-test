@@ -1,11 +1,11 @@
 package module;
 
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -20,6 +20,7 @@ public class SaldoOlxModule extends BasePage {
 
     public SaldoOlxModule(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
     public static final String backbutton = "Navigate up";
@@ -48,11 +49,14 @@ public class SaldoOlxModule extends BasePage {
     public static final String nominalSaldoLinearLayout = "com.app.tokobagus.betterb:id/rowNominal_view";
     public static final String syaratDanKetentuanChkBox = "com.app.tokobagus.betterb:id/topup_chkAgrrement";
     public static final String bayarBtn = "com.app.tokobagus.betterb:id/topup_btnPay";
+    public static final String transactionDate = "com.app.tokobagus.betterb:id/rowTransaction_tvDate";
+    public static final String noTransaction = "com.app.tokobagus.betterb:id/rowTransaction_tvTransNumber";
+    public static final String noTransactionStatus = "com.app.tokobagus.betterb:id/rowTransaction_tvTransStatus";
+    public static final String transactionPrice = "com.app.tokobagus.betterb:id/rowTransaction_tvPromoPrice";
+
 
     @AndroidFindBys({
-        @AndroidFindBy(id = nominalSaldoRv),
-        @AndroidFindBy(id = nominalSaldoLinearLayout),
-        @AndroidFindBy(id = nominalSaldoRadioButton)
+            @AndroidFindBy(id = nominalSaldoRadioButton)
     })
     protected List<AndroidElement> nominalRadioButtonGroup;
 
@@ -70,13 +74,17 @@ public class SaldoOlxModule extends BasePage {
         verifyHistoryTransactionsDate();
         verifyIsiUlangSaldoTitle();
         verifyIsiUlangSaldoBtn();
-        verifyInfoImageSlide();
-        verifyNextImageSlideBtn();
-        //verifyPrevImageSlideBtn();
+        verifyHistoryTransactionsDate();
+        verifyHistoryTransactionsNumber();
+        verifyHistoryTransactionsStatus();
+        verifyHistoryTransactionsPrice();
+//        verifyInfoImageSlide();
+//        verifyNextImageSlideBtn();
+//        verifyPrevImageSlideBtn();
     }
     public void verifyBackbutton()
     {
-        Assert.assertTrue(isElementPresent(getContentLocator(backbutton)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(backbutton)));
         Log.info("Veviry Back Button displays");
     }
     public void verifytitleSaldo()
@@ -116,6 +124,22 @@ public class SaldoOlxModule extends BasePage {
     public void verifyHistoryTransactionsDate()
     {
         Log.info("Verify History Transactions date displays");
+        Assert.assertTrue(isElementPresent(getIdLocator(transactionDate)));
+    }
+    public void verifyHistoryTransactionsNumber()
+    {
+        Log.info("Verify History Transactions Number displays");
+        Assert.assertTrue(isElementPresent(getIdLocator(noTransaction)));
+    }
+    public void verifyHistoryTransactionsStatus()
+    {
+        Log.info("Verify History Transactions Status displays");
+        Assert.assertTrue(isElementPresent(getIdLocator(noTransactionStatus)));
+    }
+    public void verifyHistoryTransactionsPrice()
+    {
+        Log.info("Verify History Transactions Price displays");
+        Assert.assertTrue(isElementPresent(getIdLocator(transactionPrice)));
     }
     public void verifyIsiUlangSaldoTitle()
     {
@@ -225,8 +249,6 @@ public class SaldoOlxModule extends BasePage {
         verifyTopUpTitle();
         verifySaldoAndaAndSaldoAmount();
         verifyNominalPriceSaldo();
-        verifySyaratDanKetentuanBerlaku();
-        verifyBayarButton();
     }
 
     public void verifyTopUpTitle()
@@ -268,12 +290,15 @@ public class SaldoOlxModule extends BasePage {
 
     public void checkSyaratDanKetentuan()
     {
+        isElementPresentAfterScroll(getIdLocator(syaratDanKetentuanChkBox));
+        verifySyaratDanKetentuanBerlaku();
         clickElement(getIdLocator(syaratDanKetentuanChkBox));
         Log.info("Check Syarat dan Ketentuan Check Box");
     }
 
     public void clickBayarButton()
     {
+        verifyBayarButton();
         clickElement(getIdLocator(bayarBtn));
         Log.info("Click Bayar Button");
     }

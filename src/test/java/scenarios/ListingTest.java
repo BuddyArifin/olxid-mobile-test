@@ -41,9 +41,6 @@ public class ListingTest extends AndroidSetup {
     @TestCaseId("TC_LISTING_06_007, TC_LISTING_06_009")
     @Test(priority = 2)
     public void verifyAlertDisplayWhenGPSOff() {
-        loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
-        listingPage.verifyContentsOfListingPage();
         listingPage.turnOffGPS();
         listingPage.verifyGPSAlertDisplay();
     }
@@ -92,6 +89,10 @@ public class ListingTest extends AndroidSetup {
     @Test(priority = 7)
     public void userAbleSearchAdsByInputtedKeyword()
     {
+        listingPage.clickSearchBtnPrm();
+        listingPage.inputSearchKeyword("Tas");
+        listingPage.verifySuggestionList();
+        listingPage.clickSuggestions();
     }
 
     @Stories("As a User I want to Click 1Km dari Kamu")

@@ -2,6 +2,7 @@ package module;
 
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
@@ -39,6 +40,11 @@ public class FilterByMapsLocationModule extends BasePage {
     public static final String cariDiLokasiIniBtn = "com.app.tokobagus.betterb:id/btnSetLocation";
     public static final String baloonGmaps = "Lokasi saat ini.";
     public static final String listView = "com.app.tokobagus.betterb:id/lvPlaces";
+    public static final String gpsAlertTitle = "GPS belum dihidupkan";
+    public static final String gpsAlertDesc = "Mohon hidupkan fitur GPS untuk mencari iklan terdekat";
+    public static final String gpsActiveBtn = "com.app.tokobagus.betterb:id/ok_button";
+    public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
+    public static final String switchOnGPS = "com.android.settings:id/switch_widget";
 
 
     @AndroidFindBys({
@@ -101,6 +107,30 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyJarakIklanTitle() {
         Log.info("Verify Jarak Iklan Maximum Text");
         Assert.assertTrue(isWaitElementPresent(getIdLocator(jarakIklanMax)));
+    }
+
+    public void verifyGpsNonActiveAlertTitle()
+    {
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertTitle)));
+        Log.info("Verify GPS non Active Title");
+    }
+
+    public void verifyGpsNonActiveAlertDesc()
+    {
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertDesc)));
+        Log.info("Verify GPS non Active Desc");
+    }
+
+    public void verifyGpsActiveBtn()
+    {
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsActiveBtn)));
+        Log.info("Verify GPS Activeted Button");
+    }
+
+    public void verifyGpsCancelBtn()
+    {
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsCancelPopup)));
+        Log.info("Verify GPS Activeted Button");
     }
 
     @Step("Verify System Display Content in Filter Page")
@@ -186,5 +216,59 @@ public class FilterByMapsLocationModule extends BasePage {
     public void openedTrayLocation() {
         Log.info("Expand Location Tray Menus");
         clickElement(getIdLocator(addressTitle));
+    }
+
+    @Override
+    public void swipePageTopToBtm() {
+        int starty = (int) (driver.manage().window().getSize().getHeight() * 0.004);
+        int endy = (int) (driver.manage().window().getSize().getHeight() * 0.95);
+        int startx = driver.manage().window().getSize().getWidth() / 2;
+        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
+    }
+
+    public void turnOffGPS() {
+        Log.info("Turn Off GPS");
+        swipePageTopToBtm();
+        swipePageTopToBtm();
+        clickElement(getTextLocator("Location"));
+        swipePageBtmtToTop();
+        swipePageBtmtToTop();
+        String currentActivity = ((AndroidDriver)driver).currentActivity();
+        ((AndroidDriver)driver).closeApp();
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+    }
+
+    public void turnOnGPS() {
+        Log.info("Turn On GPS");
+        String currentActivity = ((AndroidDriver)driver).currentActivity();
+        ((AndroidDriver)driver).closeApp();
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+        clickElement(getIdLocator(gpsActiveBtn));
+        clickElement(getIdLocator(switchOnGPS));
+        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
+                currentActivity);
+    }
+
+    public FilterByMapsLocationModule clickGPSCancelBtn()
+    {
+        Log.info("Click Tidak Sekarang Button");
+        clickElement(getIdLocator(gpsCancelPopup));
+        return new FilterByMapsLocationModule(driver);
+    }
+
+    public void verifyGpsAlertImage() {
+        Log.info("Verify Logo of Alert Pop Up");
+        Assert.assertTrue(isWaitElementPresent(getImageViewLocator(0)));
+    }
+
+    @Step("Verify All Content of GPS alert non active")
+    public void verifyGPSAlertDisplay() {
+        verifyGpsAlertImage();
+        verifyGpsNonActiveAlertTitle();
+        verifyGpsNonActiveAlertDesc();
+        verifyGpsActiveBtn();
+        verifyGpsCancelBtn();
     }
 }
