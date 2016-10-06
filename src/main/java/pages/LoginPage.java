@@ -48,8 +48,8 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
-        clickElement(getIdLocator(introTitleID));
+//        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
+//        clickElement(getIdLocator(introTitleID));
     }
 
     @Step("Verify All Contents of LoginPage")

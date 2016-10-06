@@ -27,8 +27,8 @@ public class FilterByMapsLocationModule extends BasePage {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    public static final String backBtn = "";
-    public static final String searchField = "com.app.tokobagus.betterb:id/edtLocation";
+    public static final String backBtn = "com.app.tokobagus.betterb:id/imageView_arrow_back";
+    public static final String searchField = "com.app.tokobagus.betterb:id/searchEditText_input";
     public static final String autoSuggest = "com.app.tokobagus.betterb:id/primaryText";
     public static final String autoSuggestFound = "com.app.tokobagus.betterb:id/secondaryText";
     public static final String myCurrentLocationBtn = "com.app.tokobagus.betterb:id/btnDetectMyLocation";
@@ -39,7 +39,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public static final String sliderRadius = "com.app.tokobagus.betterb:id/sbRadius";
     public static final String cariDiLokasiIniBtn = "com.app.tokobagus.betterb:id/btnSetLocation";
     public static final String baloonGmaps = "Lokasi saat ini.";
-    public static final String listView = "com.app.tokobagus.betterb:id/lvPlaces";
+    public static final String listView = "com.app.tokobagus.betterb:id/recyclerView_result";
     public static final String gpsAlertTitle = "GPS belum dihidupkan";
     public static final String gpsAlertDesc = "Mohon hidupkan fitur GPS untuk mencari iklan terdekat";
     public static final String gpsActiveBtn = "com.app.tokobagus.betterb:id/ok_button";
@@ -161,6 +161,7 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void chooseSuggestion(int index) {
+        Assert.assertTrue(isListElementPresent(suggestionAddressList));
         Log.debug("User choose : "+suggestionFoundList.get(index).getText());
         suggestionFoundList.get(index).click();
     }
@@ -222,6 +223,14 @@ public class FilterByMapsLocationModule extends BasePage {
     public void swipePageTopToBtm() {
         int starty = (int) (driver.manage().window().getSize().getHeight() * 0.004);
         int endy = (int) (driver.manage().window().getSize().getHeight() * 0.95);
+        int startx = driver.manage().window().getSize().getWidth() / 2;
+        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
+    }
+
+    @Override
+    public void swipePageBtmtToTop(){
+        int starty = (int) (driver.manage().window().getSize().getHeight() * 0.95);
+        int endy = (int) (driver.manage().window().getSize().getHeight() * 0.004);
         int startx = driver.manage().window().getSize().getWidth() / 2;
         ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
     }

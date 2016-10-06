@@ -28,7 +28,7 @@ public class FilterPage extends BasePage {
     public static final String backBtn = "Navigate up";
     public static final String searchField = "com.app.tokobagus.betterb:id/edtSearch";
     public static final String cancelBtn = "com.app.tokobagus.betterb:id/btnClearSearch";
-    public static final String locationBtn = "com.app.tokobagus.betterb:id/btnOpenMap";
+    public static final String locationBtn = "com.app.tokobagus.betterb:id/imgGpsIcon";
     public static final String myLocationBtn = "";
     public static final String terdekatRBtn = "com.app.tokobagus.betterb:id/rbNearest";
     public static final String terbaruRBtn = "com.app.tokobagus.betterb:id/rbNewest";

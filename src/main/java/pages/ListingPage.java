@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ListingPage extends BasePage{
 
-    public static final String hamburgerBar = "android.widget.ImageButton";
+    public static final String hamburgerBar = "Navigate up";
     public static final String titlePage = "Sulley";
     public static final String searchBtnPrmID = "com.app.tokobagus.betterb:id/search_item";
     public static final String filterBtnPrmID = "com.app.tokobagus.betterb:id/filter_item";
@@ -97,7 +97,7 @@ public class ListingPage extends BasePage{
 
     public void verifyHamburgerBar()
     {
-        Assert.assertTrue(isListElementPresent(hamburgerBarLayout));
+        Assert.assertTrue(isElementPresent(getContentLocator(hamburgerBar)));
         Log.info("Verify Hamburger Bar");
     }
     public void verifyTitlePage()
@@ -195,7 +195,7 @@ public class ListingPage extends BasePage{
     public HamburgerBarModule clickHamburgerBar()
     {
         Log.info("Click Hamburger Bar");
-        hamburgerBarLayout.get(0).click();
+        clickElement(getContentLocator(hamburgerBar));
         return new HamburgerBarModule(driver);
     }
 
@@ -259,14 +259,14 @@ public class ListingPage extends BasePage{
     public void verifyBtmBarDissappear()
     {
         Log.info("Verify Bottom Bar Dissapear as User Scrolling Down");
-        swipePageBtmtToTop();
+        super.swipePageBtmtToTop();
         Assert.assertFalse(isElementPresent(getIdLocator(btmBarId)));
     }
 
     public void verifyBtmBarAppear()
     {
         Log.info("Verify Bottom Bar Appear as User Scrolling Up");
-        swipePageTopToBtm();
+        super.swipePageTopToBtm();
         Assert.assertTrue(isElementPresent(getIdLocator(btmBarId)));
     }
 
@@ -284,10 +284,19 @@ public class ListingPage extends BasePage{
         ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
     }
 
+    @Override
+    public void swipePageBtmtToTop(){
+        int starty = (int) (driver.manage().window().getSize().getHeight() * 0.95);
+        int endy = (int) (driver.manage().window().getSize().getHeight() * 0.004);
+        int startx = driver.manage().window().getSize().getWidth() / 2;
+        ((AndroidDriver)driver).swipe(startx, starty, startx, endy, 700);
+    }
+
     public void turnOffGPS() {
         Log.info("Turn Off GPS");
         swipePageTopToBtm();
         swipePageTopToBtm();
+        Assert.assertTrue(isElementPresent(getTextLocator("Location")));
         clickElement(getTextLocator("Location"));
         swipePageBtmtToTop();
         swipePageBtmtToTop();

@@ -4,26 +4,20 @@ import athena.Sinon;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Attachment;
-
 import utils.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -394,18 +388,31 @@ public class BasePage  {
      * expected Time Out.
      *
      * @param locator is to spesific element.
-     * @param text is to spesific text scroll scroll will stop
      * @return boolean value
     */
-    public Boolean isElementPresentAfterScroll(final By locator) {
+    public Boolean isElementPresentAfterScrollDown(final By locator) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(2, TimeUnit.SECONDS)
+                .withTimeout(10, TimeUnit.SECONDS)
                 .pollingEvery(5, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 1000, 200, 45, 500);
+                ((AndroidDriver)driver).swipe(200, 500, 200, 45, 500);
+                return driver.findElement(locator).isDisplayed();
+            }
+        });
+    }
+
+    public Boolean isElementPresentAfterScrollUp(final By locator) {
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(10, TimeUnit.SECONDS)
+                .pollingEvery(5, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                swipePageTopToBtm();
                 return driver.findElement(locator).isDisplayed();
             }
         });

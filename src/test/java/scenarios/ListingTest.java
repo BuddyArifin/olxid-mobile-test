@@ -39,24 +39,24 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a user i want be able to see GPS Turn On Confirmations Alert ")
     @Title("Verify User able to get Confirmation Pop up to Turn On GPS")
     @TestCaseId("TC_LISTING_06_007, TC_LISTING_06_009")
-    @Test(priority = 2)
+    @Test(priority = 2, enabled = false)
     public void verifyAlertDisplayWhenGPSOff() {
         listingPage.turnOffGPS();
-        listingPage.verifyGPSAlertDisplay();
     }
 
     @Stories("As a User i want to able choose \"Tolak\" in pop-up Aktivasi GPS")
     @Title("Verify User able to choose \"Tolak\" in Pop-Up Aktivasi GPS")
     @TestCaseId("TC_LISTING_06_008")
-    @Test(priority = 3)
+    @Test(priority = 17, enabled = false)
     public void verifyUserAbletoSkipPopUpActivating() {
+        listingPage.verifyGPSAlertDisplay();
         listingPage.clickGPSCancelBtn();
     }
 
     @Stories("As a user i want be able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
     @Title("Verify User able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
     @TestCaseId("TC_LISTING_06_010")
-    @Test(priority = 4)
+    @Test(priority = 7, enabled = false)
     public void verifyUserAbleToChooseAktivasiGPS() {
         listingPage.turnOnGPS();
         listingPage.verifyContentsOfListingPage();
@@ -65,10 +65,9 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User i want to able see Content in Navigation Menu")
     @Title("Verify System display All Content in Navigation Menu")
     @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_027, TC_LISTING_06_026")
-    @Test(priority = 5)
+    @Test(priority = 3)
     public void verifyAllContentsInHamburgerBar()
     {
-        listingPage = new ListingPage(driver);
         hamburgerBarModule = listingPage.clickHamburgerBar();;
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
     }
@@ -76,7 +75,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a user i want to be able close Navigation Menu")
     @Title("Verify System didn't display navigation menu")
     @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_33")
-    @Test(priority = 6)
+    @Test(priority = 4)
     public void closeNavigationMenu()
     {
         listingPage = hamburgerBarModule.closeHamburgerBarDrawer();
@@ -86,13 +85,14 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a User I want enable Search ads")
     @Title("Verify Search ads by Keyword in Search Box")
     @TestCaseId("TC_LISTING_06_002")
-    @Test(priority = 7)
+    @Test(priority = 5)
     public void userAbleSearchAdsByInputtedKeyword()
     {
         listingPage.clickSearchBtnPrm();
         listingPage.inputSearchKeyword("Tas");
         listingPage.verifySuggestionList();
         listingPage.clickSuggestions();
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a User I want to Click 1Km dari Kamu")
@@ -103,6 +103,7 @@ public class ListingTest extends AndroidSetup {
     {
 
         filterByMapsLocationModule = listingPage.clickJarakDariKamuBtn();
+        filterByMapsLocationModule.clickCariDiLokasiIniBtn();
     }
 
     @Stories("As A User I want Bottom Bar Disappear")
@@ -130,7 +131,6 @@ public class ListingTest extends AndroidSetup {
     public void userAbleToClickFilterButton()
     {
         filterPage = listingPage.clickFilterBtnPrm();
-        filterPage.clickBackBtn();
     }
 
 
@@ -143,6 +143,7 @@ public class ListingTest extends AndroidSetup {
     @TestCaseId("TC_FILTER_08_010")
     @Test(priority = 12)
     public void verifyUserAbleToRedirectToMaps() {
+        filterPage.clickLocationButton();
         filterByMapsLocationModule.verifyAllContentInLocationPage();
     }
 

@@ -290,7 +290,7 @@ public class SaldoOlxModule extends BasePage {
 
     public void checkSyaratDanKetentuan()
     {
-        isElementPresentAfterScroll(getIdLocator(syaratDanKetentuanChkBox));
+        isElementPresentAfterScrollDown(getIdLocator(syaratDanKetentuanChkBox));
         verifySyaratDanKetentuanBerlaku();
         clickElement(getIdLocator(syaratDanKetentuanChkBox));
         Log.info("Check Syarat dan Ketentuan Check Box");

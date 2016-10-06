@@ -103,9 +103,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyConditionsAds(){
         Log.info("Verify Kondisi Barang pada Iklan display");
-        isElementPresentAfterScroll(getIdLocator(conditionsAds));
-        Assert.assertTrue(isElementPresent(getIdLocator(conditionsAds)));
-        isElementPresentAfterScroll(getIdLocator(moreInfoBtn));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(conditionsAds)));
     }
     public void verifyPostYearsAds(){
         Log.info("Verify Tahun dari Iklan display");
@@ -115,19 +113,18 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyDescriptionAds(){
         Log.info("Verify Deskripsi Iklan display");
-        Assert.assertTrue(isElementPresent(getIdLocator(descriptionsTitleAds)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(descriptionsTitleAds)));
         Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
     }
     public void verifyMoreInfoAds(){
         Log.info("Verify Lihat Selengkapnya pada deskripsi display");
-        Assert.assertTrue(isElementPresent(getIdLocator(moreInfoBtn)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(moreInfoBtn)));
         clickElement(getIdLocator(moreInfoBtn));
         Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
     }
     public void verifyAvatarSeller(){
         Log.info("Verify Avatar Profile Picture display");
-        isElementPresentAfterScroll(getIdLocator(avatarSeller));
-        Assert.assertTrue(isElementPresent(getIdLocator(avatarSeller)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(avatarSeller)));
     }
     public void verifyMemberJoinDate(){
         Log.info("Verify Member Join Date display");
@@ -138,18 +135,16 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyAdsLocations(){
         Log.info("Verify Lokasi Iklan dengan Maps");
-        isElementPresentAfterScroll(getIdLocator(adsLocation));
-        Assert.assertTrue(isElementPresent(getIdLocator(adsLocation)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(adsLocation)));
     }
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
-        isElementPresentAfterScroll(getIdLocator(hubungiPenjual));
-        Assert.assertTrue(isElementPresent(getIdLocator(idIklan)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(idIklan)));
 
     }
     public void verifyLihatIklanAndTestimoni(){
         Log.info("Verify Lihat Iklan dan Testimoni");
-        Assert.assertTrue(isElementPresent(getTextLocator(lihatIklanAndTestimoni)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getTextLocator(lihatIklanAndTestimoni)));
     }
     public void verifyLaporkanIklan(){
         Log.info("Verify Laporkan Iklan");
@@ -187,8 +182,8 @@ public class AdsDetailsPage extends BasePage {
         verifyAvatarSeller();
         verifyMemberJoinDate();
 //        verifyMemberRating();
-        verifyAdsLocations();
-        verifyidIklanNumber();
+//        verifyAdsLocations();
+//        verifyidIklanNumber();
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
         verifyHubungiPenjual();
@@ -205,6 +200,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void clickInfoLebihLanjut() {
         Log.info("Click Info Lebih Lanjut link Button");
+        Assert.assertTrue(isElementPresentAfterScrollUp(getIdLocator(lebihLanjutBtn)));
         clickElement(getIdLocator(lebihLanjutBtn));
     }
     public void clickFavoriteBtn() {
@@ -212,12 +208,13 @@ public class AdsDetailsPage extends BasePage {
         clickElement(getIdLocator(favoriteBtn));
     }
     public void clickLihatIklanAndTestimoni() {
-        isElementPresentAfterScroll(getTextLocator(lihatIklanAndTestimoni));
+        isElementPresentAfterScrollDown(getTextLocator(lihatIklanAndTestimoni));
         Log.info("Click Lihat Iklan dan Testimoni");
         clickElement(getTextLocator(lihatIklanAndTestimoni));
     }
     public void clickLaporkanIklan() {
         Log.info("Click Laporkan Iklan");
+        isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
         clickElement(getIdLocator(laporkanIklan));
     }
     public void clickAdsLocations() {
@@ -229,7 +226,7 @@ public class AdsDetailsPage extends BasePage {
         clickElement(getIdLocator(moreInfoBtn));
     }
     public void clickHubugiPenjual() {
-        isElementPresentAfterScroll(getIdLocator(hubungiPenjual));
+        isElementPresentAfterScrollDown(getIdLocator(hubungiPenjual));
         Log.info("Click Hubungi Penjual Button");
         clickElement(getIdLocator(hubungiPenjual));
     }
