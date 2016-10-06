@@ -68,6 +68,10 @@ public class CategoryPreferencesPage extends BasePage {
         for (int i = 0 ; i < categoryList.size() ; i++) {
             String category = getCategoryTitle(i);
             Log.info("* " + category + " ");
+            if (i >=2 && categoryList.size() >=2 ) {
+                Log.info("...");
+                break;
+            }
             Assert.assertNotNull(category);
         }
     }

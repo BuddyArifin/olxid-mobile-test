@@ -45,6 +45,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public static final String gpsActiveBtn = "com.app.tokobagus.betterb:id/ok_button";
     public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
     public static final String switchOnGPS = "com.android.settings:id/switch_widget";
+    public String locationText = "";
 
 
     @AndroidFindBys({
@@ -151,12 +152,14 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifySuggestions() {
         Log.debug("Available Suggestions ["+suggestionFoundList.size()+"] :");
         for (int i = 0 ; i < suggestionFoundList.size() ; i++) {
-            Log.info("* " +suggestionFoundList.get(i).getText()+ ": "
-                    +suggestionAddressList.get(i).getText());
+            String suggestion = suggestionFoundList.get(i).getText();
+            Log.info("* " +suggestion+ ": "
+                    +suggestion);
             if ( i >= 2 && suggestionFoundList.size() >= 2) {
                 Log.info("...");
                 break;
             }
+            Assert.assertNotNull(suggestion);
         }
     }
 
@@ -205,6 +208,7 @@ public class FilterByMapsLocationModule extends BasePage {
         //Move it 40%
         int moveTo=(int)(end*0.4);
         action.longPress(start,y).moveTo(moveTo,y).release().perform();
+        locationText = getStringText(getIdLocator(addressTitle));
         Log.info("Slide Right Direction Slider Radius");
     }
 

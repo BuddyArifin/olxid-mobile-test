@@ -5,6 +5,7 @@ import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.CategoryPreferencesPage;
 import pages.FilterPage;
 import pages.ListingPage;
 import pages.LoginPage;
@@ -24,6 +25,7 @@ public class ListingTest extends AndroidSetup {
     HamburgerBarModule hamburgerBarModule;
     FilterPage filterPage;
     FilterByMapsLocationModule filterByMapsLocationModule;
+    CategoryPreferencesPage categoryPreferencesPage;
 
     @Stories("As a User I want to See Content in ListingPage")
     @Title("Verify System able to Display Content in ListingPage")
@@ -178,5 +180,18 @@ public class ListingTest extends AndroidSetup {
     public void userAbleToChangeRadius() {
         filterByMapsLocationModule.slideRightSliderRadius();
         filterByMapsLocationModule.clickCariDiLokasiIniBtn();
+        filterPage.clickSimpanButton();
+        listingPage.verifyLocationsChanged(
+                filterByMapsLocationModule.locationText);
+    }
+
+
+    @Stories("As A User I want to Able Click Button in Bottom Bar")
+    @Title("Verify User able to click Kategori on Bottom Bar")
+    @TestCaseId("TC_LISTING_06_021")
+    @Test(priority = 17)
+    public void userAbleGoToKategoriPage() {
+        categoryPreferencesPage = listingPage.clickKategoriBtnBtm();
+        categoryPreferencesPage.verifyCategoryListing();
     }
 }

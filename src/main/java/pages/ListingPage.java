@@ -229,11 +229,11 @@ public class ListingPage extends BasePage{
         return new FilterByMapsLocationModule(driver);
     }
 
-    public KategoriPage clickKategoriBtnBtm()
+    public CategoryPreferencesPage clickKategoriBtnBtm()
     {
         Log.info("Click Kategori Bottom Bar Button");
         clickElement(getIdLocator(kategoriBtnBtmID));
-        return new KategoriPage(driver);
+        return new CategoryPreferencesPage(driver);
     }
 
     public PostAdsPage clickJualBtnBtm()
@@ -268,6 +268,11 @@ public class ListingPage extends BasePage{
         Log.info("Verify Bottom Bar Appear as User Scrolling Up");
         super.swipePageTopToBtm();
         Assert.assertTrue(isElementPresent(getIdLocator(btmBarId)));
+    }
+
+    public void verifyLocationsChanged(String text){
+        Log.info("Verify Locations Changed to "+text);
+        Assert.assertTrue(getStringText(getIdLocator(jarakDariKamuBtnID)).contains(text));
     }
 
     public AdsDetailsPage selectAdsFromListing() {
