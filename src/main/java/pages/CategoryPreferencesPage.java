@@ -56,6 +56,11 @@ public class CategoryPreferencesPage extends BasePage {
         verifySimpanBtn();
     }
 
+    @Step("Verify All Contents of Category View from Bottom Bar")
+    public void verifyAllContentsOfCategoryViewPage() {
+        verifyCategoryListing();
+    }
+
     public void verifyTitleListing() {
         Log.info("Verify Title Category Page");
         Assert.assertTrue(isWaitElementPresent(getTextLocator(titleListingText)));
