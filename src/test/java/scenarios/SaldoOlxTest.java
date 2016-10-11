@@ -75,6 +75,10 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_004")
     @Test(priority = 5)
     public void verifyUserAbleToSeeTransactionHistoryByTappingHistoryTransactions() {
+        hamburgerBarModule.clickSaldoOLXBtn();
+        saldoOlxModule.verifyAllContentOfSaldoOlx();
+        saldoOlxModule.clickHistoryTransaction();
+
     }
 
     @Stories("As A User i want be able to verify All Contents of History Transaction Page")
@@ -82,11 +86,20 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_005")
     @Test(priority = 6)
     public void verifyUserAbleToVerifyAllContentsOfHistoryTransactionPage() {
+        saldoOlxModule.verifyAllContentHistoryTransaction();
+    }
+
+    @Stories("As A User I want be able to back to Saldo OLX ")
+    @Title("Verify User able to back to Saldo OLX by Tapping Back Button")
+    @TestCaseId("TC_SALDO_12_00")
+    @Test(priority = 7)
+    public void verifyUserAbleToBackToSaldoOlxPage() {
+        saldoOlxModule.clickBackBtn();
     }
 
     @Stories("As A User I want to be able redirect to Isi Ulang Saldo OLX Page, after tapping ISI ULANG SALDO Button")
     @Title("Verify User able to redirect to ISI Ulang OLX Page, after tapping ISI ULANG SALDO Button")
-    @TestCaseId("TC_SALDO_12_006")
+    @TestCaseId("TC_SALDO_12_007")
     @Test(priority = 7)
     public void verifyUserAbleToRedirectToIsiUlangOLXPageAfterClickIsiUlangSaldoButton() {
         hamburgerBarModule.clickSaldoOLXBtn();
@@ -96,7 +109,7 @@ public class SaldoOlxTest extends AndroidSetup {
 
     @Stories("As A User i want to be able to verify All Contents of ISI Ulang Saldo Page")
     @Title("Verify User able to verify All Contents of ISI Ulang Page")
-    @TestCaseId("TC_SALDO_12_007")
+    @TestCaseId("TC_SALDO_12_008")
     @Test(priority = 8)
     public void verifyUserAbleToVerifyAllContentsOfIsiUlangPage() {
         saldoOlxModule.verifyContentIsiUlangPage();
@@ -104,7 +117,7 @@ public class SaldoOlxTest extends AndroidSetup {
 
     @Stories("As A User i want to be able to Choose Nominal Price Saldo.")
     @Title("Verify User able to choose Nominal Price Saldo")
-    @TestCaseId("TC_SALDO_12_008")
+    @TestCaseId("TC_SALDO_12_009")
     @Test(priority = 9)
     public void verifyUserAbleToChooseNominalPriceSaldo() {
         saldoOlxModule.clickOneOfNominalSaldoRadioButton();
@@ -112,7 +125,7 @@ public class SaldoOlxTest extends AndroidSetup {
 
     @Stories("As A User i want to be able to Accept \"Syarat dan Ketentuan\"")
     @Title("Verify User able to Accept \"Syarat dan Ketentuan\"")
-    @TestCaseId("TC_SALDO_12_009")
+    @TestCaseId("TC_SALDO_12_010")
     @Test(priority = 10)
     public void verifyUserAbleToAcceptSyaratDanKetentuan() {
         saldoOlxModule.checkSyaratDanKetentuan();
@@ -120,7 +133,7 @@ public class SaldoOlxTest extends AndroidSetup {
 
     @Stories("As A User I want to be able to Click Bayar Button")
     @Title("Verify User able to Click Bayar Button")
-    @TestCaseId("TC_SALDO_12_010")
+    @TestCaseId("TC_SALDO_12_011")
     @Test(priority = 11)
     public void verifyUserAbleToClickBayarButton() {
         saldoOlxModule.clickBayarButton();

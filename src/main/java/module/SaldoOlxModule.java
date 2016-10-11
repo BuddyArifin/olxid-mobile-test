@@ -1,22 +1,33 @@
 package module;
 
+import com.google.common.base.Function;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by buddyarifin on 9/26/16.
  */
 public class SaldoOlxModule extends BasePage {
+
+
+    public static final String historyTransactionTitle = "Riwayat Transaksi";
 
     public SaldoOlxModule(WebDriver driver) {
         super(driver);
@@ -53,12 +64,20 @@ public class SaldoOlxModule extends BasePage {
     public static final String noTransaction = "com.app.tokobagus.betterb:id/rowTransaction_tvTransNumber";
     public static final String noTransactionStatus = "com.app.tokobagus.betterb:id/rowTransaction_tvTransStatus";
     public static final String transactionPrice = "com.app.tokobagus.betterb:id/rowTransaction_tvPromoPrice";
+    public static final String transactionHistory = "com.app.tokobagus.betterb:id/btn_show_transaction_history";
 
 
     @AndroidFindBys({
             @AndroidFindBy(id = nominalSaldoRadioButton)
     })
     protected List<AndroidElement> nominalRadioButtonGroup;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/historyTransOlxId_pagerIndicator"),
+            @AndroidFindBy(className = "android.widget.LinearLayout"),
+            @AndroidFindBy(className = "android.widget.TextView")
+    })
+    protected List<AndroidElement> threePanels;
 
     @Step("Verify All Contents of Saldo Olx Page")
     public void verifyAllContentOfSaldoOlx()
@@ -172,6 +191,12 @@ public class SaldoOlxModule extends BasePage {
         Log.info("Click Back Button");
         return new HamburgerBarModule(driver);
     }
+
+    public void clickBackBtn()
+    {
+        Log.info("Click Back Button");
+        clickElement(getContentLocator(backbutton));
+    }
     public void clickSkipBanner()
     {
         clickElement(getIdLocator(skipBanner));
@@ -192,6 +217,7 @@ public class SaldoOlxModule extends BasePage {
     public void clickHistoryTransaction()
     {
         Log.info("Click History Transaction");
+        clickElement(getIdLocator(transactionHistory));
     }
 
     public void clickNextInfoImageBanner()
@@ -212,24 +238,32 @@ public class SaldoOlxModule extends BasePage {
         Log.info("Click Next Image Slide");
     }
 
+
+    /**
+     * History Transaction Page Sections
+     * */
+
+
     @Step("Verify All Content in History Transaction Page")
     public void verifyAllContentHistoryTransaction()
     {
         verifyBackbutton();
-        verifySaldoOLXTitle();
+        verifyHistoryTransactionTitle();
         verifyThreePanelStatus();
         verifyIsiUlangOLXBtn();
         verifyTransactionHistoryRelatedUsage();
     }
 
-    public void verifySaldoOLXTitle()
+    public void verifyHistoryTransactionTitle()
     {
         Log.info("Verify Saldo OLX Title");
+        Assert.assertTrue(isElementPresent(getTextLocator(historyTransactionTitle)));
     }
 
     public void verifyThreePanelStatus()
     {
         Log.info("Verify Three Panel Status");
+        Assert.assertTrue(isListElementPresent(threePanels));
     }
 
     public void verifyIsiUlangOLXBtn()
@@ -241,6 +275,11 @@ public class SaldoOlxModule extends BasePage {
     {
         Log.info("Verify Transaction History Related Usage");
     }
+
+
+    /**
+     * Isi Ulang Page Sections
+     * */
 
     @Step("Verify All Content ini Isi Ulang Page")
     public void verifyContentIsiUlangPage()
@@ -290,16 +329,35 @@ public class SaldoOlxModule extends BasePage {
 
     public void checkSyaratDanKetentuan()
     {
-        isElementPresentAfterScrollDown(getIdLocator(syaratDanKetentuanChkBox));
+        Log.info("Check Syarat dan Ketentuan Check Box");
+        isElementPresentAfterScrollDown(getIdLocator(saldoAndaAmount));
         verifySyaratDanKetentuanBerlaku();
         clickElement(getIdLocator(syaratDanKetentuanChkBox));
-        Log.info("Check Syarat dan Ketentuan Check Box");
     }
 
     public void clickBayarButton()
     {
+        Log.info("Click Bayar Button");
         verifyBayarButton();
         clickElement(getIdLocator(bayarBtn));
-        Log.info("Click Bayar Button");
+    }
+
+    @Override
+    public Boolean isElementPresentAfterScrollDown(By locator){
+        WebElement element = driver.findElement(locator);
+        int excludeLocator = element.getSize().getHeight();
+        int startY = driver.manage().window().getSize().getHeight() - excludeLocator;
+        int endY = (int) (driver.manage().window().getSize().getHeight() * 0.04);
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(10, TimeUnit.SECONDS)
+                .pollingEvery(5, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                ((AndroidDriver)driver).swipe(200, startY, 200, endY, 500);
+                return driver.findElement(locator).isDisplayed();
+            }
+        });
     }
 }
