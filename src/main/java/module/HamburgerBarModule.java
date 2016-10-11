@@ -77,10 +77,11 @@ public class HamburgerBarModule extends BasePage {
     }
 
     @Step("Click Profil Saya Button")
-    public void clickProfilSayaBtn()
+    public ProfilSayaModule clickProfilSayaBtn()
     {
         clickElement(getTextLocator(profilSayaBtn));
         Log.info("Click Profil Saya Button");
+        return new ProfilSayaModule(driver);
     }
 
     @Step("Click Iklan Saya Button")

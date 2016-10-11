@@ -25,7 +25,7 @@ public class ListingPage extends BasePage{
     public static final String searchBtnPrmID = "com.app.tokobagus.betterb:id/search_item";
     public static final String filterBtnPrmID = "com.app.tokobagus.betterb:id/filter_item";
     public static final String jarakDariKamuBtnID = "com.app.tokobagus.betterb:id/distance";
-    public static final String locationAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
+    public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String gambarIklan = "com.app.tokobagus.betterb:id/iv_ad_item_image";
     public static final String hargaIklan = "com.app.tokobagus.betterb:id/tv_ad_item_price";
     public static final String homeBtnBtmID = "com.app.tokobagus.betterb:id/tab_listing";
@@ -79,7 +79,7 @@ public class ListingPage extends BasePage{
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-        isAutoAcept(getIdLocator(locationAllowAccessBtn));
+        isAutoAcept(getIdLocator(permissionAllowAccessBtn));
         verifyHamburgerBar();
         verifyTitlePage();
         verifySearchBtnPrm();
@@ -240,6 +240,7 @@ public class ListingPage extends BasePage{
     {
         Log.info("Click Jual Bottom Bar Button");
         clickElement(getIdLocator(jualBtnBtmID));
+        isAutoAcept(getIdLocator(permissionAllowAccessBtn));
         return new PostAdsPage(driver);
     }
 

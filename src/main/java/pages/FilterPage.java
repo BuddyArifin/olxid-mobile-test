@@ -498,12 +498,6 @@ public class FilterPage extends BasePage {
         Log.info("Input " + parentValueText + " : " + inputText);
     }
 
-    public void splitInputCheckBoxValuText(String inputText)
-    {
-        String[] splitText = inputText.split(",");
-
-    }
-
     public void inputLuasTanah(String keyword)
     {
         inputMethod(luasTanahLayout, keyword);
@@ -532,21 +526,24 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String tipeKendaraanLayout = "Tipe kendaraan";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tipeKendaraanLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihTransmisi(String inputText)
     {
         String transmisiLayout = "Transmisi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, transmisiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihTahun(String inputText)
     {
         String tahunLayout = "Tahun";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tahunLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihKamarTidur(String inputText)
@@ -554,7 +551,8 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String kamarTidurLayout = "Kamar tidur";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarTidurLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihKamarMandi(String inputText)
@@ -562,14 +560,16 @@ public class FilterPage extends BasePage {
         swipePageBtmtToTop();
         String kamarMandiLayout = "Kamar mandi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarMandiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihSertifikasi(String inputText)
     {
         String sertifikasiLayout = "Sertifikasi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, sertifikasiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
 
@@ -577,7 +577,8 @@ public class FilterPage extends BasePage {
     {
         String fasilitasLayout = "Fasilitas";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle,pilihBtn);
+        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickElement(getIdLocator(pilihBtn));
     }
 
     /**
@@ -592,15 +593,14 @@ public class FilterPage extends BasePage {
         int leftWidth = activeLayout.getLocation().getX();
         int middleWidth = activeLayout.getSize().getWidth() / 2;
         int rightWidth = activeLayout.getSize().getWidth();
-        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 3000);
+        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 500);
     }
 
     /**
      * This below method has made that can click several selection checkbox with several selection inputText
      * the method can scroll automatically if needed
      */
-    public void clickCheckBoxElement(String inputText, String activeLayoutId,
-                                     List<AndroidElement> childElement, String acceptBtnId)
+    public void clickCheckBoxElement(String inputText, String activeLayoutId, List<AndroidElement> childElement)
     {
         List<String> listString = new ArrayList<String>(Arrays.asList(inputText.split("/")));
         Collections.sort(listString);
@@ -631,7 +631,8 @@ public class FilterPage extends BasePage {
                 }
             }
         }
-        clickElement((getIdLocator(acceptBtnId)));
+
+
 
 //        for (int i = 0; i <= parentElement.size(); i++)
 //        {
