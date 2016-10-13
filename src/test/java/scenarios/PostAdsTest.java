@@ -227,10 +227,66 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able input Description and no character limit")
     @Title("Verify user able to input Description and no character limit")
     @TestCaseId("TC_JUAL_11_029")
-    @Test(priority = 20, enabled = false)
+    @Test(priority = 20)
     public void verifyUserAbleToInputDescriptionAndNoCharacterLimit()
     {
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Xiaomi Layar 5.5 inci, kondisi 99% bagus");
+        postAdsPage.verifyNoLimitCharacterDescription();
+    }
 
+    @Stories("As a user i will not able to Post ads")
+    @Title("Verify user not able to post ads if Pemrosesan Data not check")
+    @TestCaseId("TC_JUAL_11_032")
+    @Test(priority = 32, enabled = false)
+    public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
+    {
+        postAdsPage.clickSimpanBtn();
+    }
+
+    @Stories("As a user i want to able check Pemrosesan Data")
+    @Title("Verify user able to check Pemrosesan Data")
+    @TestCaseId("TC_JUAL_11_033")
+    @Test(priority = 33, enabled = false)
+    public void verifyUserAbleToCheckPemrosesanData()
+    {
+        postAdsPage.clickCheckBoxPemrosesanData();
+    }
+
+    @Stories("As a user i want to able post Ads")
+    @Title("Verify user success Post Ads")
+    @TestCaseId("TC_JUAL_11_034")
+    @Test(priority = 34, enabled = false)
+    public void verifyUserSuccessPostAds()
+    {
+        postAdsPage.clickSimpanBtn();
+    }
+
+    @Stories("As a user i want to be see content Pop-Up Confirmation")
+    @Title("Verify System display content in Pop-Up Confirmation")
+    @TestCaseId("TC_JUAL_11_035, TC_JUAL_11_036")
+    @Test(priority = 36, enabled = false)
+    public void verifySystemDisplayContentInPopUpConfirmation()
+    {
+        postAdsPage.verifyContentInPopUpSuccessPosting();
+    }
+
+    @Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
+    @Title("Verify user able click \"Gunakan Fitur Top Listing\"")
+    @TestCaseId("TC_JUAL_11_037")
+    @Test(priority = 37, enabled = false)
+    public void verifyUserAbleClickGunakanFiturTopListingButton()
+    {
+        postAdsPage.clickGunakanFiturTopListingButton();
+    }
+
+    @Stories("As a user i want to be able click \"Tutup\"")
+    @Title("Verify user able click \"Tutup\"")
+    @TestCaseId("TC_JUAL_11_038")
+    @Test(priority = 38, enabled = false)
+    public void verifyUserAbleClickTutupButton()
+    {
+        postAdsPage.clickTutupPopUpConfirmationButton();
     }
 
     @Stories("As a user i want to be able skip input \"Description\"")
@@ -249,69 +305,12 @@ public class PostAdsTest extends AndroidSetup {
     {
     }
 
-    @Stories("As a user i will not able to Post ads")
-    @Title("Verify user not able to post ads if Pemrosesan Data not check")
-    @TestCaseId("TC_JUAL_11_032")
-    @Test(priority = 32, enabled = false)
-    public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
-    {
-    }
-
-    @Stories("As a user i want to able check Pemrosesan Data")
-    @Title("Verify user able to check Pemrosesan Data")
-    @TestCaseId("TC_JUAL_11_033")
-    @Test(priority = 33, enabled = false)
-    public void verifyUserAbleToCheckPemrosesanData()
-    {
-    }
-
-    @Stories("As a user i want to able post Ads")
-    @Title("Verify user success Post Ads")
-    @TestCaseId("TC_JUAL_11_034")
-    @Test(priority = 34, enabled = false)
-    public void verifyUserSuccessPostAds()
-    {
-    }
-
-    @Stories("As a user i want to be able see Posting Ad Pop-Up confirmation")
-    @Title("Verify System display Post Ads Pop-Up confirmation")
-    @TestCaseId("TC_JUAL_11_035")
-    @Test(priority = 35, enabled = false)
-    public void verifySystemDisplayPostAdsPopUpConfirmation()
-    {
-    }
-
-    @Stories("As a user i want to be see content Pop-Up Confirmation")
-    @Title("Verify System display content in Pop-Up Confirmation")
-    @TestCaseId("TC_JUAL_11_036")
-    @Test(priority = 36, enabled = false)
-    public void verifySystemDisplayContentInPopUpConfirmation()
-    {
-    }
-
-    @Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
-    @Title("Verify user able click \"Gunakan Fitur Top Listing\"")
-    @TestCaseId("TC_JUAL_11_037")
-    @Test(priority = 37, enabled = false)
-    public void verifyUserAbleClickGunakanFiturTopListingButton()
-    {
-    }
-
-    @Stories("As a user i want to be able click \"Tutup\"")
-    @Title("Verify user able click \"Tutup\"")
-    @TestCaseId("TC_JUAL_11_038")
-    @Test(priority = 38, enabled = false)
-    public void verifyUserAbleClickTutupButton()
-    {
-    }
-
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
     @TestCaseId("TC_JUAL_11_026")
     @Test(priority = 26, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
-
     }
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")

@@ -67,6 +67,9 @@ public class PostAdsPage extends BasePage {
     public static final String categoryTitle = "com.app.tokobagus.betterb:id/tvCategoryTitle";
     public static final String iconThumbGallery = "com.android.documentsui:id/icon_thumb";
     public static final String optionGalleryOrCamera = "android:id/content";
+    public static final String descriptionLayout = "com.app.tokobagus.betterb:id/descriptionLayout";
+    public static final String linearLayoutClass = "android.widget.LinearLayout";
+    public static final String textViewClass = "android.widget.TextView";
     public static final String galeriFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultNeutral";
     public static final String kameraFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
@@ -129,6 +132,13 @@ public class PostAdsPage extends BasePage {
             @AndroidFindBy(id = categoryTitle)
     })
     protected List<AndroidElement> subCategoryTitle;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = descriptionLayout),
+        @AndroidFindBy(className = linearLayoutClass),
+        @AndroidFindBy(className = textViewClass)
+    })
+    protected List<AndroidElement> textViewCharacter;
 
     @Step("Verify Content in Camera Page")
     public void verifyContentInCameraPage()
@@ -717,23 +727,30 @@ public class PostAdsPage extends BasePage {
 
     public void inputDetilTambahanDanDeskripsi(String inputText)
     {
-        String[] listString = inputText.split("");
-//        List<String> listString = new ArrayList<String>(Arrays.asList(inputText.split("")));
-        for(int i = 0; i < 4096; i++)
-        {
-            String splitan = listString[i]+" ";
-            sendKeysById(getIdLocator(deskripsiEditText), splitan.charAt(i));
-            if (i % 4 == 0) {
-                splitan += splitan;
-            }
-        }
+        swipePageBtmtToTop();
         sendKeysById(getIdLocator(deskripsiEditText), inputText);
-//        sen
         Log.info("Input Detil Tambahan dan Deskripsi");
     }
 
     public void verifyNoLimitCharacterDescription()
     {
+        String[] characterLimit = textViewCharacter.get(1).getText().split(" / ");
+        Boolean limitReach;
+        int useCharacter = Integer.parseInt(characterLimit[0]);
+        int totalCharacter = Integer.parseInt(characterLimit[1]);
+        if (useCharacter < totalCharacter)
+        {
+            limitReach = false;
+            Log.info("Jumlah character yang di gunakan : "+characterLimit[0]+". Dari "+characterLimit[1]+" character");
+            Log.info("Your description is not reached character limit");
+        }
+        else
+        {
+            limitReach = true;
+            Log.info("Jumlah character yang di gunakan : "+characterLimit[0]+". Dari "+characterLimit[1]+" character");
+            Log.info("Your description is full");
+        }
+        Assert.assertFalse(limitReach);
         Log.info("Verify No Limit Character Description");
     }
 
