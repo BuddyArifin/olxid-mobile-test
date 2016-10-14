@@ -206,28 +206,19 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionKategori();
     }
 
-    @Stories("As a user i want to be able see suggestion Price")
-    @Title("Verify system able to display suggestion Price")
-    @TestCaseId("TC_JUAL_11_024")
-    @Test(priority = 18)
-    public void verifySystemAbleToDisplaySuggestionPrice()
-    {
-        postAdsPage.verifySuggestionHarga();
-    }
-
     @Stories("As a user i want to be able click and input price Ads")
     @Title("Verify user able to click and input price Ads")
-    @TestCaseId("TC_JUAL_11_023")
-    @Test(priority = 19)
+    @TestCaseId("TC_JUAL_11_023, TC_JUAL_11_024")
+    @Test(priority = 18)
     public void verifyUserAbleToClickAndInputPriceAds()
     {
-        postAdsPage.inputHarga("10000000");
+        postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
     }
 
     @Stories("As a user i want to be able input Description and no character limit")
     @Title("Verify user able to input Description and no character limit")
     @TestCaseId("TC_JUAL_11_029")
-    @Test(priority = 20)
+    @Test(priority = 19)
     public void verifyUserAbleToInputDescriptionAndNoCharacterLimit()
     {
         postAdsPage.clickDetilTambahDanDeskripsi();
@@ -238,16 +229,16 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i will not able to Post ads")
     @Title("Verify user not able to post ads if Pemrosesan Data not check")
     @TestCaseId("TC_JUAL_11_032")
-    @Test(priority = 32, enabled = false)
+    @Test(priority = 20, enabled = false)
     public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
     {
-        postAdsPage.clickSimpanBtn();
+        postAdsPage.clickPasangIklanButton();
     }
 
     @Stories("As a user i want to able check Pemrosesan Data")
     @Title("Verify user able to check Pemrosesan Data")
     @TestCaseId("TC_JUAL_11_033")
-    @Test(priority = 33, enabled = false)
+    @Test(priority = 21)
     public void verifyUserAbleToCheckPemrosesanData()
     {
         postAdsPage.clickCheckBoxPemrosesanData();
@@ -256,16 +247,16 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to able post Ads")
     @Title("Verify user success Post Ads")
     @TestCaseId("TC_JUAL_11_034")
-    @Test(priority = 34, enabled = false)
+    @Test(priority = 22)
     public void verifyUserSuccessPostAds()
     {
-        postAdsPage.clickSimpanBtn();
+        postAdsPage.clickPasangIklanButton();
     }
 
     @Stories("As a user i want to be see content Pop-Up Confirmation")
     @Title("Verify System display content in Pop-Up Confirmation")
     @TestCaseId("TC_JUAL_11_035, TC_JUAL_11_036")
-    @Test(priority = 36, enabled = false)
+    @Test(priority = 23)
     public void verifySystemDisplayContentInPopUpConfirmation()
     {
         postAdsPage.verifyContentInPopUpSuccessPosting();
@@ -274,7 +265,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
     @Title("Verify user able click \"Gunakan Fitur Top Listing\"")
     @TestCaseId("TC_JUAL_11_037")
-    @Test(priority = 37, enabled = false)
+    @Test(priority = 24, enabled = false)
     public void verifyUserAbleClickGunakanFiturTopListingButton()
     {
         postAdsPage.clickGunakanFiturTopListingButton();
@@ -283,16 +274,17 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able click \"Tutup\"")
     @Title("Verify user able click \"Tutup\"")
     @TestCaseId("TC_JUAL_11_038")
-    @Test(priority = 38, enabled = false)
+    @Test(priority = 25)
     public void verifyUserAbleClickTutupButton()
     {
-        postAdsPage.clickTutupPopUpConfirmationButton();
+        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user i want to be able skip input \"Description\"")
     @Title("Verify user able to skip input Description")
     @TestCaseId("TC_JUAL_11_030")
-    @Test(priority = 30, enabled = false)
+    @Test(priority = 26, enabled = false)
     public void verifyUserAbleToSkipInputDescription()
     {
     }
@@ -300,7 +292,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able input description later")
     @Title("Verify user able to input Description later")
     @TestCaseId("TC_JUAL_11_031")
-    @Test(priority = 31, enabled = false)
+    @Test(priority = 27, enabled = false)
     public void verifyUserAbleToInputDescriptionLater()
     {
     }
@@ -308,15 +300,36 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
     @TestCaseId("TC_JUAL_11_026")
-    @Test(priority = 26, enabled = false)
+    @Test(priority = 28)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
+        postAdsPage = listingPage.clickJualBtnBtm();
+        postAdsPage.verifyContentInCameraPage();
+        postAdsPage.clickShutterBtn();
+        postAdsPage.verifyContentAdditionalInCameraPage();
+        postAdsPage.inputJudulAds("Mobil Audi TT Tahun 2015");
+        postAdsPage.clickSimpanBtn();
+        postAdsPage.verifyContentPostingForm();
+        postAdsPage.clickKategoriAds();
+        postAdsPage.clickMobilBekasAudiCategory();
+        postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
+        postAdsPage.inputAdditionalInputFieldTipeKendaraan();
+        postAdsPage.inputAdditionalInputFieldTransmisi();
+        postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.clickCheckBoxPemrosesanData();
+        postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyContentInPopUpSuccessPosting();
+        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
     @TestCaseId("TC_JUAL_11_027")
-    @Test(priority = 27, enabled = false)
+    @Test(priority = 29, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
     }
@@ -324,10 +337,28 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field in \"Jasa & Lowongan\" Kategori")
     @TestCaseId("TC_JUAL_11_025, TC_JUAL_11_028")
-    @Test(priority = 28, enabled = false)
+    @Test(priority = 30)
     public void verifySystemAbleToDisplayAdditionalInputFieldJasaDanLowonganKategori()
     {
+        postAdsPage = listingPage.clickJualBtnBtm();
+        postAdsPage.verifyContentInCameraPage();
+        postAdsPage.clickShutterBtn();
+        postAdsPage.verifyContentAdditionalInCameraPage();
+        postAdsPage.inputJudulAds("Dicari Karyawan Untuk Administrasi");
+        postAdsPage.clickSimpanBtn();
+        postAdsPage.verifyContentPostingForm();
+        postAdsPage.clickKategoriAds();
+        postAdsPage.clickJasaLowonganAdministrasi();
+        postAdsPage.verifyHargaChangeToGaji();
+        postAdsPage.verifyAdditionalInputFieldJasaLowonganCategory();
+        postAdsPage.inputAdditionalInputFieldGajiMinimal("3000000");
+        postAdsPage.inputAdditionalInputFieldGajiMaksimal("6000000");
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dicari 5 Orang Karyawan Di Bidang Administrasi");
+        postAdsPage.clickCheckBoxPemrosesanData();
+        postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyContentInPopUpSuccessPosting();
+        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
+        listingPage.verifyContentsOfListingPage();
     }
-
-
 }

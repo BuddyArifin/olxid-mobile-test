@@ -1,9 +1,11 @@
 package pages;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -63,6 +65,11 @@ public class PostAdsPage extends BasePage {
     public static final String layoutAspectRation = "com.app.tokobagus.betterb:id/layout_aspect_ratio";
     public static final String frameLayoutClass = "android.widget.FrameLayout";
     public static final String recycleViewCategory = "com.app.tokobagus.betterb:id/rvCategory";
+    public static final String recycleViewCategoryInputField = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
+    public static final String inputCategoryTitleID = "com.app.tokobagus.betterb:id/tvOptionName";
+    public static final String linearLayoutInputField = "com.app.tokobagus.betterb:id/categoryParamsLayout";
+    public static final String dropDownInputFieldTitle = "com.app.tokobagus.betterb:id/tvTitle";
+    public static final String dropDownInputField = "com.app.tokobagus.betterb:id/btnSelection";
     public static final String linearLayoutContainer = "com.app.tokobagus.betterb:id/layoutContainer";
     public static final String categoryTitle = "com.app.tokobagus.betterb:id/tvCategoryTitle";
     public static final String iconThumbGallery = "com.android.documentsui:id/icon_thumb";
@@ -72,6 +79,8 @@ public class PostAdsPage extends BasePage {
     public static final String textViewClass = "android.widget.TextView";
     public static final String galeriFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultNeutral";
     public static final String kameraFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public String suggestedHarga = "";
+    public Boolean suggestionHarga;
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
 
     @AndroidFindBys({
@@ -112,7 +121,7 @@ public class PostAdsPage extends BasePage {
             @AndroidFindBy(className = relativeLayoutClass),
             @AndroidFindBy(className = relativeLayoutClass),
             @AndroidFindBy(className = relativeLayoutClass),
-            @AndroidFindBy(id = recyclerViewPhoto),
+            @AndroidFindBy(id = recycleViewCategory),
             @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement1;
@@ -139,6 +148,30 @@ public class PostAdsPage extends BasePage {
         @AndroidFindBy(className = textViewClass)
     })
     protected List<AndroidElement> textViewCharacter;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = recycleViewCategoryInputField),
+        @AndroidFindBy(className = linearLayoutClass)
+    })
+    protected List<AndroidElement> inputCategory;
+
+    @AndroidFindBys({
+        @AndroidFindBy(id = recycleViewCategoryInputField),
+        @AndroidFindBy(id = inputCategoryTitleID)
+    })
+    protected List<AndroidElement> inputCategoryTitle;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = linearLayoutInputField),
+            @AndroidFindBy(id = dropDownInputField)
+    })
+    protected List<AndroidElement> dropDownListElement;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = linearLayoutInputField),
+            @AndroidFindBy(id = dropDownInputFieldTitle)
+    })
+    protected List<AndroidElement> textViewDropDownTitle;
 
     @Step("Verify Content in Camera Page")
     public void verifyContentInCameraPage()
@@ -524,6 +557,7 @@ public class PostAdsPage extends BasePage {
 
     public void clickYaPositiveBtn()
     {
+        isWaitElementPresent(getIdLocator(kameraFotoBtn));
         clickElement(getIdLocator(kameraFotoBtn));
         Log.info("Klik Ya Yakin Untuk Menghapus");
     }
@@ -587,36 +621,30 @@ public class PostAdsPage extends BasePage {
         Log.info("Verify Suggestion Kategori");
     }
 
-    public void verifySuggestionHarga()
+    public void verifySuggestionHargaAndInputHarga(String keyword)
     {
-        Boolean suggestionHarga;
         List<WebElement> hargaValueAds = driver.findElements(getIdLocator(hargaTextInputLayout));
         if (hargaValueAds.get(0).getText().contains("Price "))
         {
             suggestionHarga = true;
+            suggestedHarga = hargaValueAds.get(0).getText();
             Log.info("Suggestion Harga Displayed : " + hargaValueAds.get(0).getText());
+            suggestedHarga = suggestedHarga.replaceAll("[a-zA-z]|[()]|\\s|[.]","");
+            String[] hargaPertengahan = suggestedHarga.split("-");
+            int averagePrice = (Integer.parseInt(hargaPertengahan[0]) + Integer.parseInt(hargaPertengahan[1])) / 2;
+            sendKeysById(getIdLocator(hargaBarangEditText), String.valueOf(averagePrice));
+            Log.info("Input Harga or Gaji Ads : "+ averagePrice);
+            Assert.assertTrue(suggestionHarga);
         }
         else
         {
             suggestionHarga = false;
             Log.info("Suggestion Harga Not Displayed");
+            sendKeysById(getIdLocator(hargaBarangEditText), keyword);
+            Log.info("Input Harga or Gaji Ads : "+ keyword);
+            Assert.assertFalse(suggestionHarga);
         }
-        Assert.assertTrue(suggestionHarga);
-        Log.info("Verify Suggestion Harga");
-    }
-
-    public void inputHarga(String keyword)
-    {
-        sendKeysById(getIdLocator(hargaBarangEditText), keyword);
-        Log.info("Input Harga or Gaji Ads");
-    }
-
-    public void verifyAdditionalInputFieldJasaDanLowonganCategory()
-    {
-        verifyHargaChangeToGaji();
-        verifyAdditionalFieldGajiMinimal();
-        verifyAdditionalFieldGajiMaksimal();
-        Log.info("Verify Additional Input Field in Jasa Dan Lowongan Category");
+        Log.info("Verify Suggestion and Input Harga");
     }
 
     public void verifyListElementMethodAndClickElement(String layoutClass, List<AndroidElement> parentElements, List<AndroidElement> childElements, String comparisonWord)
@@ -634,15 +662,26 @@ public class PostAdsPage extends BasePage {
         }
     }
 
-    public void clickMobilBekasHondaCategory()
+    public void clickMobilBekasAudiCategory()
     {
         String mobil = "Mobil";
         String mobilBekas = "Mobil Bekas";
         String audi = "Audi";
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, audi);
-        Log.info("Click Mobil Bekas Honda Sub-Category");
+        String classElement = driver.findElement(By.id("com.app.tokobagus.betterb:id/titleLayout")).getAttribute("className");
+        if (classElement.equalsIgnoreCase("TextInputLayout"))
+        {
+            Log.info(classElement);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, audi);
+        }
+        else
+        {
+            Log.info(classElement);
+            verifySuggestionKategori();
+        }
+
+        Log.info("Click Mobil Bekas Audi Sub-Category");
     }
 
     public void clickPropertiRumahDijualCategory()
@@ -656,11 +695,30 @@ public class PostAdsPage extends BasePage {
         Log.info("Click Properti Rumah Di Jual Sub-Category");
     }
 
+    public void clickJasaLowonganAdministrasi()
+    {
+        String jasaLowonganKerja = "Jasa & Lowongan Kerja";
+        String lowongan = "Lowongan";
+        String administrasi = "Administrasi";
+        ((AndroidDriver)driver).scrollToExact(jasaLowonganKerja);
+        clickElement(getTextLocator(jasaLowonganKerja));
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, lowongan);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, administrasi);
+    }
+
     public void verifyHargaChangeToGaji()
     {
         Assert.assertFalse(isElementPresent(getIdLocator(hargaBarangEditText)));
         Log.info("Verify Harga Change To Gaji As User Choose Jasa & Lowongan Kategori");
     }
+
+    public void verifyAdditionalInputFieldJasaLowonganCategory()
+    {
+        verifyAdditionalFieldGajiMinimal();
+        verifyAdditionalFieldGajiMaksimal();
+        Log.info("Verify Additional Input Field in Jasa & Lowongan Category");
+    }
+
     public void verifyAdditionalFieldGajiMinimal()
     {
         Assert.assertTrue(isElementPresent(getIdLocator(minGajiEditText)));
@@ -700,6 +758,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifyAdditionalInputMobilDanMotorCategory()
     {
+        swipePageBtmtToTop();
         verifyAdditionalInputFieldTipeKendaraan();
         verifyAdditionalInputFieldTransmisi();
         verifyAdditionalInputFieldTahun();
@@ -708,15 +767,62 @@ public class PostAdsPage extends BasePage {
 
     public void verifyAdditionalInputFieldTipeKendaraan()
     {
+        String tipeKendaraan = "Tipe kendaraan";
+        Assert.assertTrue(isElementPresent(getTextLocator(tipeKendaraan)));
         Log.info("Verify Additional Input Field Tipe Kendaraan");
     }
     public void verifyAdditionalInputFieldTransmisi()
     {
+        String transmisi = "Transmisi";
+        Assert.assertTrue(isElementPresent(getTextLocator(transmisi)));
         Log.info("Verify Additional Input Field Transmisi");
     }
     public void verifyAdditionalInputFieldTahun()
     {
+        swipePageBtmtToTop();
+        String tahun = "Tahun *";
+        Assert.assertTrue(isElementPresent(getTextLocator(tahun)));
         Log.info("Verify Additional Input Field Tahun");
+    }
+
+    public void inputAdditionalInputFieldTipeKendaraan()
+    {
+        swipePageBtmtToTop();
+        String tipeKendaraan = "Tipe kendaraan";
+        String audi = "Audi TT";
+        verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, tipeKendaraan);
+        verifyListElementMethodAndClickElement(recycleViewCategoryInputField, inputCategory, inputCategoryTitle, audi);
+    }
+
+    public void inputAdditionalInputFieldTransmisi()
+    {
+        swipePageBtmtToTop();
+        String transmisi = "Transmisi";
+        String automatic = "Automatic";
+        verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, transmisi);
+        verifyListElementMethodAndClickElement(recycleViewCategoryInputField, inputCategory, inputCategoryTitle, automatic);
+    }
+
+    public void inputAdditionalInputFieldTahun()
+    {
+        swipePageBtmtToTop();
+        String tahun = "Tahun *";
+        String tahunDetail = "2015";
+        verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, tahun);
+        ((AndroidDriver)driver).scrollToExact(tahunDetail);
+        clickElement(getTextLocator(tahunDetail));
+    }
+
+    public void inputAdditionalInputFieldGajiMinimal(String keyword)
+    {
+        sendKeysById(getIdLocator(minGajiEditText), keyword);
+        Log.info("Input Additional Input Field Gaji Minimal");
+    }
+
+    public void inputAdditionalInputFieldGajiMaksimal(String keyword)
+    {
+        sendKeysById(getIdLocator(maxGajiEditText), keyword);
+        Log.info("Input Additional Input Field Gaji Maksimal");
     }
 
     public void clickDetilTambahDanDeskripsi()
@@ -734,7 +840,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifyNoLimitCharacterDescription()
     {
-        String[] characterLimit = textViewCharacter.get(1).getText().split(" / ");
+        String[] characterLimit = textViewCharacter.get(0).getText().split(" / ");
         Boolean limitReach;
         int useCharacter = Integer.parseInt(characterLimit[0]);
         int totalCharacter = Integer.parseInt(characterLimit[1]);
@@ -798,9 +904,10 @@ public class PostAdsPage extends BasePage {
         Log.info("Click Gunakan Fitur Top Listing Button");
     }
 
-    public void clickTutupPopUpConfirmationButton()
+    public ListingPage clickTutupPopUpConfirmationButton()
     {
         clickElement(getIdLocator(tutupPopUpBtn));
         Log.info("Click Tutup Pop-Up Confirmation Button");
+        return new ListingPage(driver);
     }
 }
