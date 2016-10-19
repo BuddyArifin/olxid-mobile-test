@@ -3,14 +3,13 @@ package module;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.BasePage;
 import pages.CategoryPreferencesPage;
 import pages.ListingPage;
 import utils.Log;
-
-import java.util.Set;
 
 /**
  * Created by buddyarifin on 8/12/16.
@@ -31,6 +30,7 @@ public class LoginWithFBModule extends BasePage {
     public static final String alertIncorrectCredentials = "com.facebook.katana:id/alertTitle";
     public static final String alertIncorrectCredentialsCss = "div[data-sigil='m_login_notice']";
     public static final String okButton = "com.facebook.katana:id/button1";
+    public static final String hamburgerBar = "Navigate up";
     public static boolean isNative = true;
 
     public LoginWithFBModule(WebDriver driver) {
@@ -136,6 +136,7 @@ public class LoginWithFBModule extends BasePage {
             clickElement(getIdLocator(password));
             inputAppPassword(passText);
             clickLogin();
+            loadAfterLogin(getContentLocator(hamburgerBar)); // handle when using app, take seconds to landed to listing
         } else {
             switchWebViewCtx();
             isNative = false;
@@ -157,10 +158,28 @@ public class LoginWithFBModule extends BasePage {
         }
     }
 
-    public void checkView() {
-        Set<String> contextName = ((AndroidDriver)driver).getContextHandles();
-        for (String context : contextName) {
-            Log.info(context);
+    public boolean loadAfterLogin(By by)
+    {
+        try
+        {
+            if (waitForVisibility(by)) {
+                clickElement(by);
+                if (waitForVisibility(by))
+                {
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException | TimeoutException e)
+        {
+            return true;
         }
     }
 
@@ -172,6 +191,7 @@ public class LoginWithFBModule extends BasePage {
             String okId = "com.facebook.katana:id/button1";
             ((AndroidDriver)driver).startActivity("com.facebook.katana", "com.facebook.katana.LoginActivity");
             clickElement(getIdLocator(hamburgerBar));
+//            isElementPresentAfterScrollDown(getAndroidViewTextLocator(logout));
             ((AndroidDriver)driver).scrollTo(logout);
             if (isElementPresent(By.xpath("//android.view.ViewGroup[@content-desc='"+logout+"']"))) {
                 clickElement(By.xpath("//android.view.ViewGroup[@content-desc='"+logout+"']"));

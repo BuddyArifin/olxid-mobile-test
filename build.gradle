@@ -69,6 +69,7 @@ test {
 
 clean {
     delete "$projectDir/Screenshots"
+    delete "$projectDir/target"
 }
 
 tasks.withType(Test)*.finalizedBy allureReport

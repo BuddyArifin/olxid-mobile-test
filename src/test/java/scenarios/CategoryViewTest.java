@@ -28,7 +28,7 @@ public class CategoryViewTest extends AndroidSetup {
     @Test(priority = 1)
     public void userAbleToSeeAllContentsKategoriViewsPage() {
         LoginPage loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
+        listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
         category = listingPage.clickKategoriBtnBtm();
         category.verifyAllContentsOfCategoryViewPage();

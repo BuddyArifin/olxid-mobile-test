@@ -30,7 +30,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyAllContentInFilterPage()
     {
         loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
+        listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.verifyAllContentOfFilterPage();
@@ -39,7 +39,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a User I want See cancel input button")
     @Title("Verify System Display cancel input button")
     @TestCaseId("TC_FILTER_08_003")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 2)
     public void verifyButtonXExist()
     {
         filterPage.clickSearchField();

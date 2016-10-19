@@ -30,6 +30,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Test(priority = 1)
     public void userAbleToContentOLXLogin() {
         LoginPage loginPage = new LoginPage(driver);
+        loginPage.clickSkipOnBoardingSliders();
         LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
         loginOlx.verifyLoginOlxContents();
     }

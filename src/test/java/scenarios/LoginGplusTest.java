@@ -25,6 +25,7 @@ public class LoginGplusTest extends AndroidSetup {
     @Test(priority = 2)
     public void userAbleToGiveGrantedAccessToGplus() {
         LoginPage loginPage = new LoginPage(driver);
+        loginPage.clickSkipOnBoardingSliders();
         loginWithGplusModule = loginPage.clickLoginWithGPlus();
         loginWithGplusModule.verifyAccountExist();
         loginWithGplusModule.clickSelectedAccounts();

@@ -27,7 +27,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Test(priority = 1)
     public void verifyAllContentsOfAdsDetails() {
         loginPage = new LoginPage(driver);
-        listingPage = loginPage.clickSkipButton();
+        listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
         adsDetailsPage = listingPage.selectAdsFromListing();
         adsDetailsPage.verifyAllContensAdsDetails();
@@ -36,7 +36,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to SHARE Ads")
     @Title("Verify User able to SHARE their Ads")
     @TestCaseId("TC_AdDetails_09_002")
-    @Test(priority = 2)
+    @Test(priority = 2, enabled = false)
     public void verifyUserAbleToShareAds() {
         adsDetailsPage.clickShareBtn();
     }
@@ -44,7 +44,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Learn Tips \"Transaksi Aman\" with \"Info Lebih Lanjut\" Button")
     @Title("Verify User able to Learn Tips Transaksi Aman ")
     @TestCaseId("TC_AdDetails_09_003")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToAccessTipsTransaksi() {
         adsDetailsPage.clickInfoLebihLanjut();
         // needs to verify tips
@@ -53,7 +53,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to add Ads to Favorite")
     @Title("Verify User able to add Ads to Favorite")
     @TestCaseId("TC_AdDetails_09_005")
-    @Test(priority = 4)
+    @Test(priority = 4, enabled = false )
     public void verifyUserAbleToAddAdsToFavorite() {
         adsDetailsPage.clickFavoriteBtn();
         // needs to verify share options
@@ -80,7 +80,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to give feedback by \"Laporkan Iklan\" Option")
     @Title("Verify User able to give feedback by \"Laporkan Iklan\" Option")
     @TestCaseId("TC_AdDetails_09_010")
-    @Test(priority = 8)
+    @Test(priority = 8, enabled = false)
     public void verifyUserAbleToLaporkanIklan() {
         adsDetailsPage.clickLaporkanIklan();
         // needs to verify redirections
@@ -89,7 +89,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")
     @Title("Verify User abel to Hubungi Penjual")
     @TestCaseId("TC_AdDetails_09_011")
-    @Test(priority = 9)
+    @Test(priority = 9, enabled = false)
     public void verifyUserAbleToHubungiPenjual() {
         adsDetailsPage.clickHubugiPenjual();
         // needs to verify redirections

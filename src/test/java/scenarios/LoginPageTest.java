@@ -18,27 +18,43 @@ import listeners.ScreenshootsListener;
 public class LoginPageTest extends AndroidSetup {
     LoginPage loginPage;
 
+    @Stories("As a User I want to be able to see Boarding Contents")
+    @Title("Verify users able to see all contents on Boarding Sliders")
+    @TestCaseId("TC_HOME_01_001, TC_HOME_01_002")
+    @Test(priority = 1)
+    public void verifyOnBoardingSlidersContents() {
+        loginPage = new LoginPage(driver);
+        loginPage.verifyContentsOfOnBoardingSlidersPage();
+    }
+
+    @Stories("As a User I want to be able to skip Boarding Sliders")
+    @Title("Verify user able to skip Boarding Images")
+    @TestCaseId("TC_HOME_01_004, TC_HOME_01_003")
+    @Test(priority = 2)
+    public void verifyUserAbleToSkipOnBoardingSliders() {
+        loginPage.clickSkipOnBoardingSliders();
+    }
+
     @Stories("As A User I Want to see overall Login Page Details")
     @Title("Verify All Contents of Home Page")
-    @TestCaseId("TC_HOME_01_001, TC_HOME_01_001, TC_HOME_01_008")
-    @Test(priority = 1)
+    @TestCaseId("TC_HOME_01_005, TC_HOME_01_008")
+    @Test(priority = 3)
     public void verifyHomePageContents() {
-        loginPage = new LoginPage(driver);
         loginPage.verifyContentsOfLoginPage();
     }
 
     @Stories("As A User I Want to skip Login Process")
     @Title("Verify User Able to Skip Login Process and redirect to Listing Page")
-    @TestCaseId("TC_HOME_01_002")
-    @Test(priority = 3)
+    @TestCaseId("TC_HOME_01_010")
+    @Test(priority = 4)
     public void userAbleToSkipLogin() {
-        loginPage.clickSkipButton();
+        loginPage.skipLogin();
     }
 
     @Stories("As a User I Want to be able to Swipe/Scroll the Intro Image")
     @Title("Verify User Able to Swipe/Scroll the Intro Images")
     @TestCaseId("TC_HOME_01_009")
-    @Test(priority = 2)
+    @Test(priority = 2, enabled = false)
     public void userAbleToSwipeSlide() {
         loginPage.verifySlidersContents();
     }

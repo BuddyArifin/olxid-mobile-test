@@ -26,10 +26,16 @@ public class ProfilSayaTest extends AndroidSetup {
     ProfilSayaModule profilSayaModule;
 
     @Stories("As a user i am not able to access Profil Saya Page")
-    @Title("Verify user not able to access Profil Saya Page")
+    @Title("Verify user not able to access Profil Saya Page without Login")
     @TestCaseId("TC_PROFILE_13_001")
     @Test(priority = 1)
     public void verifyUserNotAbleToAccessProfilSayaPage() {
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
+        listingPage.verifyContentsOfListingPage();
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.clickProfilSayaBtn();
+        loginPage.verifyContentsOfLoginPage();
     }
 
     @Stories("As a user i want to be able see all content in Profile Saya Page")
@@ -37,6 +43,14 @@ public class ProfilSayaTest extends AndroidSetup {
     @TestCaseId("TC_PROFIL_13_002")
     @Test(priority = 2)
     public void verifySystemAbleToDisplayContentInProfilSayaPage() {
+        loginWithOlxModule = loginPage.clickLoginWithOlx();
+//        loginWithOlxModule.inputEmail("krisna.parahita@olx.co.id");
+//        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        listingPage.verifyContentsOfListingPage();
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        profilSayaModule = hamburgerBarModule.clickProfilSayaBtn();
+        profilSayaModule.verifyAllContentInProfilSayaPage();
     }
 
     @Stories("As a user i want to be able click back button")
@@ -51,6 +65,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @TestCaseId("TC_PROFIL_13_004")
     @Test(priority = 4)
     public void verifySystemDisplayDefaultUserAvatarImage() {
+        profilSayaModule.verifyAvatarProfilSayaPage();
     }
 
     @Stories("As a user i want to be able click My Avatar")

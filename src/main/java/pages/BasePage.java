@@ -392,14 +392,14 @@ public class BasePage  {
     */
     public Boolean isElementPresentAfterScrollDown(final By locator) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(10, TimeUnit.SECONDS)
-                .pollingEvery(5, TimeUnit.SECONDS)
+                .withTimeout(60, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
                 ((AndroidDriver)driver).swipe(200, 500, 200, 45, 500);
-                return driver.findElement(locator).isDisplayed();
+                return isElementPresent(locator);
             }
         });
     }
@@ -420,7 +420,7 @@ public class BasePage  {
 
     public Boolean waitForVisibility(final By locator){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(2, TimeUnit.SECONDS)
+                .withTimeout(20, TimeUnit.SECONDS)
                 .pollingEvery(2, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until(new Function<WebDriver, Boolean>() {

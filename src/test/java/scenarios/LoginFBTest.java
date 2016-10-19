@@ -17,6 +17,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 @Listeners(ScreenshootsListener.class)
 @Features("Login Feature")
 public class LoginFBTest extends AndroidSetup {
+    LoginPage loginPage;
 
     // login with FB
     @Stories("As A User I Will not be Able to Login")
@@ -24,7 +25,8 @@ public class LoginFBTest extends AndroidSetup {
     @TestCaseId("TC_LBF_02_001")
     @Test(priority = 1)
     public void userNotAbleToLoginWithInvalidFBCredentials() {
-        LoginPage loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(driver);
+        loginPage.clickSkipOnBoardingSliders();
         LoginWithFBModule fbLogin = loginPage.clickLoginWithFacebook();
         fbLogin.loginFb("remote@gmail.com", "Welcome123");
         fbLogin.verifyAlert();

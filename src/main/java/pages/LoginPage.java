@@ -27,14 +27,19 @@ public class LoginPage extends BasePage {
     protected static final String smsBtnID = "com.app.tokobagus.betterb:id/entrance_btnLoginSms";
     protected static final String olxLoginID = "com.app.tokobagus.betterb:id/entrance_btnLoginOlx";
     protected static final String skipBtnID = "com.app.tokobagus.betterb:id/entrance_btnSkip";
+    protected static final String skipOnBoardingSliders = "com.app.tokobagus.betterb:id/entrance_skip";
     protected static final String olxLogoID = "com.app.tokobagus.betterb:id/entrance_btnLoginOlx";
     protected static final String presentationTextID = "com.app.tokobagus.betterb:id/entrance_bottomSubContainer1";
     public static final String paginationsID = "com.app.tokobagus.betterb:id/entrance_indicatorContainer";
     public static final String linearLayout = "android.widget.LinearLayout";
     public static final String imageView = "android.widget.ImageView";
     public static final String introTitleID = "com.app.tokobagus.betterb:id/intro_tv";
+    public static final String textView = "android.widget.TextView";
     AndroidDriver androidDriver;
     public static final String alertShake = "com.app.tokobagus.betterb:id/animation_description";
+    public static final String imageOnBoarding = "com.app.tokobagus.betterb:id/intro_lyImage";
+    public static final String onBoardingText = "com.app.tokobagus.betterb:id/intro_lyContent";
+    public static final String imageOnBoardingPagination = "com.app.tokobagus.betterb:id/entrance_indicatorContainer";
 
     LoginWithFBModule fb = new LoginWithFBModule(driver);
 
@@ -45,11 +50,36 @@ public class LoginPage extends BasePage {
     })
     public List<AndroidElement> paginations;
 
+    @AndroidFindBys({
+            @AndroidFindBy(id = imageOnBoardingPagination),
+            @AndroidFindBy(className = linearLayout),
+            @AndroidFindBy(className = imageView)
+    })
+    public List<AndroidElement> onBoardingPaginations;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = imageOnBoarding),
+            @AndroidFindBy(className = imageView),
+    })
+    public List<AndroidElement> imageOnBoardingList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = onBoardingText),
+            @AndroidFindBy(className = textView)
+    })
+    public List<AndroidElement> onBoardingTextList;
+
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-//        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
-//        clickElement(getIdLocator(introTitleID));
+        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
+    }
+
+    @Step("Verify All Contents of On Boarding Sliders")
+    public void verifyContentsOfOnBoardingSlidersPage() {
+        Log.info("Verify On Boarding Sliders");
+        verifySkipOnBoardingSliders();
+        verifyOnBoardingSliders();
     }
 
     @Step("Verify All Contents of LoginPage")
@@ -131,7 +161,7 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Click Skip Login Button")
-    public ListingPage clickSkipButton() {
+    public ListingPage skipLogin() {
         Log.info("Click Skip Login Button");
         WaitForClickabilityOf(getIdLocator(skipBtnID), 100);
         clickElement(getIdLocator(skipBtnID));
@@ -145,14 +175,43 @@ public class LoginPage extends BasePage {
 
     @Step("Verify Sliders Contents")
     public void verifySlidersContents() {
-        Log.info("Sliders available size : "+paginations.size());
-        Log.info(" intro title : ");
+        Log.debug("Sliders available size : "+paginations.size());
+        Log.debug(" intro title : ");
         for (int i=0; i < paginations.size() ;i++) {
             Log.info("  * "+getStringText(getIdLocator(introTitleID)));
             androidDriver = ((AndroidDriver) driver);
             androidDriver.swipe(androidDriver.manage().window().getSize().getWidth()-10,
                     300, 20, 300, 1000);
             Assert.assertNotNull(getStringText(getIdLocator(introTitleID)));
+        }
+    }
+
+    public void verifySkipOnBoardingSliders(){
+        Log.info("Verify Skip on Boarding Sliders");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(skipOnBoardingSliders)));
+    }
+
+    public LoginPage clickSkipOnBoardingSliders() {
+        Log.info("Click skip on boarding sliders");
+        clickElement(getIdLocator(skipOnBoardingSliders));
+        return this;
+    }
+
+    public void verifyOnBoardingSliders() {
+        Log.info("Verify On Boarding Image Paginations");
+        int paginationSize = onBoardingPaginations.size();
+        Log.debug("Image Sliders available size : "+paginationSize);
+        for ( int i=0 ; i < paginationSize ; i++) { // image sliders
+            androidDriver = ((AndroidDriver) driver);
+            androidDriver.swipe(androidDriver.manage().window().getSize().getWidth()-10,
+            300, 20, 300, 1000);
+            for (int j=0 ; j < imageOnBoardingList.size(); j++) { // image contents list
+                Assert.assertNotNull(isListElementPresent(imageOnBoardingList));
+            }
+            for (int k=0 ; k < onBoardingTextList.size(); k++) { // text list
+                Log.debug(onBoardingTextList.get(k).getText());
+                Assert.assertNotNull(onBoardingPaginations.get(k).getText());
+            }
         }
     }
 }
