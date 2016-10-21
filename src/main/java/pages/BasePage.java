@@ -57,6 +57,23 @@ public class BasePage  {
     /**
      * This below method has made to verify that size ListELement is not Empty
      */
+    protected boolean isListElementPresentWeb(List<WebElement> list) {
+        try {
+            if (list.isEmpty()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
+
+    /**
+     * This below method has made to verify that size ListELement is not Empty
+     */
     protected boolean isListElementPresent(List<AndroidElement> list)
     {
         try {
@@ -456,5 +473,15 @@ public class BasePage  {
     public void switchNativeCtx() {
         Log.info("Switch to Native Mode");
         driver = ((AndroidDriver)driver).context("NATIVE_APP");
+    }
+
+    public void clickBySize(Point point) {
+        ((AndroidDriver)driver).tap(1, point.getX(),
+                point.getY(), 100);
+    }
+
+    public Point getPointLocation(By by) {
+        WebElement element = driver.findElement(by);
+        return element.getLocation();
     }
 }

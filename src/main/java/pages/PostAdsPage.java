@@ -82,6 +82,7 @@ public class PostAdsPage extends BasePage {
     public String suggestedHarga = "";
     public Boolean suggestionHarga;
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
+    public boolean isTutorialDismiss = true;
 
     @AndroidFindBys({
         @AndroidFindBy(className = frameLayoutClass),
@@ -177,6 +178,7 @@ public class PostAdsPage extends BasePage {
     public void verifyContentInCameraPage()
     {
         //verifyCloseBtn();
+        dismissTutorial();
         verifyLiveViewFrame();
         verifyShutterBtn();
         verifyGaleriBtn();
@@ -909,5 +911,12 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(tutupPopUpBtn));
         Log.info("Click Tutup Pop-Up Confirmation Button");
         return new ListingPage(driver);
+    }
+
+    public void dismissTutorial() {
+        Log.info("Dismiss tutorial");
+        if (isTutorialDismiss) {
+            clickBySize(getPointLocation(getIdLocator(shutterBtn)));
+        }
     }
 }

@@ -51,6 +51,15 @@ public class LoginPageTest extends AndroidSetup {
         loginPage.skipLogin();
     }
 
+    @Stories("As a User I want to be able to see On Boarding Slides just on First Install")
+    @Title("verify user able to see On Boarding Sliders just on First Install")
+    @TestCaseId("TC_HOME_01_010")
+    @Test(priority = 5, enabled = false)
+    public void verifyOnBoardingDisplayOnFirstInstallOnly() {
+        loginPage.verifyOnBoardingOnlyOnFirstInstall();
+        loginPage.verifyContentsOfLoginPage();
+    }
+
     @Stories("As a User I Want to be able to Swipe/Scroll the Intro Image")
     @Title("Verify User Able to Swipe/Scroll the Intro Images")
     @TestCaseId("TC_HOME_01_009")

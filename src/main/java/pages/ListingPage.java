@@ -49,6 +49,8 @@ public class ListingPage extends BasePage{
     public static final String suggesstionSearchlist = "com.app.tokobagus.betterb:id/recyclerView_result";
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
+    public static final String disagreeButton = "android:id/button2";
+    public static boolean isTutorialPresent = true;
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -80,6 +82,7 @@ public class ListingPage extends BasePage{
     {
         Log.info("Verify All Contents of ListingPage");
         isAutoAcept(getIdLocator(permissionAllowAccessBtn));
+        verifyandSkipTutorialElements();
         verifyHamburgerBar();
         verifyTitlePage();
         verifySearchBtnPrm();
@@ -97,7 +100,8 @@ public class ListingPage extends BasePage{
 
     public void verifyHamburgerBar()
     {
-        Assert.assertTrue(isElementPresent(getContentLocator(hamburgerBar)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerBar)));
+        isTutorialPresent = false; // set tutorial already dismiss, on success.
         Log.info("Verify Hamburger Bar");
     }
     public void verifyTitlePage()
@@ -300,28 +304,17 @@ public class ListingPage extends BasePage{
 
     public void turnOffGPS() {
         Log.info("Turn Off GPS");
-        swipePageTopToBtm();
-        swipePageTopToBtm();
-        Assert.assertTrue(isElementPresent(getTextLocator("Location")));
-        clickElement(getTextLocator("Location"));
-        swipePageBtmtToTop();
-        swipePageBtmtToTop();
-        String currentActivity = ((AndroidDriver)driver).currentActivity();
-        ((AndroidDriver)driver).closeApp();
-        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
-                currentActivity);
+        ((AndroidDriver)driver).toggleLocationServices();
+        ((AndroidDriver)driver).startActivity(Constants.appPackage,
+                Constants.appActivity);
     }
 
     public void turnOnGPS() {
         Log.info("Turn On GPS");
-        String currentActivity = ((AndroidDriver)driver).currentActivity();
-        ((AndroidDriver)driver).closeApp();
-        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
-                currentActivity);
-        clickElement(getIdLocator(gpsActiveBtn));
-        clickElement(getIdLocator(switchOnGPS));
-        ((AndroidDriver)driver).startActivity("com.app.tokobagus.betterb",
-                currentActivity);
+        ((AndroidDriver)driver).toggleLocationServices();
+        isAutoAcept(getIdLocator(disagreeButton));
+        ((AndroidDriver)driver).startActivity(Constants.appPackage,
+                Constants.appActivity);
     }
 
     @Step("Verify All Content of GPS alert non active")
@@ -336,5 +329,13 @@ public class ListingPage extends BasePage{
     public void verifyGpsAlertImage() {
         Log.info("Verify Logo of Alert Pop Up");
         Assert.assertTrue(isWaitElementPresent(getImageViewLocator(0)));
+    }
+
+    public void verifyandSkipTutorialElements(){
+        if (isTutorialPresent) {
+            clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
+            clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
+            clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
+        }
     }
 }

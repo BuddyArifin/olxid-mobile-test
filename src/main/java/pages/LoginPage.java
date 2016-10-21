@@ -214,4 +214,12 @@ public class LoginPage extends BasePage {
             }
         }
     }
+
+    public void verifyOnBoardingOnlyOnFirstInstall() {
+        Log.info("Verify User only see On Boarding at first time install");
+        androidDriver = ((AndroidDriver)driver);
+        androidDriver.closeApp();
+        androidDriver.startActivity(Constants.appPackage, Constants.appActivity);
+
+    }
 }
