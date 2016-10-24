@@ -50,7 +50,7 @@ public class ListingPage extends BasePage{
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String disagreeButton = "android:id/button2";
-    public static boolean isTutorialPresent = true;
+    public boolean isTutorialPresent = true;
 
     public ListingPage(WebDriver driver) {
         super(driver);

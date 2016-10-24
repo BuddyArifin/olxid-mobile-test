@@ -33,7 +33,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Test(priority = 1)
     public void verifyAllContentsSaldoOlxPage() {
         loginPage = new LoginPage(driver);
-        loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule = loginPage.clickSkipOnBoardingSliders().clickLoginWithOlx();
         loginWithOlxModule.clickLoginWithOlxBtn();
         listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();

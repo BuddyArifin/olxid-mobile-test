@@ -467,7 +467,7 @@ public class BasePage  {
 
     public void switchWebViewCtx() {
         Log.debug("Switch to Webview Mode");
-        driver = ((AndroidDriver)driver).context("WEBVIEW_com.app.tokobagus.betterb");
+        driver = ((AndroidDriver)driver).context("WEBVIEW_"+Constants.appPackage);
     }
 
     public void switchNativeCtx() {

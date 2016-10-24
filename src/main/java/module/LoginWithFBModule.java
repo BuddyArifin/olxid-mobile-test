@@ -16,16 +16,16 @@ import utils.Log;
  */
 public class LoginWithFBModule extends BasePage {
 
-    public static final String email = "com.facebook.katana:id/login_username";
-    public static final String emailCss = "input[type='email']";
-    public static final String password = "com.facebook.katana:id/login_password";
+    public static final String email = "com.facebook.katana:id/a4j";
+    public static final String emailCss = "div[data-sigil='m_login_notice']";
+    public static final String password = "com.facebook.katana:id/a4k";
     public static final String passwordCss = "input[type='password']";
-    public static final String loginBtn = "com.facebook.katana:id/login_login";
+    public static final String loginBtn = "com.facebook.katana:id/a4m";
     public static final String loginCss = "button[type='button']";
     public static final String cancelBtn = "";
     public static final String closeBtn = "";
     public static final String confirmBtn = "u_0_9";
-    public static final String confirmBtnCss = "button[name='__CONFIRM__']";
+    public static final String confirmBtnCss = "button#u_0_6";
     public static final String accessFBInfoText = "";
     public static final String alertIncorrectCredentials = "com.facebook.katana:id/alertTitle";
     public static final String alertIncorrectCredentialsCss = "div[data-sigil='m_login_notice']";
@@ -136,7 +136,6 @@ public class LoginWithFBModule extends BasePage {
             clickElement(getIdLocator(password));
             inputAppPassword(passText);
             clickLogin();
-            loadAfterLogin(getContentLocator(hamburgerBar)); // handle when using app, take seconds to landed to listing
         } else {
             switchWebViewCtx();
             isNative = false;
