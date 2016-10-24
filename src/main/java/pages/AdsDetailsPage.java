@@ -148,11 +148,11 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyLaporkanIklan(){
         Log.info("Verify Laporkan Iklan");
-        Assert.assertTrue(isElementPresent(getIdLocator(laporkanIklan)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(laporkanIklan)));
     }
     public void verifyHubungiPenjual() {
         Log.info("Verify Hubungi penjual Button");
-        Assert.assertTrue(isElementPresent(getIdLocator(hubungiPenjual)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiPenjual)));
     }
     public void verifySudahTerjualBtn() {
         Log.info("Verify Sudah Terjual Button");

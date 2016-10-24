@@ -415,7 +415,7 @@ public class BasePage  {
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 500, 200, 45, 500);
+                ((AndroidDriver)driver).swipe(200, 500, 200, 45, 1000);
                 return isElementPresent(locator);
             }
         });
