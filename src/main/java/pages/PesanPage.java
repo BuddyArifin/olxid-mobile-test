@@ -234,18 +234,22 @@ public class PesanPage extends BasePage{
     }
 
     private void verifyAccessHomeBtm(){
+        clickPesanBottomMenu();
         clickHomeBottomMenu();
     }
 
     private void verifyAccessKategoriBtm(){
+        clickPesanBottomMenu();
         clickKategoriBottomMenu();
     }
 
     private void verifyAccessJualBtm(){
+        clickPesanBottomMenu();
         clickJualBottomMenu();
     }
 
     private void verifyAccessFaveBtm(){
+        clickPesanBottomMenu();
         clickFavoriteBottomMenu();
     }
 
@@ -282,7 +286,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyContentAftSelectProd(){
-        clickSelectedProduct();
         verifyAftProdBackBtn();
         verifyAftProdAdsImage();
         verifyAftProdAdsTitle();
@@ -295,7 +298,7 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyPageAfterClickBackOnAftProd(){
-        clickBackOnAftProd();
+        //verify redirected page
     }
 
     public void clickSelectedMsg(){
@@ -374,8 +377,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyContentMessageDetail(){
-        clickSelectedProduct();
-        clickSelectedMsg();
         Log.info("Verify all content message detail");
         verifyDetTitle();
         verifyDetBackBtn();
@@ -399,7 +400,7 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyBackOnDetailMsg(){
-        clickBackOnDetailMsg();
+        //verify redirected page
     }
 
     public void clickOptionOnDetailMsg(){
@@ -408,7 +409,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyOptOnDetailMsg(){
-        clickOptionOnDetailMsg();
         Assert.assertTrue(isElementPresent(getIdLocator(detailOptBlock)));
         Log.info("Verify Option Block User");
         Assert.assertTrue(isElementPresent(getIdLocator(detailOptHapus)));
@@ -421,7 +421,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyPageAftClickAdsThumb(){
-        clickAdsThumbOnDetailMsg();
         //verify page
     }
 
@@ -446,7 +445,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyAttOptOnDetailMsg(){
-        clickAttIconOnDetailMsg();
         verifyCamAttOptOnDetailMsg();
         verifyGalleryAttOptOnDetailMsg();
         verifyBatalBtnAttOptOnDetailMsg();
@@ -468,8 +466,6 @@ public class PesanPage extends BasePage{
     }
 
     public void verifyBatalOnAttScreen(){
-        clickAttIconOnDetailMsg();
-        clickBatalOnAttScreen();
         //verify redirect page
         //verify pop up disappear
     }
