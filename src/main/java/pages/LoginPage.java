@@ -40,6 +40,7 @@ public class LoginPage extends BasePage {
     public static final String imageOnBoarding = "com.app.tokobagus.betterb:id/intro_lyImage";
     public static final String onBoardingText = "com.app.tokobagus.betterb:id/intro_lyContent";
     public static final String imageOnBoardingPagination = "com.app.tokobagus.betterb:id/entrance_indicatorContainer";
+    public static final String disclaimerTextContainers = "com.app.tokobagus.betterb:id/entrance_bottomSubContainer4";
 
     LoginWithFBModule fb = new LoginWithFBModule(driver);
 
@@ -69,6 +70,12 @@ public class LoginPage extends BasePage {
     })
     public List<AndroidElement> onBoardingTextList;
 
+    @AndroidFindBys({
+            @AndroidFindBy(id = disclaimerTextContainers),
+            @AndroidFindBy(className = Constants.textView)
+    })
+    public List<AndroidElement> disclaimers;
+
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -90,6 +97,7 @@ public class LoginPage extends BasePage {
         verifyFacebookBtn();
         verifyGmailBtn();
         verifyOlxBtn();
+        verifyDisclaimers();
     }
 
     @Step("Verify Facebook Login Button")
@@ -166,6 +174,11 @@ public class LoginPage extends BasePage {
         WaitForClickabilityOf(getIdLocator(skipBtnID), 100);
         clickElement(getIdLocator(skipBtnID));
         return new ListingPage(driver);
+    }
+
+    public void verifyDisclaimers() {
+        Log.info("Verify Disclaimers displays");
+        Assert.assertTrue(isListElementPresent(disclaimers));
     }
 
     @Deprecated

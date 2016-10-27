@@ -50,7 +50,7 @@ public class ListingPage extends BasePage{
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String disagreeButton = "android:id/button2";
-    public boolean isTutorialPresent = true;
+
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -101,7 +101,6 @@ public class ListingPage extends BasePage{
     public void verifyHamburgerBar()
     {
         Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerBar)));
-        isTutorialPresent = false; // set tutorial already dismiss, on success.
         Log.info("Verify Hamburger Bar");
     }
     public void verifyTitlePage()
@@ -332,10 +331,11 @@ public class ListingPage extends BasePage{
     }
 
     public void verifyandSkipTutorialElements(){
-        if (isTutorialPresent) {
+        if (getTutorialPresentValue()) {
             clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
             clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
+            setTutorialPresent(false);
         }
     }
 }

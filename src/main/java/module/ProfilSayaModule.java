@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.LoginPage;
 import pages.PostAdsPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
@@ -60,7 +61,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String nomorTeleponContainer = "com.app.tokobagus.betterb:id/profileView_lyHandphoneEdit";
     public static final String editHandphoneButton = "com.app.tokobagus.betterb:id/profileView_btnEditHandphone";
     public static final String editTextFieldNoTelp = "com.app.tokobagus.betterb:id/profileView_txtEditHandphone";
-    public static final String alertInvalidPassword = "com.app.tokobagus.betterb:id/snackbar_text";
+    public static final String alertInvalidFormChangePass = "com.app.tokobagus.betterb:id/snackbar_text";
     public static final String noHandphoneText = "Nomor Handphone";
     public static final String imageViewClass = "android.widget.ImageView";
     public String oldUsername = null;
@@ -273,10 +274,12 @@ public class ProfilSayaModule extends BasePage{
         clickElement(getIdLocator(gantiPasswordBtn));
     }
 
-    public void clickLogoutDariOLXBtnProfilSayaPage()
+    public LoginPage clickLogoutDariOLXBtnProfilSayaPage()
     {
         Log.info("Click Logout Dari OLX Button in Profil Saya Page");
+        isWaitElementPresent(getIdLocator(logOutDariOLXBtn));
         clickElement(getIdLocator(logOutDariOLXBtn));
+        return new LoginPage(driver);
     }
 
     //Method for GantiPassword Page
@@ -342,10 +345,11 @@ public class ProfilSayaModule extends BasePage{
         hintPasswordBtn.get(index).click();
     }
 
-    public void clickBackButton() {
+    public HamburgerBarModule clickBackButton() {
         Log.info("Click Back Button");
         verifyBackBtnProfilSayaPage();
         clickElement(getContentLocator(backBtn));
+        return new HamburgerBarModule(driver);
     }
 
     public void clickSimpanPasswordButton() {
@@ -358,22 +362,10 @@ public class ProfilSayaModule extends BasePage{
         clickElement(getIdLocator(tutupKonfirmasiPopUp));
     }
 
-    public void verifyAlertOldPasswordInvalid() {
-        Log.info("Verify Olx Password Invalid");
-        inputOldPassword("WrongOldPassword");
-        inputNewPassword("newPass");
-        inputKonfirmPassword("newPass");
-        clickSimpanPasswordButton();
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(alertInvalidPassword)));
-        Log.debug("Alert message : "+getStringText(getIdLocator(alertInvalidPassword)));
-    }
-
-    public void verifySystemAskUserToInputNewPassword() {
-        Log.info("Verify User should be input new Password");
-        inputOldPassword("WrongOldPassword");
-        clickSimpanPasswordButton();
-        Assert.assertTrue(isElementPresent(getIdLocator(alertInvalidPassword)));
-        Log.debug("Alert message : "+getStringText(getIdLocator(alertInvalidPassword)));
+    public void verifyAlertShowsUp() {
+        boolean checkStatus = isWaitElementPresent(getIdLocator(alertInvalidFormChangePass));
+        Assert.assertTrue(checkStatus);
+        Log.debug("Alert message : "+getStringText(getIdLocator(alertInvalidFormChangePass)));
     }
 
     @Step("Verify All Content in GantiPassword Page")

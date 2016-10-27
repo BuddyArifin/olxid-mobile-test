@@ -5,7 +5,7 @@ public class Constants {
 //  public static String apkDir="Resources/";
   public static String apkDir="/Applications/Dropbox/ptTokobagus";
   public static String hubIP="http://localhost:4444/wd/hub";
-  public static String apkName="app-release-7.0.0.161.apk";
+  public static String apkName="app-release-7.0.0.166.apk";
 
   // Request Sinon
   public static final String GET = "GET";
@@ -14,6 +14,7 @@ public class Constants {
 
   //List Elements
   public static final String linearLayout = "android.widget.LinearLayout";
+  public static final String textView = "android.widget.TextView";
 
   // Capabilities
   public static final String appPackage = "com.app.tokobagus.betterb";

@@ -46,7 +46,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
     public static final String switchOnGPS = "com.android.settings:id/switch_widget";
     public String locationText = "";
-    public boolean isTutorialDismiss = true;
+
 
 
     @AndroidFindBys({
@@ -288,9 +288,10 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void dismissTutorial() {
-        if (isTutorialDismiss) {
+        if (getTutorialMapsPresent()) {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
+            setTutorialMapsPresent(false);
         }
     }
 }

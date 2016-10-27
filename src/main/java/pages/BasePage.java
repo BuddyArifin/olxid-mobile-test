@@ -28,6 +28,10 @@ import java.util.concurrent.TimeUnit;
 public class BasePage  {
 
     protected WebDriver driver;
+    public static boolean isTutorialPresent = true;
+    public static boolean isTutorialMapsPresent = true;
+    public static boolean isTutorialCameraDismiss = true;
+
     Sinon rdata;
 
     public BasePage(WebDriver driver) {
@@ -55,7 +59,7 @@ public class BasePage  {
     }
 
     /**
-     * This below method has made to verify that size ListELement is not Empty
+     * This below method has made to verify that size ListELement for WebView is not Empty
      */
     protected boolean isListElementPresentWeb(List<WebElement> list) {
         try {
@@ -484,4 +488,27 @@ public class BasePage  {
         WebElement element = driver.findElement(by);
         return element.getLocation();
     }
+
+
+    // Getter and Setter for Handle Tutorials
+    public boolean getTutorialPresentValue() {
+        return isTutorialPresent;
+    }
+    public void setTutorialPresent(boolean bool) {
+        Log.debug("Set value tutorial present true");
+        isTutorialPresent = bool;
+    }
+    public boolean getTutorialMapsPresent() {
+        return isTutorialMapsPresent;
+    }
+    public void setTutorialMapsPresent(boolean isTutorialMapsPresent) {
+        BasePage.isTutorialMapsPresent = isTutorialMapsPresent;
+    }
+    public boolean getTutorialCameraDismiss() {
+        return isTutorialCameraDismiss;
+    }
+    public void setTutorialCameraDismiss(boolean isTutorialCameraDismiss) {
+        BasePage.isTutorialCameraDismiss = isTutorialCameraDismiss;
+    }
+
 }

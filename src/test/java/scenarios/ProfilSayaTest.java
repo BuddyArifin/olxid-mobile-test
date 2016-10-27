@@ -135,20 +135,40 @@ public class ProfilSayaTest extends AndroidSetup {
     @TestCaseId("TC_PROFIL_13_013")
     @Test(priority = 10)
     public void verifyUserNotAbleToChangePasswordByInputInvalidCurrentPassword() {
-        profilSayaModule.verifyAlertOldPasswordInvalid();
+        profilSayaModule.inputOldPassword("WrongOldPassword");
+        profilSayaModule.inputNewPassword("newPass");
+        profilSayaModule.inputKonfirmPassword("newPass");
+        profilSayaModule.clickSimpanPasswordButton();
+        profilSayaModule.verifyAlertShowsUp();
     }
 
     @Stories("As a system able to ask user to input new password")
     @Title("Verify system able to ask user to input new password")
+    @TestCaseId("TC_PROFIL_13_015")
+    @Test(priority = 13)
+    public void verifySystemAbleToAskUserToInputNewPassword() {
+        profilSayaModule.inputOldPassword("WrongOldPassword");
+        profilSayaModule.inputNewPassword("");
+        profilSayaModule.inputKonfirmPassword("");
+        profilSayaModule.clickSimpanPasswordButton();
+        profilSayaModule.verifyAlertShowsUp();
+    }
+
+    @Stories("As a User I want not able to change password")
+    @Title("Verify user should not able to change password with unmatch new and confirm Password")
     @TestCaseId("TC_PROFIL_13_014")
     @Test(priority = 12)
-    public void verifySystemAbleToAskUserToInputNewPassword() {
-        profilSayaModule.verifySystemAskUserToInputNewPassword();
+    public void verifySystemDisplayAlertOnUnmatchNewandConfirmPass() {
+        profilSayaModule.inputOldPassword("testing");
+        profilSayaModule.inputNewPassword("unmatch");
+        profilSayaModule.inputKonfirmPassword("unmatch1");
+        profilSayaModule.clickSimpanPasswordButton();
+        profilSayaModule.verifyAlertShowsUp();
     }
 
     @Stories("As a user i want to be able input new password")
     @Title("Verify user able to input new password")
-    @TestCaseId("TC_PROFIL_13_015")
+    @TestCaseId("TC_PROFIL_13_016")
     @Test(priority = 14)
     public void verifyUserAbleToInputNewPassword() {
         profilSayaModule.inputNewPassword("testing");
@@ -156,7 +176,7 @@ public class ProfilSayaTest extends AndroidSetup {
 
     @Stories("As a user i want to be able input confirmation new password")
     @Title("Verify user able to input confirmation new password")
-    @TestCaseId("TC_PROFIL_13_016")
+    @TestCaseId("TC_PROFIL_13_017")
     @Test(priority = 15)
     public void verifyUserAbleToInputConfirmationNewPassword() {
         profilSayaModule.inputKonfirmPassword("testing");
@@ -164,7 +184,7 @@ public class ProfilSayaTest extends AndroidSetup {
 
     @Stories("As a user i want to be able change password")
     @Title("Verify user able to change password")
-    @TestCaseId("TC_PROFIL_13_017")
+    @TestCaseId("TC_PROFIL_13_018")
     @Test(priority = 16)
     public void verifyUserAbleToChangePassword() {
         profilSayaModule.clickSimpanPasswordButton();
@@ -172,7 +192,7 @@ public class ProfilSayaTest extends AndroidSetup {
 
     @Stories("As a user i want to be able see change password success pop-up")
     @Title("Verify system able to display change password success pop-up")
-    @TestCaseId("TC_PROFIL_13_018, TC_PROFIL_13_019")
+    @TestCaseId("TC_PROFIL_13_018, TC_PROFIL_13_019, TC_PROFIL_13_020, TC_PROFIL_13_022")
     @Test(priority = 17)
     public void verifySystemAbleToDisplayChangePasswordSuccessPopUp() {
         profilSayaModule.clickTutupAlertSuccess();
@@ -180,15 +200,17 @@ public class ProfilSayaTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click \"CEK EMAIL\" button")
     @Title("Verify system able to display \"CEK EMAIL\" button")
-    @TestCaseId("TC_PROFIL_13_020")
+    @TestCaseId("TC_PROFIL_13_021")
     @Test(priority = 19)
     public void verifySystemAbleToDisplayCekEmailButton() {
     }
 
-    @Stories("As a user i want to be able click \"TUTUP\" button")
-    @Title("Verify user able to click \"TUTUP\" button")
-    @TestCaseId("TC_PROFIL_13_021")
+    @Stories("As a user i want to be able to Logout ")
+    @Title("Verify user able to logout")
+    @TestCaseId("TC_PROFIL_13_009")
     @Test(priority = 20)
-    public void verifyUserAbleToCLickTutupButton() {
+    public void verifyUserAbleToLogout() {
+        profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        loginPage.verifyContentsOfLoginPage();
     }
 }

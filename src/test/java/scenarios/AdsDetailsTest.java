@@ -36,7 +36,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to SHARE Ads")
     @Title("Verify User able to SHARE their Ads")
     @TestCaseId("TC_AdDetails_09_002")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 2)
     public void verifyUserAbleToShareAds() {
         adsDetailsPage.clickShareBtn();
     }
@@ -44,7 +44,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Learn Tips \"Transaksi Aman\" with \"Info Lebih Lanjut\" Button")
     @Title("Verify User able to Learn Tips Transaksi Aman ")
     @TestCaseId("TC_AdDetails_09_003")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleToAccessTipsTransaksi() {
         adsDetailsPage.clickInfoLebihLanjut();
         // needs to verify tips
@@ -53,7 +53,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to add Ads to Favorite")
     @Title("Verify User able to add Ads to Favorite")
     @TestCaseId("TC_AdDetails_09_005")
-    @Test(priority = 4, enabled = false )
+    @Test(priority = 4)
     public void verifyUserAbleToAddAdsToFavorite() {
         adsDetailsPage.clickFavoriteBtn();
         // needs to verify share options

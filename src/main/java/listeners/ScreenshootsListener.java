@@ -1,5 +1,6 @@
 package listeners;
 
+import org.openqa.grid.web.Hub;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
@@ -21,6 +22,7 @@ public class ScreenshootsListener extends TestListenerAdapter  {
     private WebDriver driver;
     private Object obj;
     private Annotation[] annotations;
+    private Hub hub;
 
     @Override
     public void onTestFailure(ITestResult testResult){
@@ -39,9 +41,14 @@ public class ScreenshootsListener extends TestListenerAdapter  {
     }
 
     @Override
-    public void onTestStart(ITestResult testResult){
-        Log.debug("Running Test --> "+getTestTitle(testResult));
-//        this.array = AndroidSetup.array;
+    public void onTestStart(ITestResult iTestResult){
+        Log.debug("Running Test --> "+getTestTitle(iTestResult));
+        obj = iTestResult.getInstance();
+        driver = ((InstanceDriver)obj).driver;
+        base = new BasePage(driver);
+        base.setTutorialPresent(true);
+        base.setTutorialCameraDismiss(true);
+        base.setTutorialMapsPresent(true);
     }
 
     @Override
@@ -59,18 +66,18 @@ public class ScreenshootsListener extends TestListenerAdapter  {
 
     @Override
     public void onFinish(ITestContext testContext) {
-        Iterator<ITestResult> listOfFailedTests = testContext.getFailedTests().getAllResults().iterator();
-        while (listOfFailedTests.hasNext()){
-            ITestResult failedTest = listOfFailedTests.next();
-            ITestNGMethod method = failedTest.getMethod();
-            if (testContext.getFailedTests().getResults(method).size() > 1){
-                listOfFailedTests.remove();
-            } else {
-                if (testContext.getPassedTests().getResults(method).size() > 0) {
+            Iterator<ITestResult> listOfFailedTests = testContext.getFailedTests().getAllResults().iterator();
+            while (listOfFailedTests.hasNext()){
+                ITestResult failedTest = listOfFailedTests.next();
+                ITestNGMethod method = failedTest.getMethod();
+                if (testContext.getFailedTests().getResults(method).size() > 1){
                     listOfFailedTests.remove();
+                } else {
+                    if (testContext.getPassedTests().getResults(method).size() > 0) {
+                        listOfFailedTests.remove();
+                    }
                 }
             }
-        }
     }
 
     private String getTestTitle(ITestResult result) {

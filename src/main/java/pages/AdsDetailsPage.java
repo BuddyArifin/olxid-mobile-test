@@ -4,6 +4,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -45,11 +47,19 @@ public class AdsDetailsPage extends BasePage {
     public static final String sharedBtn = "com.app.tokobagus.betterb:id/menu_share";
     public static final String lebihLanjutBtn = "com.app.tokobagus.betterb:id/safety_info_more";
     public static final String tutupBtn = "com.app.tokobagus.betterb:id/safety_info_close";
+    public static final String sharingPanels = "android:id/resolver_list";
+    public static final String sharingAppsText = "android:id/text1";
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoAds)
     })
     protected List<AndroidElement> listPhoto;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = sharingPanels),
+            @AndroidFindBy(id = sharingAppsText)
+    })
+    protected List<AndroidElement> sharingToApps;
 
     public AdsDetailsPage(WebDriver driver) {
         super(driver);
@@ -163,7 +173,7 @@ public class AdsDetailsPage extends BasePage {
 
     @Step("Verify All Contents of Details Page")
     public void verifyAllContensAdsDetails(){
-        verifyBanner();
+     //   verifyBanner();
         verifyTitleAds();
         verifyShareBtn();
         verifyLebihLanjut();
@@ -192,7 +202,10 @@ public class AdsDetailsPage extends BasePage {
     public void clickShareBtn() {
         swipePageTopToBtm();
         Log.info("Click SHARE Button");
+        Point shareBtnPoint = getPointLocation(getIdLocator(sharedBtn));
         clickElement(getIdLocator(sharedBtn));
+        Assert.assertTrue(isListElementPresent(sharingToApps));
+        clickBySize(shareBtnPoint);
     }
     public void clickCloseBtn() {
         Log.info("Click Close Button, on Tips Transaksi Aman");
@@ -238,5 +251,27 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Sudah Terjual Button");
     }
 
+    @Override
+    public boolean isListElementPresent(List<AndroidElement> list) {
+        try {
+            if (!list.isEmpty()) {
+                for (int i=0 ; i<list.size() ; i++) {
+                    String textOnElement = list.get(i).getText();
+                    Log.debug("Share apps available : "+textOnElement);
+                    Assert.assertNotNull(textOnElement);
+                    if (i > 3) {
+                        break;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (NoSuchElementException e)
+        {
+            return false;
+        }
+    }
 
 }
