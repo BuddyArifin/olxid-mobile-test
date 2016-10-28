@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Mobile OLXID" verbose="2" parallel="tests" thread-count="1">
+    <!--<listeners>-->
+        <!--<listener class-name="listeners.RetryListeners" />-->
+    <!--</listeners>-->
+
+    <test name="FB 01" preserve-order="false">
+        <classes>
+            <class name="scenarios.CategoryViewTest"/>
+        </classes>
+    </test>
+    <test name="FB 02" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsTest"/>
+        </classes>
+    </test>
+    <!--<test name="FB 03" preserve-order="false">-->
+    <!--<classes>-->
+        <!--<class name="scenarios.ListingTest"/>-->
+    <!--</classes>-->
+    <!--</test>-->
+    <!--<test name="FB 04" preserve-order="false">-->
+        <!--<classes>-->
+            <!--<class name="scenarios.FilterTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
+
+</suite>

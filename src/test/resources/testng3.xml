@@ -3,19 +3,18 @@
 
 <suite name="Mobile App OLXID" verbose="3" parallel="tests" thread-count="1">
 
-    <listeners>
-        <listener class-name="listeners.RetryListeners" />
-    </listeners>
+    <!--<listeners>-->
+        <!--<listener class-name="listeners.RetryListeners" />-->
+    <!--</listeners>-->
 
-   <test name="Login Sulley 01 OLXID" preserve-order="false">
+   <test name="Kategory Sulley 01 OLXID" preserve-order="false">
        <classes>
-          <class name="scenarios.LoginPageTest"/>
+          <class name="scenarios.ProfilSayaTest"/>
        </classes>
-    </test>
-
-    <test name="Login Sulley 02 OLXID" preserve-order="false">
+   </test>
+    <test name="Saldo Sulley 01 OLXID" preserve-order="false">
         <classes>
-            <class name="scenarios.LoginTest"/>
+            <class name="scenarios.SaldoOlxTest"/>
         </classes>
     </test>
 </suite>
