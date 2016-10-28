@@ -491,23 +491,23 @@ public class BasePage  {
 
 
     // Getter and Setter for Handle Tutorials
-    public boolean getTutorialPresentValue() {
+    public static boolean getTutorialPresentValue() {
         return isTutorialPresent;
     }
-    public void setTutorialPresent(boolean bool) {
+    public static void setTutorialPresent(boolean bool) {
         Log.debug("Set value tutorial present true");
         isTutorialPresent = bool;
     }
-    public boolean getTutorialMapsPresent() {
+    public static boolean getTutorialMapsPresent() {
         return isTutorialMapsPresent;
     }
-    public void setTutorialMapsPresent(boolean isTutorialMapsPresent) {
+    public static void setTutorialMapsPresent(boolean isTutorialMapsPresent) {
         BasePage.isTutorialMapsPresent = isTutorialMapsPresent;
     }
-    public boolean getTutorialCameraDismiss() {
+    public static boolean getTutorialCameraDismiss() {
         return isTutorialCameraDismiss;
     }
-    public void setTutorialCameraDismiss(boolean isTutorialCameraDismiss) {
+    public static void setTutorialCameraDismiss(boolean isTutorialCameraDismiss) {
         BasePage.isTutorialCameraDismiss = isTutorialCameraDismiss;
     }
 
