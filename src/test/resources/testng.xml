@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile OLXID" verbose="3" parallel="tests" thread-count="1">
+<suite name="Mobile OLXID" verbose="3" parallel="tests" thread-count="3">
 
     <!-- Comment This Listeners to disable Retry Rule-->
     <!--<listeners>-->
@@ -26,11 +26,11 @@
         <!--</classes>-->
     <!--</test>-->
 
-    <test name="Listing OLXID" preserve-order="false">
-        <classes>
-            <class name="scenarios.ListingTest"/>
-        </classes>
-    </test>
+    <!--<test name="Listing OLXID" preserve-order="false">-->
+        <!--<classes>-->
+            <!--<class name="scenarios.ListingTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 
     <test name="Filter OLXID" preserve-order="false">
         <classes>
@@ -38,11 +38,11 @@
         </classes>
     </test>
 
-    <test name="Saldo OLX OLXID" preserve-order="false">
-        <classes>
-            <class name="scenarios.SaldoOlxTest"/>
-        </classes>
-    </test>
+    <!--<test name="Saldo OLX OLXID" preserve-order="false">-->
+        <!--<classes>-->
+            <!--<class name="scenarios.SaldoOlxTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 
     <!--<test name="Filter OLX OLXID" preserve-order="false">-->
         <!--<classes>-->
@@ -56,11 +56,11 @@
         </classes>
     </test>
 
-    <test name="PostAds Sulley OLXID" preserve-order="false">
-        <classes>
-            <class name="scenarios.PostAdsTest"/>
-        </classes>
-    </test>
+    <!--<test name="PostAds Sulley OLXID" preserve-order="false">-->
+        <!--<classes>-->
+            <!--<class name="scenarios.PostAdsTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 
     <test name="Profile Saya Sulley OLXID" preserve-order="false">
         <classes>
