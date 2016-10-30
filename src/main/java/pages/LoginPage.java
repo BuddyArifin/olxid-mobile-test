@@ -9,7 +9,7 @@ import module.LoginWithFBModule;
 import module.LoginWithGplusModule;
 import module.LoginWithOlxModule;
 import module.LoginWithSMSModule;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -79,7 +79,7 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-        WaitForClickabilityOf(getIdLocator(alertShake), 100); // handle marketing Pop Up
+        isAutoAcept(getIdLocator(alertShake)); // handle marketing Pop Up
     }
 
     @Step("Verify All Contents of On Boarding Sliders")
@@ -234,5 +234,24 @@ public class LoginPage extends BasePage {
         androidDriver.closeApp();
         androidDriver.startActivity(Constants.appPackage, Constants.appActivity);
 
+    }
+
+    @Override
+    public boolean isAutoAcept(By by) {
+        try
+        {
+            WaitForClickabilityOf(by, 100);
+            if (waitForVisibility(by)) {
+                clickElement(by);
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException | TimeoutException e)
+        {
+            return true;
+        }
     }
 }
