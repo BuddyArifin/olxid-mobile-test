@@ -109,7 +109,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyPostDateAds(){
         Log.info("Verify Tanggal Pemasangan Iklan display");
-        Assert.assertTrue(isElementPresent(getIdLocator(postDateAds)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(postDateAds)));
     }
     public void verifyConditionsAds(){
         Log.info("Verify Kondisi Barang pada Iklan display");
