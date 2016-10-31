@@ -37,6 +37,7 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
+    compile 'com.android.tools.ddms:ddmlib:25.2.0'
 }
 
 allure {
@@ -63,7 +64,7 @@ test {
     }
     description = "Running Test from suite TestNG xml"
     useTestNG {
-        suites "src/test/resources/testng.xml"
+        suites "src/test/resources/testng3.xml"
     }
 }
 

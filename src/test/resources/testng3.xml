@@ -7,14 +7,14 @@
         <!--<listener class-name="listeners.RetryListeners" />-->
     <!--</listeners>-->
 
-   <test name="Kategory Sulley 01 OLXID" preserve-order="false">
-       <classes>
-          <class name="scenarios.ProfilSayaTest"/>
-       </classes>
-   </test>
-    <test name="Saldo Sulley 01 OLXID" preserve-order="false">
+    <test name="Home Page OLXID" preserve-order="false">
         <classes>
-            <class name="scenarios.SaldoOlxTest"/>
+            <class name="scenarios.LoginPageTest"/>
+        </classes>
+    </test>
+    <test name="Ads Details OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsTest"/>
         </classes>
     </test>
 </suite>
