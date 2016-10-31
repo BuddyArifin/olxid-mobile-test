@@ -113,7 +113,11 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyConditionsAds(){
         Log.info("Verify Kondisi Barang pada Iklan display");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(conditionsAds)));
+        if (isElementPresent(getIdLocator(conditionsAds))) { // handle screen size lower
+            Assert.assertTrue(true);
+        } else {
+            Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(conditionsAds)));
+        }
     }
     public void verifyPostYearsAds(){
         Log.info("Verify Tahun dari Iklan display");
