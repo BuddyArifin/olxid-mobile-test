@@ -1,12 +1,12 @@
 package scenarios;
 
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.Constants;
@@ -21,11 +21,11 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 public class AndroidSetup extends InstanceDriver {
 
     public NetClient net;
     public JsonObject jsonObject;
+    private Constants constants;
     
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
@@ -59,11 +59,23 @@ public class AndroidSetup extends InstanceDriver {
         Log.debug("SESSION CREATED : "+driver.getSessionId().toString()+" "+udid+" ");
     }
 
+    private void checkEligibleRun() throws Exception {
+        SessionId sessionId = driver.getSessionId();
+        Log.info("Session ID = "+sessionId.toString());
+        boolean isappinst = driver.isAppInstalled(constants.appPackage);
+        Log.info("Is app installed = "+isappinst);
+        if(sessionId == null && isappinst == false){
+            System.exit(1);
+        }
+    }
+
     @Parameters({"udid"})
     @BeforeClass
     public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
         prepareAndroidForAppium(udid);
         ctx.setAttribute("WebDriver", this.driver);
+        //check for session id and is app installed
+        checkEligibleRun();
     }
 
     @AfterClass
