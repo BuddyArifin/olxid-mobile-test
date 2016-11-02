@@ -1,23 +1,18 @@
 package pages;
 
-import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by buddyarifin on 9/2/16.
@@ -188,12 +183,13 @@ public class AdsDetailsPage extends BasePage {
         verifyLebihLanjut();
         verifyTutupBtn();
         verifyTipsAds();
-//        verifyPhotoAds();
+        verifyPhotoAds();
         verifyPriceAds();
         verifyFavoriteBtn();
         verifyStatusAds();
-        verifyPostDateAds();
-        verifyConditionsAds();
+//        verifyPostDateAds();
+        verifyidIklanNumber();
+//        verifyConditionsAds();
         verifyPostYearsAds();
         verifyTransactionAds();
         verifyDescriptionAds();
@@ -201,8 +197,7 @@ public class AdsDetailsPage extends BasePage {
         verifyAvatarSeller();
         verifyMemberJoinDate();
 //        verifyMemberRating();
-//        verifyAdsLocations();
-//        verifyidIklanNumber();
+        verifyAdsLocations();
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
         verifyHubungiPenjual();
@@ -281,21 +276,6 @@ public class AdsDetailsPage extends BasePage {
         {
             return false;
         }
-    }
-
-    @Override
-    public Boolean isElementPresentAfterScrollDown(final By locator) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(60, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 100, 200, 45, 1000);
-                return isElementPresent(locator);
-            }
-        });
     }
 
 }
