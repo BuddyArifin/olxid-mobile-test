@@ -917,7 +917,6 @@ public class PostAdsPage extends BasePage {
         Log.info("Dismiss tutorial");
         if (!checkTutorialsColors(getIdLocator(galleryIcon))) {
             clickBySize(getPointLocation(getIdLocator(shutterBtn)));
-            setTutorialCameraDismiss(false);
         }
     }
 }

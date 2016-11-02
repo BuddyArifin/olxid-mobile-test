@@ -336,7 +336,6 @@ public class ListingPage extends BasePage{
             clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
             clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
-            setTutorialPresent(false);
         }
     }
 
