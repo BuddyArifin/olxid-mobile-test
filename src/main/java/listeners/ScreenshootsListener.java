@@ -43,12 +43,6 @@ public class ScreenshootsListener extends TestListenerAdapter  {
     @Override
     public void onTestStart(ITestResult iTestResult){
         Log.debug("Running Test --> "+getTestTitle(iTestResult));
-        obj = iTestResult.getInstance();
-        driver = ((InstanceDriver)obj).driver;
-        base = new BasePage(driver);
-        base.setTutorialPresent(true);
-        base.setTutorialCameraDismiss(true);
-        base.setTutorialMapsPresent(true);
     }
 
     @Override

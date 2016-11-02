@@ -36,7 +36,7 @@ public class FilterPage extends BasePage {
     public static final String termahalRBtn = "com.app.tokobagus.betterb:id/rbMostExpensive";
     public static final String ubahBtn = "com.app.tokobagus.betterb:id/btnChooseCategory";
     public static final String resetBtn = "com.app.tokobagus.betterb:id/btnReset";
-    public static final String simpanBtn = "com.app.tokobagus.betterb:id/btnSearch";
+    public static final String cariBtn = "com.app.tokobagus.betterb:id/btnSearch";
     public static final String minPrice = "com.app.tokobagus.betterb:id/edtMinPrice";
     public static final String maxPrice = "com.app.tokobagus.betterb:id/edtMaxPrice";
     public static final String luasTanahLayout = "Luas tanah";
@@ -223,7 +223,7 @@ public class FilterPage extends BasePage {
     }
     public void verifySimpanButton()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(simpanBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(cariBtn)));
         Log.info("Verify Simpan Button");
     }
     /**
@@ -377,9 +377,9 @@ public class FilterPage extends BasePage {
 
     public ListingPage clickSimpanButton()
     {
-        swipePageBtmtToTop();
-        swipePageBtmtToTop();
-        clickElement(getIdLocator(simpanBtn));
+        isWaitElementPresent(getIdLocator(cariBtn));
+        isElementPresentAfterScrollDown(getIdLocator(cariBtn));
+        clickElement(getIdLocator(cariBtn));
         Log.info("Click Simpan Button");
         return new ListingPage(driver);
     }

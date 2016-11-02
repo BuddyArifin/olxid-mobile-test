@@ -36,7 +36,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to SHARE Ads")
     @Title("Verify User able to SHARE their Ads")
     @TestCaseId("TC_AdDetails_09_002")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 2)
     public void verifyUserAbleToShareAds() {
         adsDetailsPage.clickShareBtn();
     }

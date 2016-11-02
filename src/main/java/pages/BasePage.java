@@ -13,8 +13,15 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Attachment;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
+import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import utils.Log;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,9 +35,6 @@ import java.util.concurrent.TimeUnit;
 public class BasePage  {
 
     protected WebDriver driver;
-    public static boolean isTutorialPresent = true;
-    public static boolean isTutorialMapsPresent = true;
-    public static boolean isTutorialCameraDismiss = true;
 
     Sinon rdata;
 
@@ -140,8 +144,9 @@ public class BasePage  {
     	 return true;
      } catch (NoSuchElementException | TimeoutException e){
     	 return false;
+     } catch (WebDriverException e) {
+         return false;
      }
-
     }
     
     protected void clickElement(By by){
@@ -489,26 +494,53 @@ public class BasePage  {
         return element.getLocation();
     }
 
+    public BufferedImage convertImgFileToBufferedImage(String imagePath){
+        BufferedImage in = null;
+        try {
+            in = ImageIO.read(new File(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return in;
+    }
 
-    // Getter and Setter for Handle Tutorials
-    public static boolean getTutorialPresentValue() {
-        return isTutorialPresent;
+    public void attachToFile(String captureDir, BufferedImage bufferedImage, String filename){
+        try{
+            new File(captureDir).mkdirs();
+            File captured = new File(captureDir+filename);
+            ImageIO.write(bufferedImage, "PNG", captured);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    public static void setTutorialPresent(boolean bool) {
-        Log.debug("Set value tutorial present true");
-        isTutorialPresent = bool;
+
+    public boolean checkTutorialsColors(By by) {
+        WebElement element = driver.findElement(by);
+        Screenshot shot = new AShot().coordsProvider(new WebDriverCoordsProvider())
+                .takeScreenshot(driver, element);
+        String imagePath = "src/test/resources/imageRecognition/";
+        attachToFile(imagePath, shot.getImage().getSubimage(0, 0, 30, 30), "actualImage"+this.getClass().getSimpleName()+".png");
+        ImageDiff diff = new ImageDiffer().makeDiff(convertImgFileToBufferedImage
+                (imagePath+"expectedImage"+this.getClass().getSimpleName()+".png"), convertImgFileToBufferedImage
+                (imagePath+"actualImage"+this.getClass().getSimpleName()+".png"));
+        attachToFile(imagePath, diff.getMarkedImage(), "actual"+this.getClass().getSimpleName()+"Marked.png");
+        return diff.hasDiff();
     }
-    public static boolean getTutorialMapsPresent() {
-        return isTutorialMapsPresent;
-    }
-    public static void setTutorialMapsPresent(boolean isTutorialMapsPresent) {
-        BasePage.isTutorialMapsPresent = isTutorialMapsPresent;
-    }
-    public static boolean getTutorialCameraDismiss() {
-        return isTutorialCameraDismiss;
-    }
-    public static void setTutorialCameraDismiss(boolean isTutorialCameraDismiss) {
-        BasePage.isTutorialCameraDismiss = isTutorialCameraDismiss;
+
+    public void capturedSpesificElement(By by) {
+        String captureDir = "src/test/resources/imageRecognition/";
+        File expectedFile = new File(captureDir+"expectedImage"+this.getClass().getSimpleName()+".png");
+        if (!(expectedFile.exists() && expectedFile.isFile())) {
+            try {
+                WebElement element = driver.findElement(by);
+                Screenshot ashot = new AShot().coordsProvider(new WebDriverCoordsProvider())
+                        .takeScreenshot(driver, element);
+                attachToFile(captureDir, ashot.getImage().getSubimage(0, 0, 30, 30),
+                        "expectedImage"+this.getClass().getSimpleName()+".png");
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

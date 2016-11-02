@@ -27,7 +27,7 @@ public class PostAdsPage extends BasePage {
 
     public static final String closeBtn = "com.app.tokobagus.betterb:id/btnCancel";
     public static final String liveViewFrame = "com.app.tokobagus.betterb:id/cwac_cam2_preview_stack";
-    public static final String shutterBtn = "com.app.tokobagus.betterb:id/cwac_cam2_picture";
+    public static final String shutterBtn = "com.app.tokobagus.betterb:id/takeShot";
     public static final String galeriBtn = "com.app.tokobagus.betterb:id/cwac_cam2_gallery";
     public static final String cropBtnAtas = "com.app.tokobagus.betterb:id/btnCrop";
     public static final String rotateBtn = "com.app.tokobagus.betterb:id/btnRotate";
@@ -79,6 +79,7 @@ public class PostAdsPage extends BasePage {
     public static final String textViewClass = "android.widget.TextView";
     public static final String galeriFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultNeutral";
     public static final String kameraFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String galleryIcon = "com.app.tokobagus.betterb:id/btnGallery";
     public String suggestedHarga = "";
     public Boolean suggestionHarga;
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
@@ -177,6 +178,7 @@ public class PostAdsPage extends BasePage {
     public void verifyContentInCameraPage()
     {
         //verifyCloseBtn();
+        capturedSpesificElement(getIdLocator(galleryIcon));
         dismissTutorial();
         verifyLiveViewFrame();
         verifyShutterBtn();
@@ -227,7 +229,7 @@ public class PostAdsPage extends BasePage {
     }
     public void verifyGaleriBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(galeriBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(galleryIcon)));
         Log.info("Verify Gallery Button");
     }
     public void verifyCropBtnAtas()
@@ -431,7 +433,6 @@ public class PostAdsPage extends BasePage {
 //        verifyHargaOrGajiColumn();
         verifyLokasiIklanColumn();
         verifyDetilTambahanDanDeskripsiColumn();
-        verifyPemrosesanDataCheckBoxColumn();
         verifyPasangIklanBtn();
         Log.info("Verify Content in Posting Form");
     }
@@ -914,7 +915,7 @@ public class PostAdsPage extends BasePage {
 
     public void dismissTutorial() {
         Log.info("Dismiss tutorial");
-        if (getTutorialCameraDismiss()) {
+        if (!checkTutorialsColors(getIdLocator(galleryIcon))) {
             clickBySize(getPointLocation(getIdLocator(shutterBtn)));
             setTutorialCameraDismiss(false);
         }

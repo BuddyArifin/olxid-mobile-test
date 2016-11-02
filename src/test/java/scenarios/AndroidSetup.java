@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.SessionId;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import pages.BasePage;
 import pages.Constants;
 import pages.InstanceDriver;
 import tracking.NetClient;
@@ -25,7 +26,7 @@ public class AndroidSetup extends InstanceDriver {
 
     public NetClient net;
     public JsonObject jsonObject;
-    private Constants constants;
+    public BasePage basePage;
     
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
@@ -62,7 +63,7 @@ public class AndroidSetup extends InstanceDriver {
     private void checkEligibleRun() throws Exception {
         SessionId sessionId = driver.getSessionId();
         Log.info("Session ID = "+sessionId.toString());
-        boolean isappinst = driver.isAppInstalled(constants.appPackage);
+        boolean isappinst = driver.isAppInstalled(Constants.appPackage);
         Log.info("Is app installed = "+isappinst);
         if(sessionId == null && isappinst == false){
             System.exit(1);
@@ -74,7 +75,6 @@ public class AndroidSetup extends InstanceDriver {
     public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
         prepareAndroidForAppium(udid);
         ctx.setAttribute("WebDriver", this.driver);
-        //check for session id and is app installed
         checkEligibleRun();
     }
 

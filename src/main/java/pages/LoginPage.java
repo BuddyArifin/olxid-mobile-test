@@ -240,7 +240,7 @@ public class LoginPage extends BasePage {
     public boolean isAutoAcept(By by) {
         try
         {
-            WaitForClickabilityOf(by, 100);
+            WaitForClickabilityOf(by, 80);
             if (waitForVisibility(by)) {
                 clickElement(by);
                 return true;

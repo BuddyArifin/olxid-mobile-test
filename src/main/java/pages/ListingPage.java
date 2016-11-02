@@ -82,6 +82,7 @@ public class ListingPage extends BasePage{
     {
         Log.info("Verify All Contents of ListingPage");
         isAutoAcept(getIdLocator(permissionAllowAccessBtn));
+        capturedSpesificElement(getIdLocator(jarakDariKamuBtnID));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
         verifyTitlePage();
@@ -331,11 +332,12 @@ public class ListingPage extends BasePage{
     }
 
     public void verifyandSkipTutorialElements(){
-        if (getTutorialPresentValue()) {
+        if (!checkTutorialsColors(getIdLocator(jarakDariKamuBtnID))) {
             clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
             clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
             setTutorialPresent(false);
         }
     }
+
 }

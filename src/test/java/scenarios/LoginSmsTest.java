@@ -9,6 +9,7 @@ import ru.yandex.qatools.allure.annotations.Features;
  */
 @Listeners(ScreenshootsListener.class)
 @Features("Login Feature")
+@Deprecated
 public class LoginSmsTest extends AndroidSetup{
     
     // login with SMS

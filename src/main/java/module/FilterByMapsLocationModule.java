@@ -139,6 +139,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyAllContentInLocationPage()
     {
 //        verifyBackBtn();
+        capturedSpesificElement(getIdLocator(searchField));
         dismissTutorial();
         verifySearchField();
         verifyMyCurrentLocationBtn();
@@ -288,7 +289,7 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void dismissTutorial() {
-        if (getTutorialMapsPresent()) {
+        if (!checkTutorialsColors(getIdLocator(searchField))) {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
             setTutorialMapsPresent(false);

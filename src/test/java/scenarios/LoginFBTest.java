@@ -35,7 +35,7 @@ public class LoginFBTest extends AndroidSetup {
     @Stories("As A User I want able to Login")
     @Title("Verify Facebook Ask Permissions from Users to Give the Granted Access")
     @TestCaseId("TC_LBF_02_003")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void userAbleToGiveGrantedAccessToFB() {
         LoginWithFBModule fbLogin = new LoginWithFBModule(driver);
         fbLogin.clickConfirm();

@@ -38,6 +38,7 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.android.tools.ddms:ddmlib:25.2.0'
+    compile 'ru.yandex.qatools.ashot:ashot:1.5.2'
 }
 
 allure {

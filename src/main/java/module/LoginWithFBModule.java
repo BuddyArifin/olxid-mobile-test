@@ -16,19 +16,19 @@ import utils.Log;
  */
 public class LoginWithFBModule extends BasePage {
 
-    public static final String email = "com.facebook.katana:id/a4j";
-    public static final String emailCss = "div[data-sigil='m_login_notice']";
-    public static final String password = "com.facebook.katana:id/a4k";
-    public static final String passwordCss = "input[type='password']";
-    public static final String loginBtn = "com.facebook.katana:id/a4m";
+    public static final String email = "com.facebook.katana:id/login_username";
+    public static final String emailCss = "input[name='email']";
+    public static final String password = "com.facebook.katana:id/login_password";
+    public static final String passwordCss = "input[name='pass']";
+    public static final String loginBtn = "com.facebook.katana:id/login_login";
     public static final String loginCss = "button[type='button']";
     public static final String cancelBtn = "";
     public static final String closeBtn = "";
     public static final String confirmBtn = "u_0_9";
-    public static final String confirmBtnCss = "button#u_0_6";
+    public static final String confirmBtnCss = "button#u_0_3[value='OK']";
     public static final String accessFBInfoText = "";
     public static final String alertIncorrectCredentials = "com.facebook.katana:id/alertTitle";
-    public static final String alertIncorrectCredentialsCss = "div[data-sigil='m_login_notice']";
+    public static final String alertIncorrectCredentialsCss = "div._5yd0._2ph-._5yd1";
     public static final String okButton = "com.facebook.katana:id/button1";
     public static final String hamburgerBar = "Navigate up";
     public static boolean isNative = true;
@@ -51,9 +51,9 @@ public class LoginWithFBModule extends BasePage {
         sendKeysById(getIdLocator(password), passwordText);
     }
     public void clickConfirm() {
-        if(isFBAppInstalled()) {
+        if(isNative) {
             Log.info("Accepting Permission FB App");
-            clickElement(getButtonLocator(confirmBtn));
+//            clickElement(getButtonLocator(confirmBtn));
         } else {
             Log.info("Accepting Permission FB App");
             clickElement(By.cssSelector(confirmBtnCss));
@@ -73,10 +73,6 @@ public class LoginWithFBModule extends BasePage {
     public void clickWebLogin() {
         Log.info("Click FB - WebView - Login Button");
         clickElement(By.cssSelector(loginCss));
-        if (isWaitElementPresent(By.cssSelector(confirmBtnCss))) {
-            clickElement(By.cssSelector(confirmBtnCss));
-            switchNativeCtx();
-        }
     }
 
     public void verifyLoginFormFB() {
@@ -86,7 +82,7 @@ public class LoginWithFBModule extends BasePage {
     }
     public void verifyEmailField() {
         Log.info("Verified email Text Field");
-        Assert.assertTrue(isElementPresent(getIdLocator(email)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(email)));
     }
     public void verifyPassField() {
         Log.info("Verified Password Text Field");
@@ -149,7 +145,7 @@ public class LoginWithFBModule extends BasePage {
     }
 
     public boolean isFBAppInstalled() {
-        if (isWaitElementPresent(getIdLocator(email))) {
+        if (((AndroidDriver)driver).isAppInstalled("com.facebook.katana")) {
             return true;
         } else {
             Log.debug("Login must using web view");

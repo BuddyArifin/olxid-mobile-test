@@ -1,11 +1,11 @@
 package pages;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -206,10 +206,10 @@ public class AdsDetailsPage extends BasePage {
     public void clickShareBtn() {
         swipePageTopToBtm();
         Log.info("Click SHARE Button");
-        Point shareBtnPoint = getPointLocation(getIdLocator(sharedBtn));
+        String currentLocations = ((AndroidDriver)driver).currentActivity();
         clickElement(getIdLocator(sharedBtn));
-        Assert.assertTrue(isListElementPresent(sharingToApps));
-        clickBySize(shareBtnPoint);
+        ((AndroidDriver)driver).startActivity(Constants.appPackage, currentLocations);
+        isWaitElementPresent(getIdLocator(sharedBtn));
     }
     public void clickCloseBtn() {
         Log.info("Click Close Button, on Tips Transaksi Aman");

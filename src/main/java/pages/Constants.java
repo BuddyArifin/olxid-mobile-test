@@ -5,7 +5,7 @@ public class Constants {
 //  public static String apkDir="Resources/";
   public static String apkDir="/Applications/Dropbox/ptTokobagus";
   public static String hubIP="http://localhost:4444/wd/hub";
-  public static String apkName="app-release-7.0.0.166.apk";
+  public static String apkName="app-release-7.0.0.170.apk";
 
   // Request Sinon
   public static final String GET = "GET";

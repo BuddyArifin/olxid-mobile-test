@@ -77,6 +77,8 @@ public class LoginOLXTest extends AndroidSetup {
     @Test(priority = 2)
     public void userNotAbleToLoginWithBlankCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
+        loginOlx.inputEmail("");
+        loginOlx.inputPassword("");
         loginOlx.clickLoginWithOlxBtn();
         loginOlx.verifyErrorBlankEmail();
     }
@@ -87,7 +89,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Test(priority = 6)
     public void userAbleToLoginWithValidCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
-        loginOlx.inputEmail("krisna.parahita@olx.co.id");
+        loginOlx.inputEmail("emir.faisal@olx.co.id");
         loginOlx.inputPassword("testing");
         loginOlx.clickLoginWithOlxBtn();
         listingPage = loginOlx.verifyListingPage();
