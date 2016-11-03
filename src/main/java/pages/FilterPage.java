@@ -34,7 +34,7 @@ public class FilterPage extends BasePage {
     public static final String terbaruRBtn = "com.app.tokobagus.betterb:id/rbNewest";
     public static final String termurahRBtn = "com.app.tokobagus.betterb:id/rbCheapest";
     public static final String termahalRBtn = "com.app.tokobagus.betterb:id/rbMostExpensive";
-    public static final String ubahBtn = "com.app.tokobagus.betterb:id/btnChooseCategory";
+    public static final String chooseCategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String resetBtn = "com.app.tokobagus.betterb:id/btnReset";
     public static final String cariBtn = "com.app.tokobagus.betterb:id/btnSearch";
     public static final String minPrice = "com.app.tokobagus.betterb:id/edtMinPrice";
@@ -162,13 +162,14 @@ public class FilterPage extends BasePage {
         verifyTerbaruRadioButton();
         verifyTermurahRadioButton();
         verifyTermahalRadioButton();
-        verifyUbahButton();
+        verifyCategoryField();
         verifyResetButton();
         verifySimpanButton();
         Log.info("Verify All Content in Filter Page");
     }
     public void verifyBackButton()
     {
+        waitForClickabilityOf(getIdLocator(backBtn));
         Assert.assertTrue(isElementPresent(getContentLocator(backBtn)));
         Log.info("Verify Back Button");
     }
@@ -179,6 +180,7 @@ public class FilterPage extends BasePage {
     }
     public void verifyCancelButton()
     {
+        waitForClickabilityOf(getIdLocator(cancelBtn));
         Assert.assertTrue(isElementPresent(getIdLocator(cancelBtn)));
         Log.info("Verify Cancel Button");
     }
@@ -211,9 +213,9 @@ public class FilterPage extends BasePage {
         Assert.assertTrue(isElementPresent(getIdLocator(termahalRBtn)));
         Log.info("Verify Termahal Radio Button");
     }
-    public void verifyUbahButton()
+    public void verifyCategoryField()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(ubahBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(chooseCategory)));
         Log.info("Verify Ubah Button");
     }
     public void verifyResetButton()
@@ -330,11 +332,11 @@ public class FilterPage extends BasePage {
         Log.info("Click MyLocation Button");
     }
 
-    public FilterByMapsLocationModule clickLocationButton()
+    public Maps clickLocationButton()
     {
         Log.info("Click Location Button");
         clickElement(getIdLocator(locationBtn));
-        return new FilterByMapsLocationModule(driver);
+        return new Maps(driver);
     }
 
     public void clickRadioButtonTerdekatInUrutkanColumn()
@@ -361,14 +363,16 @@ public class FilterPage extends BasePage {
         Log.info("Click Termahal Radio Button in Urutkan Column");
     }
 
-    public void clickUbahButton()
+    public void clickChooseCategoryField()
     {
         Log.info("Click Ubah Button");
-        clickElement(getIdLocator(ubahBtn));
+        clickElement(getIdLocator(chooseCategory));
     }
 
     public void clickResetButton()
     {
+        waitForClickabilityOf(getTextLocator("Filter"));
+        swipePageBtmtToTop();
         swipePageBtmtToTop();
         swipePageBtmtToTop();
         clickElement(getIdLocator(resetBtn));
@@ -650,8 +654,8 @@ public class FilterPage extends BasePage {
 //                            parentElement.get(i).click();
 //                            Log.info("Click : " + splitTextPart);
 //                            listString.remove(splitTextPart);
-////                            Log.info("Sekarang Size dari string Array : " + listString.size());
-////                            break;
+//                            Log.info("Sekarang Size dari string Array : " + listString.size());
+//                            break;
 //                        }
 //                    }
 //                }
@@ -663,6 +667,16 @@ public class FilterPage extends BasePage {
 //            }
 //        }
     }
+    public class Maps extends FilterByMapsLocationModule
+    {
+        public Maps(WebDriver driver) {
+            super(driver);
+        }
 
-
+        @Override
+        public FilterPage clickCariDiLokasiIniBtn() {
+            clickElement(getIdLocator(cariDiLokasiIniBtn));
+            return new FilterPage(driver);
+        }
+    }
 }

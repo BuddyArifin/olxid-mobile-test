@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.ListingPage;
+import pages.PostAdsPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
@@ -46,8 +48,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public static final String gpsCancelPopup = "com.app.tokobagus.betterb:id/cancel_button";
     public static final String switchOnGPS = "com.android.settings:id/switch_widget";
     public String locationText = "";
-
-
+    public boolean isClickedBy;
 
     @AndroidFindBys({
             @AndroidFindBy(id = listView),
@@ -215,10 +216,11 @@ public class FilterByMapsLocationModule extends BasePage {
         Log.info("Slide Right Direction Slider Radius");
     }
 
-    public void clickCariDiLokasiIniBtn()
+    public BasePage clickCariDiLokasiIniBtn()
     {
         Log.info("Click Cari Di Lokasi Ini Button");
         clickElement(getIdLocator(cariDiLokasiIniBtn));
+        return new ListingPage(driver);
     }
 
     public void openedTrayLocation() {
@@ -290,6 +292,15 @@ public class FilterByMapsLocationModule extends BasePage {
 
     public void dismissTutorial() {
         if (!checkTutorialsColors(getIdLocator(searchField))) {
+            clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
+            clickBySize(getPointLocation(getIdLocator(sliderRadius)));
+        }
+    }
+
+    public void clickTutorialBala()
+    {
+        if (isClickedBy)
+        {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
         }
