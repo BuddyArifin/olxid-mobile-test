@@ -1,6 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.FilterByMapsLocationModule;
 import module.LoginWithOlxModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -22,6 +23,7 @@ public class PostAdsTest extends AndroidSetup {
     LoginWithOlxModule loginWithOlxModule;
     ListingPage listingPage;
     PostAdsPage postAdsPage;
+    PostAdsPage.Maps maps;
 
     @Stories("As a user i want to see content in Camera Page")
     @Title("Verify content in camera page")
@@ -30,6 +32,7 @@ public class PostAdsTest extends AndroidSetup {
     public void verifyAllContentInCameraPage()
     {
         loginPage = new LoginPage(driver);
+        loginPage.clickSkipOnBoardingSliders();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
         loginWithOlxModule.clickLoginWithOlxBtn();
         listingPage = loginWithOlxModule.verifyListingPage();
@@ -159,7 +162,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able choose method to add photo")
     @Title("Verify user able to choose option add photo from gallery")
     @TestCaseId("TC_JUAL_11_017, TC_JUAL_11_018")
-    @Test(priority = 13)
+    @Test(priority = 13, enabled = false)
     public void verifyUserAbleToChooseOptionAddPhotoFromGallery()
     {
         postAdsPage.clickPlusAdditionalPhotos();
@@ -172,11 +175,11 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able cancel uploaded or taken photo")
     @Title("Verify user able to cancel uploaded or taken photo")
     @TestCaseId("TC_JUAL_11_019")
-    @Test(priority = 14)
+    @Test(priority = 14, enabled = false)
     public void verifyUserAbleToCancelUploadedOrTakenPhoto()
     {
         postAdsPage.clickCloseButtonXPhotoThumb();
-        postAdsPage.clickYaPositiveBtn();
+        postAdsPage.clickYaPositiveOrCameraBtn();
     }
 
     @Stories("As a user i want to be able click and input title Ads")
@@ -188,13 +191,16 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Xiaomi Layar Meledak");
     }
 
-    @Stories("As a user i want to be able click and edit Ads Kategori")
-    @Title("Verify user able to click and edit Ads Kategori")
-    @TestCaseId("TC_JUAL_11_021")
+    @Stories("As a user i want to be able choose Location of my ads")
+    @Title("Verify user able to choose Location of my ads")
+    @TestCaseId("TC_JUAL_11_041")
     @Test(priority = 16)
-    public void verifyUserAbleToClickAndEditAdsKategori()
+    public void verifyUserAbleToChooseLocationOfMyAds()
     {
-        postAdsPage.clickKategoriAds();
+        maps = postAdsPage.clickCariLokasiBtn();
+        maps.verifyAllContentInLocationPage();
+        maps.clickMyCurrentLocationBtn();
+        postAdsPage = maps.clickCariDiLokasiIniBtn();
     }
 
     @Stories("As a user i want to be able see suggestion Kategori")
@@ -206,10 +212,19 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionKategori();
     }
 
+    @Stories("As a user i want to be able click and edit Ads Kategori")
+    @Title("Verify user able to click and edit Ads Kategori")
+    @TestCaseId("TC_JUAL_11_021")
+    @Test(priority = 18)
+    public void verifyUserAbleToClickAndEditAdsKategori()
+    {
+        postAdsPage.clickKategoriAds();
+    }
+
     @Stories("As a user i want to be able click and input price Ads")
     @Title("Verify user able to click and input price Ads")
     @TestCaseId("TC_JUAL_11_023, TC_JUAL_11_024")
-    @Test(priority = 18)
+    @Test(priority = 19)
     public void verifyUserAbleToClickAndInputPriceAds()
     {
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
@@ -218,7 +233,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able input Description and no character limit")
     @Title("Verify user able to input Description and no character limit")
     @TestCaseId("TC_JUAL_11_029")
-    @Test(priority = 19)
+    @Test(priority = 20)
     public void verifyUserAbleToInputDescriptionAndNoCharacterLimit()
     {
         postAdsPage.clickDetilTambahDanDeskripsi();
@@ -229,19 +244,10 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i will not able to Post ads")
     @Title("Verify user not able to post ads if Pemrosesan Data not check")
     @TestCaseId("TC_JUAL_11_032")
-    @Test(priority = 20, enabled = false)
+    @Test(priority = 21, enabled = false)
     public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
     {
         postAdsPage.clickPasangIklanButton();
-    }
-
-    @Stories("As a user i want to able check Pemrosesan Data")
-    @Title("Verify user able to check Pemrosesan Data")
-    @TestCaseId("TC_JUAL_11_033")
-    @Test(priority = 21)
-    public void verifyUserAbleToCheckPemrosesanData()
-    {
-        postAdsPage.clickCheckBoxPemrosesanData();
     }
 
     @Stories("As a user i want to able post Ads")
@@ -259,6 +265,7 @@ public class PostAdsTest extends AndroidSetup {
     @Test(priority = 23)
     public void verifySystemDisplayContentInPopUpConfirmation()
     {
+        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
     }
 
@@ -310,17 +317,17 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Mobil Audi TT Tahun 2015");
         postAdsPage.clickSimpanBtn();
         postAdsPage.verifyContentPostingForm();
+        postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
         postAdsPage.clickMobilBekasAudiCategory();
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
-        postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
-        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
-        postAdsPage.inputAdditionalInputFieldTipeKendaraan();
-        postAdsPage.inputAdditionalInputFieldTransmisi();
         postAdsPage.inputAdditionalInputFieldTahun();
-        postAdsPage.clickCheckBoxPemrosesanData();
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
+        postAdsPage.verifyNoLimitCharacterDescription();
         postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
         listingPage.verifyContentsOfListingPage();
@@ -329,9 +336,30 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
     @TestCaseId("TC_JUAL_11_027")
-    @Test(priority = 29, enabled = false)
+    @Test(priority = 29)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
+        postAdsPage = listingPage.clickJualBtnBtm();
+        postAdsPage.verifyContentInCameraPage();
+        postAdsPage.clickShutterBtn();
+        postAdsPage.verifyContentAdditionalInCameraPage();
+        postAdsPage.inputJudulAds("Dijual Rumah Di Daerah Pondok Indah");
+        postAdsPage.clickSimpanBtn();
+        postAdsPage.verifyContentPostingForm();
+        postAdsPage.verifySuggestionKategori();
+        postAdsPage.clickKategoriAds();
+        postAdsPage.clickPropertiRumahDijualCategory();
+        postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
+        postAdsPage.verifyAdditionalInputFieldPropertiCategory();
+        postAdsPage.inputAdditionalFieldLuasBangunan("200");
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Rumah Di Daerah Pondok Indah Dengan Luas Tanah 200, Luas Bangunan 200, 4 Lantai");
+        postAdsPage.verifyNoLimitCharacterDescription();
+        postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
+        postAdsPage.verifyContentInPopUpSuccessPosting();
+        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
@@ -347,6 +375,7 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Dicari Karyawan Untuk Administrasi");
         postAdsPage.clickSimpanBtn();
         postAdsPage.verifyContentPostingForm();
+        postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
         postAdsPage.clickJasaLowonganAdministrasi();
         postAdsPage.verifyHargaChangeToGaji();
@@ -355,8 +384,9 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputAdditionalInputFieldGajiMaksimal("6000000");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dicari 5 Orang Karyawan Di Bidang Administrasi");
-        postAdsPage.clickCheckBoxPemrosesanData();
+        postAdsPage.verifyNoLimitCharacterDescription();
         postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
         listingPage.verifyContentsOfListingPage();
