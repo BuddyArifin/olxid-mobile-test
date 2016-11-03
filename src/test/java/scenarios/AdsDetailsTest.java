@@ -29,6 +29,11 @@ public class AdsDetailsTest extends AndroidSetup {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
+        listingPage.clickSearchBtnPrm();
+        listingPage.inputSearchKeyword("Samsung");
+        listingPage.verifySuggestionList();
+        listingPage.clickSuggestions();
+        listingPage.verifyContentsOfListingPage();
         adsDetailsPage = listingPage.selectAdsFromListing();
         adsDetailsPage.verifyAllContensAdsDetails();
     }
