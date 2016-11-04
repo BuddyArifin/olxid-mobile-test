@@ -101,4 +101,38 @@ public class LoginOLXTest extends AndroidSetup {
     @TestCaseId("TC_LOGIN_04_006")
     @Test(priority = 7)
     public void userAbleToLogoutAfterSuccessOlxLogin() {}
+
+    /** Forgot Password */
+
+    @Stories("As a user I want to be able to see the contents of Forgot/Lupa Password")
+    @Title("Verify user able to see the contents of Forgot/Lupa Password")
+    @TestCaseId("TC_LOGIN_04_008")
+    @Test(priority = 8, enabled = false)
+    public void verifyContentForgotPass(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.clickForgotPassOlx();
+        loginWithOlxModule.verifyForgotPassContent();
+    }
+
+    @Stories("As a user I want to be able to receive password recovery via email")
+    @Title("Verify user able to receive password recovery via email")
+    @TestCaseId("TC_LOGIN_04_009")
+    @Test(priority = 9, enabled = false)
+    public void userAbleToReceivePassRecovery(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.inputEmailForgotPass("example");
+        loginWithOlxModule.clickKirimForgotPass();
+        loginWithOlxModule.verifyForgotPassNotifSuccess("Link Terkirim", "example");
+        //need to verify email
+    }
+
+    @Stories("As a user I want to be able to close forgot password notification")
+    @Title("Verify user able to close forgot password notification")
+    @TestCaseId("TC_LOGIN_04_010")
+    @Test(priority = 10, enabled = false)
+    public void userAbleToCloseFPNotif(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.clickTutupForgotPassNotif();
+        loginWithOlxModule.verifyLoginOlxContents();
+    }
 }
