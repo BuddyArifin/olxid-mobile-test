@@ -22,9 +22,11 @@ import utils.Log;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -543,4 +545,24 @@ public class BasePage  {
         }
     }
 
+    /** Method to compare image */
+    protected static boolean isImgNotEqual(File img1, File img2) throws IOException{
+        BufferedImage image1 = ImageIO.read(img1);
+        BufferedImage image2 = ImageIO.read(img2);
+
+        DataBufferByte databuff1 = (DataBufferByte)image1.getRaster().getDataBuffer();
+        DataBufferByte databuff2 = (DataBufferByte)image2.getRaster().getDataBuffer();
+
+        if (databuff1.getNumBanks() != databuff2.getNumBanks()) {
+            return true;
+        }
+
+        for (int bank = 0; bank < databuff1.getNumBanks(); bank++) {
+            if (!Arrays.equals(databuff1.getData(bank), databuff2.getData(bank))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
