@@ -21,7 +21,7 @@ import java.util.List;
 public class ListingPage extends BasePage{
 
     public static final String hamburgerBar = "Navigate up";
-    public static final String titlePage = "Sulley";
+    public static final String titlePage = "OLX";
     public static final String searchBtnPrmID = "com.app.tokobagus.betterb:id/search_item";
     public static final String filterBtnPrmID = "com.app.tokobagus.betterb:id/filter_item";
     public static final String jarakDariKamuBtnID = "com.app.tokobagus.betterb:id/distance";
