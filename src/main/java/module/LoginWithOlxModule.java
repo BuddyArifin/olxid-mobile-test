@@ -24,6 +24,14 @@ public class LoginWithOlxModule extends BasePage {
     public static String emailNotValidText = "Email tidak valid";
     public static String loginGagal = "Login Gagal";
     public static String passErrorMsg = "";
+    //forgot password
+    public static String forgotPassBtn = "com.app.tokobagus.betterb:id/entranceLogin_btnForgotPass";
+    public static String emailForgotPass = "com.app.tokobagus.betterb:id/profileForgotPass_txtEmail";
+    public static String kirimBtnForgotPass = "com.app.tokobagus.betterb:id/profileForgotPass_btnSend";
+    public static String forgotPassTitlePage = "Lupa Password";
+    public static String forgotPassSuccessNotifTitle = "com.app.tokobagus.betterb:id/md_title";
+    public static String forgotPassSuccessNotifMsg = "com.app.tokobagus.betterb:id/md_content";
+    public static String forgotPassSuccessNotifTutup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
 
     public LoginWithOlxModule(WebDriver driver) {
         super(driver);
@@ -36,6 +44,8 @@ public class LoginWithOlxModule extends BasePage {
         verifyPassField();
         verifyShowPass();
         verifyLoginWithOlxBtn();
+        //forgot pass
+        verifyForgotPassOlxLink();
     }
 
     @Step("Verify Email Field")
@@ -117,4 +127,75 @@ public class LoginWithOlxModule extends BasePage {
         return new ListingPage(driver);
     }
 
+    /** Forgot Password */
+
+    public void verifyForgotPassOlxLink(){
+        Log.info("Verify Forgot Password Olx Link");
+        Assert.assertTrue(isElementPresent(getIdLocator(forgotPassBtn)));
+    }
+
+    public void clickForgotPassOlx(){
+        Log.info("Click Forgot Password OLX");
+        clickElement(getIdLocator(forgotPassBtn));
+    }
+
+    public void verifyForgotPassContent(){
+        verifyForgotPassTitle();
+        verifyForgotPassEmailField();
+        verifyForgotPassKirimBtn();
+    }
+
+    private void verifyForgotPassTitle(){
+        Log.info("Verify Forgot Password Title Page");
+        Assert.assertTrue(isElementPresent(getTextLocator(forgotPassTitlePage)));
+    }
+
+    private void verifyForgotPassEmailField(){
+        Log.info("Verify Forgot Password Email Field");
+        Assert.assertTrue(isElementPresent(getIdLocator(emailForgotPass)));
+    }
+
+    private void verifyForgotPassKirimBtn(){
+        Log.info("Verify Forgot Password Kirim Button");
+        Assert.assertTrue(isElementPresent(getIdLocator(kirimBtnForgotPass)));
+    }
+
+    public void inputEmailForgotPass(String emailForgot){
+        Log.info("Input Email Forgot Password : "+emailForgot);
+        sendKeysById(getIdLocator(emailForgotPass), emailForgot);
+    }
+
+    public void clickKirimForgotPass(){
+        Log.info("Click Kirim Forgot Password");
+        clickElement(getIdLocator(kirimBtnForgotPass));
+    }
+
+    private void verifyFPSuccessTitle(String fpsuccesstitle){
+        Log.info("Verify Forgot Password Success Title");
+        Assert.assertTrue(isElementPresent(getIdLocator(forgotPassSuccessNotifTitle)));
+        Assert.assertTrue(getStringText(getIdLocator(forgotPassSuccessNotifTitle)).contains(fpsuccesstitle));
+    }
+
+    private void verifyFPSuccessMsg(String emailForgotPass){
+        Log.info("Verify Forgot Password Success Message");
+        Assert.assertTrue(isElementPresent(getIdLocator(forgotPassSuccessNotifMsg)));
+        Assert.assertTrue(getStringText(getIdLocator(forgotPassSuccessNotifMsg)).contains(emailForgotPass));
+    }
+
+    private void verifyFPSuccessTutupBtn(){
+        Log.info("Verify Forgot Password Success Tutup Btn");
+        Assert.assertTrue(isElementPresent(getIdLocator(forgotPassSuccessNotifTutup)));
+    }
+
+    public void verifyForgotPassNotifSuccess(String fpsuccesstitle, String emailForgotPass){
+        Log.info("Verify Forgot Password Success Notification");
+        verifyFPSuccessTitle(fpsuccesstitle);
+        verifyFPSuccessMsg(emailForgotPass);
+        verifyFPSuccessTutupBtn();
+    }
+
+    public void clickTutupForgotPassNotif(){
+        Log.info("Click Tutup on Forgot Password Notification Alert");
+        clickElement(getIdLocator(forgotPassSuccessNotifTutup));
+    }
 }
