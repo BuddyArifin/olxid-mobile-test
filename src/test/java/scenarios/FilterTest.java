@@ -22,7 +22,7 @@ public class FilterTest extends AndroidSetup{
     ListingPage listingPage;
     FilterPage filterPage;
     FilterByMapsLocationModule filterByMapsLocationModule;
-    FilterPage.Maps maps;
+    FilterPage.MapsFilter mapsFilter;
 
     @Stories("As a User I want See Content in Filter Page")
     @Title("Verify System Display Content in Filter Page")
@@ -78,14 +78,15 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.clickCancelButtonSearchField();
+        filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickSearchField();
-        maps = filterPage.clickLocationButton();
-        maps.verifyAllContentInLocationPage();
-        maps.clickMyCurrentLocationBtn();
-        filterPage = maps.clickCariDiLokasiIniBtn();
+        mapsFilter = filterPage.clickLocationButton();
+        mapsFilter.verifyAllContentInLocationPage();
+        mapsFilter.clickMyCurrentLocationBtn();
+        filterPage = mapsFilter.clickCariDiLokasiIniBtn();
         filterPage.verifyAllContentOfFilterPage();
         listingPage = filterPage.clickSimpanButton();
         listingPage.verifyContentsOfListingPage();
@@ -107,6 +108,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage = listingPage.clickFilterBtnPrm();
         filterPage.clickCancelButtonSearchField();
+        filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
@@ -131,8 +133,8 @@ public class FilterTest extends AndroidSetup{
     public void verifyUserRedirectToDetailLocationPage()
     {
         filterPage = listingPage.clickFilterBtnPrm();
-        maps = filterPage.clickLocationButton();
-        maps.verifyAllContentInLocationPage();
+        mapsFilter = filterPage.clickLocationButton();
+        mapsFilter.verifyAllContentInLocationPage();
     }
 
     @Stories("As a user i want be able to see GPS Turn On Confirmations Alert ")
@@ -292,7 +294,7 @@ public class FilterTest extends AndroidSetup{
     @Test(priority = 21)
     public void verifyBackButtonClicked()
     {
-        listingPage = filterPage.clickBackBtn();
+        filterPage.clickBackBtn();
         listingPage.verifyContentsOfListingPage();
     }
 }

@@ -28,7 +28,7 @@ public class FilterPage extends BasePage {
     public static final String backBtn = "Navigate up";
     public static final String searchField = "com.app.tokobagus.betterb:id/edtSearch";
     public static final String cancelBtn = "com.app.tokobagus.betterb:id/btnClearSearch";
-    public static final String locationBtn = "com.app.tokobagus.betterb:id/imgGpsIcon";
+    public static final String locationBtn = "com.app.tokobagus.betterb:id/tvPlaceName";
     public static final String myLocationBtn = "";
     public static final String terdekatRBtn = "com.app.tokobagus.betterb:id/rbNearest";
     public static final String terbaruRBtn = "com.app.tokobagus.betterb:id/rbNewest";
@@ -228,40 +228,6 @@ public class FilterPage extends BasePage {
         Assert.assertTrue(isElementPresent(getIdLocator(cariBtn)));
         Log.info("Verify Simpan Button");
     }
-    /**
-     * Mas Buddy baiknya method2 dibawah ini dihapus atau tidak?
-     *
-    public void verifyAllCategory(){
-        verifyCategoryListingElement1(categoryElement0);
-    }
-    public void verifySubCategory(){
-        verifyCategoryListingElement1(categoryElement1);
-    }
-    public void verifySubCategory1(){
-        verifyCategoryListingElement1(categoryElement2);
-    }
-    public void verifyCategoryListingElement1(List<AndroidElement> elements)
-    {
-        Log.info("Verify Available Category on Listing");
-        isWaitElementPresent(getIdLocator(recycleViewCategory));
-
-        Log.info("Category Available ["+elements.size()+"]: ");
-        for (int i = 0 ; i < elements.size() ; i++) {
-
-            String category = getCategoryTitle(i, elements);
-            Log.info("* " + category + " ");
-            Assert.assertNotNull(category);
-            if (i >=2 && elements.size() >=2 ) {
-                Log.info("... ");
-                break;
-            }
-        }
-    }
-     public String getCategoryTitle(int index, List<AndroidElement> elements)
-     {
-     return elements.get(index).findElementById(categoryTitle).getText();
-     }
-     */
 
     /**
      * This below method has made with 2 function
@@ -332,11 +298,11 @@ public class FilterPage extends BasePage {
         Log.info("Click MyLocation Button");
     }
 
-    public Maps clickLocationButton()
+    public MapsFilter clickLocationButton()
     {
         Log.info("Click Location Button");
         clickElement(getIdLocator(locationBtn));
-        return new Maps(driver);
+        return new MapsFilter(driver);
     }
 
     public void clickRadioButtonTerdekatInUrutkanColumn()
@@ -635,41 +601,11 @@ public class FilterPage extends BasePage {
                 }
             }
         }
-
-
-
-//        for (int i = 0; i <= parentElement.size(); i++)
-//        {
-//            if (i == parentElement.size()) {
-//                swipeActiveLayoutBtmToTop(activeLayoutId);
-//                i = 0;
-//            }
-//            else
-//            {
-//                parentElementValue = childElement.get(i).getText();
-//                if (listString.size() > 0) {
-//                    for (int j = 0; j < listString.size(); j++) {
-//                        splitTextPart = listString.get(j);
-//                        if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
-//                            parentElement.get(i).click();
-//                            Log.info("Click : " + splitTextPart);
-//                            listString.remove(splitTextPart);
-//                            Log.info("Sekarang Size dari string Array : " + listString.size());
-//                            break;
-//                        }
-//                    }
-//                }
-//                else
-//                {
-//                    clickElement(getIdLocator(acceptBtnId));
-//                    break;
-//                }
-//            }
-//        }
     }
-    public class Maps extends FilterByMapsLocationModule
+
+    public class MapsFilter extends FilterByMapsLocationModule
     {
-        public Maps(WebDriver driver) {
+        public MapsFilter(WebDriver driver) {
             super(driver);
         }
 
