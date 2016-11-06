@@ -294,6 +294,7 @@ public class FilterByMapsLocationModule extends BasePage {
         if (!checkTutorialsColors(getIdLocator(searchField))) {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
+            Log.info("Dismiss This Tutorial");
         }
     }
 

@@ -1,5 +1,6 @@
 package pages;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -7,13 +8,18 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by buddyarifin on 8/24/16.
@@ -31,7 +37,7 @@ public class ListingPage extends BasePage{
     public static final String homeBtnBtmID = "com.app.tokobagus.betterb:id/tab_listing";
     public static final String kategoriBtnBtmID = "com.app.tokobagus.betterb:id/tab_category";
     public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_postad";
-    public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_Messages";
+    public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_messages";
     public static final String pesanNotif = "";
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
@@ -50,7 +56,8 @@ public class ListingPage extends BasePage{
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String disagreeButton = "android:id/button2";
-
+    public boolean isClickedBy;
+    public boolean lalala;
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -338,5 +345,4 @@ public class ListingPage extends BasePage{
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
         }
     }
-
 }
