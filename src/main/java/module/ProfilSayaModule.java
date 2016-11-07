@@ -4,17 +4,18 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.Constants;
 import pages.LoginPage;
 import pages.PostAdsPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,9 +37,15 @@ public class ProfilSayaModule extends BasePage{
     public static final String emailValue = "com.app.tokobagus.betterb:id/profileView_tvLoginWithValue";
     public static final String passwordtext = "Password";
     public static final String gantiPasswordBtn = "com.app.tokobagus.betterb:id/profileView_btnChangePassword";
-    public static final String logOutDariOLXBtn = "com.app.tokobagus.betterb:id/profileView_lyLogout";
+    //public static final String logOutDariOLXBtn = "com.app.tokobagus.betterb:id/profileView_lyLogout";
+    public static final String logOutDariOLXBtn = "com.app.tokobagus.betterb:id/profileView_btnLogout";
     public static final String iconThumbGallery = "com.android.documentsui:id/icon_thumb";
     public static final String frameLayoutClass = "android.widget.FrameLayout";
+    public static final String btnCamera = "com.app.tokobagus.betterb:id/profileUpdateAvt_btnCamera";
+    public static final String btnGallery = "com.app.tokobagus.betterb:id/profileUpdateAvt_btnGallery";
+    public static final String btnRemoveAvatar = "com.app.tokobagus.betterb:id/profileUpdateAvt_btnRemove";
+    public static final String oldavatarname = "old_avatar.png";
+    public static final String newavatarname = "new_avatar.png";
 
     //Variable for GantiPassword Page
     public static final String rootContainer = "com.app.tokobagus.betterb:id/rootContainer";
@@ -176,27 +183,27 @@ public class ProfilSayaModule extends BasePage{
     }
     public void verifyUploadAvatarCamera() {
         Log.info("Verify Upload Avatar Camera");
-        Assert.assertTrue(isElementPresent(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnCamera")));
+        Assert.assertTrue(isElementPresent(getIdLocator(btnCamera)));
     }
     public void verifyUploadAvatarGalery() {
         Log.info("Verify Upload Avatar Galery");
-        Assert.assertTrue(isElementPresent(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnGallery")));
+        Assert.assertTrue(isElementPresent(getIdLocator(btnGallery)));
     }
     public void verifyDeleteAvatar() {
         Log.info("Verify Delete Avatar");
-        Assert.assertTrue(isElementPresent(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnRemove")));
+        Assert.assertTrue(isElementPresent(getIdLocator(btnRemoveAvatar)));
     }
     public void clickUploadAvatarCamera() {
         Log.info("Click Upload Avatar Camera");
-        clickElement(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnCamera"));
+        clickElement(getIdLocator(btnCamera));
     }
     public void clickUploadAvatarGalery() {
         Log.info("Click Upload Avatar galery");
-        clickElement(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnGallery"));
+        clickElement(getIdLocator(btnGallery));
     }
     public void clickDeleteAvatar() {
         Log.info("Click Delete Avatar");
-        clickElement(getIdLocator("com.app.tokobagus.betterb:id/profileUpdateAvt_btnRemove"));
+        clickElement(getIdLocator(btnRemoveAvatar));
     }
     public PostAdsPage clickOneOfPictureGallery()
     {
@@ -208,9 +215,10 @@ public class ProfilSayaModule extends BasePage{
         Log.info("Take picture from Camera");
         clickElement(getIdLocator(shutterButton));
     }
-    public void acceptTakePicture() {
+    public PostAdsPage acceptTakePicture() {
         Log.info("Accepting Photo");
         clickElement(getIdLocator(acceptAfterTakePicture));
+        return new PostAdsPage(driver);
     }
     public void clickAvatar() {
         Log.info("Click Edit Avatar Button");
@@ -255,9 +263,9 @@ public class ProfilSayaModule extends BasePage{
         verifyTitleProfilSayaPage();
         verifyAvatarProfilSayaPage();
         verifyUsernameProfilSayaPage();
-        verifyInformasiGabungProfilSayaPage();
-        verifyVerifikasiAkunText1ProfilSayaPage();
-        verifyVerifikasiAkunText2ProfilSayaPage();
+        //verifyInformasiGabungProfilSayaPage();
+        //verifyVerifikasiAkunText1ProfilSayaPage();
+        //verifyVerifikasiAkunText2ProfilSayaPage();
         verifyNomorTeleponTextProfilSayaPage();
         verifyNomorTeleponNumberProfilSayaPage();
         verifyEmailTextProfilSayaPage();
@@ -379,5 +387,33 @@ public class ProfilSayaModule extends BasePage{
         verifyCheckBoxTampilkanPasswordGantiPasswordPage();
         verifySimpanButtonGantiPasswordPage();
         Log.info("Verify All Content in GantiPassword Page");
+    }
+
+    //verify image
+    public void takeShotOldAvatar(){
+        try {
+            takeScreenShotInFile(oldavatarname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void takeShotNewAvatar(){
+        waitForVisibilityOf(getContentLocator(backBtn));
+        waitForVisibilityOf(getTextLocator(titleProfilSaya));
+        try {
+            takeScreenShotInFile(newavatarname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyOldNewAvatar(){
+        Log.info("Verify New Avatar in ProfilSaya Page");
+        try {
+            Assert.assertTrue(isImgNotEqual(new File(Constants.screenshotsDir+oldavatarname), new File(Constants.screenshotsDir+newavatarname)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
