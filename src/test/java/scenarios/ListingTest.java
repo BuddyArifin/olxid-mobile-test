@@ -117,6 +117,7 @@ public class ListingTest extends AndroidSetup {
     @Test(priority = 9)
     public void verifyBtmBarDissappear()
     {
+        listingPage.verifyContentsOfListingPage();
         listingPage.verifyBtmBarDissappear();
     }
 

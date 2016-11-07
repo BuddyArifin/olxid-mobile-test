@@ -266,7 +266,9 @@ public class ListingPage extends BasePage{
     {
         Log.info("Verify Bottom Bar Dissapear as User Scrolling Down");
         super.swipePageBtmtToTop();
-        Assert.assertFalse(isElementPresent(getIdLocator(btmBarId)));
+        super.swipePageBtmtToTop();
+        super.swipePageBtmtToTop();
+        Assert.assertFalse(isWaitElementPresent(getIdLocator(btmBarId)));
     }
 
     public void verifyBtmBarAppear()
