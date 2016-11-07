@@ -32,6 +32,8 @@ public class LoginWithOlxModule extends BasePage {
     public static String forgotPassSuccessNotifTitle = "com.app.tokobagus.betterb:id/md_title";
     public static String forgotPassSuccessNotifMsg = "com.app.tokobagus.betterb:id/md_content";
     public static String forgotPassSuccessNotifTutup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static String unregisteredEmailErrorText = "Email belum terdaftar di OLX";
+    public static String blankEmailForgotPassErrorText = "Email harus diisi";
 
     public LoginWithOlxModule(WebDriver driver) {
         super(driver);
@@ -197,5 +199,17 @@ public class LoginWithOlxModule extends BasePage {
     public void clickTutupForgotPassNotif(){
         Log.info("Click Tutup on Forgot Password Notification Alert");
         clickElement(getIdLocator(forgotPassSuccessNotifTutup));
+    }
+
+    public void verifyErrorUnregisteredEmailForgotPass() {
+        Log.info("Verify Unregistered email error message in Forgot Password page");
+        isWaitElementPresent(getIdLocator(errorMessageId));
+        Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(unregisteredEmailErrorText));
+    }
+
+    public void verifyErrorBlankEmailForgotPass() {
+        Log.info("Verify Blank email error message in Forgot Password page");
+        isWaitElementPresent(getIdLocator(errorMessageId));
+        Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(blankEmailForgotPassErrorText));
     }
 }

@@ -114,13 +114,46 @@ public class LoginOLXTest extends AndroidSetup {
         loginWithOlxModule.verifyForgotPassContent();
     }
 
+    @Stories("As an unregistered user I will not be able to ask for password recovery")
+    @Title("Verify unregistered user not able to ask for password recovery")
+    @TestCaseId("TC_LOGIN_004_011")
+    @Test(priority = 9, enabled = false)
+    public void unregisteredEmailInForgotPass(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.inputEmailForgotPass("example@test.mail");
+        loginWithOlxModule.clickKirimForgotPass();
+        loginWithOlxModule.verifyErrorUnregisteredEmailForgotPass();
+    }
+
+    @Stories("As a user I will not be able to input invalid email in forgot password page")
+    @Title("Verify user not be able to input invalid email in forgot password page")
+    @TestCaseId("TC_LOGIN_04_012")
+    @Test(priority = 10, enabled = false)
+    public void invalidEmailInForgotPass(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.inputEmailForgotPass("example");
+        loginWithOlxModule.clickKirimForgotPass();
+        loginWithOlxModule.verifyErrorInvalidEmail();
+    }
+
+    @Stories("As a user I will not be able to input blank email in forgot password page")
+    @Title("Verify user not be able to input blank email in forgot password page")
+    @TestCaseId("TC_LOGIN_04_013")
+    @Test(priority = 11, enabled = false)
+    public void blankEmailInForgotPass(){
+        LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
+        loginWithOlxModule.inputEmailForgotPass("");
+        loginWithOlxModule.clickKirimForgotPass();
+        loginWithOlxModule.verifyErrorBlankEmailForgotPass();
+    }
+
     @Stories("As a user I want to be able to receive password recovery via email")
     @Title("Verify user able to receive password recovery via email")
     @TestCaseId("TC_LOGIN_04_009")
-    @Test(priority = 9, enabled = false)
+    @Test(priority = 12, enabled = false)
     public void userAbleToReceivePassRecovery(){
         LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
-        loginWithOlxModule.inputEmailForgotPass("example");
+        loginWithOlxModule.inputEmailForgotPass("example@test.com");
         loginWithOlxModule.clickKirimForgotPass();
         loginWithOlxModule.verifyForgotPassNotifSuccess("Link Terkirim", "example");
         //need to verify email
@@ -129,10 +162,11 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As a user I want to be able to close forgot password notification")
     @Title("Verify user able to close forgot password notification")
     @TestCaseId("TC_LOGIN_04_010")
-    @Test(priority = 10, enabled = false)
+    @Test(priority = 13, enabled = false)
     public void userAbleToCloseFPNotif(){
         LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
         loginWithOlxModule.clickTutupForgotPassNotif();
         loginWithOlxModule.verifyLoginOlxContents();
     }
+
 }
