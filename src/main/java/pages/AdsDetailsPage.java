@@ -197,7 +197,7 @@ public class AdsDetailsPage extends BasePage {
         verifyAvatarSeller();
         verifyMemberJoinDate();
 //        verifyMemberRating();
-        verifyAdsLocations();
+//        verifyAdsLocations();
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
         verifyHubungiPenjual();
