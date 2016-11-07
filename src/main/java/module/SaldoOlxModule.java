@@ -35,10 +35,12 @@ public class SaldoOlxModule extends BasePage {
     }
 
     public static final String backbutton = "Navigate up";
-    public static final String titleSaldo = "Saldo OLX";
+    public static final String titleSaldo = "OLX";
     public static final String infoBanner = "com.app.tokobagus.betterb:id/walletInfo_text";
     public static final String skipBanner = "com.app.tokobagus.betterb:id/wallet_btnCloseMoreInfo";
     public static final String lebihLanjutBtn = "com.app.tokobagus.betterb:id/wallet_btnMoreInfo";
+    public static final String skipBannerTopUpSection = "com.app.tokobagus.betterb:id/topupInfo_btnMore";
+    public static final String tutupBannerTopUpSection = "com.app.tokobagus.betterb:id/topupInfo_btnClose";
     public static final String saldoAndaSaatIni = "com.app.tokobagus.betterb:id/label_olx_balance";
     public static final String saldoAmount = "com.app.tokobagus.betterb:id/olx_balance";
     public static final String saldoDateExpired = "com.app.tokobagus.betterb:id/olx_expiredDate";
@@ -286,7 +288,7 @@ public class SaldoOlxModule extends BasePage {
     {
         verifyBackbutton();
         verifyTopUpTitle();
-        verifySaldoAndaAndSaldoAmount();
+        //verifySaldoAndaAndSaldoAmount();
         verifyNominalPriceSaldo();
     }
 
@@ -330,7 +332,7 @@ public class SaldoOlxModule extends BasePage {
     public void checkSyaratDanKetentuan()
     {
         Log.info("Check Syarat dan Ketentuan Check Box");
-        isElementPresentAfterScrollDown(getIdLocator(saldoAndaAmount));
+        isElementPresentAfterScrollDown(getIdLocator(skipBannerTopUpSection));
         verifySyaratDanKetentuanBerlaku();
         clickElement(getIdLocator(syaratDanKetentuanChkBox));
     }

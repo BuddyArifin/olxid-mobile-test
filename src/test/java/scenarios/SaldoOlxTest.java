@@ -34,8 +34,8 @@ public class SaldoOlxTest extends AndroidSetup {
     public void verifyAllContentsSaldoOlxPage() {
         loginPage = new LoginPage(driver);
         loginWithOlxModule = loginPage.clickSkipOnBoardingSliders().clickLoginWithOlx();
-//        loginWithOlxModule.inputEmail("emir.faisal@olx.co.id");
-//        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("olxtester@gmail.com");
+        loginWithOlxModule.inputPassword("testing");
         loginWithOlxModule.clickLoginWithOlxBtn();
         listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
@@ -96,6 +96,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @TestCaseId("TC_SALDO_12_00")
     @Test(priority = 7)
     public void verifyUserAbleToBackToSaldoOlxPage() {
+        saldoOlxModule.clickBackBtn();
         saldoOlxModule.clickBackBtn();
     }
 
