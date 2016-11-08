@@ -2,9 +2,11 @@ package scenarios;
 
 import listeners.ScreenshootsListener;
 import module.HamburgerBarModule;
+import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.CategoryPreferencesPage;
+import pages.FilterPage;
 import pages.ListingPage;
 import pages.LoginPage;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -21,6 +23,7 @@ public class CategoryViewTest extends AndroidSetup {
     ListingPage listingPage;
     CategoryPreferencesPage category;
     HamburgerBarModule hamburgerBar;
+    FilterPage filter;
 
     @Stories("As A User i want be able to See All Contents ")
     @Title("Verify User able to see All of Contents on Kategori View")
@@ -61,6 +64,10 @@ public class CategoryViewTest extends AndroidSetup {
     @Test(priority = 4)
     public void userAbleOnlyAbleToChooseOneKategori() {
         category.selectCategory(1);
+        listingPage.verifyContentsOfListingPage();
+        filter = listingPage.clickFilterBtnPrm();
+        Assert.assertEquals(filter.getCategoryChoosen(),
+                CategoryPreferencesPage.categoryChoosing);
     }
 
 }
