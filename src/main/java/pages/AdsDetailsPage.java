@@ -132,8 +132,11 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyMoreInfoAds(){
         Log.info("Verify Lihat Selengkapnya pada deskripsi display");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(moreInfoBtn)));
-        clickElement(getIdLocator(moreInfoBtn));
+        boolean displayed = isElementPresentAfterScrollDown(getIdLocator(moreInfoBtn));
+        if (displayed) {
+            Assert.assertTrue(displayed);
+            clickElement(getIdLocator(moreInfoBtn));
+        }
         Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
     }
     public void verifyAvatarSeller(){
@@ -149,7 +152,10 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyAdsLocations(){
         Log.info("Verify Lokasi Iklan dengan Maps");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(adsLocation)));
+        boolean displayed = isElementPresentAfterScrollDown(getIdLocator(adsLocation));
+        if (displayed) {
+            Assert.assertTrue(displayed);
+        }
     }
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
@@ -197,7 +203,7 @@ public class AdsDetailsPage extends BasePage {
         verifyAvatarSeller();
         verifyMemberJoinDate();
 //        verifyMemberRating();
-//        verifyAdsLocations();
+        verifyAdsLocations();
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
         verifyHubungiPenjual();
