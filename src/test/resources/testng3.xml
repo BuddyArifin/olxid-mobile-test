@@ -22,4 +22,9 @@
             <class name="scenarios.LoginOLXTest"/>
         </classes>
     </test>
+    <test name="Category View Sulley OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.CategoryViewTest"/>
+        </classes>
+    </test>
 </suite>

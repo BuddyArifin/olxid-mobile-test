@@ -134,10 +134,11 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Lihat Selengkapnya pada deskripsi display");
         boolean displayed = isElementPresentAfterScrollDown(getIdLocator(moreInfoBtn));
         if (displayed) {
-            Assert.assertTrue(displayed);
+            Assert.assertTrue(true);
             clickElement(getIdLocator(moreInfoBtn));
+            Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
         }
-        Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
+
     }
     public void verifyAvatarSeller(){
         Log.info("Verify Avatar Profile Picture display");
@@ -154,7 +155,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Lokasi Iklan dengan Maps");
         boolean displayed = isElementPresentAfterScrollDown(getIdLocator(adsLocation));
         if (displayed) {
-            Assert.assertTrue(displayed);
+            Assert.assertTrue(true);
         }
     }
     public void verifyidIklanNumber(){
