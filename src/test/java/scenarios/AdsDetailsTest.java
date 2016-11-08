@@ -30,7 +30,7 @@ public class AdsDetailsTest extends AndroidSetup {
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
         listingPage.clickSearchBtnPrm();
-        listingPage.inputSearchKeyword("Samsung");
+        listingPage.inputSearchKeyword("Supra x 125");
         listingPage.verifySuggestionList();
         listingPage.clickSuggestions();
         listingPage.verifyContentsOfListingPage();
