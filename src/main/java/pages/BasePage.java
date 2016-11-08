@@ -419,17 +419,21 @@ public class BasePage  {
      * @return boolean value
     */
     public Boolean isElementPresentAfterScrollDown(final By locator) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(60, TimeUnit.SECONDS)
-                .pollingEvery(2, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 500, 200, 45, 1000);
-                return isElementPresent(locator);
-            }
-        });
+        try {
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(60, TimeUnit.SECONDS)
+                    .pollingEvery(2, TimeUnit.SECONDS)
+                    .ignoring(NoSuchElementException.class);
+            return wait.until(new Function<WebDriver, Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    ((AndroidDriver)driver).swipe(200, 500, 200, 45, 1000);
+                    return isElementPresent(locator);
+                }
+            });
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
     }
 
     public Boolean isElementPresentAfterScrollUp(final By locator) {
