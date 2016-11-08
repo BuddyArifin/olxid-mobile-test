@@ -60,6 +60,7 @@ public class PostAdsPage extends BasePage {
     public static final String lokasiIklan = "com.app.tokobagus.betterb:id/tvLocationTitle";
     public static final String lokasiIklanBtn = "com.app.tokobagus.betterb:id/imgGpsIcon";
     public static final String detilTambahanDeskripsi = "com.app.tokobagus.betterb:id/descriptionInformationLayout";
+    public static final String toggleDescription = "com.app.tokobagus.betterb:id/imgToggleUpDown";
     public static final String deskripsiEditText = "com.app.tokobagus.betterb:id/edtDescription";
     public static final String hargaTextInputLayout = "com.app.tokobagus.betterb:id/priceLayout";
     public static final String suggestedPriceField = "com.app.tokobagus.betterb:id/tvOptionalMessage";
@@ -958,6 +959,15 @@ public class PostAdsPage extends BasePage {
         inputMethod(luasTanah, keyword);
     }
 
+    public void inputAdditionalFieldKondisi()
+    {
+        swipePageBtmtToTop();
+        String kondisi = "kondisi *";
+        String kondisiBekas = "Bekas";
+        verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, kondisi);
+        verifyListElementMethodAndClickElement(recycleViewCategoryInputField, inputCategory, inputCategoryTitle, kondisiBekas);
+    }
+
     public void inputAdditionalFieldLuasBangunan(String keyword)
     {
         swipePageBtmtToTop();
@@ -1141,6 +1151,12 @@ public class PostAdsPage extends BasePage {
         Log.info("Click Detil Tambahan dan Deskripsi");
     }
 
+    public void clickDetilTambahanDeskripsiExpandDock()
+    {
+        clickElement(getIdLocator(toggleDescription));
+        Log.info("Click Expand Dock Detil Tambahan dan Deskripsi");
+    }
+
     public void inputDetilTambahanDanDeskripsi(String inputText)
     {
         swipePageBtmtToTop();
@@ -1237,6 +1253,14 @@ public class PostAdsPage extends BasePage {
             verifyCurrentLocationAddress();
             verifyCariDiLokasiIniBtn();
             Log.info("Verify All Content in Filter Page");
+        }
+
+        @Override
+        public void dismissTutorial() {
+            if (!checkTutorialsColors(getIdLocator(searchField))) {
+                clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
+                Log.info("Dismiss This Tutorial");
+            }
         }
 
         @Override

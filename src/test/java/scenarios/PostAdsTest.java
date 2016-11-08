@@ -34,6 +34,8 @@ public class PostAdsTest extends AndroidSetup {
         loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.inputEmail("olxtester@gmail.com");
+        loginWithOlxModule.inputPassword("testing");
         loginWithOlxModule.clickLoginWithOlxBtn();
         listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
@@ -236,7 +238,8 @@ public class PostAdsTest extends AndroidSetup {
     @Test(priority = 20)
     public void verifyUserAbleToInputDescriptionAndNoCharacterLimit()
     {
-        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputAdditionalFieldKondisi();
+        postAdsPage.clickDetilTambahanDeskripsiExpandDock();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Xiaomi Layar 5.5 inci, kondisi 99% bagus");
         postAdsPage.verifyNoLimitCharacterDescription();
     }
@@ -307,7 +310,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
     @TestCaseId("TC_JUAL_11_026")
-    @Test(priority = 28)
+    @Test(priority = 28, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
@@ -336,7 +339,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
     @TestCaseId("TC_JUAL_11_027")
-    @Test(priority = 29)
+    @Test(priority = 29, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
@@ -365,7 +368,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field in \"Jasa & Lowongan\" Kategori")
     @TestCaseId("TC_JUAL_11_025, TC_JUAL_11_028")
-    @Test(priority = 30)
+    @Test(priority = 30, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldJasaDanLowonganKategori()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
