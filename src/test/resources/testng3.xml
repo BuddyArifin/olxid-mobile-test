@@ -17,4 +17,9 @@
             <class name="scenarios.AdsDetailsTest"/>
         </classes>
     </test>
+    <test name="Login with OLX Account OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.LoginOLXTest"/>
+        </classes>
+    </test>
 </suite>
