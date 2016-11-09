@@ -101,6 +101,7 @@ public class PostAdsPage extends BasePage {
     public boolean isOldVersionDevices = false;
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
     public boolean suggestionKategori;
+    public String suggestedHarga2 = "";
 
 
     @AndroidFindBys({
@@ -736,16 +737,12 @@ public class PostAdsPage extends BasePage {
 
     public void verifySuggestionKategori()
     {
-        List<WebElement> kategoriValueAds = driver.findElements(getIdLocator(kategoriTitleAds));
-        if (kategoriValueAds.get(0).getText().contains("Pilih kategori"))
-        {
+        String kategoriValue = driver.findElement(getIdLocator(kategoriTitleAds)).getText();
+        if(!kategoriValue.equals("")){
             suggestionKategori = true;
-            Log.info("Suggestion Kategori Displayed : " + kategoriValueAds.get(0).getText());
+            Log.info("Suggestion Kategori Displayed : " + kategoriValue);
             Assert.assertTrue(suggestionKategori);
-
-        }
-        else
-        {
+        }else {
             suggestionKategori = false;
             Log.info("Suggestion Kategori Not Displayed");
             Assert.assertFalse(suggestionKategori);
@@ -763,10 +760,18 @@ public class PostAdsPage extends BasePage {
             suggestionHarga = true;
             suggestedHarga = element.getText();//hargaValueAds.get(0).getText();
             Log.info("Suggestion Harga Displayed : " + element.getText());
-            suggestedHarga = suggestedHarga.replaceAll("[a-zA-Q]|[()]|\\s|[.]","");
+            /*suggestedHarga = suggestedHarga.replaceAll("[a-zA-Q]|[()]|\\s|[.]","");
             String[] hargaPertengahan = suggestedHarga.split("R");
             BigInteger minPrice = new BigInteger(hargaPertengahan[1]);
-            BigInteger maxPrice = new BigInteger(hargaPertengahan[2]);
+            BigInteger maxPrice = new BigInteger(hargaPertengahan[2]);*/
+            suggestedHarga = suggestedHarga.replaceAll("[a-z]|[()]|\\s|[.]","");
+            suggestedHarga2 = suggestedHarga.replaceAll("[a-zA-Z]"," ");
+            if(suggestedHarga2.contains("$") || suggestedHarga2.contains("€")){
+                suggestedHarga2 = suggestedHarga2.replaceAll("[€]|[$]"," ");
+            }
+            String[] hargaPertengahan = suggestedHarga2.split(" ");
+            BigInteger minPrice = new BigInteger(hargaPertengahan[2]);
+            BigInteger maxPrice = new BigInteger(hargaPertengahan[3]);
             BigInteger averagePrice = minPrice.add(maxPrice);
             BigInteger dividedTwo = new BigInteger("2");
             averagePrice = averagePrice.divide(dividedTwo);
@@ -914,7 +919,7 @@ public class PostAdsPage extends BasePage {
     /**
      * Adopt method from BasePage
      * */
-    public Boolean isElementPresentAfterScroll(String locator) {
+    public Boolean isElementPresentAfterScroll(final String locator) {
         String classname;
         if (isOldVersionDevices) {
             classname = "android.widget.LinearLayout";
@@ -962,9 +967,10 @@ public class PostAdsPage extends BasePage {
     public void inputAdditionalFieldKondisi()
     {
         swipePageBtmtToTop();
-        String kondisi = "kondisi *";
+        //String kondisi = "kondisi *";
         String kondisiBekas = "Bekas";
-        verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, kondisi);
+        clickElement(getIdLocator(dropDownInputField));
+        //verifyListElementMethodAndClickElement(linearLayoutInputField, dropDownListElement, textViewDropDownTitle, kondisi);
         verifyListElementMethodAndClickElement(recycleViewCategoryInputField, inputCategory, inputCategoryTitle, kondisiBekas);
     }
 
@@ -1202,6 +1208,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifyPopUpSuccesPostingAdsAppear()
     {
+        waitForVisibility(getIdLocator(popUpLayoutSuccessPost));
         Assert.assertTrue(isElementPresent(getIdLocator(popUpLayoutSuccessPost)));
         Log.info("Verify Pop-Up Success Posting Appear");
     }
