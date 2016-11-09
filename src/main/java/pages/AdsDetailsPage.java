@@ -199,7 +199,6 @@ public class AdsDetailsPage extends BasePage {
 //        verifyConditionsAds();
         verifyPostYearsAds();
         verifyTransactionAds();
-        verifyDescriptionAds();
         verifyMoreInfoAds();
         verifyAvatarSeller();
         verifyMemberJoinDate();

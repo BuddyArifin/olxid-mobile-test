@@ -30,6 +30,7 @@ public class CategoryPreferencesPage extends BasePage {
     protected static final String checkIconID = "com.app.tokobagus.betterb:id/imgCheckbox";
     protected static final String errorMsgBarID = "com.app.tokobagus.betterb:id/snackbar_text";
     protected static final String okErrorMSG = "com.app.tokobagus.betterb:id/snackbar_action";
+    public static String categoryChoosing;
 
     public CategoryPreferencesPage(WebDriver driver) {
         super(driver);
@@ -142,6 +143,7 @@ public class CategoryPreferencesPage extends BasePage {
     }
 
     public void selectCategory(int index) {
+        categoryChoosing = getCategoryTitle(index);
         Log.info("Select Category "+getCategoryTitle(index));
         categoryList.get(index).findElementById(categoryTitle).click();
     }
