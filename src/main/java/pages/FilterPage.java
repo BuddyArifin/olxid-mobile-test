@@ -335,6 +335,10 @@ public class FilterPage extends BasePage {
         clickElement(getIdLocator(chooseCategory));
     }
 
+    public String getCategoryChoosen() {
+        return getStringText(getIdLocator(chooseCategory));
+    }
+
     public void clickResetButton()
     {
         waitForClickabilityOf(getTextLocator("Filter"));
