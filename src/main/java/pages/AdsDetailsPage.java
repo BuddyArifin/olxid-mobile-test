@@ -147,7 +147,11 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyMemberJoinDate(){
         Log.info("Verify Member Join Date display");
-        Assert.assertTrue(isElementPresent(getIdLocator(memberJoinDate)));
+        if (isElementPresent(getIdLocator(memberJoinDate))) {
+            Assert.assertTrue(true);
+        }else {
+            Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(memberJoinDate)));
+        }
     }
     public void verifyMemberRating(){
         Log.info("Verify Member Rating display");
