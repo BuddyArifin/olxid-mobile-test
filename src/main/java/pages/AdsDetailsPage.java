@@ -160,7 +160,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Lokasi Iklan dengan Maps");
         boolean displayed = isElementPresentAfterScrollDown(getIdLocator(adsLocation));
         if (displayed) {
-            Assert.assertTrue(true);
+            Assert.assertTrue(true); 
         }
     }
     public void verifyidIklanNumber(){
