@@ -13,7 +13,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
 import pages.ListingPage;
-import pages.PostAdsPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
@@ -291,6 +290,7 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void dismissTutorial() {
+        isWaitElementPresent(getIdLocator(sliderRadius));
         if (!checkTutorialsColors(getIdLocator(searchField))) {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));

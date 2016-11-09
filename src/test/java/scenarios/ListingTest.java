@@ -72,7 +72,7 @@ public class ListingTest extends AndroidSetup {
     @Test(priority = 5)
     public void verifyAllContentsInHamburgerBar()
     {
-        hamburgerBarModule = listingPage.clickHamburgerBar();;
+        hamburgerBarModule = listingPage.clickHamburgerBar();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
     }
 
@@ -130,10 +130,35 @@ public class ListingTest extends AndroidSetup {
         listingPage.verifyBtmBarAppear();
     }
 
+    @Stories("As A User i want to able Click Pusat Bantuan")
+    @Title("Verify User able to click PusatBantuan Button")
+    @TestCaseId("TC_LISTING_06_036")
+    @Test(priority = 11)
+    public void userAbleToGoToPusatBantuan() {
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.clickPusatBantuanBtn();
+        hamburgerBarModule.verifyPusatBantuanContent();
+        hamburgerBarModule.closeHamburgerBarDrawer();
+
+    }
+
+    @Stories("As A User i want to able Click Pusat Bantuan")
+    @Title("Verify User able to click PusatBantuan Button")
+    @TestCaseId("TC_LISTING_06_036")
+    @Test(priority = 12)
+    public void userAbleToGoToTentangOlx() {
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.clickTentangOLXBtn();
+        hamburgerBarModule.verifyTentangOlxContent();
+        hamburgerBarModule.closeHamburgerBarDrawer();
+
+    }
+
+
     @Stories("As A User I want to able Click Filter/Advance on the primary tool")
     @Title("Verify User able to click Filter on the primary toolbar")
     @TestCaseId("TC_LISTING_06_021")
-    @Test(priority = 11)
+    @Test(priority = 13)
     public void userAbleToClickFilterButton()
     {
         filterPage = listingPage.clickFilterBtnPrm();
@@ -147,7 +172,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 12)
+    @Test(priority = 14)
     public void verifyUserAbleToRedirectToMaps() {
         filterPage.clickLocationButton();
         filterByMapsLocationModule.verifyAllContentInLocationPage();
@@ -156,7 +181,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able input location")
     @Title("Verify Listing ads sorted by inputted location")
     @TestCaseId("TC_FILTER_08_011")
-    @Test(priority = 13)
+    @Test(priority = 15)
     public void userAbleToSearchLocationByTypingAddress() {
         filterByMapsLocationModule.inputKeywordInSearchFields("Menara");
     }
@@ -164,7 +189,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
     @TestCaseId("TC_FILTER_08_012")
-    @Test(priority = 14)
+    @Test(priority = 16)
     public void userAbleToSeeSuggesstionAfterTyping() {
         filterByMapsLocationModule.verifySuggestions();
     }
@@ -172,7 +197,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able select location")
     @Title("Verify Listing ads sorted by selected suggestion location")
     @TestCaseId("TC_FILTER_08_013")
-    @Test(priority = 15)
+    @Test(priority = 17)
     public void userAbleToSelectLocationFromSuggestions() {
         filterByMapsLocationModule.chooseSuggestion(1);
     }
@@ -180,7 +205,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As user i want to be able change radius")
     @Title("Verify Listing ads sorted by selected radius location")
     @TestCaseId("TC_FILTER_08_014")
-    @Test(priority = 16)
+    @Test(priority = 18)
     public void userAbleToChangeRadius() {
         filterByMapsLocationModule.slideRightSliderRadius();
         filterByMapsLocationModule.clickCariDiLokasiIniBtn();
@@ -193,7 +218,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User I want to Able Click Button in Bottom Bar")
     @Title("Verify User able to click Kategori on Bottom Bar")
     @TestCaseId("TC_LISTING_06_021")
-    @Test(priority = 17)
+    @Test(priority = 19)
     public void userAbleGoToKategoriPage() {
         categoryPreferencesPage = listingPage.clickKategoriBtnBtm();
         categoryPreferencesPage.verifyCategoryListing();

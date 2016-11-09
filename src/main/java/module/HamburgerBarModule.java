@@ -1,10 +1,7 @@
 package module;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -26,6 +23,8 @@ public class HamburgerBarModule extends BasePage {
     public static final String pusatBantuanBtn = "Pusat Bantuan";
     public static final String tentangOLXBtn = "Tentang OLX";
     public static final String hamburgerBarLayout = "com.app.tokobagus.betterb:id/left_drawer";
+    public static final String headerContentLogoOlx = "header-fix-view";
+    public static final String PUSAT_BANTUAN = "Pusat Bantuan";
 
     public HamburgerBarModule(WebDriver driver)
     {
@@ -121,5 +120,15 @@ public class HamburgerBarModule extends BasePage {
         int widthStartHamburgerDrawerLayout = hamburgerDrawerLayout.getSize().getWidth() * 0 + 10;
         ((AndroidDriver)driver).swipe(widthEndHamburgerDrawerLayout, heightMiddleHamburgerDrawerLayout, widthStartHamburgerDrawerLayout, heightMiddleHamburgerDrawerLayout, 1000);
         return new ListingPage(driver);
+    }
+
+    public void verifyPusatBantuanContent() {
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
+    }
+
+    public void verifyTentangOlxContent() {
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
     }
 }
