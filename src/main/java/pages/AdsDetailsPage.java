@@ -49,6 +49,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String tutupBtn = "com.app.tokobagus.betterb:id/safety_info_close";
     public static final String sharingPanels = "android:id/resolver_list";
     public static final String sharingAppsText = "android:id/text1";
+    public static final String PUSAT_BANTUAN = "Pusat Bantuan";
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoAds)
@@ -225,6 +226,8 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Info Lebih Lanjut link Button");
         Assert.assertTrue(isElementPresentAfterScrollUp(getIdLocator(lebihLanjutBtn)));
         clickElement(getIdLocator(lebihLanjutBtn));
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
     }
     public void clickFavoriteBtn() {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
