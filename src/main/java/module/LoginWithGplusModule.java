@@ -10,6 +10,7 @@ import org.testng.Assert;
 import pages.BasePage;
 import pages.Constants;
 import pages.ListingPage;
+import pages.LoginPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
@@ -29,6 +30,10 @@ public class LoginWithGplusModule extends BasePage {
     public static final String allowBtn = "com.google.android.gms:id/accept_button";
     public static final String denyBtn = "com.google.android.gms:id/cancel_button";
     public static final String categoryPreferences = "com.app.tokobagus.betterb:id/rvCategory";
+    //Profile menu when login with Gplus
+    public static final String gplusavatar = "com.app.tokobagus.betterb:id/profileView_ivAvatar";
+    public static final String gplususername = "com.app.tokobagus.betterb:id/profileView_tvUserName";
+    public static final String gpluslogoutbtn = "com.app.tokobagus.betterb:id/profileView_btnLogout";
 
     public LoginWithGplusModule(WebDriver driver) {
         super(driver);
@@ -66,6 +71,16 @@ public class LoginWithGplusModule extends BasePage {
         }
         clickElement(getTextLocator(text));
 //        waitForVisibilityOf(getIdLocator(allowBtn));
+    }
+
+    public void checkPermissionDetails(){
+        boolean perminfo = isElementPresent(getIdLocator(permissionDetailsInfo));
+        if(perminfo == true){
+            verifyPermissionDetailsInfo();
+            verifyDenyBtn();
+            verifyAllowBtn();
+            clickAllowBtn();
+        }
     }
 
     @Step("Verify Permission Details Appear")
@@ -108,5 +123,34 @@ public class LoginWithGplusModule extends BasePage {
     @Step("Verify Listing Page")
     public ListingPage verifyListingPage() {
         return new ListingPage(driver);
+    }
+
+    /** Verify Profile Menu when Login with Gplus */
+
+    public void verifyGplusAvatar(){
+        Log.info("Verfy Gplus Avatar");
+        Assert.assertTrue(isElementPresent(getIdLocator(gplusavatar)));
+    }
+
+    public void verifyGplusUsername(){
+        Log.info("Verify Gplus Username");
+        Assert.assertTrue(isElementPresent(getIdLocator(gplususername)));
+    }
+
+    public void verifyGplusLogoutBtn(){
+        Log.info("Verify Gplus Logout Btn");
+        Assert.assertTrue(isElementPresent(getIdLocator(gpluslogoutbtn)));
+    }
+
+    public void verifyGplusProfileContent(){
+        verifyGplusAvatar();
+        verifyGplusUsername();
+        verifyGplusLogoutBtn();
+    }
+
+    public LoginPage clickLogOutGPlus(){
+        clickElement(getIdLocator(gpluslogoutbtn));
+        Log.info("Click Logout from Google +");
+        return new LoginPage(driver);
     }
 }

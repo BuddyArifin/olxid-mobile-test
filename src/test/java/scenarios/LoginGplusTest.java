@@ -1,6 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.HamburgerBarModule;
 import module.LoginWithGplusModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -18,6 +19,8 @@ import ru.yandex.qatools.allure.annotations.Title;
 @Features("Login Feature")
 public class LoginGplusTest extends AndroidSetup {
     private LoginWithGplusModule loginWithGplusModule;
+    private HamburgerBarModule hamburgerBarModule;
+    private ListingPage listingPage;
 
     @Stories("As A User I want able to Login Using Google+")
     @Title("Verify Google+ ask permissions from users to give the granted access")
@@ -29,10 +32,7 @@ public class LoginGplusTest extends AndroidSetup {
         loginWithGplusModule = loginPage.clickLoginWithGPlus();
         loginWithGplusModule.verifyAccountExist();
         loginWithGplusModule.clickSelectedAccounts();
-        loginWithGplusModule.verifyPermissionDetailsInfo();
-        loginWithGplusModule.verifyDenyBtn();
-        loginWithGplusModule.verifyAllowBtn();
-        loginWithGplusModule.clickAllowBtn();
+        loginWithGplusModule.checkPermissionDetails();
     }
 
     @Stories("As A User I want able to Login with Google+")
@@ -46,15 +46,29 @@ public class LoginGplusTest extends AndroidSetup {
     @TestCaseId("TC_LBG_03_003")
     @Test(priority = 3)
     public void userAbleGoToListingAfterSuccessGplusLogin() {
-        LoginPage loginPage = new LoginPage(driver);
-        LoginWithGplusModule gplus = loginPage.clickLoginWithGPlus();
-        ListingPage listingPage = gplus.verifyListingPage();
+        listingPage = loginWithGplusModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
+    }
+
+    @Stories("As A User I want to be able to see GPlus Profile content")
+    @Title("Verify User able to see GPlus Profile content")
+    @TestCaseId("TC_LBG_03_005")
+    @Test(priority = 4)
+    public void userAbleToSeeGplusProfContent(){
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.verifyAllContentsInHamburgerBar();
+        hamburgerBarModule.clickProfilSayaBtn();
+        loginWithGplusModule.verifyGplusProfileContent();
     }
 
     @Stories("As A User I want able to Logout after Success Login")
     @Title("Verify User Able to Logout after Success Google+ Login")
     @TestCaseId("TC_LBG_03_004")
-    @Test(priority = 4)
-    public void userAbleToLogoutAfterSuccessGplusLogin() {}
+    @Test(priority = 5)
+    public void userAbleToLogoutAfterSuccessGplusLogin() {
+        LoginPage loginPage = loginWithGplusModule.clickLogOutGPlus();
+        hamburgerBarModule.verifyAllContentsInHamburgerBar();
+        hamburgerBarModule.clickProfilSayaBtn();
+        loginPage.verifyContentsOfLoginPage();
+    }
 }
