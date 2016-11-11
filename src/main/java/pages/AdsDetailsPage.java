@@ -221,7 +221,6 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click SHARE Button");
         clickElement(getIdLocator(sharedBtn));
         String currentActivity = androidDriver.getCurrentUrl();
-        clickElement(getIdLocator(androidOkButton));
         androidDriver.startActivity(currentActivity, Constants.appPackage);
         isWaitElementPresent(getIdLocator(sharedBtn));
 
