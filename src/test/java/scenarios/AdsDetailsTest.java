@@ -49,7 +49,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Learn Tips \"Transaksi Aman\" with \"Info Lebih Lanjut\" Button")
     @Title("Verify User able to Learn Tips Transaksi Aman ")
     @TestCaseId("TC_AdDetails_09_003")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToAccessTipsTransaksi() {
         adsDetailsPage.clickInfoLebihLanjut();
         // needs to verify tips

@@ -480,6 +480,10 @@ public class BasePage  {
         return intArray;
     }
 
+    public String getVersionDevices() {
+        return (String)((AndroidDriver)driver).getCapabilities().getCapability("platformVersion");
+    }
+
     public void switchWebViewCtx() {
         Log.debug("Switch to Webview Mode");
         driver = ((AndroidDriver)driver).context("WEBVIEW_"+Constants.appPackage);

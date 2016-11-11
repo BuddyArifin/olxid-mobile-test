@@ -1,6 +1,5 @@
 package pages;
 
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
@@ -50,6 +49,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String sharingPanels = "android:id/resolver_list";
     public static final String sharingAppsText = "android:id/text1";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
+    public static final String androidOkButton = "android:id/button1";
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoAds)
@@ -160,7 +160,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Lokasi Iklan dengan Maps");
         boolean displayed = isElementPresentAfterScrollDown(getIdLocator(adsLocation));
         if (displayed) {
-            Assert.assertTrue(true); 
+            Assert.assertTrue(true);
         }
     }
     public void verifyidIklanNumber(){
@@ -217,9 +217,14 @@ public class AdsDetailsPage extends BasePage {
     public void clickShareBtn() {
         swipePageTopToBtm();
         Log.info("Click SHARE Button");
-        String currentLocations = ((AndroidDriver)driver).currentActivity();
         clickElement(getIdLocator(sharedBtn));
-        ((AndroidDriver)driver).startActivity(Constants.appPackage, currentLocations);
+        if (getVersionDevices().startsWith("6")) {
+            driver.navigate().back();
+        } else if (getVersionDevices().startsWith("5")) {
+            driver.navigate().back();
+            driver.navigate().back();
+            clickElement(getIdLocator(androidOkButton));
+        }
         isWaitElementPresent(getIdLocator(sharedBtn));
     }
     public void clickCloseBtn() {
