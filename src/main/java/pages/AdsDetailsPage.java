@@ -1,6 +1,8 @@
 package pages;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -219,10 +221,12 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click SHARE Button");
         clickElement(getIdLocator(sharedBtn));
         if (getVersionDevices().startsWith("6")) {
-            driver.navigate().back();
+            Log.debug("Found Devices version"+getVersionDevices());
+            ((AndroidDriver)driver).pressKeyCode(AndroidKeyCode.BACK);
         } else if (getVersionDevices().startsWith("5")) {
-            driver.navigate().back();
-            driver.navigate().back();
+            Log.debug("Found Devices version"+getVersionDevices());
+            ((AndroidDriver)driver).pressKeyCode(AndroidKeyCode.BACK);
+            ((AndroidDriver)driver).pressKeyCode(AndroidKeyCode.BACK);
             clickElement(getIdLocator(androidOkButton));
         }
         isWaitElementPresent(getIdLocator(sharedBtn));
