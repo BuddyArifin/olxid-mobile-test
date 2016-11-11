@@ -7,10 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -102,7 +99,9 @@ public class PostAdsPage extends BasePage {
     public int upperHeigth, bottomHeight, upperHeightRotateAndCrop, bottomHeightRotateAndCrop;
     public boolean suggestionKategori;
     public String suggestedHarga2 = "";
-
+    public String mobil = "mobil";
+    public String rumah = "rumah";
+    public String lowongan = "karyawan";
 
     @AndroidFindBys({
             @AndroidFindBy(className = textInputLayoutClass)
@@ -551,7 +550,6 @@ public class PostAdsPage extends BasePage {
         verifyCancelPhotoThumbnails();
         verifyJudulColumn();
         verifyKategoriColumn();
-//        verifyHargaOrGajiColumn();
         verifyLokasiIklanColumn();
         verifyDetilTambahanDanDeskripsiColumn();
         verifyPasangIklanBtn();
@@ -560,6 +558,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifyCloseButtonX()
     {
+        isWaitElementPresent(getContentLocator(closeBtnPFS2));
         Assert.assertTrue(isElementPresent(getContentLocator(closeBtnPFS2)));
         Log.info("Verify Cancel Button Beside Title");
     }
@@ -729,8 +728,19 @@ public class PostAdsPage extends BasePage {
         }
         else
         {
-            kategoriValueAds.get(0).click();
+            //kategoriValueAds.get(0).click();
             clickElement(getIdLocator(kategoriTitleAds));
+
+            String text = driver.findElement(getIdLocator(judulAds)).getText().toLowerCase();
+            if(text.contains(mobil)){
+                clickMobilBekasAudiCategory();
+            }else if(text.contains(rumah)){
+                clickPropertiRumahDijualCategory();
+            }else if(text.contains(lowongan)){
+                clickJasaLowonganAdministrasi();
+            }
+
+            //clickElement(getIdLocator(kategoriTitleAds));
         }
         Log.info("Click Kategori Ads");
     }
@@ -738,7 +748,7 @@ public class PostAdsPage extends BasePage {
     public void verifySuggestionKategori()
     {
         String kategoriValue = driver.findElement(getIdLocator(kategoriTitleAds)).getText();
-        if(!kategoriValue.equals("")){
+        if(!kategoriValue.contains("Pilih kategori")){
             suggestionKategori = true;
             Log.info("Suggestion Kategori Displayed : " + kategoriValue);
             Assert.assertTrue(suggestionKategori);
@@ -855,14 +865,14 @@ public class PostAdsPage extends BasePage {
         String lowongan = "Lowongan";
         String administrasi = "Administrasi";
         String classElement = driver.findElement(By.id("com.app.tokobagus.betterb:id/titleLayout")).getAttribute("className");
-        if (classElement.equalsIgnoreCase("TextInputLayout")) {
-            ((AndroidDriver) driver).scrollToExact(jasaLowonganKerja);
+        //if (classElement.equalsIgnoreCase("TextInputLayout")) {
+        if(classElement.contains("LinearLayout")){
+            swipePageBtmtToTop();
+            //((AndroidDriver) driver).scrollToExact(jasaLowonganKerja);
             clickElement(getTextLocator(jasaLowonganKerja));
-            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, lowongan);
-            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, administrasi);
-        }
-        else
-        {
+            clickElement(getTextLocator(lowongan));
+            clickElement(getTextLocator(administrasi));
+        }else {
             Log.info(classElement);
             verifySuggestionKategori();
         }
@@ -921,10 +931,10 @@ public class PostAdsPage extends BasePage {
      * */
     public Boolean isElementPresentAfterScroll(final String locator) {
         String classname;
-        if (isOldVersionDevices) {
-            classname = "android.widget.LinearLayout";
-        } else {
+        if (isOldVersionDevices){
             classname = "TextInputLayout";
+        }else {
+            classname = "android.widget.LinearLayout";
         }
         final String classFinal = classname;
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
@@ -959,7 +969,7 @@ public class PostAdsPage extends BasePage {
 
     public void inputAdditionalFieldLuasTanah(String keyword)
     {
-        String luasTanah = "Luas tanah";
+        String luasTanah = "Luas tanah *";
         isElementPresentAfterScroll(luasTanah);
         inputMethod(luasTanah, keyword);
     }
@@ -977,7 +987,7 @@ public class PostAdsPage extends BasePage {
     public void inputAdditionalFieldLuasBangunan(String keyword)
     {
         swipePageBtmtToTop();
-        String luasBangunan = "Luas bangunan";
+        String luasBangunan = "Luas bangunan *";
 //        isElementPresentAfterScroll(luasBangunan);
         inputMethod(luasBangunan, keyword);
     }

@@ -312,7 +312,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
     @TestCaseId("TC_JUAL_11_026")
-    @Test(priority = 28, enabled = false)
+    @Test(priority = 28)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
@@ -322,9 +322,14 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Mobil Audi TT Tahun 2015");
         postAdsPage.clickSimpanBtn();
         postAdsPage.verifyContentPostingForm();
+
+        maps = postAdsPage.clickCariLokasiBtn();
+        maps.verifyAllContentInLocationPage();
+        maps.clickMyCurrentLocationBtn();
+        postAdsPage = maps.clickCariDiLokasiIniBtn();
+
         postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
-        postAdsPage.clickMobilBekasAudiCategory();
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
         postAdsPage.inputAdditionalInputFieldTahun();
@@ -341,7 +346,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
     @TestCaseId("TC_JUAL_11_027")
-    @Test(priority = 29, enabled = false)
+    @Test(priority = 29)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
@@ -351,11 +356,17 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Dijual Rumah Di Daerah Pondok Indah");
         postAdsPage.clickSimpanBtn();
         postAdsPage.verifyContentPostingForm();
+
+        maps = postAdsPage.clickCariLokasiBtn();
+        maps.verifyAllContentInLocationPage();
+        maps.clickMyCurrentLocationBtn();
+        postAdsPage = maps.clickCariDiLokasiIniBtn();
+
         postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
-        postAdsPage.clickPropertiRumahDijualCategory();
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputFieldPropertiCategory();
+        postAdsPage.inputAdditionalFieldLuasTanah("200");
         postAdsPage.inputAdditionalFieldLuasBangunan("200");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Rumah Di Daerah Pondok Indah Dengan Luas Tanah 200, Luas Bangunan 200, 4 Lantai");
@@ -380,9 +391,15 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.inputJudulAds("Dicari Karyawan Untuk Administrasi");
         postAdsPage.clickSimpanBtn();
         postAdsPage.verifyContentPostingForm();
+
+        maps = postAdsPage.clickCariLokasiBtn();
+        maps.verifyAllContentInLocationPage();
+        maps.clickMyCurrentLocationBtn();
+        postAdsPage = maps.clickCariDiLokasiIniBtn();
+
         postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
-        postAdsPage.clickJasaLowonganAdministrasi();
+        //postAdsPage.clickJasaLowonganAdministrasi();
         postAdsPage.verifyHargaChangeToGaji();
         postAdsPage.verifyAdditionalInputFieldJasaLowonganCategory();
         postAdsPage.inputAdditionalInputFieldGajiMinimal("3000000");
