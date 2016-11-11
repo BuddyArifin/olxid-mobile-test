@@ -194,6 +194,7 @@ public class ListingPage extends BasePage{
     public void verifySuggestionList()
     {
         Log.info("Verify Suggestion List after tapping keyword");
+        isWaitElementPresent(getIdLocator(suggesstionSemuaDiKategory));
         Assert.assertTrue(isListElementPresent(suggestList));
     }
 
