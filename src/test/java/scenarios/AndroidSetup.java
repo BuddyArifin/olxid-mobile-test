@@ -40,7 +40,7 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("deviceName","Galaxy S4");
         capabilities.setCapability("platformName","Android");
         capabilities.setCapability("newCommandTimeout", 60 * 5);
-        //capabilities.setCapability("udid", udid);
+        capabilities.setCapability("udid", udid);
         
         //No Reset Apps
         capabilities.setCapability("noReset", false);

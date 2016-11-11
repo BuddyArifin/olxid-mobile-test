@@ -13,6 +13,7 @@
         </classes>
     </test>
     <test name="Ads Details OLXID" preserve-order="false">
+        <parameter name="udid" value="emulator-5554" />
         <classes>
             <class name="scenarios.AdsDetailsTest"/>
         </classes>
