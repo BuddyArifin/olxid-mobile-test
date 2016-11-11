@@ -79,22 +79,20 @@ public class LoginWithOlxModule extends BasePage {
 
     public void verifyErrorBlankEmail() {
         Log.info("Verify Blank email error message");
-        isWaitElementPresent(getIdLocator(errorMessageId));
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(emailBlankErrorText));
     }
 
     public void verifyErrorBlankPassword() {
         Log.info("Verify Blank password error message");
-        isWaitElementPresent(getIdLocator(errorMessageId));
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(passBlankErrorText));
     }
 
     @Step("Verify Error Wrong Credentials")
     public void verifyErrorWrongCredentials() {
         Log.info("verify Error Wrong Credentials");
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(loginGagal));
     }
 
@@ -207,15 +205,13 @@ public class LoginWithOlxModule extends BasePage {
 
     public void verifyErrorUnregisteredEmailForgotPass() {
         Log.info("Verify Unregistered email error message in Forgot Password page");
-        isWaitElementPresent(getIdLocator(errorMessageId));
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(unregisteredEmailErrorText));
     }
 
     public void verifyErrorBlankEmailForgotPass() {
         Log.info("Verify Blank email error message in Forgot Password page");
-        isWaitElementPresent(getIdLocator(errorMessageId));
-        Assert.assertTrue(isElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(blankEmailForgotPassErrorText));
     }
 }
