@@ -102,6 +102,8 @@ public class PostAdsPage extends BasePage {
     public String mobil = "mobil";
     public String rumah = "rumah";
     public String lowongan = "karyawan";
+    public static final String loginPopupNotif = "com.app.tokobagus.betterb:id/md_content";
+    public static final String loginBtnInLoginPopup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
 
     @AndroidFindBys({
             @AndroidFindBy(className = textInputLayoutClass)
@@ -1287,5 +1289,16 @@ public class PostAdsPage extends BasePage {
             clickElement(getIdLocator(cariDiLokasiIniBtn));
             return new PostAdsPage(driver);
         }
+    }
+
+    public void verifyLoginPopupNotif(){
+        Assert.assertTrue(isElementPresent(getIdLocator(loginPopupNotif)));
+        Log.info("Verify Login Popup Notification");
+    }
+
+    public LoginPage clickLoginBtnInLoginPopup(){
+        clickElement(getIdLocator(loginBtnInLoginPopup));
+        Log.info("Click Login Btn in Login Pop up Notification");
+        return new LoginPage(driver);
     }
 }

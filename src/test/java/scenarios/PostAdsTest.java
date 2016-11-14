@@ -27,20 +27,57 @@ public class PostAdsTest extends AndroidSetup {
     PostAdsPage.Maps maps;
     PaidFeatureModule paidFeatureModule;
 
+    @Stories("As a user not able Post Ads")
+    @Title("Verify user not able to post ads if user not log in")
+    @TestCaseId("TC_JUAL_11_042")
+    @Test(priority = 1)
+    public void postadsNoLogin(){
+        loginPage = new LoginPage(driver);
+        loginPage.clickSkipOnBoardingSliders();
+        listingPage = loginPage.skipLogin();
+        listingPage.verifyContentsOfListingPage();
+        postAdsPage = listingPage.clickJualBtnBtm();
+        postAdsPage.verifyContentInCameraPage();
+        postAdsPage.clickShutterBtn();
+        postAdsPage.verifyContentAdditionalInCameraPage();
+        postAdsPage.inputJudulAds("Mobil Audi TT Tahun 2015");
+        postAdsPage.clickSimpanBtn();
+        postAdsPage.verifyContentPostingForm();
+
+        maps = postAdsPage.clickCariLokasiBtn();
+        maps.verifyAllContentInLocationPage();
+        maps.clickMyCurrentLocationBtn();
+        postAdsPage = maps.clickCariDiLokasiIniBtn();
+
+        postAdsPage.verifySuggestionKategori();
+        postAdsPage.clickKategoriAds();
+        postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
+        postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
+        postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.clickDetilTambahDanDeskripsi();
+        postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
+        postAdsPage.verifyNoLimitCharacterDescription();
+        postAdsPage.clickPasangIklanButton();
+        postAdsPage.verifyLoginPopupNotif();
+    }
+
     @Stories("As a user i want to see content in Camera Page")
     @Title("Verify content in camera page")
     @TestCaseId("TC_JUAL_11_001")
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void verifyAllContentInCameraPage()
     {
-        loginPage = new LoginPage(driver);
-        loginPage.clickSkipOnBoardingSliders();
+        loginPage = postAdsPage.clickLoginBtnInLoginPopup();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
         loginWithOlxModule.inputEmail("olxtester@gmail.com");
         loginWithOlxModule.inputPassword("testing");
         loginWithOlxModule.clickLoginWithOlxBtn();
-        listingPage = loginWithOlxModule.verifyListingPage();
+
+        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
+        postAdsPage.verifyContentInPopUpSuccessPosting();
+        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
         listingPage.verifyContentsOfListingPage();
+
         postAdsPage = listingPage.clickJualBtnBtm();
         postAdsPage.verifyContentInCameraPage();
     }
@@ -48,7 +85,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able to take photo")
     @Title("Verify user able to take photo")
     @TestCaseId("TC_JUAL_11_002")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifyUserAbleToTakePhoto()
     {
         postAdsPage.clickShutterBtn();
@@ -57,7 +94,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want see additional content camera page")
     @Title("Verify System display additional content in camera page")
     @TestCaseId("TC_JUAL_11_004, TC_JUAL_11_005")
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void verifySystemDisplayAdditionalContentInCameraPage()
     {
         postAdsPage.verifyContentAdditionalInCameraPage();
@@ -66,7 +103,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able to cancel take photo")
     @Title("Verify user able to cancel take photo")
     @TestCaseId("TC_JUAL_11_003")
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void verifyUserAbleToCancelTakePhoto()
     {
         postAdsPage.clickCloseBtnAtas();
@@ -75,8 +112,8 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able see and click X Button (Right Side Photo)")
     @Title("Verify user able to click X button (Beside Jual Title)")
-    @TestCaseId("TC_JUAL_11_016")
-    @Test(priority = 5)
+    @TestCaseId("TC_JUAL_11_015")
+    @Test(priority = 6)
     public void verifyUserAbleToClickXButtonBesideJualTitle()
     {
         listingPage = postAdsPage.clickBatalNavigateUp();
@@ -86,7 +123,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able retake photo")
     @Title("Verify User able to retake photo after tap \"Ulang\" Button")
     @TestCaseId("TC_JUAL_11_006")
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void verifyUserAbleToRetakePhotoAfterTapUlangButton()
     {
         postAdsPage = listingPage.clickJualBtnBtm();
@@ -102,7 +139,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to cancel cropping")
     @Title("Verify User able to cancel cropping")
     @TestCaseId("TC_JUAL_11_009")
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void verifyUserAbleToCancelCropping()
     {
         postAdsPage.clickCropBtnAtas();
@@ -113,7 +150,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user i want to be able crop photo")
     @Title("Verify User able to crop photo")
     @TestCaseId("TC_JUAL_11_008")
-    @Test(priority = 8)
+    @Test(priority = 9)
     public void verifyUserAbleToCropPhoto()
     {
         postAdsPage.getSizeElementsBeforeRotateAndCrop();
@@ -125,18 +162,10 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyImageCropped();
     }
 
-    @Stories("As a user i want to be able cancel rotate photo")
-    @Title("Verify User able to cancel rotate photo")
-    @TestCaseId("TC_JUAL_11_010")
-    @Test(priority = 9, enabled = false)
-    public void verifyUserAbleToCancelRotatePhoto()
-    {
-    }
-
     @Stories("As a user i want to be able rotate photo")
     @Title("Verify User able to rotate photo")
-    @TestCaseId("TC_JUAL_11_01")
-    @Test(priority = 9)
+    @TestCaseId("TC_JUAL_11_010")
+    @Test(priority = 10)
     public void verifyUserAbleToRotatePhoto()
     {
         postAdsPage.getSizeElementsBeforeRotateAndCrop();
@@ -146,8 +175,8 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able input title ads")
     @Title("Verify User able to insert title ads")
-    @TestCaseId("TC_JUAL_11_013")
-    @Test(priority = 10)
+    @TestCaseId("TC_JUAL_11_012")
+    @Test(priority = 11)
     public void verifyUserAbleToInsertTitleAds()
     {
         postAdsPage.inputJudulAds("Xiaomi Layarnya Meledak");
@@ -156,7 +185,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As user i want to be able content in PostingForm Step 2")
     @Title("Verify System able to display content in PostingForm Step 2")
     @TestCaseId("TC_JUAL_11_007, TC_JUAL_11_014, TC_JUAL_11_015")
-    @Test(priority = 11)
+    @Test(priority = 12)
     public void verifySystemAbleToDisplayContentInPostingFormStep2()
     {
         postAdsPage.clickSimpanBtn();
@@ -165,7 +194,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able choose method to add photo")
     @Title("Verify user able to choose option add photo from gallery")
-    @TestCaseId("TC_JUAL_11_017, TC_JUAL_11_018")
+    @TestCaseId("TC_JUAL_11_017")
     @Test(priority = 13, enabled = false)
     public void verifyUserAbleToChooseOptionAddPhotoFromGallery()
     {
@@ -178,7 +207,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able cancel uploaded or taken photo")
     @Title("Verify user able to cancel uploaded or taken photo")
-    @TestCaseId("TC_JUAL_11_019")
+    @TestCaseId("TC_JUAL_11_018")
     @Test(priority = 14, enabled = false)
     public void verifyUserAbleToCancelUploadedOrTakenPhoto()
     {
@@ -188,7 +217,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click and input title Ads")
     @Title("Verify user able to click and input title Ads in Judul Column")
-    @TestCaseId("TC_JUAL_11_020")
+    @TestCaseId("TC_JUAL_11_019")
     @Test(priority = 15)
     public void verifyUserAbleToClickAndInputTitleAdsInJudulColumn()
     {
@@ -209,7 +238,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able see suggestion Kategori")
     @Title("Verify system able to display suggestion Kategori")
-    @TestCaseId("TC_JUAL_11_022")
+    @TestCaseId("TC_JUAL_11_021")
     @Test(priority = 17)
     public void verifySystemAbleToDisplaySuggestionKategori()
     {
@@ -218,7 +247,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click and edit Ads Kategori")
     @Title("Verify user able to click and edit Ads Kategori")
-    @TestCaseId("TC_JUAL_11_021")
+    @TestCaseId("TC_JUAL_11_020")
     @Test(priority = 18)
     public void verifyUserAbleToClickAndEditAdsKategori()
     {
@@ -227,7 +256,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click and input price Ads")
     @Title("Verify user able to click and input price Ads")
-    @TestCaseId("TC_JUAL_11_023, TC_JUAL_11_024")
+    @TestCaseId("TC_JUAL_11_022, TC_JUAL_11_023")
     @Test(priority = 19)
     public void verifyUserAbleToClickAndInputPriceAds()
     {
@@ -236,7 +265,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able input Description and no character limit")
     @Title("Verify user able to input Description and no character limit")
-    @TestCaseId("TC_JUAL_11_029")
+    @TestCaseId("TC_JUAL_11_031")
     @Test(priority = 20)
     public void verifyUserAbleToInputDescriptionAndNoCharacterLimit()
     {
@@ -248,7 +277,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i will not able to Post ads")
     @Title("Verify user not able to post ads if Pemrosesan Data not check")
-    @TestCaseId("TC_JUAL_11_032")
+    @TestCaseId("TC_JUAL_11_034")
     @Test(priority = 21, enabled = false)
     public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
     {
@@ -257,7 +286,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to able post Ads")
     @Title("Verify user success Post Ads")
-    @TestCaseId("TC_JUAL_11_034")
+    @TestCaseId("TC_JUAL_11_036")
     @Test(priority = 22)
     public void verifyUserSuccessPostAds()
     {
@@ -266,7 +295,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be see content Pop-Up Confirmation")
     @Title("Verify System display content in Pop-Up Confirmation")
-    @TestCaseId("TC_JUAL_11_035, TC_JUAL_11_036")
+    @TestCaseId("TC_JUAL_11_038")
     @Test(priority = 23)
     public void verifySystemDisplayContentInPopUpConfirmation()
     {
@@ -276,7 +305,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
     @Title("Verify user able click \"Gunakan Fitur Top Listing\"")
-    @TestCaseId("TC_JUAL_11_037")
+    @TestCaseId("TC_JUAL_11_039")
     @Test(priority = 24, enabled = false)
     public void verifyUserAbleClickGunakanFiturTopListingButton()
     {
@@ -285,7 +314,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able click \"Tutup\"")
     @Title("Verify user able click \"Tutup\"")
-    @TestCaseId("TC_JUAL_11_038")
+    @TestCaseId("TC_JUAL_11_040")
     @Test(priority = 25)
     public void verifyUserAbleClickTutupButton()
     {
@@ -295,7 +324,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able skip input \"Description\"")
     @Title("Verify user able to skip input Description")
-    @TestCaseId("TC_JUAL_11_030")
+    @TestCaseId("TC_JUAL_11_032")
     @Test(priority = 26, enabled = false)
     public void verifyUserAbleToSkipInputDescription()
     {
@@ -303,7 +332,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user i want to be able input description later")
     @Title("Verify user able to input Description later")
-    @TestCaseId("TC_JUAL_11_031")
+    @TestCaseId("TC_JUAL_11_033")
     @Test(priority = 27, enabled = false)
     public void verifyUserAbleToInputDescriptionLater()
     {
@@ -311,7 +340,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
-    @TestCaseId("TC_JUAL_11_026")
+    @TestCaseId("TC_JUAL_11_025, TC_JUAL_11_026")
     @Test(priority = 28)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
@@ -345,7 +374,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
-    @TestCaseId("TC_JUAL_11_027")
+    @TestCaseId("TC_JUAL_11_027, TC_JUAL_11_028")
     @Test(priority = 29)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
@@ -380,7 +409,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field in \"Jasa & Lowongan\" Kategori")
-    @TestCaseId("TC_JUAL_11_025, TC_JUAL_11_028")
+    @TestCaseId("TC_JUAL_11_029, TC_JUAL_11_030")
     @Test(priority = 30, enabled = false)
     public void verifySystemAbleToDisplayAdditionalInputFieldJasaDanLowonganKategori()
     {
