@@ -12,14 +12,8 @@
             <class name="scenarios.LoginPageTest"/>
         </classes>
     </test>
-    <test name="Ads Details OLXID" preserve-order="false">
-        <parameter name="udid" value="emulator-5554" />
-        <classes>
-            <class name="scenarios.AdsDetailsTest"/>
-        </classes>
-    </test>
     <test name="Login with OLX Account OLXID" preserve-order="false">
-        <parameter name="udid" value="emulator-5554" />
+        <parameter name="udid" value="emulator-5556" />
         <classes>
             <class name="scenarios.LoginOLXTest"/>
         </classes>
@@ -27,6 +21,12 @@
     <test name="Category View Sulley OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.CategoryViewTest"/>
+        </classes>
+    </test>
+    <test name="Ads Details OLXID" preserve-order="false">
+        <parameter name="udid" value="emulator-5554" />
+        <classes>
+            <class name="scenarios.AdsDetailsTest"/>
         </classes>
     </test>
 </suite>
