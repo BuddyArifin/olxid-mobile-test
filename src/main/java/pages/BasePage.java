@@ -176,6 +176,10 @@ public class BasePage  {
         WebElement element = driver.findElement(locator);
         element.clear();
         element.sendKeys(keys);
+        AndroidDriver driver = (AndroidDriver) this.driver;
+        if (!driver.isAppInstalled(Constants.UNICODE_APP)) {
+            driver.hideKeyboard(); // Closing Keyboard
+        }
     }
 
     protected void sendKeysElements(By locator,int index, String keys){

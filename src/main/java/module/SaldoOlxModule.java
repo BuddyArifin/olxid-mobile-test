@@ -96,12 +96,6 @@ public class SaldoOlxModule extends BasePage {
         verifyIsiUlangSaldoTitle();
         verifyIsiUlangSaldoBtn();
         verifyHistoryTransactionsDate();
-        verifyHistoryTransactionsNumber();
-        verifyHistoryTransactionsStatus();
-        verifyHistoryTransactionsPrice();
-//        verifyInfoImageSlide();
-//        verifyNextImageSlideBtn();
-//        verifyPrevImageSlideBtn();
     }
     public void verifyBackbutton()
     {
@@ -145,7 +139,17 @@ public class SaldoOlxModule extends BasePage {
     public void verifyHistoryTransactionsDate()
     {
         Log.info("Verify History Transactions date displays");
-        Assert.assertTrue(isElementPresent(getIdLocator(transactionDate)));
+        // add conditions if, we test with a fresh users which not have history
+        if (isElementPresent(getIdLocator(transactionDate))) {
+            Assert.assertTrue(true);
+            verifyHistoryTransactionsNumber();
+            verifyHistoryTransactionsStatus();
+            verifyHistoryTransactionsPrice();
+        } else {
+            verifyInfoImageSlide();
+            verifyNextImageSlideBtn();
+            verifyPrevImageSlideBtn();
+        }
     }
     public void verifyHistoryTransactionsNumber()
     {

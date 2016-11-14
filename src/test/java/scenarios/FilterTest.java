@@ -1,7 +1,6 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
-import module.FilterByMapsLocationModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.FilterPage;
@@ -21,7 +20,6 @@ public class FilterTest extends AndroidSetup{
     LoginPage loginPage;
     ListingPage listingPage;
     FilterPage filterPage;
-    FilterByMapsLocationModule filterByMapsLocationModule;
     FilterPage.MapsFilter mapsFilter;
 
     @Stories("As a User I want See Content in Filter Page")
@@ -45,6 +43,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("jazz");
+        filterPage.verifySuggestionList();
         filterPage.verifyCancelButton();
     }
 
@@ -129,7 +128,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 9, enabled = false)
+    @Test(priority = 9)
     public void verifyUserRedirectToDetailLocationPage()
     {
         filterPage = listingPage.clickFilterBtnPrm();
@@ -142,8 +141,8 @@ public class FilterTest extends AndroidSetup{
     @TestCaseId("TC_LISTING_06_015, TC_LISTING_06_017")
     @Test(priority = 10,enabled = false)
     public void verifyAlertDisplayWhenGPSOff() {
-        filterByMapsLocationModule.turnOffGPS();
-        filterByMapsLocationModule.verifyGPSAlertDisplay();
+        mapsFilter.turnOffGPS();
+        mapsFilter.verifyGPSAlertDisplay();
     }
 
     @Stories("As a User i want to able choose \"Tolak\" in pop-up Aktivasi GPS")
@@ -151,7 +150,7 @@ public class FilterTest extends AndroidSetup{
     @TestCaseId("TC_LISTING_06_016")
     @Test(priority = 11, enabled = false)
     public void verifyUserAbletoSkipPopUpActivating() {
-        filterByMapsLocationModule.clickGPSCancelBtn();
+        mapsFilter.clickGPSCancelBtn();
     }
 
     @Stories("As a user i want be able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
@@ -159,37 +158,39 @@ public class FilterTest extends AndroidSetup{
     @TestCaseId("TC_LISTING_06_018")
     @Test(priority = 12, enabled = false)
     public void verifyUserAbleToChooseAktivasiGPS() {
-        filterByMapsLocationModule.turnOnGPS();
-        filterByMapsLocationModule.verifyAllContentInLocationPage();
+        mapsFilter.turnOnGPS();
+        mapsFilter.verifyAllContentInLocationPage();
     }
 
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
     @TestCaseId("TC_FILTER_08_012")
-    @Test(priority = 13, enabled = false)
+    @Test(priority = 13)
     public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
     {
-        filterByMapsLocationModule.inputKeywordInSearchFields("Menara");
-        filterByMapsLocationModule.verifySuggestions();
+        mapsFilter.inputKeywordInSearchFields("Menara");
+        mapsFilter.clickSearchField();
+        mapsFilter.verifySuggestions();
     }
 
     @Stories("As user i want to be able select location")
     @Title("Verify Listing ads sorted by selected suggestion location")
     @TestCaseId("TC_FILTER_08_013")
-    @Test(priority = 14, enabled = false)
+    @Test(priority = 14)
     public void verifyUserAbleToSelectLocationSuggestion()
     {
-        filterByMapsLocationModule.chooseSuggestion(0);
+        mapsFilter.chooseSuggestion(0);
     }
 
     @Stories("As user i want to be able change radius")
     @Title("Verify Listing ads sorted by selected radius location")
     @TestCaseId("TC_FILTER_08_014")
-    @Test(priority = 15, enabled = false)
+    @Test(priority = 15)
     public void verifySliderSlideRight()
     {
-        filterByMapsLocationModule.slideRightSliderRadius();
-        filterByMapsLocationModule.clickCariDiLokasiIniBtn();
+        mapsFilter.slideRightSliderRadius();
+        mapsFilter.clickCariDiLokasiIniBtn();
+        filterPage.clickSimpanButton();
     }
 
     @Stories("As user i want to see sub-category option")
@@ -212,8 +213,8 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.clickMobilBekasHondaCategory();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
-        filterPage.inputMinPrice("10000000000");
-        filterPage.inputMaxPrice("20000000000");
+        filterPage.inputMinPrice("80000000");
+        filterPage.inputMaxPrice("300000000");
         filterPage.pilihTipeKendaraan("Jazz");
         filterPage.pilihTransmisi("Manual");
         filterPage.pilihTahun("2013");
@@ -233,8 +234,9 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickChooseCategoryField();
         filterPage.clickSemuaDiMobilCategory();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
-        filterPage.inputMinPrice("10000000000");
-        filterPage.inputMaxPrice("20000000000");
+        filterPage.clickMinimumPrice();
+        filterPage.inputMinPrice("80000000");
+        filterPage.inputMaxPrice("300000000");
         listingPage = filterPage.clickSimpanButton();
         listingPage.verifyContentsOfListingPage();
     }
@@ -251,8 +253,8 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickChooseCategoryField();
         filterPage.clickPropertiRumahDijualCategory();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
-        filterPage.inputMinPrice("10000000000");
-        filterPage.inputMaxPrice("20000000000");
+        filterPage.inputMinPrice("100000000");
+//        filterPage.inputMaxPrice("800000000");
         filterPage.inputLuasTanah("100");
         filterPage.inputLuasBangunan("100");
         filterPage.inputLantai("2");
@@ -260,7 +262,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihKamarMandi("2");
         filterPage.pilihSertifikasi("HGB - Hak Guna Bangun/Lainnya  (PPJB,Girik,Adat,dll)/SHM - Sertifikat Hak Milik");
         filterPage.pilihFasilitas("AC/Telephone/PAM/Microwave");
-        filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
+//        filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
         listingPage = filterPage.clickSimpanButton();
         listingPage.verifyContentsOfListingPage();
     }
@@ -276,14 +278,13 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
-        filterPage.clickChooseCategoryField();
-        filterPage.clickMobilBekasHondaCategory();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
-        filterPage.inputMinPrice("10000000000");
-        filterPage.inputMaxPrice("20000000000");
-        filterPage.pilihTipeKendaraan("Jazz");
-        filterPage.pilihTransmisi("Manual");
-        filterPage.pilihTahun("2013");
+        filterPage.clickMinimumPrice();
+        filterPage.inputMinPrice("80000000");
+        filterPage.inputMaxPrice("300000000");
+//        filterPage.pilihTipeKendaraan("Jazz");
+//        filterPage.pilihTransmisi("Manual");
+//        filterPage.pilihTahun("2013");
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
     }

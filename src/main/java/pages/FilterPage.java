@@ -18,7 +18,10 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -65,95 +68,96 @@ public class FilterPage extends BasePage {
     public FilterPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-    };
+    }
+
+    ;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = actionBar),
-        @AndroidFindBy(className = imageButtonBack)
+            @AndroidFindBy(id = actionBar),
+            @AndroidFindBy(className = imageButtonBack)
     })
     protected List<AndroidElement> backBtnTopPrm;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = recycleViewCategory),
-        @AndroidFindBy(id = linearLayoutContainer)
+            @AndroidFindBy(id = recycleViewCategory),
+            @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement0;
 
     @AndroidFindBys({
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(id = recycleViewCategory),
-        @AndroidFindBy(id = linearLayoutContainer)
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(id = recycleViewCategory),
+            @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement1;
 
     @AndroidFindBys({
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(className = relativeLayout),
-        @AndroidFindBy(id = recycleViewCategory),
-        @AndroidFindBy(id = linearLayoutContainer)
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(className = relativeLayout),
+            @AndroidFindBy(id = recycleViewCategory),
+            @AndroidFindBy(id = linearLayoutContainer)
     })
     protected List<AndroidElement> categoryElement2;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = recycleViewCategory),
-        @AndroidFindBy(id = categoryTitle)
+            @AndroidFindBy(id = recycleViewCategory),
+            @AndroidFindBy(id = categoryTitle)
     })
     protected List<AndroidElement> subCategoryTitle;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = linearLayoutCategoryParams),
-        @AndroidFindBy(id = textViewLayout)
+            @AndroidFindBy(id = linearLayoutCategoryParams),
+            @AndroidFindBy(id = textViewLayout)
     })
     protected List<AndroidElement> dropDownListElement;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = recycleViewLayout),
-        @AndroidFindBy(className =  linearLayoutDropDownSelection)
+            @AndroidFindBy(id = recycleViewLayout),
+            @AndroidFindBy(className = linearLayoutDropDownSelection)
     })
     protected List<AndroidElement> checkBoxElement;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = linearLayoutCategoryParams),
-        @AndroidFindBy(className = textViewClass)
+            @AndroidFindBy(id = linearLayoutCategoryParams),
+            @AndroidFindBy(className = textViewClass)
     })
     protected List<AndroidElement> additionalFilterInput;
 
     @AndroidFindBys({
-        @AndroidFindBy(className = textViewClass),
-        @AndroidFindBy(className = editTextAdditionalFilter)
+            @AndroidFindBy(className = textViewClass),
+            @AndroidFindBy(className = editTextAdditionalFilter)
     })
     protected List<AndroidElement> editInputList;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
-        @AndroidFindBy(className = editTextAdditionalFilter)
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
+            @AndroidFindBy(className = editTextAdditionalFilter)
     })
     protected List<AndroidElement> editInputListOldVersion;
 
     @AndroidFindBys({
-        @AndroidFindBy(className = textViewClass)
+            @AndroidFindBy(className = textViewClass)
     })
     protected List<AndroidElement> inputList;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = linearLayoutCategoryParams),
-        @AndroidFindBy(id = textViewParamsTitle)
+            @AndroidFindBy(id = linearLayoutCategoryParams),
+            @AndroidFindBy(id = textViewParamsTitle)
     })
     protected List<AndroidElement> textViewDropDownTitle;
 
     @AndroidFindBys({
-        @AndroidFindBy(id = recycleViewLayout),
-        @AndroidFindBy(id = textViewCheckBoxId)
+            @AndroidFindBy(id = recycleViewLayout),
+            @AndroidFindBy(id = textViewCheckBoxId)
     })
     protected List<AndroidElement> textViewCheckBoxTitle;
 
     @Step("Verify System Display Content in Filter Page")
-    public void verifyAllContentOfFilterPage()
-    {
+    public void verifyAllContentOfFilterPage() {
         verifyBackButton();
         verifySearchField();
         verifyLocationButton();
@@ -167,64 +171,64 @@ public class FilterPage extends BasePage {
         verifySimpanButton();
         Log.info("Verify All Content in Filter Page");
     }
-    public void verifyBackButton()
-    {
+
+    public void verifyBackButton() {
         waitForClickabilityOf(getIdLocator(backBtn));
         Assert.assertTrue(isElementPresent(getContentLocator(backBtn)));
         Log.info("Verify Back Button");
     }
-    public void verifySearchField()
-    {
+
+    public void verifySearchField() {
         Assert.assertTrue(isElementPresent(getIdLocator(searchField)));
         Log.info("Verify Search Field");
     }
-    public void verifyCancelButton()
-    {
+
+    public void verifyCancelButton() {
         waitForClickabilityOf(getIdLocator(cancelBtn));
         Assert.assertTrue(isElementPresent(getIdLocator(cancelBtn)));
         Log.info("Verify Cancel Button");
     }
-    public void verifyLocationButton()
-    {
+
+    public void verifyLocationButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(locationBtn)));
         Log.info("Verify Location Button");
     }
-    public void verifyMyLocationButton()
-    {
+
+    public void verifyMyLocationButton() {
         Log.info("Verify MyLocation Button");
     }
-    public void verifyTerdekatRadioButton()
-    {
+
+    public void verifyTerdekatRadioButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(terdekatRBtn)));
         Log.info("Verify Terdekat Radio Button");
     }
-    public void verifyTerbaruRadioButton()
-    {
+
+    public void verifyTerbaruRadioButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(terbaruRBtn)));
         Log.info("Verify Terbaru Radio Button");
     }
-    public void verifyTermurahRadioButton()
-    {
+
+    public void verifyTermurahRadioButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(termurahRBtn)));
         Log.info("Verify Termurah Radio Button");
     }
-    public void verifyTermahalRadioButton()
-    {
+
+    public void verifyTermahalRadioButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(termahalRBtn)));
         Log.info("Verify Termahal Radio Button");
     }
-    public void verifyCategoryField()
-    {
+
+    public void verifyCategoryField() {
         Assert.assertTrue(isElementPresent(getIdLocator(chooseCategory)));
         Log.info("Verify Ubah Button");
     }
-    public void verifyResetButton()
-    {
+
+    public void verifyResetButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(resetBtn)));
         Log.info("Verify Reset Button");
     }
-    public void verifySimpanButton()
-    {
+
+    public void verifySimpanButton() {
         Assert.assertTrue(isElementPresent(getIdLocator(cariBtn)));
         Log.info("Verify Simpan Button");
     }
@@ -234,12 +238,11 @@ public class FilterPage extends BasePage {
      * 1. to Verify Size of a ListElement
      * 2. Click the Index of a ListElement
      */
-    public void verifyListElementMethodAndClickElement(String layoutClass, List<AndroidElement> parentElements, List<AndroidElement> childElements, String comparisonWord)
-    {
+    public void verifyListElementMethodAndClickElement(String layoutClass, List<AndroidElement> parentElements, List<AndroidElement> childElements, String comparisonWord) {
         isWaitElementPresent(getIdLocator(layoutClass));
         String elementValueText = "";
-        Log.info("Category Available ["+parentElements.size()+"]: ");
-        for (int i = 0 ; i < parentElements.size() ; i++) {
+        Log.info("Category Available [" + parentElements.size() + "]: ");
+        for (int i = 0; i < parentElements.size(); i++) {
             elementValueText = childElements.get(i).getText();
             if (parentElements.size() >= 2 && elementValueText.equalsIgnoreCase(comparisonWord)) {
                 parentElements.get(i).click();
@@ -248,90 +251,85 @@ public class FilterPage extends BasePage {
             }
         }
     }
-    public void verifyCheckBoxElement(List<AndroidElement> elements)
-    {
+
+    public void verifyCheckBoxElement(List<AndroidElement> elements) {
         Log.info("Verify Available Category on Listing");
         isWaitElementPresent(getIdLocator(recycleViewLayout));
-        Log.info("Category Available ["+elements.size()+"]: ");
-        for (int i = 0 ; i < elements.size() ; i++) {
+        Log.info("Category Available [" + elements.size() + "]: ");
+        for (int i = 0; i < elements.size(); i++) {
             String checkBox = getCheckBoxTitle(i, elements);
-            Log.debug("Isi urutan ["+i+"] "+elements.get(i).getText());
+            Log.debug("Isi urutan [" + i + "] " + elements.get(i).getText());
             Log.info("* " + checkBox + " ");
             Assert.assertNotNull(checkBox);
-            if (i >=2 && elements.size() >=2 ) {
+            if (i >= 2 && elements.size() >= 2) {
                 Log.info("... ");
                 break;
             }
         }
     }
-    public String getCheckBoxTitle(int index, List<AndroidElement> elements)
-    {
+
+    public String getCheckBoxTitle(int index, List<AndroidElement> elements) {
         return elements.get(index).findElementById(textViewCheckBoxId).getText();
     }
-    public ListingPage clickBackBtn()
-    {
+
+    public ListingPage clickBackBtn() {
         Log.info("Click Back Button");
         backBtnTopPrm.get(0).click();
         return new ListingPage(driver);
     }
 
-    public void clickSearchField()
-    {
+    public void clickSearchField() {
         Log.info("Click Search Field");
         clickElement(getIdLocator(searchField));
     }
 
-    public void inputKeywordSearchField(String keyword)
-    {
-        Log.info("Input Keyword in Search Field : "+keyword);
+    public void inputKeywordSearchField(String keyword) {
+        Log.info("Input Keyword in Search Field : " + keyword);
         sendKeysById(getIdLocator(searchField), keyword);
     }
 
-    public void clickCancelButtonSearchField()
-    {
+    public void clickCancelButtonSearchField() {
         Log.info("Click Cancel Button in Search Field");
         clickElement(getIdLocator(cancelBtn));
     }
 
-    public void clickMyLocationButton()
-    {
+    public void clickMinimumPrice() {
+        clickElement(getIdLocator(minPrice));
+    }
+
+    public void clickMyLocationButton() {
         Log.info("Click MyLocation Button");
     }
 
-    public MapsFilter clickLocationButton()
-    {
+    public MapsFilter clickLocationButton() {
         Log.info("Click Location Button");
         clickElement(getIdLocator(locationBtn));
         return new MapsFilter(driver);
     }
 
-    public void clickRadioButtonTerdekatInUrutkanColumn()
-    {
+    public void clickRadioButtonTerdekatInUrutkanColumn() {
         clickElement(getIdLocator(terdekatRBtn));
         Log.info("Click Terdekat Radio Button in Urutkan Column");
     }
 
-    public void clickRadioButtonTerbaruInUrutkanColumn()
-    {
+    public void clickRadioButtonTerbaruInUrutkanColumn() {
         clickElement(getIdLocator(terbaruRBtn));
         Log.info("Click Terbaru Radio Button in Urutkan Column");
     }
 
-    public void clickRadioButtonTermurahInUrutkanColumn()
-    {
+    public void clickRadioButtonTermurahInUrutkanColumn() {
         clickElement(getIdLocator(termurahRBtn));
         Log.info("Click Termurah Radio Button in Urutkan Column");
     }
 
-    public void clickRadioButtonTermahalInUrutkanColumn()
-    {
+    public void clickRadioButtonTermahalInUrutkanColumn() {
         clickElement(getIdLocator(termahalRBtn));
         Log.info("Click Termahal Radio Button in Urutkan Column");
     }
 
-    public void clickChooseCategoryField()
-    {
+    public void clickChooseCategoryField() {
         Log.info("Click Ubah Button");
+        isElementPresentAfterScrollDown(getIdLocator(chooseCategory));
         clickElement(getIdLocator(chooseCategory));
     }
 
@@ -339,8 +337,7 @@ public class FilterPage extends BasePage {
         return getStringText(getIdLocator(chooseCategory));
     }
 
-    public void clickResetButton()
-    {
+    public void clickResetButton() {
         waitForClickabilityOf(getTextLocator("Filter"));
         swipePageBtmtToTop();
         swipePageBtmtToTop();
@@ -349,8 +346,7 @@ public class FilterPage extends BasePage {
         Log.info("Click Reset Button");
     }
 
-    public ListingPage clickSimpanButton()
-    {
+    public ListingPage clickSimpanButton() {
         isWaitElementPresent(getIdLocator(cariBtn));
         isElementPresentAfterScrollDown(getIdLocator(cariBtn));
         clickElement(getIdLocator(cariBtn));
@@ -358,8 +354,7 @@ public class FilterPage extends BasePage {
         return new ListingPage(driver);
     }
 
-    public void clickSemuaDiMobilCategory()
-    {
+    public void clickSemuaDiMobilCategory() {
         String mobil = "Mobil";
         String semuaDiMobil = "Semua di Mobil";
         verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
@@ -367,20 +362,18 @@ public class FilterPage extends BasePage {
         Log.info("Click Semua Di Mobil Sub-Category");
     }
 
-    public void clickMobilBekasHondaCategory()
-    {
+    public void clickMobilBekasHondaCategory() {
         String mobil = "Mobil";
         String mobilBekas = "Mobil Bekas";
-        String honda = "Honda";
+        String landRover = "Honda";
         verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
         verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
-        ((AndroidDriver)driver).scrollToExact(honda);
-        clickElement(getTextLocator(honda));
+        ((AndroidDriver) driver).scrollToExact(landRover);
+        clickElement(getTextLocator(landRover));
         Log.info("Click Mobil Bekas Honda Sub-Category");
     }
 
-    public void clickPropertiRumahDijualCategory()
-    {
+    public void clickPropertiRumahDijualCategory() {
         String properti = "Properti";
         String rumah = "Rumah";
         String dijual = "Dijual";
@@ -391,27 +384,24 @@ public class FilterPage extends BasePage {
     }
 
     @Step("Verify Content Additional Filter in Selected Sub-Category")
-    public void verifyContentAdditionalFilterInSelectedSubCategory()
-    {
+    public void verifyContentAdditionalFilterInSelectedSubCategory() {
         isListElementPresent(additionalFilterInput);
         Log.info("Verify Content Additional Filter in Selected Sub-Category");
     }
 
-    public void inputMinPrice(String keyword)
-    {
+    public void inputMinPrice(String keyword) {
         sendKeysById(getIdLocator(minPrice), keyword);
         Log.info("Input Minimum Harga");
     }
 
-    public void inputMaxPrice(String keyword)
-    {
+    public void inputMaxPrice(String keyword) {
         sendKeysById(getIdLocator(maxPrice), keyword);
         Log.info("Input Maksimum Harga");
     }
 
     //handle old version of Android
     public List<WebElement> isTextInputLayoutDisplays() {
-        if (isListElementPresent(inputList)){
+        if (isListElementPresent(inputList)) {
             return getListElements(By.className("TextInputLayout"));
         } else {
             isOldVersionDevices = true;
@@ -421,7 +411,7 @@ public class FilterPage extends BasePage {
 
     //handle old version of Android
     public List<AndroidElement> isTextEditLayoutDisplays() {
-        if (isOldVersionDevices){
+        if (isOldVersionDevices) {
             return editInputListOldVersion;
         } else {
             return editInputList;
@@ -430,7 +420,7 @@ public class FilterPage extends BasePage {
 
     /**
      * Adopt method from BasePage
-     * */
+     */
     public Boolean isElementPresentAfterScroll(String locator) {
         String classname;
         if (isOldVersionDevices) {
@@ -446,8 +436,8 @@ public class FilterPage extends BasePage {
         return wait.until(new Function<WebDriver, Boolean>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
-                return driver.findElement(By.xpath("//"+classFinal+"[@text='"+locator+"']")).isDisplayed();
+                ((AndroidDriver) driver).swipe(200, 300, 200, 45, 500);
+                return driver.findElement(By.xpath("//" + classFinal + "[@text='" + locator + "']")).isDisplayed();
             }
         });
     }
@@ -458,108 +448,108 @@ public class FilterPage extends BasePage {
     public void inputMethod(String comparisonWord, String inputText) {
         List<WebElement> parentElement = isTextInputLayoutDisplays();
         List<AndroidElement> childElement2 = isTextEditLayoutDisplays();
+        AndroidDriver driver = (AndroidDriver) this.driver;
         String parentValueText = "";
-        for (int i = 0; i < childElement2.size(); i++)
-        {
+        for (int i = 0; i < childElement2.size(); i++) {
             parentValueText = parentElement.get(i).getText();
-            Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
+            Log.info("Parent Element Index : [" + i + "], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
+                childElement2.get(i).click();
                 childElement2.get(i).replaceValue(inputText);
-                break;
+                if(!driver.isAppInstalled(Constants.UNICODE_APP)) {
+                    driver.hideKeyboard();
+                } break;
             }
-            Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
+            Log.info("This is Index from EditInput " + parentValueText + " = " + i);
         }
         Log.info("Input " + parentValueText + " : " + inputText);
     }
 
-    public void inputLuasTanah(String keyword)
-    {
+    public void inputLuasTanah(String keyword) {
         inputMethod(luasTanahLayout, keyword);
     }
 
-    public void inputLuasBangunan(String keyword)
-    {
+    public void inputLuasBangunan(String keyword) {
         isElementPresentAfterScroll(luasBangunanLayout);
         inputMethod(luasBangunanLayout, keyword);
     }
 
-    public void inputLantai(String keyword)
-    {
+    public void inputLantai(String keyword) {
         isElementPresentAfterScroll(lantaiLayout);
         inputMethod(lantaiLayout, keyword);
     }
 
-    public void inputAlamatLokasi(String keyword)
-    {
+    public void inputAlamatLokasi(String keyword) {
         isElementPresentAfterScroll(alamatLokasiLayout);
         inputMethod(alamatLokasiLayout, keyword);
     }
 
-    public void pilihTipeKendaraan(String inputText)
-    {
+    public void pilihTipeKendaraan(String inputText) {
         swipePageBtmtToTop();
         String tipeKendaraanLayout = "Tipe kendaraan";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tipeKendaraanLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
-    public void pilihTransmisi(String inputText)
-    {
+    public void pilihTransmisi(String inputText) {
         String transmisiLayout = "Transmisi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, transmisiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
-    public void pilihTahun(String inputText)
-    {
+    public void pilihTahun(String inputText) {
         String tahunLayout = "Tahun";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tahunLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
-    public void pilihKamarTidur(String inputText)
-    {
+    public void pilihKamarTidur(String inputText) {
         swipePageBtmtToTop();
         String kamarTidurLayout = "Kamar tidur";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarTidurLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
-    public void pilihKamarMandi(String inputText)
-    {
+    public void pilihKamarMandi(String inputText) {
         swipePageBtmtToTop();
         String kamarMandiLayout = "Kamar mandi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarMandiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
-    public void pilihSertifikasi(String inputText)
-    {
+    public void pilihSertifikasi(String inputText) {
         String sertifikasiLayout = "Sertifikasi";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, sertifikasiLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
     }
 
 
-    public void pilihFasilitas(String inputText)
-    {
+    public void pilihFasilitas(String inputText) {
         String fasilitasLayout = "Fasilitas";
         verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
-        clickCheckBoxElement(inputText,recycleViewLayout,textViewCheckBoxTitle);
+        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
         clickElement(getIdLocator(pilihBtn));
+    }
+
+    @AndroidFindBy(id = ListingPage.suggesstionSemuaDiKategory)
+    protected AndroidElement semuaDiKategory;
+
+    public void verifySuggestionList()
+    {
+        Log.info("Verify Suggestion List after tapping keyword");
+        isWaitElementPresent(getIdLocator(ListingPage.suggesstionSemuaDiKategory));
     }
 
     /**
      * This below method has made for swipe from bottom to top your Active Layout
      */
-    public void swipeActiveLayoutBtmToTop(String activeLayoutId)
-    {
+    public void swipeActiveLayoutBtmToTop(String activeLayoutId) {
         WebElement activeLayout = driver.findElement(getIdLocator(activeLayoutId));
         int upperHeight = activeLayout.getLocation().getY();
         int middleHeight = activeLayout.getSize().getHeight() / 2;
@@ -567,38 +557,29 @@ public class FilterPage extends BasePage {
         int leftWidth = activeLayout.getLocation().getX();
         int middleWidth = activeLayout.getSize().getWidth() / 2;
         int rightWidth = activeLayout.getSize().getWidth();
-        ((AndroidDriver)driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 500);
+        ((AndroidDriver) driver).swipe(middleWidth, bottomHeight, middleWidth, upperHeight, 500);
     }
 
     /**
      * This below method has made that can click several selection checkbox with several selection inputText
      * the method can scroll automatically if needed
      */
-    public void clickCheckBoxElement(String inputText, String activeLayoutId, List<AndroidElement> childElement)
-    {
+    public void clickCheckBoxElement(String inputText, String activeLayoutId, List<AndroidElement> childElement) {
         List<String> listString = new ArrayList<String>(Arrays.asList(inputText.split("/")));
         Collections.sort(listString);
         String parentElementValue = "";
         String splitTextPart = "";
-        for(int i = 0; i < childElement.size(); i++)
-        {
+        for (int i = 0; i < childElement.size(); i++) {
             parentElementValue = childElement.get(i).getText();
-            if(listString.size() == 0)
-            {
+            if (listString.size() == 0) {
                 break;
-            }
-            else
-            {
-                for(int j = 0; j < listString.size(); j++)
-                {
+            } else {
+                for (int j = 0; j < listString.size(); j++) {
                     splitTextPart = listString.get(j);
-                    if (parentElementValue.equalsIgnoreCase(splitTextPart))
-                    {
+                    if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
                         listString.remove(splitTextPart);
                         childElement.get(i).click();
-                    }
-                    else if (i == childElement.size() - 1 && listString.size() > 0)
-                    {
+                    } else if (i == childElement.size() - 1 && listString.size() > 0) {
                         swipeActiveLayoutBtmToTop(activeLayoutId);
                         i = 0;
                     }
@@ -607,8 +588,7 @@ public class FilterPage extends BasePage {
         }
     }
 
-    public class MapsFilter extends FilterByMapsLocationModule
-    {
+    public class MapsFilter extends FilterByMapsLocationModule {
         public MapsFilter(WebDriver driver) {
             super(driver);
         }

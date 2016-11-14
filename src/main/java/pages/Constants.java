@@ -1,6 +1,9 @@
 package pages;
 
 public class Constants {
+  public static final String FILTER_TEST = "scenarios.FilterTest";
+  public static final String POSTADS_TEST = "scenarios.PostAdsTest";
+  public static final String UNICODE_APP = "io.appium.android.ime";
   public static String screenshotsDir="Screenshots/";
 //  public static String apkDir="Resources/";
   public static String apkDir="/Applications/Dropbox/ptTokobagus";
@@ -19,4 +22,5 @@ public class Constants {
   // Capabilities
   public static final String appPackage = "com.app.tokobagus.betterb";
   public static final String appActivity = "sea.olxsulley.entrance.presentation.OlxIdEntranceActivity";
+
 }

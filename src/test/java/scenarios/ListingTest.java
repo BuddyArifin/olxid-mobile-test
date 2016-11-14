@@ -133,7 +133,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User i want to able Click Pusat Bantuan")
     @Title("Verify User able to click PusatBantuan Button")
     @TestCaseId("TC_LISTING_06_036")
-    @Test(priority = 11)
+    @Test(priority = 11, enabled = false)
     public void userAbleToGoToPusatBantuan() {
         hamburgerBarModule = listingPage.clickHamburgerBar();
         hamburgerBarModule.clickPusatBantuanBtn();
@@ -145,7 +145,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As A User i want to able Click Pusat Bantuan")
     @Title("Verify User able to click PusatBantuan Button")
     @TestCaseId("TC_LISTING_06_036")
-    @Test(priority = 12)
+    @Test(priority = 12, enabled = false)
     public void userAbleToGoToTentangOlx() {
         hamburgerBarModule = listingPage.clickHamburgerBar();
         hamburgerBarModule.clickTentangOLXBtn();

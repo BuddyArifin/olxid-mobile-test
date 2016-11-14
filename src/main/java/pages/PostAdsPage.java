@@ -55,7 +55,7 @@ public class PostAdsPage extends BasePage {
     public static final String kategoriAds = "com.app.tokobagus.betterb:id/tvCategory";
     public static final String kategoriTitleAds = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String lokasiIklan = "com.app.tokobagus.betterb:id/tvLocationTitle";
-    public static final String lokasiIklanBtn = "com.app.tokobagus.betterb:id/imgGpsIcon";
+    public static final String lokasiIklanBtn = "com.app.tokobagus.betterb:id/tvPlaceName";
     public static final String detilTambahanDeskripsi = "com.app.tokobagus.betterb:id/descriptionInformationLayout";
     public static final String toggleDescription = "com.app.tokobagus.betterb:id/imgToggleUpDown";
     public static final String deskripsiEditText = "com.app.tokobagus.betterb:id/edtDescription";
@@ -617,7 +617,7 @@ public class PostAdsPage extends BasePage {
     public void verifyPasangIklanBtn()
     {
         swipePageBtmtToTop();
-        Assert.assertTrue(isElementPresent(getIdLocator(pasangIklanBtn)));
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(pasangIklanBtn)));
         Log.info("Verify Pasang Iklan Button");
     }
 
@@ -787,6 +787,7 @@ public class PostAdsPage extends BasePage {
             averagePrice = averagePrice.divide(dividedTwo);
             String inputPrice = String.valueOf(averagePrice);
             element1.sendKeys(inputPrice);
+            ((AndroidDriver)driver).hideKeyboard();
             Log.info("Input Harga or Gaji Ads : "+ averagePrice);
             Assert.assertTrue(suggestionHarga);
         }
@@ -960,6 +961,7 @@ public class PostAdsPage extends BasePage {
             Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
                 childElement2.get(i).replaceValue(inputText);
+                ((AndroidDriver)driver).hideKeyboard();
                 break;
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);

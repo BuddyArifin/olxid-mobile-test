@@ -1,12 +1,11 @@
 package listeners;
 
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.grid.web.Hub;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
+import org.testng.*;
 import pages.BasePage;
+import pages.Constants;
 import pages.InstanceDriver;
 import ru.yandex.qatools.allure.utils.AnnotationManager;
 import utils.Log;
@@ -30,10 +29,10 @@ public class ScreenshootsListener extends TestListenerAdapter  {
         driver = ((InstanceDriver)obj).driver;
         base = new BasePage(driver);
         try {
-            Log.debug("***** Error "+getTestTitle(testResult)+" test has failed *****");
-            base.getAttachment("FailedOn_"+testResult.getTestClass().getName()+testResult.getMethod().getMethodName()+".png");
+            Log.debug("***** Error "+getTestTitle(testResult)+" test has failed on devices ==> ["+getDeviceName()+"] *****");
+            base.getAttachment("FailedOn_"+getTestClassName(testResult)+testResult.getMethod().getMethodName()+".png");
 //            request.goToTracker(testResult, this.array);
-            Log.debug("FailedOn_"+testResult.getTestClass().getName()+testResult.getMethod().getMethodName()+".png");
+            Log.debug("FailedOn_"+ getTestClassName(testResult)+testResult.getMethod().getMethodName()+".png");
         } catch (Exception e){
             Log.debug("-->Unable to screen capture, for test "+getTestTitle(testResult));
             e.printStackTrace();
@@ -43,12 +42,22 @@ public class ScreenshootsListener extends TestListenerAdapter  {
     @Override
     public void onTestStart(ITestResult iTestResult){
         Log.debug("Running Test --> "+getTestTitle(iTestResult));
+        driver = setDriver(iTestResult);
+//        ((AndroidDriver)driver).removeApp("io.appium.settings");
+        if (getTestClassName(iTestResult).equalsIgnoreCase(Constants.FILTER_TEST)
+                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.POSTADS_TEST)) {
+            Log.debug("Removing Unicode App on Devices : "+getDeviceName());
+            ((AndroidDriver)driver).removeApp(Constants.UNICODE_APP);
+        }
+    }
+
+    public Object getDeviceName() {
+        return ((AndroidDriver)driver).getCapabilities().getCapability("deviceName");
     }
 
     @Override
     public void onTestSuccess(ITestResult testResult){
-        obj = testResult.getInstance();
-        driver = ((InstanceDriver)obj).driver;
+        driver = setDriver(testResult);
         base = new BasePage(driver);
         try {
             Log.debug("***** Success Execution for "+getTestTitle(testResult)+" *****");
@@ -78,6 +87,15 @@ public class ScreenshootsListener extends TestListenerAdapter  {
         annotations = result.getMethod().getConstructorOrMethod().getMethod().getAnnotations();
         AnnotationManager annotationManager = new AnnotationManager(annotations);
         return annotationManager.getTitle();
+    }
+
+    private WebDriver setDriver(ITestResult testResult){
+        obj = testResult.getInstance();
+        return driver = ((InstanceDriver)obj).driver;
+    }
+
+    public String getTestClassName(ITestResult testResult) {
+        return testResult.getTestClass().getName();
     }
 
 }

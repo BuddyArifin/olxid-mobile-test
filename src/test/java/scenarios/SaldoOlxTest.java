@@ -3,6 +3,7 @@ package scenarios;
 import listeners.ScreenshootsListener;
 import module.HamburgerBarModule;
 import module.LoginWithOlxModule;
+import module.ProfilSayaModule;
 import module.SaldoOlxModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -26,6 +27,7 @@ public class SaldoOlxTest extends AndroidSetup {
     HamburgerBarModule hamburgerBarModule;
     PostAdsPage postAdsPage;
     SaldoOlxModule saldoOlxModule;
+    ProfilSayaModule profilSayaModule;
 
     @Stories("As A User i want be able to see all Contents of Saldo Olx")
     @Title("Verify User able to see All Contents of Saldo Olx")
@@ -48,26 +50,17 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to back previous page, after tapping back button")
     @Title("Verify User able to back to previous page, after tapping back button")
     @TestCaseId("TC_SALDO_12_002")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifyUserAbleToBackYoPreviousPageAfterClickBackButton() {
         hamburgerBarModule = saldoOlxModule.clickBackButton();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
     }
 
-    @Stories("As a user i want to be able swipe infobanner")
-    @Title("Verify user able to swipe info banner")
-    @TestCaseId("TC_SALDO_12_003")
-    @Test(priority = 3, enabled = false)
-    public void verifyUserAbleToSwipeInfoBanner() {
-        saldoOlxModule = hamburgerBarModule.clickSaldoOLXBtn();
-        saldoOlxModule.clickNextInfoImageBanner();
-        saldoOlxModule.clickPrevInfoImageBanner();
-    }
 
     @Stories("As a user i want to be able close info banner")
     @Title("Verify User able to close info banner by click \"Tutup\" Button")
     @TestCaseId("TC_SALDO_12_011")
-    @Test(priority = 4, enabled = false)
+    @Test(priority = 2)
     public void verifyUserAbleToCloseInfoBannerByClickTutupButton() {
         saldoOlxModule.clickSkipBanner();
     }
@@ -75,7 +68,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to Tap History Transactions button, below List Transaction History")
     @Title("Verify User able to see Transaction History by Tapping History Transactions")
     @TestCaseId("TC_SALDO_12_004")
-    @Test(priority = 5)
+    @Test(priority = 4)
     public void verifyUserAbleToSeeTransactionHistoryByTappingHistoryTransactions() {
         hamburgerBarModule.clickSaldoOLXBtn();
         saldoOlxModule.verifyAllContentOfSaldoOlx();
@@ -86,7 +79,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want be able to verify All Contents of History Transaction Page")
     @Title("Verify User able to verify All contents of History Transaction Page")
     @TestCaseId("TC_SALDO_12_005")
-    @Test(priority = 6)
+    @Test(priority = 5)
     public void verifyUserAbleToVerifyAllContentsOfHistoryTransactionPage() {
         saldoOlxModule.verifyAllContentHistoryTransaction();
     }
@@ -94,16 +87,34 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User I want be able to back to Saldo OLX ")
     @Title("Verify User able to back to Saldo OLX by Tapping Back Button")
     @TestCaseId("TC_SALDO_12_00")
-    @Test(priority = 7)
+    @Test(priority = 6)
     public void verifyUserAbleToBackToSaldoOlxPage() {
         saldoOlxModule.clickBackBtn();
         saldoOlxModule.clickBackBtn();
     }
 
+    @Stories("As a user i want to be able swipe infobanner")
+    @Title("Verify user able to swipe info banner")
+    @TestCaseId("TC_SALDO_12_003")
+    @Test(priority = 7)
+    public void verifyUserAbleToSwipeInfoBanner() {
+        profilSayaModule = hamburgerBarModule.clickProfilSayaBtn();
+        profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        hamburgerBarModule.verifyAllContentsInHamburgerBar();
+        saldoOlxModule = hamburgerBarModule.clickSaldoOLXBtn();
+        loginPage.clickLoginWithOlx();
+        loginWithOlxModule.verifyLoginOlxContents();
+        loginWithOlxModule.inputEmail("buddy.arifin@icloud.com");
+        loginWithOlxModule.inputPassword("nazgul_buddy");
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        saldoOlxModule.clickNextInfoImageBanner();
+        saldoOlxModule.clickPrevInfoImageBanner();
+    }
+
     @Stories("As A User I want to be able redirect to Isi Ulang Saldo OLX Page, after tapping ISI ULANG SALDO Button")
     @Title("Verify User able to redirect to ISI Ulang OLX Page, after tapping ISI ULANG SALDO Button")
     @TestCaseId("TC_SALDO_12_007")
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void verifyUserAbleToRedirectToIsiUlangOLXPageAfterClickIsiUlangSaldoButton() {
         hamburgerBarModule.clickSaldoOLXBtn();
         saldoOlxModule.verifyAllContentOfSaldoOlx();
@@ -113,7 +124,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to verify All Contents of ISI Ulang Saldo Page")
     @Title("Verify User able to verify All Contents of ISI Ulang Page")
     @TestCaseId("TC_SALDO_12_008")
-    @Test(priority = 8)
+    @Test(priority = 9)
     public void verifyUserAbleToVerifyAllContentsOfIsiUlangPage() {
         saldoOlxModule.verifyContentIsiUlangPage();
     }
@@ -121,7 +132,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to Choose Nominal Price Saldo.")
     @Title("Verify User able to choose Nominal Price Saldo")
     @TestCaseId("TC_SALDO_12_009")
-    @Test(priority = 9)
+    @Test(priority = 10)
     public void verifyUserAbleToChooseNominalPriceSaldo() {
         saldoOlxModule.clickOneOfNominalSaldoRadioButton();
     }
@@ -129,7 +140,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to Accept \"Syarat dan Ketentuan\"")
     @Title("Verify User able to Accept \"Syarat dan Ketentuan\"")
     @TestCaseId("TC_SALDO_12_010")
-    @Test(priority = 10)
+    @Test(priority = 11)
     public void verifyUserAbleToAcceptSyaratDanKetentuan() {
         saldoOlxModule.checkSyaratDanKetentuan();
     }
@@ -137,7 +148,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User I want to be able to Click Bayar Button")
     @Title("Verify User able to Click Bayar Button")
     @TestCaseId("TC_SALDO_12_011")
-    @Test(priority = 11)
+    @Test(priority = 12)
     public void verifyUserAbleToClickBayarButton() {
         saldoOlxModule.clickBayarButton();
         // needs to verify

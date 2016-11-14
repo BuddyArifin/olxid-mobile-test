@@ -154,16 +154,7 @@ public class FilterByMapsLocationModule extends BasePage {
 
     public void verifySuggestions() {
         Log.debug("Available Suggestions ["+suggestionFoundList.size()+"] :");
-        for (int i = 0 ; i < suggestionFoundList.size() ; i++) {
-            String suggestion = suggestionFoundList.get(i).getText();
-            Log.info("* " +suggestion+ ": "
-                    +suggestion);
-            if ( i >= 2 && suggestionFoundList.size() >= 2) {
-                Log.info("...");
-                break;
-            }
-            Assert.assertNotNull(suggestion);
-        }
+        Assert.assertTrue(isListElementPresent(suggestionFoundList));
     }
 
     public void chooseSuggestion(int index) {
@@ -213,6 +204,10 @@ public class FilterByMapsLocationModule extends BasePage {
         action.longPress(start,y).moveTo(moveTo,y).release().perform();
         locationText = getStringText(getIdLocator(addressTitle));
         Log.info("Slide Right Direction Slider Radius");
+    }
+
+    public void clickSearchField() {
+        clickElement(getIdLocator(searchField));
     }
 
     public BasePage clickCariDiLokasiIniBtn()
