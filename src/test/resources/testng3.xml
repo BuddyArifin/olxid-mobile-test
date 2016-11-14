@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile App OLXID" verbose="3" parallel="tests" thread-count="2">
+<suite name="Mobile App OLXID" verbose="3" parallel="tests" thread-count="1">
 
     <!--<listeners>-->
         <!--<listener class-name="listeners.RetryListeners" />-->
@@ -22,10 +22,14 @@
             <class name="scenarios.CategoryViewTest"/>
         </classes>
     </test>
-    <test name="Ads Details OLXID" preserve-order="false">
-        <parameter name="udid" value="emulator-5554" />
+    <test name="Google Login Sulley OLXID" preserve-order="false">
         <classes>
-            <class name="scenarios.AdsDetailsTest"/>
+            <class name="scenarios.LoginGplusTest"/>
         </classes>
     </test>
+    <!--<test name="Profile Saya Sulley OLXID" preserve-order="false">-->
+        <!--<classes>-->
+            <!--<class name="scenarios.ProfilSayaTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 </suite>

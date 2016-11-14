@@ -222,7 +222,7 @@ public class AdsDetailsPage extends BasePage {
         String currentActivity = androidDriver.currentActivity();
         clickElement(getIdLocator(sharedBtn));
         androidDriver.closeApp();
-        androidDriver.startActivity(currentActivity, Constants.appPackage);
+        androidDriver.startActivity(Constants.appPackage, currentActivity);
         isWaitElementPresent(getIdLocator(sharedBtn));
 
     }

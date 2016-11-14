@@ -129,7 +129,7 @@ public class LoginWithGplusModule extends BasePage {
 
     public void verifyGplusAvatar(){
         Log.info("Verfy Gplus Avatar");
-        Assert.assertTrue(isElementPresent(getIdLocator(gplusavatar)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(gplusavatar)));
     }
 
     public void verifyGplusUsername(){

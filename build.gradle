@@ -65,7 +65,7 @@ test {
     }
     description = "Running Test from suite TestNG xml"
     useTestNG {
-        suites "src/test/resources/testng3.xml"
+        suites "src/test/resources/testng.xml"
     }
 }
 

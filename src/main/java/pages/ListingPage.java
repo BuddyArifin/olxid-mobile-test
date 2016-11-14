@@ -86,7 +86,7 @@ public class ListingPage extends BasePage{
         capturedSpesificElement(getIdLocator(jarakDariKamuBtnID));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
-        verifyTitlePage();
+//        verifyTitlePage();
         verifySearchBtnPrm();
         verifyFilterBtnPrm();
         verifyJarakDariKamuBtnBtm();
