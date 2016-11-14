@@ -13,7 +13,6 @@
         </classes>
     </test>
     <test name="Login with OLX Account OLXID" preserve-order="false">
-        <parameter name="udid" value="emulator-5556" />
         <classes>
             <class name="scenarios.LoginOLXTest"/>
         </classes>
