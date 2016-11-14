@@ -219,8 +219,8 @@ public class AdsDetailsPage extends BasePage {
         swipePageTopToBtm();
         AndroidDriver androidDriver = (AndroidDriver) this.driver;
         Log.info("Click SHARE Button");
-        clickElement(getIdLocator(sharedBtn));
         String currentActivity = androidDriver.getCurrentUrl();
+        clickElement(getIdLocator(sharedBtn));
         androidDriver.startActivity(currentActivity, Constants.appPackage);
         isWaitElementPresent(getIdLocator(sharedBtn));
 
