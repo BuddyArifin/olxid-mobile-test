@@ -259,6 +259,7 @@ public class ProfilSayaModule extends BasePage{
     @Step("Verify All Content in ProfilSaya Page")
     public void verifyAllContentInProfilSayaPage()
     {
+        waitForVisibilityOf(getIdLocator(usernameProfilSaya));
         verifyBackBtnProfilSayaPage();
         verifyTitleProfilSayaPage();
         verifyAvatarProfilSayaPage();
@@ -401,6 +402,7 @@ public class ProfilSayaModule extends BasePage{
     public void takeShotNewAvatar(){
         waitForVisibilityOf(getContentLocator(backBtn));
         waitForVisibilityOf(getTextLocator(titleProfilSaya));
+        WaitFor(2);
         try {
             takeScreenShotInFile(newavatarname);
         } catch (Exception e) {
