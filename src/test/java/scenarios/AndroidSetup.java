@@ -49,6 +49,7 @@ public class AndroidSetup extends InstanceDriver {
         //No Keyboard Layout
         capabilities.setCapability("unicodeKeyboard", "true");
         capabilities.setCapability("locationContextEnabled", "true");
+        capabilities.setCapability("deviceReadyTimeout", 100);
 
         //other caps
         capabilities.setCapability("app", app.getAbsolutePath());
