@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile OLXID" verbose="3" parallel="tests" thread-count="2">
+<suite name="Mobile OLXID" verbose="3">
     <suite-files>
-        <suite-file path="testng3.xml" />
+        <!--<suite-file path="testng3.xml" />-->
         <suite-file path="testng2.xml" />
     </suite-files>
 </suite>

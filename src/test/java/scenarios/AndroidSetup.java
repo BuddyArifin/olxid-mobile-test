@@ -40,7 +40,7 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("deviceName","Galaxy S4");
         capabilities.setCapability("platformName","Android");
         capabilities.setCapability("newCommandTimeout", 60 * 5);
-        capabilities.setCapability("udid", udid);
+       // capabilities.setCapability("udid", udid);
         
         //No Reset Apps
         capabilities.setCapability("noReset", false);
@@ -53,7 +53,7 @@ public class AndroidSetup extends InstanceDriver {
 
         //other caps
         capabilities.setCapability("app", app.getAbsolutePath());
-        driver =  new AndroidDriver(new URL(Constants.hubIP), capabilities);
+        driver =  new AndroidDriver(new URL(Constants.hubIPJenkins), capabilities);
 
         //set location for maps - based on Menara Sentraya
         Location location = new Location(-6.2454429, 106.8026181, 0.0);

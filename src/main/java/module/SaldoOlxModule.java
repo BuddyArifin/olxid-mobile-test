@@ -99,37 +99,37 @@ public class SaldoOlxModule extends BasePage {
     }
     public void verifyBackbutton()
     {
-        Assert.assertTrue(isWaitElementPresent(getContentLocator(backbutton)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(backbutton)),"Back Button Not Found");
         Log.info("Veviry Back Button displays");
     }
     public void verifytitleSaldo()
     {
-        Assert.assertTrue(isElementPresent(getTextLocator(titleSaldo)));
+        Assert.assertTrue(isElementPresent(getTextLocator(titleSaldo)),"Title Button Not Found");
         Log.info("Verify Title Saldo Olx besides Back Button displays");
     }
     public void verifyInfoBanner()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(infoBanner)));
+        Assert.assertTrue(isElementPresent(getIdLocator(infoBanner)),"Info Banner Not Found");
         Log.info("Verify Info Banner with description displays");
     }
     public void verifySkipBanner()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(skipBanner)));
+        Assert.assertTrue(isElementPresent(getIdLocator(skipBanner)),"Skip Banner Not Found");
         Log.info("Verify Close Button Banner display");
     }
     public void verifyLebihLanjutBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(lebihLanjutBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(lebihLanjutBtn)),"Lebih Lanjut Button Not Found");
         Log.info("Verify Lebih Lanjut Info Banner Button");
     }
     public void verifySaldoSaatIni()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(saldoAndaSaatIni)));
+        Assert.assertTrue(isElementPresent(getIdLocator(saldoAndaSaatIni)),"Saldo Saat Ini Not Found");
         Log.info("Verify Saldo Olx Saat Ini Text displays");
     }
     public void verifySaldoAmount()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(saldoAmount)));
+        Assert.assertTrue(isElementPresent(getIdLocator(saldoAmount)),"Saldo Amount Not Found");
         Log.info("Verify Saldo Amount displays");
     }
     public void verifyHistoryTransactionsTitle()
@@ -154,17 +154,17 @@ public class SaldoOlxModule extends BasePage {
     public void verifyHistoryTransactionsNumber()
     {
         Log.info("Verify History Transactions Number displays");
-        Assert.assertTrue(isElementPresent(getIdLocator(noTransaction)));
+        Assert.assertTrue(isElementPresent(getIdLocator(noTransaction)),"History Transaction Number Not Found");
     }
     public void verifyHistoryTransactionsStatus()
     {
         Log.info("Verify History Transactions Status displays");
-        Assert.assertTrue(isElementPresent(getIdLocator(noTransactionStatus)));
+        Assert.assertTrue(isElementPresent(getIdLocator(noTransactionStatus)),"History Transaction Status Not Found");
     }
     public void verifyHistoryTransactionsPrice()
     {
         Log.info("Verify History Transactions Price displays");
-        Assert.assertTrue(isElementPresent(getIdLocator(transactionPrice)));
+        Assert.assertTrue(isElementPresent(getIdLocator(transactionPrice)),"History Transaction Price Not Found");
     }
     public void verifyIsiUlangSaldoTitle()
     {
@@ -172,22 +172,22 @@ public class SaldoOlxModule extends BasePage {
     }
     public void verifyIsiUlangSaldoBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(isiUlangSaldoBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(isiUlangSaldoBtn)),"Isi Ulang Saldo Button Not Found");
         Log.info("Verify Isi Ulang Saldo Button displays");
     }
     public void verifyInfoImageSlide()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(infoImageSlide)));
+        Assert.assertTrue(isElementPresent(getIdLocator(infoImageSlide)),"Isi Ulang Image Slide Not Found");
         Log.info("Verify Info Image Slide");
     }
     public void verifyNextImageSlideBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(nextImageSlideBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(nextImageSlideBtn)),"Next Image Slide Button Not Found");
         Log.info("Verify Next Images Slide Button");
     }
     public void verifyPrevImageSlideBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(prevImageSlideBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(prevImageSlideBtn)),"Prev Image Slide Button Not Found");
         Log.info("Verify Previous Image Slide Button");
     }
 
@@ -263,13 +263,13 @@ public class SaldoOlxModule extends BasePage {
     public void verifyHistoryTransactionTitle()
     {
         Log.info("Verify Saldo OLX Title");
-        Assert.assertTrue(isElementPresent(getTextLocator(historyTransactionTitle)));
+        Assert.assertTrue(isElementPresent(getTextLocator(historyTransactionTitle)),"History Transaction Title Not Found");
     }
 
     public void verifyThreePanelStatus()
     {
         Log.info("Verify Three Panel Status");
-        Assert.assertTrue(isListElementPresent(threePanels));
+        Assert.assertTrue(isListElementPresent(threePanels),"Three Panel Status Not Found");
     }
 
     public void verifyIsiUlangOLXBtn()

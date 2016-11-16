@@ -173,19 +173,18 @@ public class FilterPage extends BasePage {
     }
 
     public void verifyBackButton() {
-        waitForClickabilityOf(getIdLocator(backBtn));
-        Assert.assertTrue(isElementPresent(getContentLocator(backBtn)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(backBtn)));
         Log.info("Verify Back Button");
     }
 
     public void verifySearchField() {
-        Assert.assertTrue(isElementPresent(getIdLocator(searchField)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(searchField)));
         Log.info("Verify Search Field");
     }
 
     public void verifyCancelButton() {
-        waitForClickabilityOf(getIdLocator(cancelBtn));
-        Assert.assertTrue(isElementPresent(getIdLocator(cancelBtn)));
+        //waitForClickabilityOf(getIdLocator(cancelBtn));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(cancelBtn)));
         Log.info("Verify Cancel Button");
     }
 
