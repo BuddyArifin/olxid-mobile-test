@@ -47,8 +47,8 @@ public class ProfilSayaTest extends AndroidSetup {
     @Test(priority = 2)
     public void verifySystemAbleToDisplayContentInProfilSayaPage() {
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-//        loginWithOlxModule.inputEmail("emir.faisal@olx.co.id");
-//        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("olxtester@gmail.com");
+        loginWithOlxModule.inputPassword("testing");
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
     }
@@ -69,12 +69,14 @@ public class ProfilSayaTest extends AndroidSetup {
     @Test(priority = 4)
     public void verifySystemDisplayDefaultUserAvatarImage() {
         profilSayaModule.verifyAvatarProfilSayaPage();
+        //take shot old avatar
+        profilSayaModule.takeShotOldAvatar();
     }
 
     @Stories("As a user i want to be able click My Avatar")
     @Title("Verify user able to click My Avatar")
     @TestCaseId("TC_PROFIL_13_005")
-    @Test(priority = 5, enabled = false)
+    @Test(priority = 5)
     public void verifyUserAbleToClickMyAvatar() {
         profilSayaModule.clickAvatar();
         profilSayaModule.verifyAllEditAvatarPopUpContents();
@@ -83,18 +85,31 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able to change avatar directly from Camera or Gallery")
     @Title("Verify user able to change avatar directly from Camera or Gallery")
     @TestCaseId("TC_PROFIL_13_006")
-    @Test(priority = 6, enabled = false)
+    @Test(priority = 6)
     public void verifyUserAbleToChangeAvatarDirectlyFromCameraOrGallery() {
+        //upload gallery
         profilSayaModule.clickUploadAvatarGalery();
         postAdsPage = profilSayaModule.clickOneOfPictureGallery();
         postAdsPage.clickSimpanBtn();
-        // needs verify photo has changed
+        profilSayaModule.takeShotNewAvatar();
+        profilSayaModule.verifyOldNewAvatar();
+        //delete
+        profilSayaModule.takeShotOldAvatar();
+        profilSayaModule.clickAvatar();
+        profilSayaModule.verifyAllEditAvatarPopUpContents();
+        profilSayaModule.clickDeleteAvatar();
+        profilSayaModule.takeShotNewAvatar();
+        profilSayaModule.verifyOldNewAvatar();
+        //capture from camera
+        profilSayaModule.takeShotOldAvatar();
         profilSayaModule.clickAvatar();
         profilSayaModule.verifyAllEditAvatarPopUpContents();
         profilSayaModule.clickUploadAvatarCamera();
         profilSayaModule.clickShutterCamera();
-        profilSayaModule.acceptTakePicture();
-        // need verify photo has changed
+        postAdsPage = profilSayaModule.acceptTakePicture();
+        postAdsPage.clickSimpanBtn();
+        profilSayaModule.takeShotNewAvatar();
+        profilSayaModule.verifyOldNewAvatar();
     }
 
     @Stories("As a user i want to be able click \"Username\"")
@@ -193,7 +208,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able see change password success pop-up")
     @Title("Verify system able to display change password success pop-up")
     @TestCaseId("TC_PROFIL_13_018, TC_PROFIL_13_019, TC_PROFIL_13_020, TC_PROFIL_13_022")
-    @Test(priority = 17)
+    @Test(priority = 17, enabled = false)
     public void verifySystemAbleToDisplayChangePasswordSuccessPopUp() {
         profilSayaModule.clickTutupAlertSuccess();
     }
@@ -201,16 +216,18 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able click \"CEK EMAIL\" button")
     @Title("Verify system able to display \"CEK EMAIL\" button")
     @TestCaseId("TC_PROFIL_13_021")
-    @Test(priority = 19)
+    @Test(priority = 18)
     public void verifySystemAbleToDisplayCekEmailButton() {
     }
 
     @Stories("As a user i want to be able to Logout ")
     @Title("Verify user able to logout")
     @TestCaseId("TC_PROFIL_13_009")
-    @Test(priority = 20)
+    @Test(priority = 19)
     public void verifyUserAbleToLogout() {
+        profilSayaModule.clickBackButton();
         profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        hamburgerBarModule.clickProfilSayaBtn();
         loginPage.verifyContentsOfLoginPage();
     }
 }

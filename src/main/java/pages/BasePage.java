@@ -64,6 +64,15 @@ public class BasePage  {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected void WaitFor(int seconds){
+        int nanos = seconds * 1000;
+        try {
+            Thread.sleep(nanos);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This below method has made to verify that size ListELement for WebView is not Empty
      */
