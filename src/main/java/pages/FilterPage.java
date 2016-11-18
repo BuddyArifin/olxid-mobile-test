@@ -61,6 +61,7 @@ public class FilterPage extends BasePage {
     public static final String pilihBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
     public static final String imageButtonBack = "android.widget.ImageButton";
+    public static final String filterButtonID = "com.app.tokobagus.betterb:id/filter_item";
     public boolean isOldVersionDevices = false;
 
     private FilterByMapsLocationModule filterByMapsLocationModule;
@@ -337,10 +338,15 @@ public class FilterPage extends BasePage {
     }
 
     public void clickResetButton() {
-        waitForClickabilityOf(getTextLocator("Filter"));
-        swipePageBtmtToTop();
-        swipePageBtmtToTop();
-        swipePageBtmtToTop();
+//        waitForClickabilityOf(getTextLocator("Filter"));
+//        swipePageBtmtToTop();
+//        swipePageBtmtToTop();
+//        swipePageBtmtToTop();
+//        clickElement(getIdLocator(resetBtn));
+//        Log.info("Click Reset Button");
+//
+        isWaitElementPresent(getIdLocator(resetBtn));
+        isElementPresentAfterScrollDown(getIdLocator(resetBtn));
         clickElement(getIdLocator(resetBtn));
         Log.info("Click Reset Button");
     }
@@ -469,17 +475,17 @@ public class FilterPage extends BasePage {
     }
 
     public void inputLuasBangunan(String keyword) {
-        isElementPresentAfterScroll(luasBangunanLayout);
+        isElementPresentAfterScrollDown(getContentDescLocator(luasBangunanLayout));
         inputMethod(luasBangunanLayout, keyword);
     }
 
     public void inputLantai(String keyword) {
-        isElementPresentAfterScroll(lantaiLayout);
+        isElementPresentAfterScrollDown(getContentDescLocator(lantaiLayout));
         inputMethod(lantaiLayout, keyword);
     }
 
     public void inputAlamatLokasi(String keyword) {
-        isElementPresentAfterScroll(alamatLokasiLayout);
+        isElementPresentAfterScrollDown(getContentDescLocator(alamatLokasiLayout));
         inputMethod(alamatLokasiLayout, keyword);
     }
 

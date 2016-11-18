@@ -139,6 +139,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyAllContentInLocationPage()
     {
 //        verifyBackBtn();
+        isWaitElementPresent(getIdLocator(sliderRadius));
         capturedSpesificElement(getIdLocator(searchField));
         dismissTutorial();
         verifySearchField();

@@ -127,13 +127,13 @@ public class ListingPage extends BasePage{
     }
     public void verifyGambarIklan()
     {
-        WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
-        Assert.assertTrue(isElementPresent(getIdLocator(gambarIklan)));
+        //WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),"Image Listing Is Not Available");
         Log.info("Verify Gambar Iklan");
     }
     public void verifyHargaIklan()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(hargaIklan)));
+        Assert.assertTrue(isElementPresent(getIdLocator(hargaIklan)),"Price Listing Is Not Available");
         Log.info("Verify Harga Iklan");
     }
     public void verifyHomeBtnBtm()
@@ -224,7 +224,7 @@ public class ListingPage extends BasePage{
     public FilterPage clickFilterBtnPrm()
     {
         Log.info("Click Filter Button");
-        clickElement(getContentDescLocator(FILTER));
+        clickElement(getIdLocator(filterBtnPrmID));
         return new FilterPage(driver);
     }
 

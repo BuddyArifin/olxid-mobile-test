@@ -449,6 +449,7 @@ public class BasePage  {
         }
     }
 
+
     public Boolean isElementPresentAfterScrollUp(final By locator) {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(10, TimeUnit.SECONDS)

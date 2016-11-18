@@ -974,7 +974,8 @@ public class PostAdsPage extends BasePage {
     public void inputAdditionalFieldLuasTanah(String keyword)
     {
         String luasTanah = "Luas tanah *";
-        isElementPresentAfterScroll(luasTanah);
+        //isElementPresentAfterScroll(luasTanah);
+        isElementPresentAfterScrollDown(getTextLocator(luasTanah));
         inputMethod(luasTanah, keyword);
     }
 
