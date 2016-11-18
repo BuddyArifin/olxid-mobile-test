@@ -43,8 +43,8 @@ public class AndroidSetup extends InstanceDriver {
        // capabilities.setCapability("udid", udid);
         
         //No Reset Apps
-        capabilities.setCapability("noReset", false);
-        capabilities.setCapability("fullReset", true);
+        //capabilities.setCapability("noReset", false);
+        //capabilities.setCapability("fullReset", true);
 
         //No Keyboard Layout
         capabilities.setCapability("unicodeKeyboard", "true");
@@ -52,8 +52,8 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("deviceReadyTimeout", 100);
 
         //other caps
-        capabilities.setCapability("app", app.getAbsolutePath());
-        driver =  new AndroidDriver(new URL(Constants.hubIPJenkins), capabilities);
+        //capabilities.setCapability("app", app.getAbsolutePath());
+        driver =  new AndroidDriver(new URL(Constants.hubIP), capabilities);
 
         //set location for maps - based on Menara Sentraya
         Location location = new Location(-6.2454429, 106.8026181, 0.0);

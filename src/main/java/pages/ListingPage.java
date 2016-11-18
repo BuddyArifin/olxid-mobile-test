@@ -100,6 +100,10 @@ public class ListingPage extends BasePage{
         verifyFavoritBtnBtm();
     }
 
+    public boolean isListingButton(){
+        return isWaitElementPresent(getIdLocator(homeBtnBtmID));
+    }
+
     public void verifyHamburgerBar()
     {
         Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerBar)));

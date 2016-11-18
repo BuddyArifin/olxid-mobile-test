@@ -157,6 +157,25 @@ public class FilterPage extends BasePage {
     })
     protected List<AndroidElement> textViewCheckBoxTitle;
 
+    public void initialFilterTest(){
+        Log.info("Back to Initial Filter Test");
+        ListingPage listing = new ListingPage(driver);
+        if (listing.isListingButton()){
+            Assert.assertTrue(true,"Already in Home Screen");
+        }else{
+            if (isFilterPage()){
+                clickElement(getContentLocator(backBtn));
+            }else{
+                Assert.assertTrue(true,"Already in Home Screen");
+            }
+        }
+
+    }
+
+    public boolean isFilterPage(){
+        return isWaitElementPresent(getContentLocator(backBtn));
+    }
+
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage() {
         verifyBackButton();
@@ -338,13 +357,6 @@ public class FilterPage extends BasePage {
     }
 
     public void clickResetButton() {
-//        waitForClickabilityOf(getTextLocator("Filter"));
-//        swipePageBtmtToTop();
-//        swipePageBtmtToTop();
-//        swipePageBtmtToTop();
-//        clickElement(getIdLocator(resetBtn));
-//        Log.info("Click Reset Button");
-//
         isWaitElementPresent(getIdLocator(resetBtn));
         isElementPresentAfterScrollDown(getIdLocator(resetBtn));
         clickElement(getIdLocator(resetBtn));
