@@ -51,6 +51,8 @@ public class AdsDetailsPage extends BasePage {
     public static final String sharingAppsText = "android:id/text1";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
     public static final String androidOkButton = "android:id/button1";
+    //share
+    public static final String shareIcon = "android:id/icon";
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoAds)
@@ -216,16 +218,22 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void clickShareBtn() {
-        swipePageTopToBtm();
-        AndroidDriver androidDriver = (AndroidDriver) this.driver;
-        Log.info("Click SHARE Button");
-        String currentActivity = androidDriver.currentActivity();
+        boolean displayed = false;
+        while (displayed == false){
+            displayed = isElementPresentAfterScrollUp(getIdLocator(bannerCloseBtn));
+            Log.info("displayed : "+displayed);
+        }
         clickElement(getIdLocator(sharedBtn));
-        androidDriver.closeApp();
-        androidDriver.startActivity(Constants.appPackage, currentActivity);
-        isWaitElementPresent(getIdLocator(sharedBtn));
-
     }
+
+    public void verifyShare(){
+        WaitFor(2);
+        waitForVisibility(getIdLocator(shareIcon));
+        Assert.assertTrue(isElementPresent(getIdLocator(shareIcon)));
+        Log.info("Verify share suggestion list is present");
+        driver.navigate().back();
+    }
+
     public void clickCloseBtn() {
         Log.info("Click Close Button, on Tips Transaksi Aman");
         clickElement(getIdLocator(tutupBtn));
