@@ -247,6 +247,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void clickFavoriteBtn() {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
+        isElementPresentAfterScrollUp(getIdLocator(favoriteBtn));
         clickElement(getIdLocator(favoriteBtn));
     }
     public void clickLihatIklanAndTestimoni() {
