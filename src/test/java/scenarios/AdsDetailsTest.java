@@ -45,7 +45,7 @@ public class AdsDetailsTest extends AndroidSetup {
     public void verifyUserAbleToShareAds() {
         adsDetailsPage.clickShareBtn();
         adsDetailsPage.verifyShare();
-        adsDetailsPage.verifyAllContensAdsDetails();
+        adsDetailsPage.verifyShareBtn();
     }
 
     @Stories("As A User I want be able to Learn Tips \"Transaksi Aman\" with \"Info Lebih Lanjut\" Button")
