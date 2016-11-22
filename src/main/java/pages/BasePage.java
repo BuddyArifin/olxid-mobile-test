@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
@@ -36,6 +35,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class BasePage  {
 
+    public static final String imageDiffDir = "src/test/resources/imageRecognition/";
+    public static final String ACTUAL_COLOR = "actualColor";
+    public static final String EXPECTED_COLOR = "expectedColor";
+    public static final String MARKED_DIFF_IMG = "actualMarked";
     protected WebDriver driver;
 
     Sinon rdata;
@@ -127,7 +130,8 @@ public class BasePage  {
     {
         try
         {
-            if (waitForVisibility(by)) {
+            if (getVersionDevices().startsWith("6")) {
+                waitForVisibility(by);
                 clickElement(by);
                 if (waitForVisibility(by))
                 {
@@ -187,7 +191,15 @@ public class BasePage  {
         element.sendKeys(keys);
         AndroidDriver driver = (AndroidDriver) this.driver;
         if (!driver.isAppInstalled(Constants.UNICODE_APP)) {
-            driver.hideKeyboard(); // Closing Keyboard
+            hideSoftKeyboard();
+        }
+    }
+
+    public void hideSoftKeyboard() {
+        try{
+            ((AndroidDriver)driver).hideKeyboard(); // Closing Keyboard
+        }catch (WebDriverException e){
+            Log.debug("Softkeyboard not displaying");
         }
     }
 
@@ -521,46 +533,54 @@ public class BasePage  {
     public BufferedImage convertImgFileToBufferedImage(String imagePath){
         BufferedImage in = null;
         try {
-            in = ImageIO.read(new File(imagePath));
+            in = ImageIO.read(new File(imagePath+ getTestclassName() +".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return in;
     }
 
-    public void attachToFile(String captureDir, BufferedImage bufferedImage, String filename){
+    public void createPNGFile(BufferedImage bufferedImage, String filename){
         try{
-            new File(captureDir).mkdirs();
-            File captured = new File(captureDir+filename);
-            ImageIO.write(bufferedImage, "PNG", captured);
+            new File(imageDiffDir).mkdirs();
+            File captured = new File(imageDiffDir+ filename+ getTestclassName() +".png");
+            ImageIO.write(bufferedImage.getSubimage(0, 0, 30, 30), "PNG", captured);
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public boolean checkTutorialsColors(By by) {
-        WebElement element = driver.findElement(by);
-        Screenshot shot = new AShot().coordsProvider(new WebDriverCoordsProvider())
-                .takeScreenshot(driver, element);
-        String imagePath = "src/test/resources/imageRecognition/";
-        attachToFile(imagePath, shot.getImage().getSubimage(0, 0, 30, 30), "actualImage"+this.getClass().getSimpleName()+".png");
-        ImageDiff diff = new ImageDiffer().makeDiff(convertImgFileToBufferedImage
-                (imagePath+"expectedImage"+this.getClass().getSimpleName()+".png"), convertImgFileToBufferedImage
-                (imagePath+"actualImage"+this.getClass().getSimpleName()+".png"));
-        attachToFile(imagePath, diff.getMarkedImage(), "actual"+this.getClass().getSimpleName()+"Marked.png");
+        setExpectedColor(by); // captured IMG only first time install
+        BufferedImage bufferedImage = getSpesificScreenshot(by);
+
+        createPNGFile(bufferedImage, ACTUAL_COLOR);
+        ImageDiff diff = new ImageDiffer().makeDiff(
+
+                convertImgFileToBufferedImage(imageDiffDir+ EXPECTED_COLOR), // Expected Image
+                convertImgFileToBufferedImage(imageDiffDir+ ACTUAL_COLOR)); // Actual Image
+
+        createPNGFile(diff.getMarkedImage(), MARKED_DIFF_IMG);
         return diff.hasDiff();
     }
 
-    public void capturedSpesificElement(By by) {
-        String captureDir = "src/test/resources/imageRecognition/";
-        File expectedFile = new File(captureDir+"expectedImage"+this.getClass().getSimpleName()+".png");
+    public BufferedImage getSpesificScreenshot(By by) {
+        isWaitElementPresent(by);
+        WebElement element = driver.findElement(by);
+        return new AShot().coordsProvider(new WebDriverCoordsProvider())
+                .takeScreenshot(driver, element).getImage();
+    }
+
+    public String getTestclassName() {
+        return this.getClass().getSimpleName();
+    }
+
+    public void setExpectedColor(By by) {
+        File expectedFile = new File(imageDiffDir+EXPECTED_COLOR + getTestclassName() +".png");
         if (!(expectedFile.exists() && expectedFile.isFile())) {
             try {
-                WebElement element = driver.findElement(by);
-                Screenshot ashot = new AShot().coordsProvider(new WebDriverCoordsProvider())
-                        .takeScreenshot(driver, element);
-                attachToFile(captureDir, ashot.getImage().getSubimage(0, 0, 30, 30),
-                        "expectedImage"+this.getClass().getSimpleName()+".png");
+                BufferedImage bufferedImage = getSpesificScreenshot(by);
+                createPNGFile(bufferedImage, EXPECTED_COLOR);
             }catch (Exception e) {
                 e.printStackTrace();
             }

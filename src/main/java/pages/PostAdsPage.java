@@ -26,6 +26,10 @@ import java.util.concurrent.TimeUnit;
  * Created by NugrohoSantoso on 9/6/16.
  */
 public class PostAdsPage extends BasePage {
+
+    public static final String textFieldAdditionalId = "com.app.tokobagus.betterb:id/edtInput";
+    public static final String textTitleAdditionalId = "com.app.tokobagus.betterb:id/inputLayout";
+
     public PostAdsPage(WebDriver driver)
     {
         super(driver);
@@ -111,8 +115,8 @@ public class PostAdsPage extends BasePage {
     protected List<AndroidElement> inputList;
 
     @AndroidFindBys({
-            @AndroidFindBy(className = textInputLayoutClass),
-            @AndroidFindBy(className = editTextAdditionalField)
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/inputLayout"),
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/edtInput")
     })
     protected List<AndroidElement> editInputList;
 
@@ -233,7 +237,6 @@ public class PostAdsPage extends BasePage {
     {
         customCamera = true;
         //verifyCloseBtn();
-        capturedSpesificElement(getIdLocator(galleryIcon));
         dismissTutorial();
         verifyShutterBtn();
         verifyGaleriBtn();
@@ -764,6 +767,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifySuggestionHargaAndInputHarga(String keyword)
     {
+        isWaitElementPresent(getIdLocator(suggestedPriceField));
         WebElement element = driver.findElement(getIdLocator(suggestedPriceField));
         List<WebElement> hargaValueAds = driver.findElements(getIdLocator(hargaTextInputLayout));
         if (element.isDisplayed())//element.getText().contains("Price "))
@@ -789,7 +793,7 @@ public class PostAdsPage extends BasePage {
             averagePrice = averagePrice.divide(dividedTwo);
             String inputPrice = String.valueOf(averagePrice);
             element1.sendKeys(inputPrice);
-            ((AndroidDriver)driver).hideKeyboard();
+            hideSoftKeyboard();
             Log.info("Input Harga or Gaji Ads : "+ averagePrice);
             Assert.assertTrue(suggestionHarga);
         }
@@ -854,9 +858,12 @@ public class PostAdsPage extends BasePage {
             verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, rumah);
             verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, dijual);
         }
-        else
+        else if (classElement.equalsIgnoreCase("android.widget.LinearLayout"))
         {
             Log.info(classElement);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, properti);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, rumah);
+            verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, dijual);
             verifySuggestionKategori();
         }
         Log.info("Click Properti Rumah Di Jual Sub-Category");
@@ -911,21 +918,21 @@ public class PostAdsPage extends BasePage {
         Log.info("Verify Additional Input Field in Properti Category");
     }
 
+    //handle old version of Android [need to destroy]
     public List<WebElement> isTextInputLayoutDisplays() {
-        if (isListElementPresent(inputList)){
+        if (getVersionDevices().startsWith("6")){
             return getListElements(By.className("TextInputLayout"));
         } else {
-            isOldVersionDevices = true;
             return getListElements(By.id("com.app.tokobagus.betterb:id/inputLayout"));
         }
     }
 
     //handle old version of Android
     public List<AndroidElement> isTextEditLayoutDisplays() {
-        if (isOldVersionDevices){
-            return editInputListOldVersion;
-        } else {
+        if (getVersionDevices().startsWith("6")){
             return editInputList;
+        } else {
+            return editInputListOldVersion;
         }
     }
 
@@ -933,36 +940,33 @@ public class PostAdsPage extends BasePage {
      * Adopt method from BasePage
      * */
     public Boolean isElementPresentAfterScroll(final String locator) {
-        String classname;
-        if (isOldVersionDevices){
-            classname = "TextInputLayout";
-        }else {
-            classname = "android.widget.LinearLayout";
+        try {
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(30, TimeUnit.SECONDS)
+                    .pollingEvery(5, TimeUnit.SECONDS)
+                    .ignoring(NoSuchElementException.class);
+            return wait.until(new Function<WebDriver, Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
+                    return driver.findElement(By.id(textTitleAdditionalId)).isDisplayed();
+                }
+            });
+        } catch ( TimeoutException e){
+            return false;
         }
-        final String classFinal = classname;
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(30, TimeUnit.SECONDS)
-                .pollingEvery(5, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                ((AndroidDriver)driver).swipe(200, 300, 200, 45, 500);
-                return driver.findElement(By.xpath("//"+classFinal+"[@text='"+locator+"']")).isDisplayed();
-            }
-        });
     }
 
     public void inputMethod(String comparisonWord, String inputText) {
-        List<WebElement> parentElement = isTextInputLayoutDisplays();
-        List<AndroidElement> childElement2 = isTextEditLayoutDisplays();
+        List<WebElement> parentElement = getListElements(By.id(textTitleAdditionalId));
         String parentValueText = "";
-        for (int i = 0; i < childElement2.size(); i++)
+        for (int i = 0; i < parentElement.size(); i++)
         {
             parentValueText = parentElement.get(i).getText();
             Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
-                childElement2.get(i).replaceValue(inputText);
+                parentElement.get(i).findElements(getIdLocator(textFieldAdditionalId))
+                        .get(0).sendKeys(inputText);
                 ((AndroidDriver)driver).hideKeyboard();
                 break;
             }
@@ -1269,7 +1273,6 @@ public class PostAdsPage extends BasePage {
         @Override
         public void verifyAllContentInLocationPage() {
             verifySearchField();
-            capturedSpesificElement(getIdLocator(searchField));
             dismissTutorial();
             verifyMyCurrentLocationBtn();
             verifyCurrentLocationAddress();

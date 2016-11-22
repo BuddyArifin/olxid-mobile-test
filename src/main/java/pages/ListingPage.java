@@ -36,7 +36,6 @@ public class ListingPage extends BasePage{
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
     public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
-    public static final String FILTER = "Filter";
     public static final String adsId = "com.app.tokobagus.betterb:id/iv_ad_item_image";
 
     public static final String gpsAlertTitle = "GPS belum dihidupkan";
@@ -83,7 +82,6 @@ public class ListingPage extends BasePage{
     {
         Log.info("Verify All Contents of ListingPage");
         isAutoAcept(getIdLocator(permissionAllowAccessBtn));
-        capturedSpesificElement(getIdLocator(jarakDariKamuBtnID));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();
