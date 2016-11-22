@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile OLXID" verbose="2" parallel="tests" thread-count="3">
+<suite name="Mobile OLXID" verbose="2" parallel="tests" thread-count="2">
     <test name="Ads Details OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.AdsDetailsTest"/>
