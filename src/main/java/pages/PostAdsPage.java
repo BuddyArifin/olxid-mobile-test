@@ -228,6 +228,40 @@ public class PostAdsPage extends BasePage {
     })
     protected List<AndroidElement> textViewCheckBoxTitle;
 
+    public void initialPostAdsTest(){
+        Log.info("Back to Initial Post Ads Test");
+        ListingPage listingPage = new ListingPage(driver);
+        if (listingPage.isListingButton()){
+            Assert.assertTrue(true,"Already in Home");
+        }else{
+            if (isPostAdsPage()){
+                clickElement(getContentLocator(closeBtnPFS2));
+            }else if(isCameraPage()){
+                clickBackDevice();
+                waitForClickabilityOf(getContentLocator(closeBtnPFS2));
+                clickElement(getContentLocator(closeBtnPFS2));
+            }else if(isCameraAdditionalPage()){
+                clickCloseBtnAtas();
+                waitForClickabilityOf(getContentLocator(closeBtnPFS2));
+                clickElement(getContentLocator(closeBtnPFS2));
+            } else {
+                Assert.assertTrue(true,"Already in Home");
+            }
+        }
+    }
+
+    public boolean isPostAdsPage(){
+        return isWaitElementPresent(getTextLocator(jualTitle));
+    }
+
+    public boolean isCameraPage(){
+        return isWaitElementPresent(getIdLocator(shutterBtn));
+    }
+
+    public boolean isCameraAdditionalPage(){
+        return isWaitElementPresent(getIdLocator(cropBtnAtas));
+    }
+
     @Step("Verify Content in Camera Page")
     public void verifyContentInCameraPage()
     {
@@ -308,7 +342,7 @@ public class PostAdsPage extends BasePage {
     }
     public void verifyBatalBtn()
     {
-        Assert.assertTrue(isElementPresent(getContentLocator(closeBtnPFS2)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(closeBtnPFS2)));
         Log.info("Verify Batal Button");
     }
     public void verifySimpanBtn()
@@ -346,7 +380,7 @@ public class PostAdsPage extends BasePage {
         isWaitElementPresent(getIdLocator(takenImagePreview));
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         upperHeigth = activeLayout.getLocation().getY();
-        bottomHeight = activeLayout.getSize().getHeight() + upperHeigth;
+        bottomHeight = upperHeigth - activeLayout.getSize().getHeight();
         Log.info("Upper Height : " + upperHeigth + " , Bottom Height : " + bottomHeight);
     }
 
@@ -385,7 +419,7 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(cropBtnCropMenu));
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         upperHeightRotateAndCrop = activeLayout.getLocation().getY();
-        bottomHeightRotateAndCrop = activeLayout.getSize().getHeight();
+        bottomHeightRotateAndCrop = upperHeightRotateAndCrop - activeLayout.getSize().getHeight();
         Log.info("Upper Height : " + upperHeightRotateAndCrop + " , Bottom Height : " + bottomHeightRotateAndCrop);
         Log.info("Click Crop Button Accept in Crop Menu");
     }
@@ -393,7 +427,8 @@ public class PostAdsPage extends BasePage {
     public void verifyImageCropped()
     {
         boolean imageCrop;
-        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight > bottomHeightRotateAndCrop)
+        //Log.info("A : "+upperHeigth+" ; B : "+upperHeightRotateAndCrop+" ; C : "+bottomHeight+" ; D : "+bottomHeightRotateAndCrop);
+        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
         {
             imageCrop = true;
             Log.info("Photo Has Been Cropped");
@@ -425,7 +460,7 @@ public class PostAdsPage extends BasePage {
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         clickElement(getIdLocator(rotateBtn));
         upperHeightRotateAndCrop = activeLayout.getLocation().getY();
-        bottomHeightRotateAndCrop = activeLayout.getSize().getHeight();
+        bottomHeightRotateAndCrop = upperHeightRotateAndCrop - activeLayout.getSize().getHeight();
         Log.info("Upper Height : " + upperHeightRotateAndCrop + " , Bottom Height : " + bottomHeightRotateAndCrop);
         Log.info("Click Rotate Button");
     }
@@ -433,7 +468,7 @@ public class PostAdsPage extends BasePage {
     public void verifyImageRotated()
     {
         boolean imageRotate;
-        if (upperHeigth > upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
+        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
         {
             imageRotate = true;
             Log.info("Photo Has Been Rotated");
@@ -764,6 +799,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifySuggestionHargaAndInputHarga(String keyword)
     {
+        waitForVisibilityOf(getIdLocator(suggestedPriceField));
         WebElement element = driver.findElement(getIdLocator(suggestedPriceField));
         List<WebElement> hargaValueAds = driver.findElements(getIdLocator(hargaTextInputLayout));
         if (element.isDisplayed())//element.getText().contains("Price "))
@@ -789,7 +825,11 @@ public class PostAdsPage extends BasePage {
             averagePrice = averagePrice.divide(dividedTwo);
             String inputPrice = String.valueOf(averagePrice);
             element1.sendKeys(inputPrice);
-            ((AndroidDriver)driver).hideKeyboard();
+            try {
+                ((AndroidDriver)driver).hideKeyboard();
+            }catch (WebDriverException e){
+                Log.info("Keyboard Not Present");
+            }
             Log.info("Input Harga or Gaji Ads : "+ averagePrice);
             Assert.assertTrue(suggestionHarga);
         }
@@ -963,7 +1003,11 @@ public class PostAdsPage extends BasePage {
             Log.info("Parent Element Index : ["+i+"], Value Text : " + parentValueText);
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
                 childElement2.get(i).replaceValue(inputText);
-                ((AndroidDriver)driver).hideKeyboard();
+                try {
+                    ((AndroidDriver)driver).hideKeyboard();
+                }catch (WebDriverException e){
+                    Log.info("Keyboard Not Present");
+                }
                 break;
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
@@ -1301,5 +1345,9 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(loginBtnInLoginPopup));
         Log.info("Click Login Btn in Login Pop up Notification");
         return new LoginPage(driver);
+    }
+
+    public void clickBackDevice(){
+        driver.navigate().back();
     }
 }

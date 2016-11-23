@@ -33,7 +33,7 @@ public class ListingPage extends BasePage{
     public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_postad";
     public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_messages";
     public static final String pesanNotif = "";
-    public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_Favorite";
+    public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
     public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
     public static final String FILTER = "Filter";
@@ -341,5 +341,9 @@ public class ListingPage extends BasePage{
             clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
         }
+    }
+
+    public boolean isListingButton(){
+        return isWaitElementPresent(getIdLocator(homeBtnBtmID));
     }
 }
