@@ -30,7 +30,7 @@ public class ListingPage extends BasePage{
     public static final String hargaIklan = "com.app.tokobagus.betterb:id/tv_ad_item_price";
     public static final String homeBtnBtmID = "com.app.tokobagus.betterb:id/tab_listing";
     public static final String kategoriBtnBtmID = "com.app.tokobagus.betterb:id/tab_category";
-    public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_postad";
+    public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_post_ad";
     public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_messages";
     public static final String pesanNotif = "";
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_favorite";
