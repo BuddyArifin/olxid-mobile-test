@@ -71,6 +71,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String alertInvalidFormChangePass = "com.app.tokobagus.betterb:id/snackbar_text";
     public static final String noHandphoneText = "Nomor Handphone";
     public static final String imageViewClass = "android.widget.ImageView";
+    public static final String logoutKonfirmasiTitleId = "com.app.tokobagus.betterb:id/md_titleFrame";
     public String oldUsername = null;
 
     @AndroidFindBys({
@@ -288,6 +289,7 @@ public class ProfilSayaModule extends BasePage{
         Log.info("Click Logout Dari OLX Button in Profil Saya Page");
         waitForVisibilityOf(getIdLocator(logOutDariOLXBtn));
         clickElement(getIdLocator(logOutDariOLXBtn));
+        closeAlertKonf();
         return new LoginPage(driver);
     }
 

@@ -607,4 +607,14 @@ public class BasePage  {
 
         return false;
     }
+
+    public void closeAlertKonf() {
+        String tutupKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+        String alertContent = "com.app.tokobagus.betterb:id/md_content";
+        boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
+        if (logoutKonfirmasi) {
+            Log.info("Click OK konfirmasi logout");
+            clickElement(getIdLocator(tutupKonfirmasiPopUp));
+        }
+    }
 }
