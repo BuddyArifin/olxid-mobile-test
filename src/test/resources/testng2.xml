@@ -3,7 +3,7 @@
 
 <suite name="Mobile OLXID [DEVICES]" verbose="2" parallel="tests" thread-count="2">
 
-    <parameter name="udid" value="http://172.16.80.72:9999/wd/hub" />
+    <parameter name="udid" value="http://172.16.80.72:4444/wd/hub" />
     <test name="Ads Details OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.AdsDetailsTest"/>
