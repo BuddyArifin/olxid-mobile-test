@@ -967,7 +967,7 @@ public class PostAdsPage extends BasePage {
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
                 parentElement.get(i).findElements(getIdLocator(textFieldAdditionalId))
                         .get(0).sendKeys(inputText);
-                ((AndroidDriver)driver).hideKeyboard();
+                hideSoftKeyboard();
                 break;
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
