@@ -30,13 +30,12 @@ public class ListingPage extends BasePage{
     public static final String hargaIklan = "com.app.tokobagus.betterb:id/tv_ad_item_price";
     public static final String homeBtnBtmID = "com.app.tokobagus.betterb:id/tab_listing";
     public static final String kategoriBtnBtmID = "com.app.tokobagus.betterb:id/tab_category";
-    public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_postad";
-    public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_messages";
+    public static final String jualBtnBtmID = "com.app.tokobagus.betterb:id/tab_post_ad";
+    public static final String pesanBtnBtmID = "com.app.tokobagus.betterb:id/tab_message";
     public static final String pesanNotif = "";
     public static final String favoritBtnBtmId = "com.app.tokobagus.betterb:id/tab_favorite";
     public static final String btmBarId = "com.app.tokobagus.betterb:id/bb_bottom_bar_item_container";
     public static final String toolBarPrimaryId = "com.app.tokobagus.betterb:id/toolbar";
-    public static final String FILTER = "Filter";
     public static final String adsId = "com.app.tokobagus.betterb:id/iv_ad_item_image";
 
     public static final String gpsAlertTitle = "GPS belum dihidupkan";
@@ -83,7 +82,6 @@ public class ListingPage extends BasePage{
     {
         Log.info("Verify All Contents of ListingPage");
         isAutoAcept(getIdLocator(permissionAllowAccessBtn));
-        capturedSpesificElement(getIdLocator(jarakDariKamuBtnID));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();

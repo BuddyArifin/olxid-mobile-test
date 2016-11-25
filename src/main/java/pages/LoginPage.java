@@ -41,6 +41,7 @@ public class LoginPage extends BasePage {
     public static final String onBoardingText = "com.app.tokobagus.betterb:id/intro_lyContent";
     public static final String imageOnBoardingPagination = "com.app.tokobagus.betterb:id/entrance_indicatorContainer";
     public static final String disclaimerTextContainers = "com.app.tokobagus.betterb:id/entrance_bottomSubContainer4";
+    public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
 
     LoginWithFBModule fb = new LoginWithFBModule(driver);
 
@@ -79,7 +80,9 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-        isAutoAcept(getIdLocator(alertShake)); // handle marketing Pop Up
+//        isAutoAcept(getIdLocator(alertShake)); // handle marketing Pop Up
+        removingAppiumSettings();
+        super.isAutoAcept(getIdLocator(permissionAllowAccessBtn));
     }
 
     @Step("Verify All Contents of On Boarding Sliders")
@@ -210,6 +213,14 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    //remove this method
+    public void removingAppiumSettings() {
+        Log.debug("Removing Appium Settings on "+getDeviceName());
+        if(getVersionDevices().startsWith("6")) {
+            ((AndroidDriver)driver).removeApp("io.appium.settings");
+        }
+    }
+
     public void verifyOnBoardingSliders() {
         Log.info("Verify On Boarding Image Paginations");
         int paginationSize = onBoardingPaginations.size();
@@ -253,5 +264,9 @@ public class LoginPage extends BasePage {
         {
             return true;
         }
+    }
+
+    public Object getDeviceName() {
+        return ((AndroidDriver)driver).getCapabilities().getCapability("deviceName");
     }
 }

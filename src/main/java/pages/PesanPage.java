@@ -1,6 +1,7 @@
 package pages;
 
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -12,48 +13,60 @@ import utils.Log;
  */
 public class PesanPage extends BasePage{
 
-    public static final String title = "";
-    public static final String jualTab = "";
-    public static final String beliTab = "";
-    public static final String olxTab = "";
-    public static final String hamburgerbar = "";
-    public static final String homeBottomMenu = "";
-    public static final String kategoriBottomMenu = "";
-    public static final String jualBottomMenu = "";
-    public static final String pesanBottomMenu = "";
-    public static final String faveBottomMenu = "";
-    public static final String searchBtn = "";
-    public static final String jualAdsImage = "";
-    public static final String jualAdsTitle = "";
-    public static final String jualMsgTime = "";
-    public static final String beliAdsImage = "";
-    public static final String beliAdsTitle = "";
-    public static final String beliMsgTime = "";
-    public static final String selectedProduct = "";
-    public static final String msglistBackBtn = "";
-    public static final String msglistAdsImage = "";
+    public static final String title = "OLX";
+    public static final String jualTab = "Jual";
+    public static final String beliTab = "Beli";
+    public static final String olxTab = "OLX";
+    public static final String hamburgerbar = "Navigate up";
+    public static final String homeBottomMenu = "com.app.tokobagus.betterb:id/tab_listing";
+    public static final String kategoriBottomMenu = "com.app.tokobagus.betterb:id/tab_category";
+    public static final String jualBottomMenu = "com.app.tokobagus.betterb:id/tab_postad";
+    public static final String pesanBottomMenu = "com.app.tokobagus.betterb:id/tab_messages";
+    public static final String faveBottomMenu = "com.app.tokobagus.betterb:id/tab_Favorite";
+    public static final String searchBtn = "com.app.tokobagus.betterb:id/search_item";
+    public static final String jualAdsImage = "com.app.tokobagus.betterb:id/conversation_image";
+    public static final String jualAdsTitle = "com.app.tokobagus.betterb:id/conversation_name";
+    public static final String jualMsgTime = "com.app.tokobagus.betterb:id/conversation_lastupdate";
+    public static final String beliAdsImage = "com.app.tokobagus.betterb:id/conversation_image";
+    public static final String beliAdsTitle = "com.app.tokobagus.betterb:id/conversation_name";
+    public static final String beliMsgTime = "com.app.tokobagus.betterb:id/conversation_lastupdate";
+    public static final String olxNotifImage = "com.app.tokobagus.betterb:id/notification_icon";
+    public static final String olxNotifTitle = "com.app.tokobagus.betterb:id/notification_title";
+    public static final String olxNotifTime = "com.app.tokobagus.betterb:id/notification_time";
+    public String selectedProduct = "";
+    public static final String msglistBackBtn = "Navigate Up";
+    public static final String msglistAdsImage = "com.app.tokobagus.betterb:id/imgAdPhoto";
     public static final String msglistAdsTitle = "";
     public static final String msglistAdsPrice = "";
-    public static final String selectedMsg = "";
+    public static final String msglistChatAvatar = "com.app.tokobagus.betterb:id/conversation_image";
+    public static final String msglistChatName = "com.app.tokobagus.betterb:id/conversation_name";
+    public static final String msglistChatLastMsg = "com.app.tokobagus.betterb:id/conversation_lastmsg";
+    public static final String msglistChatTime = "com.app.tokobagus.betterb:id/conversation_lastupdate";
+    public String selectedMsg = "";
     public static final String detailTitle = "";
-    public static final String detailBackBtn = "";
-    public static final String detailAttachmentIcon = "";
-    public static final String detailChatArea = "";
-    public static final String detailAdsThumbnail = "";
-    public static final String detailAdsTitle = "";
-    public static final String detailAdsPrice = "";
+    public static final String detailBackBtn = "Navigate up";
+    public static final String detailAttachmentIcon = "com.app.tokobagus.betterb:id/send_image_button";
+    public static final String detailChatArea = "com.app.tokobagus.betterb:id/chat_room_message_list";
+    public static final String detailAdsThumbnail = "com.app.tokobagus.betterb:id/ad_image";
+    public static final String detailAdsTitle = "com.app.tokobagus.betterb:id/ad_title";
+    public static final String detailAdsPrice = "com.app.tokobagus.betterb:id/ad_price";
     public static final String detailOptionBtn = "";
-    public static final String detailSendBtn = "";
+    public static final String detailSendBtn = "com.app.tokobagus.betterb:id/send_text_button";
     public static final String detailChatTemplate = "";
-    public static final String detailChatField = "";
+    public static final String detailChatField = "com.app.tokobagus.betterb:id/message";
     public static final String detailUserAvatar = "";
     public static final String detailStatus = "";
     public static final String detailChatState = "";
     public static final String detailOptBlock = "";
     public static final String detailOptHapus = "";
-    public static final String detailAttOptCamera = "";
-    public static final String detailAttOptGallery = "";
+    public static final String detailAttOption = "android:id/text1";
+    public static final int detailAttOptCamera = 0;
+    public static final String Kamera = "Kamera";
+    public static final int detailAttOptGallery = 1;
+    public static final String Galeri = "Galeri";
     public static final String detailAttOptBatal = "";
+    public static final String loginAlert = "com.app.tokobagus.betterb:id/md_content";
+    public static final String loginBtnInAlert = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
 
     public PesanPage(WebDriver driver) {
         super(driver);
@@ -62,7 +75,7 @@ public class PesanPage extends BasePage{
 
     public void verifyHamburgerBar()
     {
-        Assert.assertTrue(isElementPresent(getContentLocator(hamburgerbar)));
+        Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerbar)));
         Log.info("Verify Hamburger Bar");
     }
     public void verifyTitlePage()
@@ -72,17 +85,17 @@ public class PesanPage extends BasePage{
     }
 
     private void verifyJualTab(){
-        Assert.assertTrue(isElementPresent(getIdLocator(jualTab)));
+        Assert.assertTrue(isElementPresent(getTextLocator(jualTab)));
         Log.info("Verify Jual Tab");
     }
 
     private void verifyBeliTab(){
-        Assert.assertTrue(isElementPresent(getIdLocator(beliTab)));
+        Assert.assertTrue(isElementPresent(getTextLocator(beliTab)));
         Log.info("Verify Beli Tab");
     }
 
     private void verifyOlxTab(){
-        Assert.assertTrue(isElementPresent(getIdLocator(olxTab)));
+        Assert.assertTrue(isElementPresent(getTextLocator(olxTab)));
         Log.info("Verify OLX Tab");
     }
 
@@ -131,10 +144,9 @@ public class PesanPage extends BasePage{
         Log.info("Verify Search Button");
     }
 
-    @Step("Verify system able to display all contents in Pesan")
     public void verifyContentPesanPage(){
         Log.info("Verify all contents of PesanPage");
-        verifyTitlePage();
+        //verifyTitlePage();
         verifyHamburgerBar();
         verifyTabs();
         verifyBottomBar();
@@ -148,35 +160,41 @@ public class PesanPage extends BasePage{
 
     public void clickJualTab(){
         Log.info("Click Jual Tab");
-        clickElement(getIdLocator(jualTab));
+        clickElement(getTextLocator(jualTab));
     }
 
     public void clickBeliTab(){
         Log.info("Click Beli Tab");
-        clickElement(getIdLocator(beliTab));
+        clickElement(getTextLocator(beliTab));
     }
 
     public void clickOlxTab(){
         Log.info("Click Olx Tab");
-        clickElement(getIdLocator(olxTab));
+        clickElement(getTextLocator(olxTab));
     }
 
     public void verifyMessageJual(){
-        clickJualTab();
+        //waitForVisibility(getIdLocator(jualAdsImage));
+        WaitFor(40);
         Assert.assertTrue(isElementPresent(getIdLocator(jualAdsImage)));
         Assert.assertTrue(isElementPresent(getIdLocator(jualAdsTitle)));
         Assert.assertTrue(isElementPresent(getIdLocator(jualMsgTime)));
     }
 
     public void verifyMessageBeli(){
-        clickBeliTab();
+        //waitForVisibility(getIdLocator(beliAdsImage));
+        WaitFor(25);
         Assert.assertTrue(isElementPresent(getIdLocator(beliAdsImage)));
         Assert.assertTrue(isElementPresent(getIdLocator(beliAdsTitle)));
         Assert.assertTrue(isElementPresent(getIdLocator(beliMsgTime)));
     }
 
     public void verifyMessageOlx(){
-        clickOlxTab();
+        //waitForVisibility(getIdLocator(olxNotifImage));
+        WaitFor(25);
+        Assert.assertTrue(isElementPresent(getIdLocator(olxNotifImage)));
+        Assert.assertTrue(isElementPresent(getIdLocator(olxNotifTitle)));
+        Assert.assertTrue(isElementPresent(getIdLocator(olxNotifTime)));
     }
 
     public void verifyUnreadMessages(){
@@ -261,7 +279,7 @@ public class PesanPage extends BasePage{
     }
 
     private void verifyAftProdBackBtn(){
-        Assert.assertTrue(isElementPresent(getIdLocator(msglistBackBtn)));
+        Assert.assertTrue(isElementPresent(getContentLocator(msglistBackBtn)));
         Log.info("Verify Back Button on Message List After Select Product");
     }
 
@@ -280,7 +298,28 @@ public class PesanPage extends BasePage{
         Log.info("Verify Ads Price on Message List After Select Product");
     }
 
+    private void verifyAftProdChatAvatar(){
+        Assert.assertTrue(isElementPresent(getIdLocator(msglistChatAvatar)));
+        Log.info("Verify Sender Avatar on Message List After Select Product");
+    }
+
+    private void verifyAftProdChatName(){
+        Assert.assertTrue(isElementPresent(getIdLocator(msglistChatName)));
+        Log.info("Verify Sender Name on Message List After Select Product");
+    }
+
+    private void verifyAftProdChatLastMsg(){
+        Assert.assertTrue(isElementPresent(getIdLocator(msglistChatLastMsg)));
+        Log.info("Verify Last Message on Message List After Select Product");
+    }
+
+    private void verifyAftProdChatTime(){
+        Assert.assertTrue(isElementPresent(getIdLocator(msglistChatTime)));
+        Log.info("Verify Chat Time on Message List After Select Product");
+    }
+
     public void clickSelectedProduct(){
+        //click ads title/avatar
         Log.info("Click Selected Product");
         clickElement(getIdLocator(selectedProduct));
     }
@@ -288,21 +327,27 @@ public class PesanPage extends BasePage{
     public void verifyContentAftSelectProd(){
         verifyAftProdBackBtn();
         verifyAftProdAdsImage();
-        verifyAftProdAdsTitle();
-        verifyAftProdAdsPrice();
+        //verifyAftProdAdsTitle();
+        //verifyAftProdAdsPrice();
+        verifyAftProdChatAvatar();
+        verifyAftProdChatName();
+        verifyAftProdChatLastMsg();
+        verifyAftProdChatTime();
     }
 
     public void clickBackOnAftProd(){
         Log.info("Click Back Button on After Select Product");
-        clickElement(getIdLocator(msglistBackBtn));
+        clickElement(getContentLocator(msglistBackBtn));
     }
 
     public void verifyPageAfterClickBackOnAftProd(){
         //verify redirected page
+        verifyMessageJual();
     }
 
     public void clickSelectedMsg(){
         Log.info("Click Selected Message");
+        //click chat avatar/chat name
         clickElement(getIdLocator(selectedMsg));
     }
 
@@ -312,7 +357,7 @@ public class PesanPage extends BasePage{
     }
 
     private void verifyDetBackBtn(){
-        Assert.assertTrue(isElementPresent(getIdLocator(detailBackBtn)));
+        Assert.assertTrue(isElementPresent(getContentLocator(detailBackBtn)));
         Log.info("Verify Detail Back Button");
     }
 
@@ -396,7 +441,7 @@ public class PesanPage extends BasePage{
 
     public void clickBackOnDetailMsg(){
         Log.info("Click Back on Detail Message page");
-        clickElement(getIdLocator(detailBackBtn));
+        clickElement(getContentLocator(detailBackBtn));
     }
 
     public void verifyBackOnDetailMsg(){
@@ -430,12 +475,14 @@ public class PesanPage extends BasePage{
     }
 
     private void verifyCamAttOptOnDetailMsg(){
-        Assert.assertTrue(isElementPresent(getIdLocator(detailAttOptCamera)));
+        String kamera = driver.findElements(By.id(detailAttOption)).get(detailAttOptCamera).getText();
+        Assert.assertTrue(kamera.equalsIgnoreCase(Kamera));
         Log.info("Verify Attachment Option Camera");
     }
 
     private void verifyGalleryAttOptOnDetailMsg(){
-        Assert.assertTrue(isElementPresent(getIdLocator(detailAttOptGallery)));
+        String galeri = driver.findElements(By.id(detailAttOption)).get(detailAttOptGallery).getText();
+        Assert.assertTrue(galeri.equalsIgnoreCase(Galeri));
         Log.info("Verify Attachment Option Gallery");
     }
 
@@ -457,12 +504,12 @@ public class PesanPage extends BasePage{
 
     public void clickCamOnAttScreen(){
         Log.info("Click Kamera on Attachment pop up screen");
-        clickElement(getIdLocator(detailAttOptCamera));
+        driver.findElements(By.id(detailAttOption)).get(detailAttOptCamera).click();
     }
 
     public void clickGallOnAttScreen(){
         Log.info("Click Galeri on Attachment pop up screen");
-        clickElement(getIdLocator(detailAttOptGallery));
+        driver.findElements(By.id(detailAttOption)).get(detailAttOptGallery).click();
     }
 
     public void verifyBatalOnAttScreen(){
@@ -490,6 +537,17 @@ public class PesanPage extends BasePage{
     public void verifyChatTempSentOnDetailMsg(){
         Log.info("Verify Chat Template was sent to Chat Area");
         //check chat template exist in chat area
+    }
+
+    public void verifyLoginAlertDisplayed(){
+        Assert.assertTrue(isElementPresent(getIdLocator(loginAlert)));
+        Assert.assertTrue(isElementPresent(getIdLocator(loginBtnInAlert)));
+        Log.info("Verify Login Alert Displayed");
+    }
+
+    public void clickLoginOnLoginAlert(){
+        Log.info("Click Login btn in Login Alert");
+        clickElement(getIdLocator(loginBtnInAlert));
     }
 
 }

@@ -25,6 +25,7 @@ public class HamburgerBarModule extends BasePage {
     public static final String hamburgerBarLayout = "com.app.tokobagus.betterb:id/left_drawer";
     public static final String headerContentLogoOlx = "header-fix-view";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
+    public static final String klikDisiniLogin = "com.app.tokobagus.betterb:id/sidemenu_tvAvatarStatus";
 
     public HamburgerBarModule(WebDriver driver)
     {
@@ -130,5 +131,14 @@ public class HamburgerBarModule extends BasePage {
     public void verifyTentangOlxContent() {
         Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
         driver.navigate().back();
+    }
+
+    public boolean isHamburgerBar(){
+        return isWaitElementPresent(getIdLocator(hamburgerBarLayout));
+    }
+
+    public void clickDisiniLogin(){
+        clickElement(getIdLocator(klikDisiniLogin));
+        Log.info("Click Login Disini");
     }
 }

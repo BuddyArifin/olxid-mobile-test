@@ -1,7 +1,6 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
-import module.FilterByMapsLocationModule;
 import module.LoginWithOlxModule;
 import module.PaidFeatureModule;
 import org.testng.annotations.Listeners;
@@ -29,7 +28,7 @@ public class PostAdsTest extends AndroidSetup {
 
     @Stories("As a user not able Post Ads")
     @Title("Verify user not able to post ads if user not log in")
-    @TestCaseId("TC_JUAL_11_042")
+    @TestCaseId("TC_JUAL_11_001, TC_JUAL_11_042")
     @Test(priority = 1)
     public void postadsNoLogin(){
         loginPage = new LoginPage(driver);
@@ -59,27 +58,16 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyNoLimitCharacterDescription();
         postAdsPage.clickPasangIklanButton();
         postAdsPage.verifyLoginPopupNotif();
-    }
-
-    @Stories("As a user i want to see content in Camera Page")
-    @Title("Verify content in camera page")
-    @TestCaseId("TC_JUAL_11_001")
-    @Test(priority = 2)
-    public void verifyAllContentInCameraPage()
-    {
         loginPage = postAdsPage.clickLoginBtnInLoginPopup();
+        loginPage.verifyOlxBtn();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
         loginWithOlxModule.inputEmail("olxtester@gmail.com");
         loginWithOlxModule.inputPassword("testing");
         loginWithOlxModule.clickLoginWithOlxBtn();
-
         postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
         listingPage.verifyContentsOfListingPage();
-
-        postAdsPage = listingPage.clickJualBtnBtm();
-        postAdsPage.verifyContentInCameraPage();
     }
 
     @Stories("As a user i want to be able to take photo")
@@ -234,7 +222,7 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyContentPostingForm();
     }
 
-    @Stories("As a user i want to be able choose method to add photo")
+    /*@Stories("As a user i want to be able choose method to add photo")
     @Title("Verify user able to choose option add photo from gallery")
     @TestCaseId("TC_JUAL_11_017")
     @Test(priority = 13, enabled = false)
@@ -255,7 +243,7 @@ public class PostAdsTest extends AndroidSetup {
     {
         postAdsPage.clickCloseButtonXPhotoThumb();
         postAdsPage.clickYaPositiveOrCameraBtn();
-    }
+    }*/
 
     @Stories("As a user i want to be able click and input title Ads")
     @Title("Verify user able to click and input title Ads in Judul Column")
@@ -352,14 +340,6 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyNoLimitCharacterDescription();
     }
 
-    @Stories("As a user i will not able to Post ads")
-    @Title("Verify user not able to post ads if Pemrosesan Data not check")
-    @TestCaseId("TC_JUAL_11_034")
-    @Test(priority = 21, enabled = false)
-    public void verifyUserNotAbleToPostAdsIfPemrosesanDataNotChecked()
-    {
-        postAdsPage.clickPasangIklanButton();
-    }
 
     @Stories("As a user i want to able post Ads")
     @Title("Verify user success Post Ads")
@@ -393,33 +373,13 @@ public class PostAdsTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
     }
 
-    @Stories("As a user i want to be see content Pop-Up Confirmation")
-    @Title("Verify System display content in Pop-Up Confirmation")
-    @TestCaseId("TC_JUAL_11_038")
-    @Test(priority = 23, enabled = false)
-    public void verifySystemDisplayContentInPopUpConfirmation()
-    {
-        //postAdsPage.verifyPopUpSuccesPostingAdsAppear();
-        postAdsPage.verifyContentInPopUpSuccessPosting();
-    }
-
-    @Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
+    /*@Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
     @Title("Verify user able click \"Gunakan Fitur Top Listing\"")
     @TestCaseId("TC_JUAL_11_039")
     @Test(priority = 24, enabled = false)
     public void verifyUserAbleClickGunakanFiturTopListingButton()
     {
         postAdsPage.clickGunakanFiturTopListingButton();
-    }
-
-    @Stories("As a user i want to be able click \"Tutup\"")
-    @Title("Verify user able click \"Tutup\"")
-    @TestCaseId("TC_JUAL_11_040")
-    @Test(priority = 25, enabled = false)
-    public void verifyUserAbleClickTutupButton()
-    {
-        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user i want to be able skip input \"Description\"")
@@ -436,7 +396,7 @@ public class PostAdsTest extends AndroidSetup {
     @Test(priority = 27, enabled = false)
     public void verifyUserAbleToInputDescriptionLater()
     {
-    }
+    }*/
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
@@ -509,7 +469,7 @@ public class PostAdsTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
     }
 
-    @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
+    /*@Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field in \"Jasa & Lowongan\" Kategori")
     @TestCaseId("TC_JUAL_11_029, TC_JUAL_11_030")
     @Test(priority = 30, enabled = false)
@@ -545,7 +505,7 @@ public class PostAdsTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
     }
 
-    /* Top Listing / Paid Features */
+    *//* Top Listing / Paid Features *//*
 
     @Stories("As a user I want to be able to see Pilih Durasi Top Listing contents")
     @Title("Verify system able to display Pilih Durasi Top Listing contents as a pop up after user click Gunakan Fitur Top Listing button")
@@ -642,6 +602,6 @@ public class PostAdsTest extends AndroidSetup {
         paidFeatureModule.verifyMsgInsufPage();
         paidFeatureModule.clickIsiulangBtnInsufPage();
         paidFeatureModule.verifyPageAfterIsiulangInsuf();
-    }
+    }*/
 
 }

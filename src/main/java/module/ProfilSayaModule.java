@@ -7,10 +7,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import pages.BasePage;
-import pages.Constants;
-import pages.LoginPage;
-import pages.PostAdsPage;
+import pages.*;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
@@ -24,7 +21,7 @@ import java.util.List;
 public class ProfilSayaModule extends BasePage{
     //Variable for ProfilSaya Page Page
     public static final String backBtn = "Navigate up";
-    public static final String titleProfilSaya = "Profile";
+    public static final String titleProfilSaya = "Profil";
     public static final String avatarProfilSaya = "com.app.tokobagus.betterb:id/profileView_ivAvatar";
     public static final String editAvatarProfilSaya = "com.app.tokobagus.betterb:id/profileView_btnEditAvatar";
     public static final String usernameProfilSaya = "com.app.tokobagus.betterb:id/profileView_tvUserName";
@@ -71,7 +68,10 @@ public class ProfilSayaModule extends BasePage{
     public static final String alertInvalidFormChangePass = "com.app.tokobagus.betterb:id/snackbar_text";
     public static final String noHandphoneText = "Nomor Handphone";
     public static final String imageViewClass = "android.widget.ImageView";
+    public static final String logoutKonfirmasiTitleId = "com.app.tokobagus.betterb:id/md_titleFrame";
     public String oldUsername = null;
+    public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
+    public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
 
     @AndroidFindBys({
             @AndroidFindBy(id = chkBoxTampilkanPassword)
@@ -102,6 +102,35 @@ public class ProfilSayaModule extends BasePage{
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
+    public void initialProfilSayaTest(){
+        Log.info("Back to Initial Profil Saya Test");
+        HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
+        if (hamburgerBarModule.isHamburgerBar()){
+            Assert.assertTrue(true,"Already in HamburgerBar");
+        }else if (isProfilSayaPage()){
+            clickElement(getContentLocator(backBtn));
+        }else if(isChangePassPage()){
+            Log.info("in Change Pass Page");
+            clickBackDevice();
+            waitForVisibility(getContentLocator(backBtn));
+            clickBackDevice();
+        }else{
+            Assert.assertTrue(true,"Already in HamburgerBar");
+        }
+    }
+
+    public boolean isProfilSayaPage(){
+        return isWaitElementPresent(getIdLocator(gantiPasswordBtn));
+    }
+
+    public boolean isChangePassPage(){
+        return isWaitElementPresent(getIdLocator(passwordLamaField));
+    }
+
+    public void clickBackDevice(){
+        driver.navigate().back();
+    }
+
     //Method for ProfilSaya Page
     public void verifyBackBtnProfilSayaPage()
     {
@@ -124,30 +153,16 @@ public class ProfilSayaModule extends BasePage{
         Log.info("Verify Username in ProfilSaya Page");
         Assert.assertTrue(isElementPresent(getIdLocator(usernameProfilSaya)));
     }
-    public void verifyInformasiGabungProfilSayaPage()
-    {
-        Log.info("Verify Informasi Gabung in ProfilSaya Page");
-        Assert.assertTrue(isElementPresent(getIdLocator(informasiGabungProfilSaya)));
-    }
-    public void verifyVerifikasiAkunText1ProfilSayaPage()
-    {
-        Log.info("Verify Verifikasi Akun Text 1 in ProfilSaya Page");
-        Assert.assertTrue(isElementPresent(getIdLocator(verifikasiAkunText1)));
-    }
-    public void verifyVerifikasiAkunText2ProfilSayaPage()
-    {
-        Log.info("Verify Verifikasi Akun Text 2 in ProfilSaya Page");
-        Assert.assertTrue(isElementPresent(getIdLocator(verifikasiAkunText2)));
-    }
+
     public void verifyNomorTeleponTextProfilSayaPage()
     {
-        Log.info("Verify Text Nomor Telepon in ProfilSaya Page");
+        Log.info("Verify Text Nomor Handphone in ProfilSaya Page");
         Assert.assertTrue(isElementPresent(getTextLocator(noHandphoneText)));
     }
-    public void verifyNomorTeleponNumberProfilSayaPage()
+    public void verifyEditNomorHpBtnProfilSayaPage()
     {
-        Log.info("Verify Nomor Telepon Number in ProfilSaya Page");
-        Assert.assertTrue(isElementPresent(getTextLocator(nomorTeleponText)));
+        Log.info("Verify Edit Nomor Hp Button in ProfilSaya Page");
+        Assert.assertTrue(isElementPresent(getTextLocator(editHandphoneButton)));
     }
     public void verifyEmailTextProfilSayaPage()
     {
@@ -212,6 +227,7 @@ public class ProfilSayaModule extends BasePage{
         return new PostAdsPage(driver);
     }
     public void clickShutterCamera() {
+        super.isAutoAcept(getIdLocator(permissionAllowAccessBtn));
         Log.info("Take picture from Camera");
         clickElement(getIdLocator(shutterButton));
     }
@@ -246,6 +262,13 @@ public class ProfilSayaModule extends BasePage{
         doneCancelButton.get(0).click();
 //      Assert.assertFalse(getStringText(getIdLocator(usernameProfilSaya)).equalsIgnoreCase(oldUsername));
     }
+
+    public void verifyNewUsername(){
+        waitForVisibility(getIdLocator(usernameProfilSaya));
+        Log.info("Old username : "+oldUsername+". New username : "+getStringText(getIdLocator(usernameProfilSaya)));
+        //Assert.assertFalse(getStringText(getIdLocator(usernameProfilSaya)).equalsIgnoreCase(oldUsername));
+    }
+
     public void inputNoHandphone(String nomorTelepon) {
         Log.info("Edit Nomor Telepon with "+nomorTelepon);
         String oldNoHandphone = getStringText(getIdLocator(nomorTeleponNumber));
@@ -264,11 +287,7 @@ public class ProfilSayaModule extends BasePage{
         verifyTitleProfilSayaPage();
         verifyAvatarProfilSayaPage();
         verifyUsernameProfilSayaPage();
-        //verifyInformasiGabungProfilSayaPage();
-        //verifyVerifikasiAkunText1ProfilSayaPage();
-        //verifyVerifikasiAkunText2ProfilSayaPage();
         verifyNomorTeleponTextProfilSayaPage();
-        verifyNomorTeleponNumberProfilSayaPage();
         verifyEmailTextProfilSayaPage();
         verifyEmailValueProfilSayaPage();
         verifyPasswordTextProfilSayaPage();
@@ -288,6 +307,7 @@ public class ProfilSayaModule extends BasePage{
         Log.info("Click Logout Dari OLX Button in Profil Saya Page");
         waitForVisibilityOf(getIdLocator(logOutDariOLXBtn));
         clickElement(getIdLocator(logOutDariOLXBtn));
+        closeAlertKonf();
         return new LoginPage(driver);
     }
 
@@ -417,5 +437,10 @@ public class ProfilSayaModule extends BasePage{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clickOkOnSnackbar(){
+        Log.info("Click Ok on Snackbar");
+        clickElement(getIdLocator(snackbarOkBtn));
     }
 }
