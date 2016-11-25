@@ -62,6 +62,7 @@ public class LoginWithGplusModule extends BasePage {
         String text = null;
         Log.info("clickSelectedAccounts");
 //        listAccount.get(1).click();
+        isWaitElementPresent(getIdLocator(listAccountID));
         for (int i = 0 ; i < listAccount.size() ; i++) {
             text = listAccount.get(i).findElementById(accountEmail).getText();
 //            if (text == validEmail)
