@@ -12,11 +12,6 @@
             <class name="scenarios.LoginPageTest"/>
         </classes>
     </test>
-    <test name="Google Login Sulley OLXID" preserve-order="false">
-        <classes>
-            <class name="scenarios.LoginGplusTest"/>
-        </classes>
-    </test>
     <test name="Login with OLX Account OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.LoginOLXTest"/>

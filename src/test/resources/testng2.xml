@@ -9,6 +9,11 @@
             <class name="scenarios.AdsDetailsTest"/>
         </classes>
     </test>
+    <test name="Google Login Sulley OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.LoginGplusTest"/>
+        </classes>
+    </test>
     <test name="Filter OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.FilterTest"/>
