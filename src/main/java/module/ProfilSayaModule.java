@@ -21,7 +21,7 @@ import java.util.List;
 public class ProfilSayaModule extends BasePage{
     //Variable for ProfilSaya Page Page
     public static final String backBtn = "Navigate up";
-    public static final String titleProfilSaya = "Profil";
+    public static final String titleProfilSaya = "Profil Saya";
     public static final String avatarProfilSaya = "com.app.tokobagus.betterb:id/profileView_ivAvatar";
     public static final String editAvatarProfilSaya = "com.app.tokobagus.betterb:id/profileView_btnEditAvatar";
     public static final String usernameProfilSaya = "com.app.tokobagus.betterb:id/profileView_tvUserName";
@@ -72,6 +72,8 @@ public class ProfilSayaModule extends BasePage{
     public String oldUsername = null;
     public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
+    public static final String loginPopupNotif = "com.app.tokobagus.betterb:id/md_content";
+    public static final String loginBtnInLoginPopup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
 
     @AndroidFindBys({
             @AndroidFindBy(id = chkBoxTampilkanPassword)
@@ -356,17 +358,17 @@ public class ProfilSayaModule extends BasePage{
     public void inputOldPassword(String keywords) {
         Log.info("Input Olx Password : "+keywords);
         sendKeysById(getIdLocator(passwordLamaField), keywords);
-        clickHintPass(getIdLocator(passwordLamaField), 0);
+        //clickHintPass(getIdLocator(passwordLamaField), 0);
     }
     public void inputNewPassword(String keywords) {
         Log.info("Input New Password : "+keywords);
         sendKeysById(getIdLocator(passwordBaruField), keywords);
-        clickHintPass(getIdLocator(passwordBaruField), 1);
+        //clickHintPass(getIdLocator(passwordBaruField), 1);
     }
     public void inputKonfirmPassword(String keywords) {
         Log.info("Input Konfirmasi Password : "+keywords);
         sendKeysById(getIdLocator(passwordKonfirmField), keywords);
-        clickHintPass(getIdLocator(passwordKonfirmField), 2);
+        //clickHintPass(getIdLocator(passwordKonfirmField), 2);
     }
 
     public void clickHintPass(By by, int index) {
@@ -442,5 +444,16 @@ public class ProfilSayaModule extends BasePage{
     public void clickOkOnSnackbar(){
         Log.info("Click Ok on Snackbar");
         clickElement(getIdLocator(snackbarOkBtn));
+    }
+
+    public void verifyLoginPopupNotif(){
+        Assert.assertTrue(isElementPresent(getIdLocator(loginPopupNotif)));
+        Log.info("Verify Login Popup Notification");
+    }
+
+    public LoginPage clickLoginBtnInLoginPopup(){
+        clickElement(getIdLocator(loginBtnInLoginPopup));
+        Log.info("Click Login Btn in Login Pop up Notification");
+        return new LoginPage(driver);
     }
 }

@@ -38,6 +38,8 @@ public class ProfilSayaTest extends AndroidSetup {
         hamburgerBarModule = listingPage.clickHamburgerBar();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         profilSayaModule = hamburgerBarModule.clickProfilSayaBtn();
+        profilSayaModule.verifyLoginPopupNotif();
+        loginPage = profilSayaModule.clickLoginBtnInLoginPopup();
         loginPage.verifyContentsOfLoginPage();
 
         loginWithOlxModule = loginPage.clickLoginWithOlx();
@@ -66,6 +68,9 @@ public class ProfilSayaTest extends AndroidSetup {
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();
         profilSayaModule.verifyAvatarProfilSayaPage();
+        profilSayaModule.clickAvatar();
+        profilSayaModule.verifyAllEditAvatarPopUpContents();
+        profilSayaModule.clickDeleteAvatar();
         //take shot old avatar
         profilSayaModule.takeShotOldAvatar();
         profilSayaModule.clickAvatar();
@@ -183,8 +188,8 @@ public class ProfilSayaTest extends AndroidSetup {
         profilSayaModule.clickUbahPasswordBtnProfilSayaPage();
         profilSayaModule.verifyAllContentInGantiPasswordPage();
         profilSayaModule.inputOldPassword("confluence12345");
-        profilSayaModule.inputNewPassword("confluence123456");
-        profilSayaModule.inputKonfirmPassword("confluence123456");
+        profilSayaModule.inputNewPassword("confluence1234");
+        profilSayaModule.inputKonfirmPassword("confluence1234");
         profilSayaModule.clickSimpanPasswordButton();
         profilSayaModule.clickTutupAlertSuccess();
     }
