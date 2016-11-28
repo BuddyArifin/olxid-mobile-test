@@ -105,6 +105,7 @@ public class LoginWithOlxModule extends BasePage {
 
     public void inputEmail(String emailText) {
         Log.info("Input email "+emailText);
+        verifyEmailField();
         sendKeysById(getIdLocator(emailField), emailText);
     }
 
@@ -223,5 +224,14 @@ public class LoginWithOlxModule extends BasePage {
             clickElement(getIdLocator(okButtonErrorMessage));
         }
         //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(blankEmailForgotPassErrorText));
+    }
+
+    public void initOlxLoginTest() {
+        Log.info("Back to initials login with OLX");
+        if (isElementPresent(getIdLocator(loginOlxBtn))) {
+            Assert.assertTrue(true, "Already on Login OLX");
+        } else if (isElementPresent(getIdLocator(kirimBtnForgotPass))) {
+            driver.navigate().back();
+        }
     }
 }

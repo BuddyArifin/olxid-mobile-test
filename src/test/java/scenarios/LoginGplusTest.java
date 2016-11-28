@@ -25,7 +25,7 @@ public class LoginGplusTest extends AndroidSetup {
     @Stories("As A User I want able to Login Using Google+")
     @Title("Verify Google+ ask permissions from users to give the granted access")
     @TestCaseId("TC_LBG_03_002")
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void userAbleToGiveGrantedAccessToGplus() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
@@ -35,17 +35,12 @@ public class LoginGplusTest extends AndroidSetup {
         loginWithGplusModule.checkPermissionDetails();
     }
 
-    @Stories("As A User I want able to Login with Google+")
-    @Title("Verify User Able to Login with Google+ Credentials")
-    @TestCaseId("TC_LBG_03_001")
-    @Test(priority = 1, enabled = false)
-    public void userAbleToLoginWithValidGplusCredentials() {}
-
     @Stories("As A User I want Set Preferences Category After Success Login")
     @Title("Verify User Able to Set Preferences Category After Success Login")
     @TestCaseId("TC_LBG_03_003")
     @Test(priority = 3)
     public void userAbleGoToListingAfterSuccessGplusLogin() {
+        loginWithGplusModule.initGplusTest();
         listingPage = loginWithGplusModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
     }
@@ -53,8 +48,9 @@ public class LoginGplusTest extends AndroidSetup {
     @Stories("As A User I want to be able to see GPlus Profile content")
     @Title("Verify User able to see GPlus Profile content")
     @TestCaseId("TC_LBG_03_005")
-    @Test(priority = 4)
+    @Test(priority = 3)
     public void userAbleToSeeGplusProfContent(){
+        loginWithGplusModule.initGplusTest();
         hamburgerBarModule = listingPage.clickHamburgerBar();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         hamburgerBarModule.clickProfilSayaBtn();
@@ -64,11 +60,19 @@ public class LoginGplusTest extends AndroidSetup {
     @Stories("As A User I want able to Logout after Success Login")
     @Title("Verify User Able to Logout after Success Google+ Login")
     @TestCaseId("TC_LBG_03_004")
-    @Test(priority = 5)
+    @Test(priority = 4)
     public void userAbleToLogoutAfterSuccessGplusLogin() {
+        loginWithGplusModule.initGplusTest();
+        listingPage = loginWithGplusModule.verifyListingPage();
+        listingPage.verifyHamburgerBar();
+        hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.verifyAllContentsInHamburgerBar();
+        hamburgerBarModule.clickProfilSayaBtn();
+        loginWithGplusModule.verifyGplusProfileContent();
         LoginPage loginPage = loginWithGplusModule.clickLogOutGPlus();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         hamburgerBarModule.clickProfilSayaBtn();
+        hamburgerBarModule.clickOkAlert();
         loginPage.verifyContentsOfLoginPage();
     }
 }

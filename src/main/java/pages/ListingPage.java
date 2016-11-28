@@ -14,6 +14,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
+import static pages.AdsDetailsPage.titleAds;
 
 /**
  * Created by buddyarifin on 8/24/16.

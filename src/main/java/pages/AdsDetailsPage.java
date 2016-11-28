@@ -18,6 +18,7 @@ import java.util.List;
  * Created by buddyarifin on 9/2/16.
  */
 public class AdsDetailsPage extends BasePage {
+    public static final String backBtn = "Navigate up";
     protected static final String bannerInfo = "com.app.tokobagus.betterb:id/info_text";
     protected static final String bannerCloseBtn = "com.app.tokobagus.betterb:id/safety_info_close";
     protected static final String titleAds = "";
@@ -305,4 +306,22 @@ public class AdsDetailsPage extends BasePage {
         }
     }
 
+    public void clickBackButton() {
+        clickElement(getContentLocator(backBtn));
+    }
+
+    public void initAdsDetailsTest() {
+        Log.info("Back to initiate Ads Details Page");
+        ListingPage listing = new ListingPage(driver);
+        if(isElementPresent(getContentLocator(backBtn))){
+            clickBackButton();
+            isWaitElementPresent(getIdLocator(listing.homeBtnBtmID));
+            listing.selectAdsFromListing();
+            isWaitElementPresent(getContentLocator(backBtn));
+        } else if (isWaitElementPresent(getIdLocator(listing.homeBtnBtmID))) {
+            Assert.assertTrue(true, "Already in Listing Page");
+            listing.selectAdsFromListing();
+            isWaitElementPresent(getContentLocator(backBtn));
+        };
+    }
 }

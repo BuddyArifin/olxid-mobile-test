@@ -366,4 +366,26 @@ public class SaldoOlxModule extends BasePage {
             }
         });
     }
+
+    public HamburgerBarModule initSaldoOlxTest() {
+        Log.info("Back to initiate Saldo Olx Page");
+        if (isElementPresent(getIdLocator(isiUlangSaldoBtn))) {
+            backToHamburgerBar();
+        } else if (isListElementPresent(threePanels)) {
+            clickBackBtn();
+            backToHamburgerBar();
+        } else if (isElementPresent(getTextLocator(topUpTitle))) {
+            clickBackBtn();
+            backToHamburgerBar();
+        } else {
+            Assert.assertTrue(true, "Already on Opened Hamburger Bar");
+        }
+        return new HamburgerBarModule(driver);
+    }
+
+    private void backToHamburgerBar() {
+        HamburgerBarModule hamburgerBar;
+        hamburgerBar = clickBackButton();
+        isWaitElementPresent(getIdLocator(hamburgerBar.avatarSaya));
+    }
 }

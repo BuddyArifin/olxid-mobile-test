@@ -141,4 +141,8 @@ public class HamburgerBarModule extends BasePage {
         clickElement(getIdLocator(klikDisiniLogin));
         Log.info("Click Login Disini");
     }
+
+    public void clickOkAlert() {
+        closeAlertKonf();
+    }
 }

@@ -15,6 +15,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
+import static pages.FilterPage.backBtn;
+import static module.HamburgerBarModule.avatarSaya;
 
 /**
  * Created by buddyarifin on 8/12/16.
@@ -153,5 +155,27 @@ public class LoginWithGplusModule extends BasePage {
         closeAlertKonf();
         Log.info("Click Logout from Google +");
         return new LoginPage(driver);
+    }
+
+    public void initGplusTest() {
+        Log.info("Back to initials login with Gplus");
+        ListingPage listing = new ListingPage(driver);
+        if (listing.isListingButton()) {
+            Assert.assertTrue(true, "Already on Home Page");
+        } else if (isHamburger()) {
+            driver.navigate().back();
+        } else if (isOnProfilePage()) {
+            clickElement(getContentLocator(backBtn));
+            HamburgerBarModule hamburger = new HamburgerBarModule(driver);
+            hamburger.closeHamburgerBarDrawer();
+        }
+    }
+
+    public boolean isHamburger() {
+        return isElementPresent(getIdLocator(avatarSaya));
+    }
+
+    public boolean isOnProfilePage() {
+        return isElementPresent(getIdLocator(gpluslogoutbtn));
     }
 }
