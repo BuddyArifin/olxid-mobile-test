@@ -203,7 +203,6 @@ public class BasePage  {
         }
     }
 
-
     protected void sendKeysElements(By locator,int index, String keys){
     	waitForVisibilityOf(locator);
     	WebElement element=getTextElements(locator, index);
@@ -577,12 +576,12 @@ public class BasePage  {
     }
 
     public void setExpectedColor(By by) {
-        File expectedFile = new File(imageDiffDir + EXPECTED_COLOR + getTestclassName() + ".png");
+        File expectedFile = new File(imageDiffDir+EXPECTED_COLOR + getTestclassName() +".png");
         if (!(expectedFile.exists() && expectedFile.isFile())) {
             try {
                 BufferedImage bufferedImage = getSpesificScreenshot(by);
                 createPNGFile(bufferedImage, EXPECTED_COLOR);
-            } catch (Exception e) {
+            }catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -618,5 +617,4 @@ public class BasePage  {
             clickElement(getIdLocator(tutupKonfirmasiPopUp));
         }
     }
-
 }

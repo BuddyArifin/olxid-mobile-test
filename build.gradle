@@ -47,8 +47,8 @@ allure {
     aspectjweaver = true
     testNG = true
 
-    allureResultsDir = "$buildDir/allure-results"
-    allureReportDir = "$buildDir/allure-report"
+    allureResultsDir = "$projectDir/target/allure-results"
+    allureReportDir = "$projectDir/target/allure-report"
     allureVersion = "${allureVersion}"
     aspectjVersion = "${aspectjVersion}"
 
@@ -71,9 +71,17 @@ test {
     }
 }
 
+task suiteparallel(type: JavaExec) {
+    description = "Running All Suites from TestNG with 2 Thread"
+    classpath = sourceSets.test.runtimeClasspath
+    main = "scenarios.RunParallelSuites"
+}
+
 clean {
     delete "$projectDir/Screenshots"
     delete "$projectDir/target"
+    delete "$projectDir/test-output"
 }
 
 tasks.withType(Test)*.finalizedBy allureReport
+suiteparallel.finalizedBy allureReport

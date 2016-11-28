@@ -249,6 +249,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
         isElementPresentAfterScrollUp(getIdLocator(favoriteBtn));
         clickElement(getIdLocator(favoriteBtn));
+        closeAlertKonf();
     }
     public void clickLihatIklanAndTestimoni() {
         isElementPresentAfterScrollDown(getTextLocator(lihatIklanAndTestimoni));

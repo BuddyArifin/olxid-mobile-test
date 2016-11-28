@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  * Created by NugrohoSantoso on 9/6/16.
  */
 public class PostAdsPage extends BasePage {
+
     public static final String textFieldAdditionalId = "com.app.tokobagus.betterb:id/edtInput";
     public static final String textTitleAdditionalId = "com.app.tokobagus.betterb:id/inputLayout";
 
@@ -231,40 +232,6 @@ public class PostAdsPage extends BasePage {
     })
     protected List<AndroidElement> textViewCheckBoxTitle;
 
-    public void initialPostAdsTest(){
-        Log.info("Back to Initial Post Ads Test");
-        ListingPage listingPage = new ListingPage(driver);
-        if (listingPage.isListingButton()){
-            Assert.assertTrue(true,"Already in Home");
-        }else{
-            if (isPostAdsPage()){
-                clickElement(getContentLocator(closeBtnPFS2));
-            }else if(isCameraPage()){
-                clickBackDevice();
-                waitForClickabilityOf(getContentLocator(closeBtnPFS2));
-                clickElement(getContentLocator(closeBtnPFS2));
-            }else if(isCameraAdditionalPage()){
-                clickCloseBtnAtas();
-                waitForClickabilityOf(getContentLocator(closeBtnPFS2));
-                clickElement(getContentLocator(closeBtnPFS2));
-            } else {
-                Assert.assertTrue(true,"Already in Home");
-            }
-        }
-    }
-
-    public boolean isPostAdsPage(){
-        return isWaitElementPresent(getTextLocator(jualTitle));
-    }
-
-    public boolean isCameraPage(){
-        return isWaitElementPresent(getIdLocator(shutterBtn));
-    }
-
-    public boolean isCameraAdditionalPage(){
-        return isWaitElementPresent(getIdLocator(cropBtnAtas));
-    }
-
     @Step("Verify Content in Camera Page")
     public void verifyContentInCameraPage()
     {
@@ -344,7 +311,7 @@ public class PostAdsPage extends BasePage {
     }
     public void verifyBatalBtn()
     {
-        Assert.assertTrue(isWaitElementPresent(getContentLocator(closeBtnPFS2)));
+        Assert.assertTrue(isElementPresent(getContentLocator(closeBtnPFS2)));
         Log.info("Verify Batal Button");
     }
     public void verifySimpanBtn()
@@ -382,7 +349,7 @@ public class PostAdsPage extends BasePage {
         isWaitElementPresent(getIdLocator(takenImagePreview));
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         upperHeigth = activeLayout.getLocation().getY();
-        bottomHeight = upperHeigth - activeLayout.getSize().getHeight();
+        bottomHeight = activeLayout.getSize().getHeight() + upperHeigth;
         Log.info("Upper Height : " + upperHeigth + " , Bottom Height : " + bottomHeight);
     }
 
@@ -421,7 +388,7 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(cropBtnCropMenu));
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         upperHeightRotateAndCrop = activeLayout.getLocation().getY();
-        bottomHeightRotateAndCrop = upperHeightRotateAndCrop - activeLayout.getSize().getHeight();
+        bottomHeightRotateAndCrop = activeLayout.getSize().getHeight();
         Log.info("Upper Height : " + upperHeightRotateAndCrop + " , Bottom Height : " + bottomHeightRotateAndCrop);
         Log.info("Click Crop Button Accept in Crop Menu");
     }
@@ -429,8 +396,7 @@ public class PostAdsPage extends BasePage {
     public void verifyImageCropped()
     {
         boolean imageCrop;
-        //Log.info("A : "+upperHeigth+" ; B : "+upperHeightRotateAndCrop+" ; C : "+bottomHeight+" ; D : "+bottomHeightRotateAndCrop);
-        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
+        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight > bottomHeightRotateAndCrop)
         {
             imageCrop = true;
             Log.info("Photo Has Been Cropped");
@@ -462,7 +428,7 @@ public class PostAdsPage extends BasePage {
         WebElement activeLayout = driver.findElement(getIdLocator(takenImagePreview));
         clickElement(getIdLocator(rotateBtn));
         upperHeightRotateAndCrop = activeLayout.getLocation().getY();
-        bottomHeightRotateAndCrop = upperHeightRotateAndCrop - activeLayout.getSize().getHeight();
+        bottomHeightRotateAndCrop = activeLayout.getSize().getHeight();
         Log.info("Upper Height : " + upperHeightRotateAndCrop + " , Bottom Height : " + bottomHeightRotateAndCrop);
         Log.info("Click Rotate Button");
     }
@@ -470,7 +436,7 @@ public class PostAdsPage extends BasePage {
     public void verifyImageRotated()
     {
         boolean imageRotate;
-        if (upperHeigth < upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
+        if (upperHeigth > upperHeightRotateAndCrop && bottomHeight < bottomHeightRotateAndCrop)
         {
             imageRotate = true;
             Log.info("Photo Has Been Rotated");
@@ -801,7 +767,7 @@ public class PostAdsPage extends BasePage {
 
     public void verifySuggestionHargaAndInputHarga(String keyword)
     {
-        waitForVisibilityOf(getIdLocator(suggestedPriceField));
+        isWaitElementPresent(getIdLocator(suggestedPriceField));
         WebElement element = driver.findElement(getIdLocator(suggestedPriceField));
         List<WebElement> hargaValueAds = driver.findElements(getIdLocator(hargaTextInputLayout));
         if (element.isDisplayed())//element.getText().contains("Price "))
@@ -1001,7 +967,7 @@ public class PostAdsPage extends BasePage {
             if (parentValueText.equalsIgnoreCase(comparisonWord)) {
                 parentElement.get(i).findElements(getIdLocator(textFieldAdditionalId))
                         .get(0).sendKeys(inputText);
-                hideSoftKeyboard();
+                ((AndroidDriver)driver).hideKeyboard();
                 break;
             }
             Log.info("This is Index from EditInput "+ parentValueText + " = " + i);
@@ -1338,9 +1304,5 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(loginBtnInLoginPopup));
         Log.info("Click Login Btn in Login Pop up Notification");
         return new LoginPage(driver);
-    }
-
-    public void clickBackDevice(){
-        driver.navigate().back();
     }
 }
