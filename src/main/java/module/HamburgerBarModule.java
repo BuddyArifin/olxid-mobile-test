@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.IklanSayaPage;
 import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
@@ -85,10 +86,11 @@ public class HamburgerBarModule extends BasePage {
     }
 
     @Step("Click Iklan Saya Button")
-    public void clickIklanSayaBtn()
+    public IklanSayaPage clickIklanSayaBtn()
     {
         clickElement(getTextLocator(iklanSayaBtn));
         Log.info("Click Iklan Saya Button");
+        return new IklanSayaPage(driver);
     }
 
     @Step("Click Saldo OLX Button")
