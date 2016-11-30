@@ -82,7 +82,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-        filterPage.clickCancelButtonSearchField();
+        //filterPage.clickCancelButtonSearchField();
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickSearchField();
@@ -100,7 +100,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by input price range")
     @Title("Verify Listing ads sorted by inputted price range")
     @TestCaseId("TC_FILTER_08_007")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyListingAdsSortedByInputtedPriceRange()
     {
     }
@@ -113,7 +113,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-        filterPage.clickCancelButtonSearchField();
+        //filterPage.clickCancelButtonSearchField();
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.inputKeywordSearchField("Jazz");
@@ -128,7 +128,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by new or second condition")
     @Title("Verify Listing ads sorted by selected condition")
     @TestCaseId("TC_FILTER_08_009")
-    @Test(priority = 8, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyListingAdsSortedByConditionColumn()
     {
     }
@@ -148,7 +148,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want be able to see GPS Turn On Confirmations Alert ")
     @Title("Verify User able to get Confirmation Pop up to Turn On GPS")
     @TestCaseId("TC_LISTING_06_015, TC_LISTING_06_017")
-    @Test(priority = 10,enabled = false)
+    @Test(priority = 3,enabled = false)
     public void verifyAlertDisplayWhenGPSOff() {
         mapsFilter.turnOffGPS();
         mapsFilter.verifyGPSAlertDisplay();
@@ -157,7 +157,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a User i want to able choose \"Tolak\" in pop-up Aktivasi GPS")
     @Title("Verify User able to choose \"Tolak\" in Pop-Up Aktivasi GPS")
     @TestCaseId("TC_LISTING_06_016")
-    @Test(priority = 11, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbletoSkipPopUpActivating() {
         mapsFilter.clickGPSCancelBtn();
     }
@@ -165,7 +165,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want be able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
     @Title("Verify User able to choose \"Hidupkan\" in Pop-Up Aktivasi GPS")
     @TestCaseId("TC_LISTING_06_018")
-    @Test(priority = 12, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToChooseAktivasiGPS() {
         mapsFilter.turnOnGPS();
         mapsFilter.verifyAllContentInLocationPage();
@@ -174,11 +174,12 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
     @TestCaseId("TC_FILTER_08_012")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
     {   filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
         mapsFilter = filterPage.clickLocationButton();
+        mapsFilter.verifyAllContentInLocationPage();
         mapsFilter.inputKeywordInSearchFields("Menara");
         mapsFilter.clickSearchField();
         mapsFilter.verifySuggestions();
@@ -188,7 +189,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able select location")
     @Title("Verify Listing ads sorted by selected suggestion location")
     @TestCaseId("TC_FILTER_08_013")
-    @Test(priority = 14,enabled = false)
+    @Test(priority = 3,enabled = false)
     public void verifyUserAbleToSelectLocationSuggestion()
     {
         filterPage.initialFilterTest();
@@ -204,6 +205,7 @@ public class FilterTest extends AndroidSetup{
     {   filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
         mapsFilter = filterPage.clickLocationButton();
+        mapsFilter.verifyAllContentInLocationPage();
         mapsFilter.inputKeywordInSearchFields("Menara");
         mapsFilter.clickSearchField();
         mapsFilter.verifySuggestions();
@@ -216,13 +218,13 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to see sub-category option")
     @Title("Verify System display sub-category option")
     @TestCaseId("TC_FILTER_08_020")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifyCategoryElementAppear()
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickCancelButtonSearchField();
+       // filterPage.inputKeywordSearchField("Jazz");
+       // filterPage.clickCancelButtonSearchField();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickChooseCategoryField();
     }
@@ -235,8 +237,8 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickCancelButtonSearchField();
+        //filterPage.inputKeywordSearchField("Jazz");
+        //filterPage.clickCancelButtonSearchField();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickChooseCategoryField();
         filterPage.clickMobilBekasHondaCategory();

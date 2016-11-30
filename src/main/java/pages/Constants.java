@@ -6,10 +6,10 @@ public class Constants {
   public static final String UNICODE_APP = "io.appium.android.ime";
   public static String screenshotsDir="Screenshots/";
   public static String apkDir="Resources/";
-//  public static String apkDir="/Applications/Dropbox/ptTokobagus";
+ // public static String apkDir="/Applications/Dropbox/ptTokobagus";
   public static String hubIP="http://localhost:4444/wd/hub";
-  public static String hubIPJenkins="http://172.16.80.72:9999/wd/hub";
-  public static String apkName="app-release-7.0.0.224.apk";
+  public static String hubIPJenkins="http://172.16.80.72:4444/wd/hub";
+  public static String apkName="app-release-7.0.0.230.apk";
 
   // Request Sinon
   public static final String GET = "GET";

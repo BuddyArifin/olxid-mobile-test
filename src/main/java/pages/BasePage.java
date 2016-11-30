@@ -192,6 +192,8 @@ public class BasePage  {
         AndroidDriver driver = (AndroidDriver) this.driver;
         if (!driver.isAppInstalled(Constants.UNICODE_APP)) {
             hideSoftKeyboard();
+            //WaitFor(1);
+            //driver.navigate().back();
         }
     }
 
@@ -555,6 +557,7 @@ public class BasePage  {
     }
 
     public boolean checkTutorialsColors(By by) {
+        WaitFor(3);
         setExpectedColor(by); // captured IMG only first time install
         BufferedImage bufferedImage = getSpesificScreenshot(by);
 
