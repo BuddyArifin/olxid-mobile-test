@@ -170,27 +170,32 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able change password")
     @Title("Verify user able to change password")
     @TestCaseId("TC_PROFIL_13_009, TC_PROFIL_13_011, TC_PROFIL_13_012, TC_PROFIL_13_016, TC_PROFIL_13_017, TC_PROFIL_13_018, TC_PROFIL_13_019, TC_PROFIL_13_020, TC_PROFIL_13_022")
-    @Test(priority = 4, enabled = false)
+    @Test(priority = 4)
     public void verifyUserAbleToChangePassword() {
-
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();
         loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.clickDisiniLogin();
         loginPage.verifyContentsOfLoginPage();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("test.conf1a@gmail.com");
-        loginWithOlxModule.inputPassword("confluence12345");
+        loginWithOlxModule.inputEmailForChangePass();
+        loginWithOlxModule.inputPasswordForChangePass();
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();
         profilSayaModule.verifyGantiPasswordButtonProfilSayaPage();
         profilSayaModule.clickUbahPasswordBtnProfilSayaPage();
         profilSayaModule.verifyAllContentInGantiPasswordPage();
-        profilSayaModule.inputOldPassword("confluence12345");
-        profilSayaModule.inputNewPassword("confluence1234");
-        profilSayaModule.inputKonfirmPassword("confluence1234");
+        profilSayaModule.inputSuccesOldPass();
+        profilSayaModule.inputSuccessNewPass();
         profilSayaModule.clickSimpanPasswordButton();
         profilSayaModule.clickTutupAlertSuccess();
+        loginPage = profilSayaModule.setNewPassToOldPass();
+        loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.inputEmailForChangePass();
+        loginWithOlxModule.inputPasswordForChangePass();
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        listingPage = loginWithOlxModule.verifyListingPage();
+        listingPage.verifyContentsOfListingPage();
     }
 }

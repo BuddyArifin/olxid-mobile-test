@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -11,9 +12,9 @@ import pages.*;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by itintern on 10/3/16.
@@ -74,6 +75,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
     public static final String loginPopupNotif = "com.app.tokobagus.betterb:id/md_content";
     public static final String loginBtnInLoginPopup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String propname = "changepass.properties";
 
     @AndroidFindBys({
             @AndroidFindBy(id = chkBoxTampilkanPassword)
@@ -454,6 +456,100 @@ public class ProfilSayaModule extends BasePage{
     public LoginPage clickLoginBtnInLoginPopup(){
         clickElement(getIdLocator(loginBtnInLoginPopup));
         Log.info("Click Login Btn in Login Pop up Notification");
+        return new LoginPage(driver);
+    }
+
+    private void passwordGen(){
+        RandomStringUtils random = new RandomStringUtils();
+        String newpass = random.randomAlphanumeric(8);
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileIn = null;
+        FileOutputStream fileOut = null;
+        try {
+            fileIn = new FileInputStream(file);
+            properties.load(fileIn);
+            properties.setProperty("newPassword", newpass);
+            fileOut = new FileOutputStream(propname);
+            properties.store(fileOut, null);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void inputSuccesOldPass(){
+        passwordGen();
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileIn = null;
+        String oldpass = "";
+        try {
+            fileIn = new FileInputStream(file);
+            properties.load(fileIn);
+            oldpass = properties.getProperty("oldPassword");
+            sendKeysById(getIdLocator(passwordLamaField), oldpass);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileIn.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void inputSuccessNewPass(){
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileIn = null;
+        String newpass = "";
+        try {
+            fileIn = new FileInputStream(file);
+            properties.load(fileIn);
+            newpass = properties.getProperty("newPassword");
+            Log.info("newpass : "+newpass);
+            sendKeysById(getIdLocator(passwordBaruField), newpass);
+            sendKeysById(getIdLocator(passwordKonfirmField), newpass);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileIn.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public LoginPage setNewPassToOldPass(){
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileInputStream = null;
+        String newpass = "";
+        FileOutputStream fileOut = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            properties.load(fileInputStream);
+            newpass = properties.getProperty("newPassword");
+            properties.setProperty("oldPassword", newpass);
+            fileOut = new FileOutputStream(propname);
+            properties.store(fileOut, null);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return new LoginPage(driver);
     }
 }

@@ -8,6 +8,11 @@ import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * Created by buddyarifin on 8/5/16.
  */
@@ -36,6 +41,7 @@ public class LoginWithOlxModule extends BasePage {
     public static String forgotPassSuccessNotifTutup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static String unregisteredEmailErrorText = "Email belum terdaftar di OLX";
     public static String blankEmailForgotPassErrorText = "Email harus diisi";
+    public static final String propname = "changepass.properties";
 
     public LoginWithOlxModule(WebDriver driver) {
         super(driver);
@@ -232,6 +238,52 @@ public class LoginWithOlxModule extends BasePage {
             Assert.assertTrue(true, "Already on Login OLX");
         } else if (isElementPresent(getIdLocator(kirimBtnForgotPass))) {
             driver.navigate().back();
+        }
+    }
+
+    /** This method is applicable for Change Password case */
+    public void inputEmailForChangePass(){
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileInputStream = null;
+        String email = "";
+        try {
+            fileInputStream = new FileInputStream(file);
+            properties.load(fileInputStream);
+            email = properties.getProperty("email");
+            verifyEmailField();
+            sendKeysById(getIdLocator(emailField), email);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void inputPasswordForChangePass(){
+        Properties properties = new Properties();
+        File file = new File(propname);
+        FileInputStream fileInputStream = null;
+        String oldpass = "";
+        try {
+            fileInputStream = new FileInputStream(file);
+            properties.load(fileInputStream);
+            oldpass = properties.getProperty("oldPassword");
+            clickElement(getIdLocator(showHiddenPass));
+            sendKeysById(getIdLocator(passField), oldpass);
+            clickElement(getIdLocator(showHiddenPass));
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
