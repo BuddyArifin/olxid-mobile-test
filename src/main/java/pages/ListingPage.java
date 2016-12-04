@@ -195,7 +195,7 @@ public class ListingPage extends BasePage{
     public void verifySuggestionList()
     {
         Log.info("Verify Suggestion List after tapping keyword");
-        isWaitElementPresent(getIdLocator(suggesstionSemuaDiKategory));
+//        isWaitElementPresent(getIdLocator(suggesstionSemuaDiKategory));
         Assert.assertTrue(isListElementPresent(suggestList));
     }
 
@@ -209,6 +209,7 @@ public class ListingPage extends BasePage{
     public void clickSearchBtnPrm()
     {
         Log.info("Click Search Button");
+        isWaitElementPresent(getIdLocator(searchBtnPrmID));
         clickElement(getIdLocator(searchBtnPrmID));
     }
 

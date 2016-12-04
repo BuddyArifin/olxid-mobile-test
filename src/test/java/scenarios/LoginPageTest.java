@@ -21,7 +21,7 @@ public class LoginPageTest extends AndroidSetup {
     @Stories("As a User I want to be able to see Boarding Contents")
     @Title("Verify users able to see all contents on Boarding Sliders")
     @TestCaseId("TC_HOME_01_001, TC_HOME_01_002")
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "smoke.test")
     public void verifyOnBoardingSlidersContents() {
         loginPage = new LoginPage(driver);
         loginPage.verifyContentsOfOnBoardingSlidersPage();
@@ -46,7 +46,7 @@ public class LoginPageTest extends AndroidSetup {
     @Stories("As A User I Want to skip Login Process")
     @Title("Verify User Able to Skip Login Process and redirect to Listing Page")
     @TestCaseId("TC_HOME_01_010")
-    @Test(priority = 4)
+    @Test(priority = 4, groups = "smoke.test")
     public void userAbleToSkipLogin() {
         loginPage.skipLogin();
     }

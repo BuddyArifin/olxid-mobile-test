@@ -482,6 +482,23 @@ public class BasePage  {
         }
     }
 
+    public Boolean isWaitListElementPresent(final AndroidElement element) {
+        try{
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(10, TimeUnit.SECONDS)
+                    .pollingEvery(5, TimeUnit.SECONDS)
+                    .ignoring(NoSuchElementException.class);
+            return wait.until(new Function<WebDriver, Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    return element.isDisplayed();
+                }
+            });
+        }catch (WebDriverException e){
+            return false;
+        }
+    }
+
     public Boolean waitForVisibility(final By locator){
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(20, TimeUnit.SECONDS)

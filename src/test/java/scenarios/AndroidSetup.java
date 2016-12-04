@@ -26,6 +26,7 @@ public class AndroidSetup extends InstanceDriver {
 
     public NetClient net;
     public BasePage basePage;
+    private JsonObject jsonObject;
 
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
@@ -46,7 +47,7 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("fullReset", false);
 
         //No Keyboard Layout
-        capabilities.setCapability("unicodeKeyboard", "false");
+        capabilities.setCapability("unicodeKeyboard", "true");
         capabilities.setCapability("locationContextEnabled", "true");
         capabilities.setCapability("deviceReadyTimeout", 100);
 
@@ -71,14 +72,14 @@ public class AndroidSetup extends InstanceDriver {
     }
 
     @Parameters({"udid"})
-    @BeforeClass
+    @BeforeClass(groups = "smoke.test")
     public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
         prepareAndroidForAppium(udid);
         ctx.setAttribute("WebDriver", this.driver);
         checkEligibleRun();
     }
 
-    @AfterClass
+    @AfterClass(groups = "smoke.test")
     public void tearDown() throws Exception {
         driver.quit();
     }
