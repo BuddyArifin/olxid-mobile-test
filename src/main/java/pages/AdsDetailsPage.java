@@ -89,11 +89,11 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyShareBtn(){
         Log.info("Verify Share Button display");
-        Assert.assertTrue(isElementPresent(getIdLocator(sharedBtn)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(sharedBtn)));
     }
     public void verifyLebihLanjut(){
         Log.info("Verify Lebih Lanjut Button display");
-        Assert.assertTrue(isElementPresent(getIdLocator(lebihLanjutBtn)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(lebihLanjutBtn)));
     }
     public void verifyTutupBtn(){
         Log.info("Verify Tutup Button display");
@@ -105,7 +105,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyPhotoAds(){
         Log.info("Verify Ads Photo display");
-        Assert.assertTrue(isElementPresent(getIdLocator(photoAds)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(photoAds)));
     }
     public void verifyPriceAds(){
         Log.info("Verify Price Ads display");
@@ -153,7 +153,6 @@ public class AdsDetailsPage extends BasePage {
         if (displayed) {
             Assert.assertTrue(true);
             clickElement(getIdLocator(moreInfoBtn));
-            Assert.assertTrue(isElementPresent(getIdLocator(descriptionsAds)));
         }
 
     }
@@ -339,22 +338,22 @@ public class AdsDetailsPage extends BasePage {
         }
     }
 
-    public void clickBackButton() {
+    public void clickBackFromAdsDetails() {
         clickElement(getContentLocator(backBtn));
     }
 
     public void initAdsDetailsTest() {
         Log.info("Back to initiate Ads Details Page");
         ListingPage listing = new ListingPage(driver);
-        if(isElementPresent(getContentLocator(backBtn))){
-            clickBackButton();
+        if(isElementPresent(getIdLocator(sharedBtn))){
+            clickBackFromAdsDetails();
             isWaitElementPresent(getIdLocator(listing.homeBtnBtmID));
             listing.selectAdsFromListing();
-            isWaitElementPresent(getContentLocator(backBtn));
+            isWaitElementPresent(getIdLocator(favoriteBtn));
         } else if (isWaitElementPresent(getIdLocator(listing.homeBtnBtmID))) {
             Assert.assertTrue(true, "Already in Listing Page");
             listing.selectAdsFromListing();
-            isWaitElementPresent(getContentLocator(backBtn));
+            isWaitElementPresent(getIdLocator(favoriteBtn));
         }
     }
 

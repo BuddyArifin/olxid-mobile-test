@@ -141,7 +141,7 @@ public class IklanSayaTest extends AndroidSetup {
         iklanSayaPage.clickActivePanel();
         adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
-        adsDetailsPage.clickBackButton();
+        adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.verifyAllContentInIklanSayaPage();
     }
 
