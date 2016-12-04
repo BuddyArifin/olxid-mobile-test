@@ -25,4 +25,8 @@ public class Constants {
 //  public static final String appActivity = "sea.olxsulley.entrance.presentation.OlxIdEntranceActivity";
   public static final String appActivity = "sea.olxsulley.OlxIdMainActivity";
 
+  // List Hub
+  public static String hubIPEmu="http://172.16.80.72:9999/wd/hub";
+  public static String hubIPDevices="http://172.16.80.72:4444/wd/hub";
+
 }

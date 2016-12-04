@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile OLXID" verbose="3">
-    <suite-files>
-        <!--<suite-file path="testng3.xml" />-->
-        <suite-file path="testng2.xml" />
-    </suite-files>
+<suite name="Mobile OLXID" verbose="2" parallel="tests" thread-count="2">
+    <test name="Ads Details OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsTest"/>
+        </classes>
+    </test>
+    <test name="Google Login Sulley OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.LoginGplusTest"/>
+        </classes>
+    </test>
+    <test name="Filter OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.FilterTest"/>
+        </classes>
+    </test>
+    <test name="Saldo OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.SaldoOlxTest"/>
+        </classes>
+    </test>
+    <test name="Post Ads OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.PostAdsTest"/>
+        </classes>
+    </test>
+    <test name="Listing OLXID [DEVICES]" preserve-order="false">
+        <classes>
+            <class name="scenarios.ListingTest"/>
+        </classes>
+    </test>
+    <test name="Home Page OLXID [AVD]" preserve-order="false">
+        <classes>
+            <class name="scenarios.LoginPageTest"/>
+        </classes>
+    </test>
+    <test name="Login with OLX Account OLXID [AVD]" preserve-order="false">
+        <classes>
+            <class name="scenarios.LoginOLXTest"/>
+        </classes>
+    </test>
+    <test name="Category View Sulley OLXID [AVD]" preserve-order="false">
+        <classes>
+            <class name="scenarios.CategoryViewTest"/>
+        </classes>
+    </test>
+    <test name="Iklan Saya Sulley OLXID [AVD]" preserve-order="false">
+        <classes>
+            <class name="scenarios.IklanSayaTest"/>
+        </classes>
+    </test>
+    <!--<test name="Profile Saya Sulley OLXID" preserve-order="false">-->
+    <!--<classes>-->
+    <!--<class name="scenarios.ProfilSayaTest"/>-->
+    <!--</classes>-->
+    <!--</test>-->
 </suite>

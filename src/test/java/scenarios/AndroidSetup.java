@@ -24,10 +24,6 @@ import java.net.URL;
 
 public class AndroidSetup extends InstanceDriver {
 
-    public NetClient net;
-    public BasePage basePage;
-    private JsonObject jsonObject;
-
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
         File app = new File(appDir, Constants.apkName);
@@ -74,6 +70,7 @@ public class AndroidSetup extends InstanceDriver {
     @Parameters({"udid"})
     @BeforeClass
     public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
+        udid = setHub(ctx);
         prepareAndroidForAppium(udid);
         ctx.setAttribute("WebDriver", this.driver);
         checkEligibleRun();
@@ -82,27 +79,5 @@ public class AndroidSetup extends InstanceDriver {
     @AfterClass
     public void tearDown() throws Exception {
         driver.quit();
-    }
-
-    @DataProvider(name = "testDataProvider")
-    public Object[][] getData(Method m) {
-        String testname = m.getName() + ".json";
-        File jsonFileDir = new File("src/test/resources/goldendata/");
-        File jsonfile = new File(jsonFileDir, testname);
-        jsonObject = convertFiletoJson(jsonfile.getAbsoluteFile());
-        return new Object[][]{{jsonObject}};
-    }
-
-    public JsonObject convertFiletoJson(File file) {
-        jsonObject = new JsonObject();
-        try{
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(new FileReader(file));
-            jsonObject = jsonElement.getAsJsonObject();
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.info("Warning : File not found");
-        }
-        return jsonObject;
     }
 }

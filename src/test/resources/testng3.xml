@@ -5,7 +5,7 @@
     <!--<listeners>-->
         <!--<listener class-name="listeners.RetryListeners" />-->
     <!--</listeners>-->
-    
+
     <test name="Home Page OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.LoginPageTest"/>
@@ -19,6 +19,11 @@
     <test name="Category View Sulley OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.CategoryViewTest"/>
+        </classes>
+    </test>
+    <test name="Iklan Saya Sulley OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.IklanSayaTest"/>
         </classes>
     </test>
     <!--<test name="Profile Saya Sulley OLXID" preserve-order="false">-->
