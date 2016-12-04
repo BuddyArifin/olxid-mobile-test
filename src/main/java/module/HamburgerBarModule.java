@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.IklanSayaPage;
 import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
@@ -25,6 +26,7 @@ public class HamburgerBarModule extends BasePage {
     public static final String hamburgerBarLayout = "com.app.tokobagus.betterb:id/left_drawer";
     public static final String headerContentLogoOlx = "header-fix-view";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
+    public static final String klikDisiniLogin = "com.app.tokobagus.betterb:id/sidemenu_tvAvatarStatus";
 
     public HamburgerBarModule(WebDriver driver)
     {
@@ -84,10 +86,11 @@ public class HamburgerBarModule extends BasePage {
     }
 
     @Step("Click Iklan Saya Button")
-    public void clickIklanSayaBtn()
+    public IklanSayaPage clickIklanSayaBtn()
     {
         clickElement(getTextLocator(iklanSayaBtn));
         Log.info("Click Iklan Saya Button");
+        return new IklanSayaPage(driver);
     }
 
     @Step("Click Saldo OLX Button")
@@ -130,5 +133,18 @@ public class HamburgerBarModule extends BasePage {
     public void verifyTentangOlxContent() {
         Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
         driver.navigate().back();
+    }
+
+    public boolean isHamburgerBar(){
+        return isWaitElementPresent(getIdLocator(hamburgerBarLayout));
+    }
+
+    public void clickDisiniLogin(){
+        clickElement(getIdLocator(klikDisiniLogin));
+        Log.info("Click Login Disini");
+    }
+
+    public void clickOkAlert() {
+        closeAlertKonf();
     }
 }

@@ -1,5 +1,6 @@
 package module;
 
+import com.thoughtworks.selenium.Wait;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import pages.FilterPage;
 import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
@@ -138,13 +140,10 @@ public class FilterByMapsLocationModule extends BasePage {
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentInLocationPage()
     {
-//        verifyBackBtn();
         isWaitElementPresent(getIdLocator(sliderRadius));
         dismissTutorial();
         verifySearchField();
         verifyMyCurrentLocationBtn();
-//        verifyCancelChooseBtn();
-//        verifyGoogleBaloon();
         verifyCurrentLocationAddress();
         verifyJarakIklanTitle();
         verifySliderRadius();
@@ -162,6 +161,7 @@ public class FilterByMapsLocationModule extends BasePage {
         Assert.assertTrue(isListElementPresent(suggestionAddressList));
         Log.debug("User choose : "+suggestionFoundList.get(index).getText());
         suggestionFoundList.get(index).click();
+        WaitFor(1);
     }
 
     public void inputKeywordInSearchFields(String input)
@@ -292,6 +292,16 @@ public class FilterByMapsLocationModule extends BasePage {
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
             Log.info("Dismiss This Tutorial");
         }
+    }
+
+    public FilterPage clickBackButtonFromMaps(){
+        Log.info("Click Back Button From Filter Maps");
+        clickElement(getIdLocator(backBtn));
+        return new FilterPage(driver);
+    }
+
+    public boolean isMapsFilterPage(){
+      return isWaitElementPresent(getIdLocator(searchField));
     }
 
     public void clickTutorialBala()

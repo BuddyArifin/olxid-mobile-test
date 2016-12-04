@@ -25,9 +25,9 @@ import java.net.URL;
 public class AndroidSetup extends InstanceDriver {
 
     public NetClient net;
-    public JsonObject jsonObject;
     public BasePage basePage;
-    
+    private JsonObject jsonObject;
+
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
         File appDir = new File(Constants.apkDir);
         File app = new File(appDir, Constants.apkName);
@@ -44,10 +44,10 @@ public class AndroidSetup extends InstanceDriver {
         
         //No Reset Apps
         capabilities.setCapability("noReset", false);
-        capabilities.setCapability("fullReset", true);
+        capabilities.setCapability("fullReset", false);
 
         //No Keyboard Layout
-        capabilities.setCapability("unicodeKeyboard", "true");
+        capabilities.setCapability("unicodeKeyboard", "false");
         capabilities.setCapability("locationContextEnabled", "true");
         capabilities.setCapability("deviceReadyTimeout", 100);
 

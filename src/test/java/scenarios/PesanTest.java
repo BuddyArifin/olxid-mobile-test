@@ -2,8 +2,10 @@ package scenarios;
 
 import listeners.ScreenshootsListener;
 import module.HamburgerBarModule;
+import module.LoginWithOlxModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pages.ListingPage;
 import pages.LoginPage;
 import pages.PesanPage;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -19,42 +21,63 @@ import ru.yandex.qatools.allure.annotations.Title;
 public class PesanTest extends AndroidSetup {
     PesanPage pesanPage;
     LoginPage loginPage;
+    LoginWithOlxModule loginWithOlxModule;
+    ListingPage listingPage;
     HamburgerBarModule hamburgerBarModule;
+
+    @Stories("As a user I can't access Pesan page if not logged in")
+    @Title("Verify user can't access Pesan page if not logged in")
+    @TestCaseId("")
+    @Test(priority = 1, enabled = false)
+    public void verifyUserCantAccessPesan(){
+        loginPage = new LoginPage(driver);
+        listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
+        listingPage.verifyContentsOfListingPage();
+        //pesanPage = listingPage.clickPesanBtnBtm();
+        pesanPage.verifyLoginAlertDisplayed();
+    }
 
     @Stories("As a user I want to be able to see Pesan layout contents")
     @Title("Verify system able to display all contents in Pesan")
     @TestCaseId("TC_PESAN_10_001, TC_PESAN_10_002")
-    @Test(priority = 1, enabled = false)
+    @Test(priority = 2, enabled = false)
     public void verifyContentDisplayPesanPage(){
-        loginPage = new LoginPage(driver);
-
+        pesanPage.clickLoginOnLoginAlert();
+        loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.inputEmail("olxtester@gmail.com");
+        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        pesanPage.verifyContentPesanPage();
+        pesanPage.clickBeliTab();
+        pesanPage.verifyContentPesanPage();
+        pesanPage.clickOlxTab();
         pesanPage.verifyContentPesanPage();
     }
 
     @Stories("As a user I want to be able to see messages under Jual tab")
     @Title("Verify system able to display all Pesan contents under Jual tab")
     @TestCaseId("TC_PESAN_10_003")
-    @Test(priority = 2, enabled = false)
+    @Test(priority = 3)
     public void verifyMessageJual(){
-        pesanPage.clickPesanBottomMenu();
+        pesanPage.clickJualTab();
         pesanPage.verifyMessageJual();
     }
 
     @Stories("As a user I want to be able to see messages under Beli tab")
     @Title("Verify system able to display all Pesan contents under Beli tab")
     @TestCaseId("TC_PESAN_10_004")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 4)
     public void verifyMessageBeli(){
-        pesanPage.clickPesanBottomMenu();
+        pesanPage.clickBeliTab();
         pesanPage.verifyMessageBeli();
     }
 
     @Stories("As a user I want to be able to see messages under OLX tab")
     @Title("Verify system able to display all Pesan contents under OLX tab")
     @TestCaseId("TC_PESAN_10_005")
-    @Test(priority = 4, enabled = false)
+    @Test(priority = 5)
     public void verifyMessageOlx(){
-        pesanPage.clickPesanBottomMenu();
+        pesanPage.clickOlxTab();
         pesanPage.verifyMessageOlx();
     }
 

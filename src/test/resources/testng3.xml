@@ -6,7 +6,6 @@
         <!--<listener class-name="listeners.RetryListeners" />-->
     <!--</listeners>-->
     
-    <parameter name="udid" value="http://172.16.80.72:9999/wd/hub" />
     <test name="Home Page OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.LoginPageTest"/>

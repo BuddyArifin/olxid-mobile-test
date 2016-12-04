@@ -14,6 +14,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
+import static pages.AdsDetailsPage.titleAds;
 
 /**
  * Created by buddyarifin on 8/24/16.
@@ -51,6 +52,8 @@ public class ListingPage extends BasePage{
     public static final String disagreeButton = "android:id/button2";
     public boolean isClickedBy;
     public boolean lalala;
+    public static final String filterTitle = "Filter";
+    public static final String jarakMaks = "com.app.tokobagus.betterb:id/tvMaxDistanceTitle";
 
     public ListingPage(WebDriver driver) {
         super(driver);
@@ -338,6 +341,35 @@ public class ListingPage extends BasePage{
             clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
             clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
             clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
+        }
+    }
+
+    public boolean isListingButton(){
+        return isWaitElementPresent(getIdLocator(homeBtnBtmID));
+    }
+
+    public void clickBackDevice(){ driver.navigate().back(); }
+
+    public void clickFavoritBtmBtn(){ clickElement(getIdLocator(favoritBtnBtmId));}
+
+    public boolean isOnFilterPage(){ return isWaitElementPresent(getTextLocator(filterTitle));}
+
+    public boolean isOnSearchPosition(){ return isWaitElementPresent(getIdLocator(searchByKeyword));}
+
+    public void clickBackOnSearchAndMaps(){ clickElement(getIdLocator(backBtnSearchKeyword));}
+
+    public boolean isOnMapsPage(){ return isWaitElementPresent(getIdLocator(jarakMaks));}
+
+    public void initialListingPage(){
+        HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
+        if(isListingButton()){
+            Assert.assertTrue(true, "Already in Listing Page");
+        }else if(hamburgerBarModule.isHamburgerBar()){
+            clickFavoritBtmBtn();
+        }else if(isOnFilterPage()){
+            clickBackDevice();
+        }else if(isOnSearchPosition() || isOnMapsPage()){
+            clickBackOnSearchAndMaps();
         }
     }
 }

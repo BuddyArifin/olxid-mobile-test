@@ -192,6 +192,8 @@ public class BasePage  {
         AndroidDriver driver = (AndroidDriver) this.driver;
         if (!driver.isAppInstalled(Constants.UNICODE_APP)) {
             hideSoftKeyboard();
+            //WaitFor(1);
+            //driver.navigate().back();
         }
     }
 
@@ -463,17 +465,21 @@ public class BasePage  {
 
 
     public Boolean isElementPresentAfterScrollUp(final By locator) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(10, TimeUnit.SECONDS)
-                .pollingEvery(5, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                swipePageTopToBtm();
-                return driver.findElement(locator).isDisplayed();
-            }
-        });
+        try{
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(10, TimeUnit.SECONDS)
+                    .pollingEvery(5, TimeUnit.SECONDS)
+                    .ignoring(NoSuchElementException.class);
+            return wait.until(new Function<WebDriver, Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    swipePageTopToBtm();
+                    return driver.findElement(locator).isDisplayed();
+                }
+            });
+        }catch (WebDriverException e){
+            return false;
+        }
     }
 
     public Boolean waitForVisibility(final By locator){
@@ -551,6 +557,7 @@ public class BasePage  {
     }
 
     public boolean checkTutorialsColors(By by) {
+        WaitFor(3);
         setExpectedColor(by); // captured IMG only first time install
         BufferedImage bufferedImage = getSpesificScreenshot(by);
 

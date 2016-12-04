@@ -41,8 +41,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to SHARE Ads")
     @Title("Verify User able to SHARE their Ads")
     @TestCaseId("TC_AdDetails_09_002")
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifyUserAbleToShareAds() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickShareBtn();
         adsDetailsPage.verifyShare();
         adsDetailsPage.verifyShareBtn();
@@ -53,6 +55,8 @@ public class AdsDetailsTest extends AndroidSetup {
     @TestCaseId("TC_AdDetails_09_003")
     @Test(priority = 3, enabled = false)
     public void verifyUserAbleToAccessTipsTransaksi() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickInfoLebihLanjut();
         // needs to verify tips
     }
@@ -60,8 +64,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to add Ads to Favorite")
     @Title("Verify User able to add Ads to Favorite")
     @TestCaseId("TC_AdDetails_09_005")
-    @Test(priority = 4)
+    @Test(priority = 3)
     public void verifyUserAbleToAddAdsToFavorite() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickFavoriteBtn();
         // needs to verify share options
     }
@@ -69,8 +75,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @Title("Verify User able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @TestCaseId("TC_AdDetails_09_008")
-    @Test(priority = 6)
+    @Test(priority = 3)
     public void verifyUserAbleGoToRelatedAdsAndTestimoni() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickLihatIklanAndTestimoni();
         // needs to verify lihat page
     }
@@ -78,8 +86,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to find Location Ads with Maps")
     @Title("Verify User able to find Location Ads with Maps")
     @TestCaseId("TC_AdDetails_09_009")
-    @Test(priority = 7, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToFindAdsLocations() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickAdsLocations();
         // needs to verify Locations Page
     }
@@ -87,8 +97,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to give feedback by \"Laporkan Iklan\" Option")
     @Title("Verify User able to give feedback by \"Laporkan Iklan\" Option")
     @TestCaseId("TC_AdDetails_09_010")
-    @Test(priority = 8, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToLaporkanIklan() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickLaporkanIklan();
         // needs to verify redirections
     }
@@ -96,8 +108,10 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")
     @Title("Verify User abel to Hubungi Penjual")
     @TestCaseId("TC_AdDetails_09_011")
-    @Test(priority = 9, enabled = false)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleToHubungiPenjual() {
+        adsDetailsPage = new AdsDetailsPage(driver);
+        adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickHubugiPenjual();
         // needs to verify redirections
     }

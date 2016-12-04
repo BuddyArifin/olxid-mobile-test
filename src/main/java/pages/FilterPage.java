@@ -157,6 +157,30 @@ public class FilterPage extends BasePage {
     })
     protected List<AndroidElement> textViewCheckBoxTitle;
 
+    public void initialFilterTest(){
+        Log.info("Back to Initial Filter Test");
+        ListingPage listing = new ListingPage(driver);
+        FilterPage.MapsFilter mapsFilter = new MapsFilter(driver);
+        if (listing.isListingButton()){
+            Assert.assertTrue(true,"Already in Home Screen");
+        }else{
+            if (isFilterPage()){
+                clickElement(getContentLocator(backBtn));
+            }else if (mapsFilter.isMapsFilterPage()) {
+                mapsFilter.clickBackButtonFromMaps();
+                clickElement(getContentLocator(backBtn));
+            }
+             else{
+                Assert.assertTrue(true,"Already in Home Screen");
+            }
+        }
+
+    }
+
+    public boolean isFilterPage(){
+        return isWaitElementPresent(getContentLocator(backBtn));
+    }
+
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentOfFilterPage() {
         verifyBackButton();
@@ -291,6 +315,7 @@ public class FilterPage extends BasePage {
     public void clickCancelButtonSearchField() {
         Log.info("Click Cancel Button in Search Field");
         clickElement(getIdLocator(cancelBtn));
+        //Assert.assertTrue(true,"Always True Ya");
     }
 
     public void clickMinimumPrice() {
@@ -426,7 +451,7 @@ public class FilterPage extends BasePage {
     /**
      * Adopt method from BasePage
      */
-    public Boolean isElementPresentAfterScroll(String locator) {
+    public Boolean isElementPresentAfterScroll(final String locator) {
         String classname;
         if (isOldVersionDevices) {
             classname = "android.widget.LinearLayout";
@@ -603,5 +628,6 @@ public class FilterPage extends BasePage {
             clickElement(getIdLocator(cariDiLokasiIniBtn));
             return new FilterPage(driver);
         }
+
     }
 }

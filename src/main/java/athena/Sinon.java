@@ -2,8 +2,11 @@ package athena;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.Response;
 import org.testng.annotations.Test;
 import pages.Constants;
+
 import java.io.IOException;
 
 /**
@@ -11,59 +14,6 @@ import java.io.IOException;
  */
 
 public class Sinon {
-    protected Request request;
-    protected String response;
-    public JsonObject data;
-
-    public Sinon() {
-        data = createUserWithoutOauthPassword();
-    }
-
-    public JsonObject createUserWithoutOauthPassword() {
-            request = new Request();
-            response = request.openConnection(Constants.base_uri +
-                    "trojan/createuserwithoauthcredentials/", Constants.GET).build();
-        return new JsonParser().parse(response).getAsJsonObject();
-    }
-
-    public JsonObject getCategory() {
-        request = new Request();
-        response = request.openConnection(Constants.base_uri + "trojan/allcategories/", Constants.GET)
-                .setHeaders("authorization", "Bearer "+getAccessToken()).build();
-        return new JsonParser().parse(response).getAsJsonObject();
-    }
-
-    public JsonObject createAds() {
-        request = new Request();
-        response = request.openConnection(Constants.base_uri + "trojan/createactivead/", Constants.POST)
-                .setHeaders("authorization", "Bearer "+getAccessToken()).build();
-        return new JsonParser().parse(response).getAsJsonObject();
-    }
-
-    public JsonObject getUser() {
-        return data.getAsJsonObject("user");
-    }
-
-    public JsonObject getTokensJson() {
-        return data.getAsJsonObject("oauth").getAsJsonObject("tokens");
-    }
-
-    public String getUsernameAsEmail() {
-        return getUser().get("email").getAsString();
-    }
-
-    public String getPassword() {
-        return getUser().get("password").getAsString();
-    }
-
-    public int getUserID() {
-        return getUser().get("id").getAsInt();
-    }
-
-    public String getAccessToken() {
-        return getTokensJson().get("access_token").getAsString();
-    }
-
     /**
      * Needed Operation
      * 1. Create Active Ads √
@@ -74,32 +24,72 @@ public class Sinon {
      * 6. Create Active Ads with Params
      * */
 
+     //Refactor
+    public Sinon(){}
 
-    @Test
-    public void testUsers() throws IOException{
-        Sinon so = new Sinon();
-        String text = so.getUser().toString();
-        System.out.println(text);
+    protected Response response;
+    protected RestAssured restAssured;
+
+    public JsonObject getCities(){
+        response = restAssured.given().when().get(Constants.base_uri + "trojan/allcities");
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    }
+
+    public JsonObject getDistricts(){
+        response = restAssured.given().when().get(Constants.base_uri + "trojan/alldistrict");
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    }
+
+    public JsonObject getRegions(){
+        response = restAssured.given().when().get(Constants.base_uri + "trojan/allregions");
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    }
+
+    public JsonObject getCategories(){
+        response = restAssured.given().when().get(Constants.base_uri + "trojan/allcategories");
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    }
+
+    public JsonObject getAdsById(String id){
+        response = restAssured.given().parameter("ad_id",id).when().get(Constants.base_uri + "trojan/adverts");
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    }
+
+    public JsonObject postCreateUserWithPassword(String email){
+        response = restAssured.given().when().
+                post(Constants.base_uri + "trojan/createuserwithpassword/?email="+email);
+        return new JsonParser().parse(response.asString()).getAsJsonObject();
     }
 
     @Test
-    public void testTokens() throws IOException{
-        Sinon so = new Sinon();
-        String text = so.getAccessToken().toString();
-        System.out.println(text);
+    public void testGetCities() throws IOException{
+        Sinon sinon = new Sinon();
+        System.out.println(sinon.getCities().toString());
     }
 
     @Test
-    public void testEmail() throws IOException{
-        Sinon so = new Sinon();
-        String text = so.getUsernameAsEmail().toString();
-        System.out.println(text);
+    public void testGetDistricts() throws IOException{
+        Sinon sinon = new Sinon();
+        System.out.println(sinon.getDistricts().toString());
     }
 
     @Test
-    public void testPass() throws IOException{
-        Sinon so = new Sinon();
-        String text = so.getPassword().toString();
-        System.out.println(text);
+    public void testGetRegions() throws IOException{
+        Sinon sinon = new Sinon();
+        System.out.println(sinon.getRegions().toString());
     }
+
+    @Test
+    public void testGetCategories() throws IOException{
+        Sinon sinon = new Sinon();
+        System.out.println(sinon.getCategories().toString());
+    }
+
+    @Test
+    public void testGetAdsById() throws IOException{
+        Sinon sinon = new Sinon();
+        String id = "1";
+        System.out.println(sinon.getAdsById(id).toString());
+    }
+
 }

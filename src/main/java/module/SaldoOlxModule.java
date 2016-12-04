@@ -349,11 +349,11 @@ public class SaldoOlxModule extends BasePage {
     }
 
     @Override
-    public Boolean isElementPresentAfterScrollDown(By locator){
+    public Boolean isElementPresentAfterScrollDown(final By locator){
         WebElement element = driver.findElement(locator);
         int excludeLocator = element.getSize().getHeight();
-        int startY = driver.manage().window().getSize().getHeight() - excludeLocator;
-        int endY = (int) (driver.manage().window().getSize().getHeight() * 0.04);
+        final int startY = driver.manage().window().getSize().getHeight() - excludeLocator;
+        final int endY = (int) (driver.manage().window().getSize().getHeight() * 0.04);
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(10, TimeUnit.SECONDS)
                 .pollingEvery(5, TimeUnit.SECONDS)
@@ -365,5 +365,27 @@ public class SaldoOlxModule extends BasePage {
                 return driver.findElement(locator).isDisplayed();
             }
         });
+    }
+
+    public HamburgerBarModule initSaldoOlxTest() {
+        Log.info("Back to initiate Saldo Olx Page");
+        if (isElementPresent(getIdLocator(isiUlangSaldoBtn))) {
+            backToHamburgerBar();
+        } else if (isListElementPresent(threePanels)) {
+            clickBackBtn();
+            backToHamburgerBar();
+        } else if (isElementPresent(getTextLocator(topUpTitle))) {
+            clickBackBtn();
+            backToHamburgerBar();
+        } else {
+            Assert.assertTrue(true, "Already on Opened Hamburger Bar");
+        }
+        return new HamburgerBarModule(driver);
+    }
+
+    private void backToHamburgerBar() {
+        HamburgerBarModule hamburgerBar;
+        hamburgerBar = clickBackButton();
+        isWaitElementPresent(getIdLocator(hamburgerBar.avatarSaya));
     }
 }
