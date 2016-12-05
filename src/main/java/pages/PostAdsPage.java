@@ -801,11 +801,10 @@ public class PostAdsPage extends BasePage {
 
     public void verifySuggestionHargaAndInputHarga(String keyword)
     {
-        waitForVisibilityOf(getIdLocator(suggestedPriceField));
-        WebElement element = driver.findElement(getIdLocator(suggestedPriceField));
         List<WebElement> hargaValueAds = driver.findElements(getIdLocator(hargaTextInputLayout));
-        if (element.isDisplayed())//element.getText().contains("Price "))
+        if (isWaitElementPresent(getIdLocator(suggestedPriceField)))//element.getText().contains("Price "))
         {
+            WebElement element = driver.findElement(getIdLocator(suggestedPriceField));
             WebElement element1 = driver.findElement(By.id(hargaBarangEditText));
             suggestionHarga = true;
             suggestedHarga = element.getText();//hargaValueAds.get(0).getText();
