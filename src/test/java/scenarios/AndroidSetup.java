@@ -75,14 +75,14 @@ public class AndroidSetup extends InstanceDriver {
     }
 
     @Parameters({"udid"})
-    @BeforeClass(groups = "smoke.test")
+    @BeforeClass
     public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
         prepareAndroidForAppium(udid);
         ctx.setAttribute("WebDriver", this.driver);
         checkEligibleRun();
     }
 
-    @AfterClass(groups = "smoke.test")
+    @AfterClass
     public void tearDown() throws Exception {
         driver.quit();
     }

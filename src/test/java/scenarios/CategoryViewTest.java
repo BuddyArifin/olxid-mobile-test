@@ -28,7 +28,7 @@ public class CategoryViewTest extends AndroidSetup {
     @Stories("As A User i want be able to See All Contents ")
     @Title("Verify User able to see All of Contents on Kategori View")
     @TestCaseId("TC_PROFILE_14_001, TC_PROFILE_14_001")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void userAbleToSeeAllContentsKategoriViewsPage() {
         LoginPage loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
@@ -61,7 +61,7 @@ public class CategoryViewTest extends AndroidSetup {
     @Stories("As A User I want just able to choose 1 category in Category View")
     @Title("Verify User only able to choose 1 category")
     @TestCaseId("TC_PROFILE_14_005")
-    @Test(priority = 4, groups = "smoke.test")
+    @Test(priority = 4)
     public void userAbleOnlyAbleToChooseOneKategori() {
         category.selectCategory(1);
         listingPage.verifyContentsOfListingPage();

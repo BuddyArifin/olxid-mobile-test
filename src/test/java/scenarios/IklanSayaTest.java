@@ -32,7 +32,7 @@ public class IklanSayaTest extends AndroidSetup {
     @Stories("As A User i want be able to See All Contents of Category Page of \"Iklan Saya\"")
     @Title("Verify User able to See All Contents of \"Iklan Saya\"")
     @TestCaseId("TC_MYADS_15_001")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void verifyAllContentInIklanSayaPage()
     {
         loginPage = new LoginPage(driver);
@@ -112,7 +112,7 @@ public class IklanSayaTest extends AndroidSetup {
     @Stories("As A User I want be able to Scroll the page on each Tab")
     @Title("Verify User able to Scroll page on each Tabs")
     @TestCaseId("TC_MYADS_15_004")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyUserAbleToScrollPageOnEachTabs()
     {
         iklanSayaPage.initIklanSayaPage();
@@ -133,7 +133,7 @@ public class IklanSayaTest extends AndroidSetup {
     @Stories("As a user able to click one of ads in Aktif Panel")
     @Title("Verify user able to click one of ads in Aktif Panel")
     @TestCaseId("TC_MYADS_15_007, TC_MYADS_15_008, TC_MYADS_15_009")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyUserAbleToClickOneAdsInActivePanel()
     {
         iklanSayaPage.initIklanSayaPage();
@@ -148,7 +148,7 @@ public class IklanSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able click \"Non Aktif\" ads")
     @Title("Verify user able to click \"Non Aktif\" ads")
     @TestCaseId("TC_MYADS_15_025, TC_MYADS_15_026, TC_MYADS_15_027")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
         iklanSayaPage.initIklanSayaPage();

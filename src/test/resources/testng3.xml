@@ -7,51 +7,26 @@
     <!--</listeners>-->
     
     <test name="Home Page OLXID" preserve-order="false" enabled="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
         <classes>
             <class name="scenarios.LoginPageTest"/>
         </classes>
     </test>
     <test name="Login with OLX Account OLXID" preserve-order="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
         <classes>
             <class name="scenarios.LoginOLXTest"/>
         </classes>
     </test>
     <test name="Category View Sulley OLXID" preserve-order="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
         <classes>
             <class name="scenarios.CategoryViewTest"/>
         </classes>
     </test>
     <test name="Google Login Sulley OLXID" preserve-order="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
         <classes>
             <class name="scenarios.LoginGplusTest"/>
         </classes>
     </test>
     <test name="Profile Saya Sulley OLXID" preserve-order="false" enabled="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
         <classes>
             <class name="scenarios.ProfilSayaTest"/>
         </classes>

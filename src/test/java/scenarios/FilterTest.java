@@ -25,7 +25,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a User I want See Content in Filter Page")
     @Title("Verify System Display Content in Filter Page")
     @TestCaseId("TC_FILTER_08_002")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void verifyAllContentInFilterPage()
     {
         loginPage = new LoginPage(driver);
@@ -136,7 +136,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyUserRedirectToDetailLocationPage()
     {
         filterPage.initialFilterTest();
@@ -255,7 +255,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able select sub-category Mobil Semua Di Mobil")
     @Title("Verify Listing ads sorted by selected sub-category Mobil Semua Di Mobil")
     @TestCaseId("TC_FILTER_08_022")
-    @Test(priority = 3 ,groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyListingAdsSortedBySelectedSubCategoryMobilSemuaDiMobil()
     {
         filterPage.initialFilterTest();
@@ -275,7 +275,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As user i want to be able select sub-category Properti Rumah Dijual")
     @Title("Verify Listing ads sorted by selected sub-category Properti Rumah Dijual")
     @TestCaseId("TC_FILTER_08_024")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyListingAdsSortedBySelectedSubCategoryPropertiRumahDijual()
     {
         filterPage.initialFilterTest();

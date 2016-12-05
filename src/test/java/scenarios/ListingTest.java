@@ -30,7 +30,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a User I want to See Content in ListingPage")
     @Title("Verify System able to Display Content in ListingPage")
     @TestCaseId("TC_LISTING_06_001, TC_LISTING_06_003, TC_LISTING_06_009")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void verifyContentDisplayInListingPage()
     {
         loginPage = new LoginPage(driver);
@@ -92,7 +92,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a User I want enable Search ads")
     @Title("Verify Search ads by Keyword in Search Box")
     @TestCaseId("TC_LISTING_06_002")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void userAbleSearchAdsByInputtedKeyword()
     {
         listingPage.initialListingPage();
@@ -106,7 +106,7 @@ public class ListingTest extends AndroidSetup {
     @Stories("As a User I want to Click 1Km dari Kamu")
     @Title("Verify User able to redirect to Radius Selection Page")
     @TestCaseId("TC_LISTING_06_004")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void userAbleToClick1KMDariKamuButton()
     {
         listingPage.initialListingPage();

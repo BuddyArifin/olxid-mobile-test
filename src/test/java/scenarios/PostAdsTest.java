@@ -29,7 +29,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user not able Post Ads")
     @Title("Verify user not able to post ads if user not log in")
     @TestCaseId("TC_JUAL_11_001, TC_JUAL_11_042")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void postadsNoLogin(){
         loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
@@ -401,7 +401,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify User able to Input additional Input Field \"Mobil\" and \"Motor\" Kategori")
     @TestCaseId("TC_JUAL_11_025, TC_JUAL_11_026")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifySystemAbleToDisplayAdditionalInputFieldMobilMotorKategori()
     {
         postAdsPage.initialPostAdsTest();
@@ -436,7 +436,7 @@ public class PostAdsTest extends AndroidSetup {
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field \"Properti\" Kategori")
     @TestCaseId("TC_JUAL_11_027, TC_JUAL_11_028")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifySystemAbleToDisplayAdditionalInputFieldPropertiKategori()
     {
         postAdsPage.initialPostAdsTest();

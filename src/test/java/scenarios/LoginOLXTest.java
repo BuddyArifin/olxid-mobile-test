@@ -31,7 +31,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("A User I Want to See Content in Login Page")
     @Title("Verify System Conten in Login Page Displayed")
     @TestCaseId("TC_LOGIN_04_001")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void userAbleToContentOLXLogin() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
@@ -150,7 +150,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As a user I want to be able to receive password recovery via email")
     @Title("Verify user able to receive password recovery via email")
     @TestCaseId("TC_LOGIN_04_009, TC_LOGIN_04_010")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void userAbleToReceivePassRecovery(){
         LoginWithOlxModule loginWithOlxModule = new LoginWithOlxModule(driver);
         loginWithOlxModule.initOlxLoginTest();
@@ -171,7 +171,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As A User I want able to Login")
     @Title("Verify User Able to Login with OLX Account")
     @TestCaseId("TC_LOGIN_04_005")
-    @Test(priority = 12, groups = "smoke.test")
+    @Test(priority = 12)
     public void userAbleToLoginWithValidCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
         loginOlx.initOlxLoginTest();

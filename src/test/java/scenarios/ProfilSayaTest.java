@@ -30,7 +30,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i am not able to access Profil Saya Page")
     @Title("Verify user not able to access Profil Saya Page without Login")
     @TestCaseId("TC_PROFILE_13_001, TC_PROFIL_13_002")
-    @Test(priority = 1, groups = "smoke.test")
+    @Test(priority = 1)
     public void verifyUserNotAbleToAccessProfilSayaPage() {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
@@ -63,7 +63,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able click My Avatar")
     @Title("Verify user able to click My Avatar")
     @TestCaseId("TC_PROFIL_13_004, TC_PROFIL_13_005, TC_PROFIL_13_006")
-    @Test(priority = 3, groups = "smoke.test")
+    @Test(priority = 3)
     public void verifyUserAbleToClickMyAvatar() {
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();
@@ -170,7 +170,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able change password")
     @Title("Verify user able to change password")
     @TestCaseId("TC_PROFIL_13_009, TC_PROFIL_13_011, TC_PROFIL_13_012, TC_PROFIL_13_016, TC_PROFIL_13_017, TC_PROFIL_13_018, TC_PROFIL_13_019, TC_PROFIL_13_020, TC_PROFIL_13_022")
-    @Test(priority = 4, groups = "smoke.test")
+    @Test(priority = 4)
     public void verifyUserAbleToChangePassword() {
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();
