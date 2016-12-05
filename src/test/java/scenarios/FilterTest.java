@@ -136,7 +136,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want to be able select detail location")
     @Title("Verify user redirect to Detail Location Page")
     @TestCaseId("TC_FILTER_08_010")
-    @Test(priority = 3)
+    @Test(priority = 2,enabled=true)
     public void verifyUserRedirectToDetailLocationPage()
     {
         filterPage.initialFilterTest();
@@ -223,8 +223,6 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-       // filterPage.inputKeywordSearchField("Jazz");
-       // filterPage.clickCancelButtonSearchField();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickChooseCategoryField();
     }
@@ -237,8 +235,6 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
-        //filterPage.inputKeywordSearchField("Jazz");
-        //filterPage.clickCancelButtonSearchField();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickChooseCategoryField();
         filterPage.clickMobilBekasHondaCategory();
@@ -294,7 +290,6 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihKamarMandi("2");
         filterPage.pilihSertifikasi("HGB - Hak Guna Bangun/Lainnya  (PPJB,Girik,Adat,dll)/SHM - Sertifikat Hak Milik");
         filterPage.pilihFasilitas("AC/Telephone/PAM/Microwave");
-//        filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
         listingPage = filterPage.clickSimpanButton();
 //        listingPage.verifyContentsOfListingPage(); open when bug is fixed
     }
