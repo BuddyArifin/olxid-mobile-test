@@ -29,8 +29,8 @@ public class SaldoOlxTest extends AndroidSetup {
     public void verifyAllContentsSaldoOlxPage() {
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginWithOlxModule = loginPage.clickSkipOnBoardingSliders().clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("olxtester@gmail.com");
-        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("remote.googs@gmail.com");
+        loginWithOlxModule.inputPassword("remoteclient@789");
         loginWithOlxModule.clickLoginWithOlxBtn();
         ListingPage listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
