@@ -56,18 +56,18 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
         postAdsPage.verifyNoLimitCharacterDescription();
-        postAdsPage.clickPasangIklanButton();
-        postAdsPage.verifyLoginPopupNotif();
-        loginPage = postAdsPage.clickLoginBtnInLoginPopup();
-        loginPage.verifyOlxBtn();
-        loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("remote.googs@gmail.com");
-        loginWithOlxModule.inputPassword("remoteclient@789");
-        loginWithOlxModule.clickLoginWithOlxBtn();
-        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
-        postAdsPage.verifyContentInPopUpSuccessPosting();
-        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
+//        postAdsPage.clickPasangIklanButton();
+//        postAdsPage.verifyLoginPopupNotif();
+//        loginPage = postAdsPage.clickLoginBtnInLoginPopup();
+//        loginPage.verifyOlxBtn();
+//        loginWithOlxModule = loginPage.clickLoginWithOlx();
+//        loginWithOlxModule.inputEmail("remote.googs@gmail.com");
+//        loginWithOlxModule.inputPassword("remoteclient@789");
+//        loginWithOlxModule.clickLoginWithOlxBtn();
+//        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
+//        postAdsPage.verifyContentInPopUpSuccessPosting();
+//        listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
+//        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user i want to be able to take photo")
@@ -462,11 +462,11 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Rumah Di Daerah Pondok Indah Dengan Luas Tanah 200, Luas Bangunan 200, 4 Lantai");
         postAdsPage.verifyNoLimitCharacterDescription();
-        postAdsPage.clickPasangIklanButton();
-        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
-        postAdsPage.verifyContentInPopUpSuccessPosting();
-        postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
+//        postAdsPage.clickPasangIklanButton();
+//        postAdsPage.verifyPopUpSuccesPostingAdsAppear();
+//        postAdsPage.verifyContentInPopUpSuccessPosting();
+//        postAdsPage.clickTutupPopUpConfirmationButton();
+//        listingPage.verifyContentsOfListingPage();
     }
 
     /*@Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
