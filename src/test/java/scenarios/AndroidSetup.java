@@ -1,5 +1,6 @@
 package scenarios;
 
+import athena.DataBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -39,6 +40,7 @@ public class AndroidSetup extends InstanceDriver {
 
         capabilities.setCapability("appPackage", Constants.appPackage);
         capabilities.setCapability("appActivity", Constants.appActivity);
+        capabilities.setCapability("appWaitActivity", Constants.appActivity);
 
         capabilities.setCapability("deviceName","Galaxy");
         capabilities.setCapability("platformName","Android");
@@ -53,10 +55,11 @@ public class AndroidSetup extends InstanceDriver {
         capabilities.setCapability("unicodeKeyboard", "true");
         capabilities.setCapability("locationContextEnabled", "true");
         capabilities.setCapability("deviceReadyTimeout", 100);
+        capabilities.setCapability("appWaitDuration", 1000000);
 
         //other caps
         capabilities.setCapability("app", app.getAbsolutePath());
-        driver =  new AndroidDriver(new URL(Constants.hubIPJenkins), capabilities);
+        driver =  new AndroidDriver(new URL(Constants.hubIP), capabilities);
 
         //set location for maps - based on Menara Sentraya
         Location location = new Location(-6.2454429, 106.8026181, 0.0);
@@ -87,28 +90,6 @@ public class AndroidSetup extends InstanceDriver {
         driver.quit();
     }
 
-    @DataProvider(name = "testDataProvider")
-    public Object[][] getData(Method m) {
-        String testname = m.getName() + ".json";
-        File jsonFileDir = new File("src/test/resources/goldendata/");
-        File jsonfile = new File(jsonFileDir, testname);
-        jsonObject = convertFiletoJson(jsonfile.getAbsoluteFile());
-        return new Object[][]{{jsonObject}};
-    }
-
-    public JsonObject convertFiletoJson(File file) {
-        jsonObject = new JsonObject();
-        try{
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(new FileReader(file));
-            jsonObject = jsonElement.getAsJsonObject();
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.info("Warning : File not found");
-        }
-        return jsonObject;
-    }
-
     public String getLatestApk() throws Exception {
         String appname = "";
         File folder = new File(Constants.apkDir);
@@ -116,7 +97,7 @@ public class AndroidSetup extends InstanceDriver {
         Arrays.sort(listOfFiles, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                if(listOfFiles[i].getName().contains("app-release")){
+                if(listOfFiles[i].getName().contains("app-debug")){
                     appname = listOfFiles[i].getName();
                     break;
                 }

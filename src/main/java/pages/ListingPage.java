@@ -128,7 +128,7 @@ public class ListingPage extends BasePage{
     }
     public void verifyGambarIklan()
     {
-        //WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
+        //waitForClickabilityOf(getIdLocator(gambarIklan), 100);
         // Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),"Image Listing Is Not Available"); // disabled until not found ads image or text, created
         Log.info("Verify Gambar Iklan");
     }

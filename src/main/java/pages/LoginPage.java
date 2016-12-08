@@ -130,7 +130,7 @@ public class LoginPage extends BasePage {
     @Step("Verify Skip Button")
     public void verifySkipBtn() {
         Log.info("Verify Skip Button");
-        WaitForClickabilityOf(getIdLocator(skipBtnID), 100);
+        waitForClickabilityOf(getIdLocator(skipBtnID), 100);
         Assert.assertTrue(isWaitElementPresent(getIdLocator(skipBtnID)));
     }
 
@@ -143,7 +143,7 @@ public class LoginPage extends BasePage {
     @Step("Click Facebook Login Button")
     public LoginWithFBModule clickLoginWithFacebook() {
         Log.info("Click FB Button");
-        WaitForClickabilityOf(getIdLocator(facebookBtnID), 100);
+        waitForClickabilityOf(getIdLocator(facebookBtnID), 100);
         clickElement(getIdLocator(facebookBtnID));
         return new LoginWithFBModule(driver);
     }
@@ -165,7 +165,7 @@ public class LoginPage extends BasePage {
     @Step("Click OLX Login Button")
     public LoginWithOlxModule clickLoginWithOlx() {
         Log.info("Click OLX Login Button");
-        WaitForClickabilityOf(getIdLocator(olxLoginID), 100);
+        waitForClickabilityOf(getIdLocator(olxLoginID), 100);
         clickElement(getIdLocator(olxLoginID));
         return new LoginWithOlxModule(driver);
     }
@@ -173,7 +173,7 @@ public class LoginPage extends BasePage {
     @Step("Click Skip Login Button")
     public ListingPage skipLogin() {
         Log.info("Click Skip Login Button");
-        WaitForClickabilityOf(getIdLocator(skipBtnID), 100);
+        waitForClickabilityOf(getIdLocator(skipBtnID), 100);
         clickElement(getIdLocator(skipBtnID));
         return new ListingPage(driver);
     }
@@ -208,6 +208,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage clickSkipOnBoardingSliders() {
         Log.info("Click skip on boarding sliders");
+        waitForClickabilityOf(getIdLocator(skipOnBoardingSliders), 100000);
         clickElement(getIdLocator(skipOnBoardingSliders));
         return this;
     }
@@ -250,7 +251,7 @@ public class LoginPage extends BasePage {
     public boolean isAutoAcept(By by) {
         try
         {
-            WaitForClickabilityOf(by, 20);
+            waitForClickabilityOf(by, 20);
             if (waitForVisibility(by)) {
                 clickElement(by);
                 return true;

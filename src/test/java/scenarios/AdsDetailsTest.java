@@ -1,11 +1,13 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.LoginWithOlxModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AdsDetailsPage;
 import pages.ListingPage;
 import pages.LoginPage;
+import pages.PesanPage;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
@@ -97,23 +99,31 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to give feedback by \"Laporkan Iklan\" Option")
     @Title("Verify User able to give feedback by \"Laporkan Iklan\" Option")
     @TestCaseId("TC_AdDetails_09_010")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleToLaporkanIklan() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickLaporkanIklan();
-        // needs to verify redirections
+        adsDetailsPage.verifyAllContentsofKirimLaporan();
+        adsDetailsPage.chooseFirstOptionStatusLaporan();
+        adsDetailsPage.inputDeskripsiLaporan("Olx Mantapppp !!!!, makasih Olx");
+//        adsDetailsPage.clickLaporkanIklan(); disable due, on production side
     }
 
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")
     @Title("Verify User abel to Hubungi Penjual")
     @TestCaseId("TC_AdDetails_09_011")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleToHubungiPenjual() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
-        adsDetailsPage.clickHubugiPenjual();
-        // needs to verify redirections
+        PesanPage pesan = adsDetailsPage.clickHubugiPenjual();
+        LoginPage loginPage = adsDetailsPage.verifyAlertAndTapOK();
+        LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
+        loginOlx.inputEmail("remote.googs@gmail.com");
+        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.clickLoginWithOlxBtn();
+        pesan.verifyRedirectionHubPenjualtoPesan();
     }
 
 }

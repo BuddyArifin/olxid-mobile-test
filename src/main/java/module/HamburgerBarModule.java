@@ -47,7 +47,7 @@ public class HamburgerBarModule extends BasePage {
 
     public void verifyAvatarSaya()
     {
-        WaitForClickabilityOf(getIdLocator(avatarSaya), 100);
+        waitForClickabilityOf(getIdLocator(avatarSaya), 100);
         Assert.assertTrue(isElementPresent(getIdLocator(avatarSaya)));
         Log.info("Verify Avatar Profil");
     }

@@ -112,7 +112,7 @@ public class CategoryPreferencesPage extends BasePage {
 
     public void clickSkipBtn() {
         Log.info("Click SKIP Button");
-        WaitForClickabilityOf(getIdLocator(buttonSkipID), 100);
+        waitForClickabilityOf(getIdLocator(buttonSkipID), 100);
         clickElement(getIdLocator(buttonSkipID));
     }
 

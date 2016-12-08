@@ -73,6 +73,13 @@ public class PesanPage extends BasePage{
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
+    @Step("Verify All contents of Hub Penjual - Pesan")
+    public void verifyRedirectionHubPenjualtoPesan(){
+        verifyDetAttachIcon();
+        verifyDetChatField();
+        verifyDetSendBtn();
+    }
+
     public void verifyHamburgerBar()
     {
         Assert.assertTrue(isWaitElementPresent(getContentLocator(hamburgerbar)));

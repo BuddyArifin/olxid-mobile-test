@@ -39,6 +39,9 @@ public class BasePage  {
     public static final String ACTUAL_COLOR = "actualColor";
     public static final String EXPECTED_COLOR = "expectedColor";
     public static final String MARKED_DIFF_IMG = "actualMarked";
+    public static final String alertContent = "com.app.tokobagus.betterb:id/md_content";
+    public static final String tapOkButton = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String tapBatalButton = "com.app.tokobagus.betterb:id/md_buttonDefaultNegative";
     protected WebDriver driver;
 
     Sinon rdata;
@@ -62,7 +65,7 @@ public class BasePage  {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
     
-    protected void WaitForClickabilityOf(By locator,int time){
+    protected void waitForClickabilityOf(By locator, int time){
     	WebDriverWait wait = new WebDriverWait(driver, time);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
@@ -171,7 +174,7 @@ public class BasePage  {
     }
     
     protected void clickElement(By by, int time){
-    	WaitForClickabilityOf(by, time);
+    	waitForClickabilityOf(by, time);
     	driver.findElement(by).click();
     }
     
@@ -633,12 +636,10 @@ public class BasePage  {
     }
 
     public void closeAlertKonf() {
-        String tutupKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
-        String alertContent = "com.app.tokobagus.betterb:id/md_content";
         boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
         if (logoutKonfirmasi) {
             Log.info("Click OK konfirmasi logout");
-            clickElement(getIdLocator(tutupKonfirmasiPopUp));
+            clickElement(getIdLocator(tapBatalButton));
         }
     }
 }

@@ -31,4 +31,9 @@
             <class name="scenarios.ProfilSayaTest"/>
         </classes>
     </test>
+    <test name="Iklan Saya Sulley OLXID" preserve-order="false" enabled="false">
+        <classes>
+            <class name="scenarios.IklanSayaTest"/>
+        </classes>
+    </test>
 </suite>

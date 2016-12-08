@@ -2,18 +2,25 @@ package athena;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.builder.ResponseSpecBuilder;
 import com.jayway.restassured.response.Response;
 import org.testng.annotations.Test;
 import pages.Constants;
+import pages.InstanceDriver;
+import utils.Log;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by buddyarifin on 8/4/16.
  */
 
-public class Sinon {
+public class Sinon extends InstanceDriver{
     /**
      * Needed Operation
      * 1. Create Active Ads √
@@ -28,37 +35,51 @@ public class Sinon {
     public Sinon(){}
 
     protected Response response;
-    protected RestAssured restAssured;
 
-    public JsonObject getCities(){
-        response = restAssured.given().when().get(Constants.base_uri + "trojan/allcities");
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response getCities(){
+        return response = RestAssured.given()
+                .when().get(Constants.base_uri + "trojan/allcities");
     }
 
-    public JsonObject getDistricts(){
-        response = restAssured.given().when().get(Constants.base_uri + "trojan/alldistrict");
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response getDistricts(){
+        return response = RestAssured.given()
+                .when().get(Constants.base_uri + "trojan/alldistrict");
     }
 
-    public JsonObject getRegions(){
-        response = restAssured.given().when().get(Constants.base_uri + "trojan/allregions");
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response getRegions(){
+        return response = RestAssured.given()
+                .when().get(Constants.base_uri + "trojan/allregions");
     }
 
-    public JsonObject getCategories(){
-        response = restAssured.given().when().get(Constants.base_uri + "trojan/allcategories");
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response getCategories(){
+        return response = RestAssured.given()
+                .when().get(Constants.base_uri + "trojan/allcategories");
     }
 
-    public JsonObject getAdsById(String id){
-        response = restAssured.given().parameter("ad_id",id).when().get(Constants.base_uri + "trojan/adverts");
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response getAdsById(String id){
+        return response = RestAssured.given()
+                .parameter("ad_id",id)
+                .when().get(Constants.base_uri + "trojan/adverts");
     }
 
-    public JsonObject postCreateUserWithPassword(String email){
-        response = restAssured.given().when().
-                post(Constants.base_uri + "trojan/createuserwithpassword/?email="+email);
-        return new JsonParser().parse(response.asString()).getAsJsonObject();
+    public Response postCreateUserWithPassword(String email){
+        return response = RestAssured.given().when()
+                .post(Constants.base_uri + "trojan/createuserwithpassword/?email="+email);
+    }
+
+    public Response createAds() {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", "60028131");
+        params.put("title", " Jual Helm Full Face [TEST] ");
+        params.put("description", "Alasan jual, karena lagi testing");
+
+        this.response = RestAssured.with()
+                .queryParameters(params)
+                .when()
+                .post(Constants.base_uri + "trojan/createactivead/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
+        DataBuilder.convertJsonToFile(response);
+        return response;
     }
 
     @Test
@@ -90,6 +111,12 @@ public class Sinon {
         Sinon sinon = new Sinon();
         String id = "1";
         System.out.println(sinon.getAdsById(id).toString());
+    }
+
+    @Test
+    public void testCreateAds() throws IOException{
+        Sinon sinon = new Sinon();
+        sinon.createAds();
     }
 
 }
