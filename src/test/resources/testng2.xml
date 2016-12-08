@@ -3,6 +3,16 @@
 
 <suite name="Mobile OLXID [DEVICES]" verbose="2" parallel="tests" thread-count="1">
 
+    <test name="Saldo OLXID" preserve-order="false" enabled="false">
+        <groups>
+            <run>
+                <include name="smoke.test" />
+            </run>
+        </groups>
+        <classes>
+            <class name="scenarios.SaldoOlxTest"/>
+        </classes>
+    </test>
     <test name="Ads Details OLXID" preserve-order="false">
         <groups>
             <run>
@@ -21,16 +31,6 @@
         </groups>
         <classes>
             <class name="scenarios.FilterTest"/>
-        </classes>
-    </test>
-    <test name="Saldo OLXID" preserve-order="false">
-        <groups>
-            <run>
-                <include name="smoke.test" />
-            </run>
-        </groups>
-        <classes>
-            <class name="scenarios.SaldoOlxTest"/>
         </classes>
     </test>
     <test name="Post Ads OLXID" preserve-order="false" enabled="false">
