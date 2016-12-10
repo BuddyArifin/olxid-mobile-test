@@ -1,9 +1,12 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.FilterByMapsLocationModule;
+import module.LoginWithOlxModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AdsDetailsPage;
+import pages.FavoritePage;
 import pages.ListingPage;
 import pages.LoginPage;
 import ru.yandex.qatools.allure.annotations.Features;
@@ -69,13 +72,24 @@ public class AdsDetailsTest extends AndroidSetup {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickFavoriteBtn();
-        // needs to verify share options
+        loginPage = adsDetailsPage.clickOkOnAlert();
+        LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
+        loginOlx.inputEmail("remote.googs@gmail.com");
+        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.clickLoginWithOlxBtn();
+        adsDetailsPage.clickBackFromAdsDetails();
+        FavoritePage favoritePage = listingPage.clickFavoritBtmBtn();
+        favoritePage.verifyFavoritePageContent();
+        favoritePage.clickFirstAds();
+        adsDetailsPage.verifyAdsAlreadyOnFavoriteList();
+        adsDetailsPage.clickBackFromAdsDetails();
+        favoritePage.resetFavoriteAds();
     }
 
     @Stories("As A User I want be able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @Title("Verify User able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @TestCaseId("TC_AdDetails_09_008")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyUserAbleGoToRelatedAdsAndTestimoni() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
@@ -86,12 +100,12 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to find Location Ads with Maps")
     @Title("Verify User able to find Location Ads with Maps")
     @TestCaseId("TC_AdDetails_09_009")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleToFindAdsLocations() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
-        adsDetailsPage.clickAdsLocations();
-        // needs to verify Locations Page
+        FilterByMapsLocationModule location = adsDetailsPage.clickAdsLocations();
+        location.verifyCurrentLocationAddress();
     }
 
     @Stories("As A User I want be able to give feedback by \"Laporkan Iklan\" Option")

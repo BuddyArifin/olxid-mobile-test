@@ -4,6 +4,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import module.FilterByMapsLocationModule;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -62,6 +64,9 @@ public class AdsDetailsPage extends BasePage {
     public static final String noResponse = "com.app.tokobagus.betterb:id/radiobutton_no_response";
     public static final String onVacation = "com.app.tokobagus.betterb:id/radiobutton_on_vacation";
     public static final String otherReason = "com.app.tokobagus.betterb:id/radiobutton_other";
+
+    private static String idIklanSave = "";
+    private static boolean isMapsDisplayed;
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoAds)
@@ -176,13 +181,15 @@ public class AdsDetailsPage extends BasePage {
         boolean displayed = isElementPresentAfterScrollDown(getIdLocator(adsLocation));
         if (displayed) {
             Assert.assertTrue(true);
+            setIsMapsDisplayed(true);
         }
     }
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(idIklan)));
-
+        setIdIklanSave(getIdLocator(idIklan));
     }
+
     public void verifyLihatIklanAndTestimoni(){
         Log.info("Verify Lihat Iklan dan Testimoni");
         Assert.assertTrue(isElementPresentAfterScrollDown(getTextLocator(lihatIklanAndTestimoni)));
@@ -281,7 +288,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
         isElementPresentAfterScrollUp(getIdLocator(favoriteBtn));
         clickElement(getIdLocator(favoriteBtn));
-        closeAlertKonf();
+        clickOkOnAlert();
     }
     public void clickLihatIklanAndTestimoni() {
         isElementPresentAfterScrollDown(getTextLocator(lihatIklanAndTestimoni));
@@ -293,9 +300,13 @@ public class AdsDetailsPage extends BasePage {
         isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
         clickElement(getIdLocator(laporkanIklan));
     }
-    public void clickAdsLocations() {
+    public FilterByMapsLocationModule clickAdsLocations() {
         Log.info("Click Ads Location Button");
-        clickElement(getIdLocator(adsLocation));
+        if (getIsMapsDisplayed()) {
+            isElementPresentAfterScrollDown(getIdLocator(adsLocation));
+            clickElement(getIdLocator(adsLocation));
+        }
+        return new FilterByMapsLocationModule(driver);
     }
     public void clickMoreInfo() {
         Log.info("Click More Info Button, full description");
@@ -347,14 +358,22 @@ public class AdsDetailsPage extends BasePage {
         ListingPage listing = new ListingPage(driver);
         if(isElementPresent(getIdLocator(sharedBtn))){
             clickBackFromAdsDetails();
-            isWaitElementPresent(getIdLocator(listing.homeBtnBtmID));
-            listing.selectAdsFromListing();
-            isWaitElementPresent(getIdLocator(favoriteBtn));
-        } else if (isWaitElementPresent(getIdLocator(listing.homeBtnBtmID))) {
+            isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
+            goToAdsDetailsFromListing(listing);
+        } else if (isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
             Assert.assertTrue(true, "Already in Listing Page");
-            listing.selectAdsFromListing();
-            isWaitElementPresent(getIdLocator(favoriteBtn));
+            clickElement(getIdLocator(ListingPage.homeBtnBtmID));
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))) {
+            driver.navigate().back();
+            clickBackFromAdsDetails();
+            goToAdsDetailsFromListing(listing);
         }
+    }
+
+    private void goToAdsDetailsFromListing(ListingPage listing) {
+        listing.selectAdsFromListing();
+        isWaitElementPresent(getIdLocator(favoriteBtn));
     }
 
     public void verifyDeactivateReason(){
@@ -379,5 +398,28 @@ public class AdsDetailsPage extends BasePage {
 
     public boolean deactivateReasonDisplayed(){
         return isWaitElementPresent(getIdLocator(radioGrupDeactivateReason));
+    }
+
+    private static String getIdIklanSave() {
+        return idIklanSave;
+    }
+
+    private void setIdIklanSave(By by) {
+        idIklanSave = getStringText(by);
+    }
+
+    public static boolean getIsMapsDisplayed() {
+        return isMapsDisplayed;
+    }
+
+    public static void setIsMapsDisplayed(boolean isMapsDisplayed) {
+        AdsDetailsPage.isMapsDisplayed = isMapsDisplayed;
+    }
+
+    // Favorite Sections
+    public void verifyAdsAlreadyOnFavoriteList() {
+        isWaitElementPresent(getIdLocator(favoriteBtn));
+        isElementPresentAfterScrollDown(getIdLocator(idIklan));
+        Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)), "Id Number of Ads is not match" );
     }
 }

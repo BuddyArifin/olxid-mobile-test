@@ -193,7 +193,7 @@ public class LoginOLXTest extends AndroidSetup {
         LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         hamburgerBarModule.clickProfilSayaBtn();
-        hamburgerBarModule.clickOkAlert();
+        hamburgerBarModule.clickOkOnAlert();
         loginPage.verifyContentsOfLoginPage();
     }
 

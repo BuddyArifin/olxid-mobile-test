@@ -7,6 +7,9 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -14,7 +17,6 @@ import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
 import java.util.List;
-import static pages.AdsDetailsPage.titleAds;
 
 /**
  * Created by buddyarifin on 8/24/16.
@@ -58,6 +60,7 @@ public class ListingPage extends BasePage{
     public ListingPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        isAutoAcept(getIdLocator(batalKonfirmasiPopUp)); // handle Beta Marketing Pop up
     }
 
     @AndroidFindBys({
@@ -84,7 +87,6 @@ public class ListingPage extends BasePage{
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-        isAutoAcept(getIdLocator(permissionAllowAccessBtn));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();
@@ -332,6 +334,25 @@ public class ListingPage extends BasePage{
         verifyGpsCancelBtn();
     }
 
+    @Override
+    public boolean isAutoAcept(By by) {
+        try
+        {
+            WaitForClickabilityOf(by, 20);
+            if (waitForVisibility(by)) {
+                clickElement(by);
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException | TimeoutException e)
+        {
+            return true;
+        }
+    }
+
     public void verifyGpsAlertImage() {
         Log.info("Verify Logo of Alert Pop Up");
         Assert.assertTrue(isWaitElementPresent(getImageViewLocator(0)));
@@ -351,7 +372,10 @@ public class ListingPage extends BasePage{
 
     public void clickBackDevice(){ driver.navigate().back(); }
 
-    public void clickFavoritBtmBtn(){ clickElement(getIdLocator(favoritBtnBtmId));}
+    public FavoritePage clickFavoritBtmBtn(){
+        clickElement(getIdLocator(favoritBtnBtmId));
+        return new FavoritePage(driver);
+    }
 
     public boolean isOnFilterPage(){ return isWaitElementPresent(getTextLocator(filterTitle));}
 

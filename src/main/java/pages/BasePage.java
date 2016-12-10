@@ -39,6 +39,9 @@ public class BasePage  {
     public static final String ACTUAL_COLOR = "actualColor";
     public static final String EXPECTED_COLOR = "expectedColor";
     public static final String MARKED_DIFF_IMG = "actualMarked";
+    public static final String okKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String batalKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultNegative";
+    public static final String alertContent = "com.app.tokobagus.betterb:id/md_content";
     protected WebDriver driver;
 
     Sinon rdata;
@@ -632,13 +635,24 @@ public class BasePage  {
         return false;
     }
 
-    public void closeAlertKonf() {
-        String tutupKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
-        String alertContent = "com.app.tokobagus.betterb:id/md_content";
+    public void clickBatalOnAlert() {
         boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
         if (logoutKonfirmasi) {
-            Log.info("Click OK konfirmasi logout");
-            clickElement(getIdLocator(tutupKonfirmasiPopUp));
+            Log.info("Click OK konfirmasi on Alert : "+ getTextAlert());
+            clickElement(getIdLocator(okKonfirmasiPopUp));
         }
+    }
+
+    private String getTextAlert() {
+        return getStringText(getIdLocator(alertContent));
+    }
+
+    public LoginPage clickOkOnAlert() {
+        boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
+        if (logoutKonfirmasi) {
+            Log.info("Click OK konfirmasi on Alert : "+getTextAlert());
+            clickElement(getIdLocator(okKonfirmasiPopUp));
+        }
+        return new LoginPage(driver);
     }
 }

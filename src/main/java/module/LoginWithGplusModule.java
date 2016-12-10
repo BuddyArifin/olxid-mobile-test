@@ -152,7 +152,7 @@ public class LoginWithGplusModule extends BasePage {
 
     public LoginPage clickLogOutGPlus(){
         clickElement(getIdLocator(gpluslogoutbtn));
-        closeAlertKonf();
+        clickOkOnAlert();
         Log.info("Click Logout from Google +");
         return new LoginPage(driver);
     }
