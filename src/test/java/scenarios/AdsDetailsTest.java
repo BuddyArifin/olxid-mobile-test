@@ -89,12 +89,12 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @Title("Verify User able to see related Ads & Testimoni by clicking \"Lihat Iklan Lainnya & Testimoni\"")
     @TestCaseId("TC_AdDetails_09_008")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleGoToRelatedAdsAndTestimoni() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
         adsDetailsPage.clickLihatIklanAndTestimoni();
-        // needs to verify lihat page
+        adsDetailsPage.verifyLihatIklanLainnya();
     }
 
     @Stories("As A User I want be able to find Location Ads with Maps")

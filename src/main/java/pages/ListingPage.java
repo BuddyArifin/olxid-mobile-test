@@ -7,10 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -21,7 +18,7 @@ import java.util.List;
 /**
  * Created by buddyarifin on 8/24/16.
  */
-public class ListingPage extends BasePage{
+public class ListingPage extends BasePage {
 
     public static final String hamburgerBar = "Navigate up";
     public static final String titlePage = "OLX";
@@ -80,6 +77,11 @@ public class ListingPage extends BasePage{
     })
     protected List<AndroidElement> suggestList;
 
+    @AndroidFindBys({
+            @AndroidFindBy(id = gambarIklan)
+    })
+    public static List<AndroidElement> listAds;
+
     @AndroidFindBy(id = suggesstionSemuaDiKategory)
     protected AndroidElement semuaDiKategory;
 
@@ -130,13 +132,21 @@ public class ListingPage extends BasePage{
     }
     public void verifyGambarIklan()
     {
-        //WaitForClickabilityOf(getIdLocator(gambarIklan), 100);
-        // Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),"Image Listing Is Not Available"); // disabled until not found ads image or text, created
-        Log.info("Verify Gambar Iklan");
+        isWaitElementPresent(getIdLocator(gambarIklan));
+        if (!isNotFoundSearchContentVisible()) {
+            Log.info("Verify Gambar Iklan");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),
+                    "Image Listing Is Not Available");
+        }
     }
     public void verifyHargaIklan()
     {
-//        Assert.assertTrue(isElementPresent(getIdLocator(hargaIklan)),"Price Listing Is Not Available"); // disabled until not found ads image or text, created
+        isWaitElementPresent(getIdLocator(hargaIklan));
+        if (!isNotFoundSearchContentVisible()) {
+            Log.info("Verify Gambar Iklan");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(hargaIklan)),
+                    "Harga Listing Is Not Available");
+        }
         Log.info("Verify Harga Iklan");
     }
     public void verifyHomeBtnBtm()

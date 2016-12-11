@@ -4,6 +4,8 @@ import athena.Sinon;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -44,7 +46,17 @@ public class BasePage  {
     public static final String alertContent = "com.app.tokobagus.betterb:id/md_content";
     protected WebDriver driver;
 
+    // Layout Not Found Search
+    private static final String notfoundLayoutId = "com.app.tokobagus.betterb:id/layout_no_result";
+    private static final String imageView = "android.widget.ImageView";
+
     Sinon rdata;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = notfoundLayoutId),
+            @AndroidFindBy(className = imageView)
+    })
+    private AndroidElement notFoundContent;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -654,5 +666,13 @@ public class BasePage  {
             clickElement(getIdLocator(okKonfirmasiPopUp));
         }
         return new LoginPage(driver);
+    }
+
+    protected boolean isNotFoundSearchContentVisible() {
+        try {
+            return this.notFoundContent.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
     }
 }

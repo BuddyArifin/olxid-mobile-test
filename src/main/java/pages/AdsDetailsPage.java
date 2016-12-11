@@ -53,6 +53,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String sharingAppsText = "android:id/text1";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
     public static final String androidOkButton = "android:id/button1";
+
     //share
     public static final String shareIcon = "android:id/icon";
     public static final String statusAdsDifavoritkan = "com.app.tokobagus.betterb:id/liked";
@@ -295,6 +296,18 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Lihat Iklan dan Testimoni");
         clickElement(getTextLocator(lihatIklanAndTestimoni));
     }
+
+    public void verifyLihatIklanLainnya() {
+        isWaitElementPresent(getIdLocator(ListingPage.gambarIklan));
+        if (!isNotFoundSearchContentVisible()) {
+            Log.info("Verify Gambar Iklan");
+            ListingPage.listAds.forEach( listedAds -> {
+                Assert.assertTrue(listedAds.isDisplayed(),
+                        "Some Ads from List Are not Valid");
+            });
+        }
+    }
+
     public void clickLaporkanIklan() {
         Log.info("Click Laporkan Iklan");
         isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
@@ -366,6 +379,9 @@ public class AdsDetailsPage extends BasePage {
             goToAdsDetailsFromListing(listing);
         } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))) {
             driver.navigate().back();
+            clickBackFromAdsDetails();
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         }
