@@ -1,5 +1,6 @@
 package pages;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
@@ -25,6 +26,7 @@ public class AdsDetailsPage extends BasePage {
     protected static final String titleAds = "";
     protected static final String tipsAds = "com.app.tokobagus.betterb:id/info_text";
     protected static final String photoAds = "com.app.tokobagus.betterb:id/image";
+    protected static final String photoPagination = "com.app.tokobagus.betterb:id/layout_pointer";
     protected static final String priceAds = "com.app.tokobagus.betterb:id/price";
     protected static final String favoriteBtn = "com.app.tokobagus.betterb:id/likes";
     protected static final String statusAdsDilihat = "com.app.tokobagus.betterb:id/viewed";
@@ -52,8 +54,8 @@ public class AdsDetailsPage extends BasePage {
     public static final String sharingPanels = "android:id/resolver_list";
     public static final String sharingAppsText = "android:id/text1";
     public static final String PUSAT_BANTUAN = "Pusat Bantuan";
-    public static final String androidOkButton = "android:id/button1";
 
+    public static final String androidOkButton = "android:id/button1";
     //share
     public static final String shareIcon = "android:id/icon";
     public static final String statusAdsDifavoritkan = "com.app.tokobagus.betterb:id/liked";
@@ -70,9 +72,9 @@ public class AdsDetailsPage extends BasePage {
     private static boolean isMapsDisplayed;
 
     @AndroidFindBys({
-            @AndroidFindBy(id = photoAds)
+            @AndroidFindBy(id = photoPagination)
     })
-    protected List<AndroidElement> listPhoto;
+    protected List<AndroidElement> photoPaginations;
 
     @AndroidFindBys({
             @AndroidFindBy(id = sharingPanels),
@@ -112,7 +114,21 @@ public class AdsDetailsPage extends BasePage {
     public void verifyPhotoAds(){
         Log.info("Verify Ads Photo display");
         Assert.assertTrue(isWaitElementPresent(getIdLocator(photoAds)));
+        verifyListPhotos();
     }
+
+    private void verifyListPhotos() {
+        if (isListElementPresent(photoPaginations)){
+            Log.info("Verify Ads list Photo display");
+            clickElement(getIdLocator(photoAds));
+            photoPaginations.forEach( photos -> {
+                ((AndroidDriver)driver).swipe(driver.manage().window().getSize().getWidth()-10,
+                        300, 20, 300, 1000);
+            });
+            driver.navigate().back();
+        }
+    }
+
     public void verifyPriceAds(){
         Log.info("Verify Price Ads display");
         Assert.assertTrue(isElementPresent(getIdLocator(priceAds)));
