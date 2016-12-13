@@ -6,6 +6,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
+import module.PaidFeatureModule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +25,7 @@ public class AdsDetailsPage extends BasePage {
     protected static final String bannerInfo = "com.app.tokobagus.betterb:id/info_text";
     protected static final String bannerCloseBtn = "com.app.tokobagus.betterb:id/safety_info_close";
     protected static final String titleAds = "";
-    protected static final String tipsAds = "com.app.tokobagus.betterb:id/safety_info_textt";
+    protected static final String tipsAds = "com.app.tokobagus.betterb:id/safety_info_text";
     protected static final String photoAds = "com.app.tokobagus.betterb:id/image";
     protected static final String photoPagination = "com.app.tokobagus.betterb:id/layout_pointer";
     protected static final String priceAds = "com.app.tokobagus.betterb:id/price";
@@ -80,12 +81,10 @@ public class AdsDetailsPage extends BasePage {
     public static final String radioButton = "android.widget.RadioButton";
     public static final String deskripsiLaporanId = "com.app.tokobagus.betterb:id/edtInformation";
     public static final String kirimLaporanBtn = "com.app.tokobagus.betterb:id/btnSendReport";
+    public static final String copyIklanSbgIklanBaruId = "com.app.tokobagus.betterb:id/button_copy_ad";
+    public static final String permissionsAndroid = "com.android.packageinstaller:id/permission_allow_button";
+    public static final String topListingBtn = "com.app.tokobagus.betterb:id/safety_info_more";
 
-    public static String getIdIklanExpected() {
-        return idIklanExpected;
-    }
-
-    public static String idIklanExpected = null;
     private static String idIklanSave = "";
     private static boolean isMapsDisplayed;
 
@@ -239,7 +238,6 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
-        idIklanExpected = getStringText(getIdLocator(idIklan));
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(idIklan)));
         setIdIklanSave(getIdLocator(idIklan));
     }
@@ -346,6 +344,13 @@ public class AdsDetailsPage extends BasePage {
             clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
             clickElement(getIdLocator(editAdsBtnId)); // bugs on apk version 258
         }
+    }
+
+    public PaidFeatureModule clickTopListing(){
+        Log.info("Click Use Top Listing Button");
+        isElementPresentAfterScrollUp(getIdLocator(topListingBtn));
+        clickElement(getIdLocator(topListingBtn));
+        return new PaidFeatureModule(driver);
     }
 
     public void clickShareBtn() {
@@ -494,6 +499,8 @@ public class AdsDetailsPage extends BasePage {
         isWaitElementPresent(getIdLocator(favoriteBtn));
     }
 
+    // Seller View Sections [My Ads]
+    // Set Terjual or Non Active Ads
     public void verifyDeactivateReason(){
         Log.info("Verify Deactivate Reason");
         Assert.assertTrue(isWaitElementPresent(getIdLocator(reasonDeactivatePopUp)));
@@ -537,10 +544,8 @@ public class AdsDetailsPage extends BasePage {
 
     public void verifyAdsMoveToNonActivePanels() {
         Log.debug("Verify Deactivate Ads, Move to Non Aktif");
-//        isElementPresentAfterScrollDown(getIdLocator(idIklan));
-        Log.debug("Expected : "+getIdIklanExpected());
-        Log.debug("Actual : "+getStringText(getIdLocator(idIklan)));
-        Assert.assertEquals(getIdIklanExpected(), getStringText(getIdLocator(idIklan)));
+        Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)),
+                "The id of deactivated Ads not match");
     }
 
     public void clickTerjualorTersewaOpts() {
@@ -556,11 +561,6 @@ public class AdsDetailsPage extends BasePage {
     public void inputDeskripsiLaporan(String input) {
         Log.info("Input Deskripsi Laporan "+input);
         sendKeysById(getIdLocator(deskripsiLaporanId), input);
-    }
-
-    public void clickKirimLaporanBtn() {
-        Log.info("Click Kirim Laporan Button");
-        clickElement(getIdLocator(kirimLaporanBtn));
     }
 
     private static String getIdIklanSave() {
@@ -581,8 +581,23 @@ public class AdsDetailsPage extends BasePage {
 
     // Favorite Sections
     public void verifyAdsAlreadyOnFavoriteList() {
+        Log.info("Verify Ads already move to Favorite Tabs");
         isWaitElementPresent(getIdLocator(favoriteBtn));
         isElementPresentAfterScrollDown(getIdLocator(idIklan));
-        Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)), "Id Number of Ads is not match" );
+        Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)),
+                "Id Number of Ads is not match" );
+    }
+
+    public void verifyCopySbgIklanBaruButton() {
+        Log.info("Verify Copy Sebagai Iklan Baru Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(copyIklanSbgIklanBaruId)),
+                "Copy Iklan Sebagai iklan Baru Button not displayed");
+    }
+
+    public PostAdsPage clickCopySbgIklanBaruButton() {
+        Log.info("Click Copy Iklan Sebagai iKlan baru");
+        clickElement(getIdLocator(copyIklanSbgIklanBaruId));
+        isAutoAcept(getIdLocator(permissionsAndroid));
+        return new PostAdsPage(driver);
     }
 }

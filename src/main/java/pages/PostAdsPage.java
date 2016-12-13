@@ -95,6 +95,7 @@ public class PostAdsPage extends BasePage {
     public static final String galeriFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultNeutral";
     public static final String kameraFotoBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String galleryIcon = "com.app.tokobagus.betterb:id/btnGallery";
+    public static final String cameraIconId = "com.app.tokobagus.betterb:id/btnCamera";
     public String suggestedHarga = "";
     public boolean suggestionHarga;
     public boolean customCamera = true;
@@ -1296,6 +1297,22 @@ public class PostAdsPage extends BasePage {
         if (!checkTutorialsColors(getIdLocator(galleryIcon))) {
             clickBySize(getPointLocation(getIdLocator(shutterBtn)));
         }
+    }
+
+    public void clickThumbnailsPhoto() {
+        Log.info("Click Thumbnails photo");
+        clickElement(getIdLocator(imageInBorder));
+    }
+
+    public void verifyKameraIcon() {
+        Log.info("Verify Kamera Icon");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(cameraIconId)));
+    }
+
+    public void uploadUsingCamera() {
+        Log.info("Upload using camera");
+        verifyKameraIcon();
+        clickElement(getIdLocator(cameraIconId));
     }
 
     public class Maps extends FilterByMapsLocationModule

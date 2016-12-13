@@ -1,5 +1,8 @@
 package module;
 
+import athena.DataBuilder;
+import athena.Sinon;
+import com.jayway.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.BasePage;
@@ -285,5 +288,17 @@ public class LoginWithOlxModule extends BasePage {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Login with Balance
+    public void loginUserWithBalance() {
+        Sinon sinon = new Sinon();
+        Response res = sinon.createUserWithBalance();
+        String email = DataBuilder.getUserName(res);
+        String pass = DataBuilder.getPassword(res);
+        String user_id = DataBuilder.getUserId(res);
+        inputEmail(email);
+        inputPassword(pass);
+        sinon.setUser_id(user_id);
     }
 }

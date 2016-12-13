@@ -32,7 +32,8 @@ public class DataBuilder {
 
     public static void convertJsonToFile(Response response) {
         try{
-            FileWriter writer = new FileWriter("src/test/resources/goldendata/activeAds.json");
+            String statusAds = getStatusAds(response);
+            FileWriter writer = new FileWriter("src/test/resources/goldendata/ADS-"+statusAds+".json");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonObject jsonObject = new JsonParser().parse(response.asString()).getAsJsonObject();
             String json = gson.toJson(jsonObject);
@@ -47,23 +48,35 @@ public class DataBuilder {
         return JsonPath.parse(response.asString());
     }
 
-    // FROM ADS Request
+    // From ADS Request
     public static String getIdAdsNumber() {
         Sinon sinon = new Sinon();
         Response response = sinon.createAds();
         return JsonPath.parse(response.asString()).read("$.data.ad.id");
     }
 
-    public static String getIdAdsNumber(DocumentContext context) {
-        return context.read("$.data.ad.id");
+    public static String getIdAdsNumber(Response response)
+    {
+        return getData(response).read("$.data.ad.id");
     }
-
-    public static String getTitleAds(DocumentContext context) {
-        return context.read("$.data.ad.title");
+    public static String getTitleAds(Response response) {
+        return getData(response).read("$.data.ad.title");
     }
-
-    public static String getDescriptionAds(DocumentContext context) {
-        return context.read("$.data.ad.title");
+    public static String getDescriptionAds(Response response) {
+        return getData(response).read("$.data.ad.title");
+    }
+    public static String getStatusAds(Response response) {
+        return getData(response).read("$.data.ad.status");
+    }
+    //From Create User Request
+    public static String getUserName(Response response) {
+        return getData(response).read("$.data.user.email");
+    }
+    public static String getPassword(Response response) {
+        return getData(response).read("$.data.user.password");
+    }
+    public static String getUserId(Response response) {
+        return getData(response).read("$.data.user.id");
     }
 
     @DataProvider(name = "testDataProvider")

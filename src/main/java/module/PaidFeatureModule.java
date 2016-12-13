@@ -1,111 +1,124 @@
 package module;
 
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
+import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
+
+import java.util.List;
 
 /**
  * Created by sekarayu on 10/27/16.
  */
 public class PaidFeatureModule extends BasePage {
-    public static final String topListingBtn = "";
-    public static final String titleTopListing = "";
-    public static final String opt3daysTopListing = "";
-    public static final String opt7daysTopListing = "";
-    public static final String opt14daysTopListing = "";
-    public static final String opt28daysTopListing = "";
-    public static final String batalTopListingBtn = "";
-    public static final String beliTopListingBtn = "";
-    public static final String msgSuccesspage = "";
+    public static final String titleTopListing = "com.app.tokobagus.betterb:id/md_titleFrame";
+    public static final String batalTopListingBtnId = "com.app.tokobagus.betterb:id/md_buttonDefaultNegative";
+    public static final String beliTopListingBtnId = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String msgSuccesspage = "com.app.tokobagus.betterb:id/safety_info_text";
     public static final String tutupSuccessPage = "";
     public static final String titleInsufficientPage = "";
     public static final String msgInsufficientPage = "";
     public static final String batalBtnInsufficientPage = "";
     public static final String reloadBtnInsufficientPage = "";
+    public static final String groupRadioButtonId = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
+    public static final String textOnRadioButtonId = "com.app.tokobagus.betterb:id/md_title";
 
-    public PaidFeatureModule(WebDriver driver) { super(driver); }
-
-    public void clickTopListing(){
-        Log.info("Click Use Top Listing Button");
-        clickElement(getIdLocator(topListingBtn));
+    public PaidFeatureModule(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = groupRadioButtonId),
+            @AndroidFindBy(id = textOnRadioButtonId)
+    })
+    protected List<AndroidElement> listDurasi;
 
     public void verifyTitleTopListing(){
-        Assert.assertTrue(isElementPresent(getIdLocator(titleTopListing)));
         Log.info("Verify Title Top Listing");
+        Assert.assertTrue(isElementPresent(getIdLocator(titleTopListing)),
+                "Title Top Listing on pop up not found");
     }
 
-    private void verifyDuration3Days(){
-        Assert.assertTrue(isElementPresent(getIdLocator(opt3daysTopListing)));
-        Log.info("Verify Duration Option 3 Days");
+    public boolean isTopListingPopUpPresent() {
+        return isElementPresent(getIdLocator(titleTopListing));
     }
 
-    private void verifyDuration7Days(){
-        Assert.assertTrue(isElementPresent(getIdLocator(opt7daysTopListing)));
-        Log.info("Verify Duration Option 7 Days");
+    public void verifyAllDurasiListing() {
+        Log.info("Verify Durasi Listing");
+        listDurasi.forEach( durations -> {
+            Assert.assertTrue(!durations.getText().isEmpty(),
+                    "Radio Title not have a Text to verified");
+        });
     }
 
-    private void verifyDuration14Days(){
-        Assert.assertTrue(isElementPresent(getIdLocator(opt14daysTopListing)));
-        Log.info("Verify Duration Option 14 Days");
-    }
-
-    private void verifyDuration28Days(){
-        Assert.assertTrue(isElementPresent(getIdLocator(opt28daysTopListing)));
-        Log.info("Verify Duration Option 28 Days");
-    }
-
+    @Step("Verify Durations List options")
     public void verifyDurationOptOnTopListing(){
-        verifyDuration3Days();
-        verifyDuration7Days();
-        verifyDuration14Days();
-        verifyDuration28Days();
+        verifyTitleTopListing();
+        verifyAllDurasiListing();
     }
 
     public void verifyBatalBtnOnTopListing(){
-        Assert.assertTrue(isElementPresent(getIdLocator(batalTopListingBtn)));
         Log.info("Verify Batal Button Top Listing");
+        Assert.assertTrue(isElementPresent(getIdLocator(batalTopListingBtnId)),
+                "Batal Button Not Found");
     }
 
     public void verifyBeliBtnOnTopListing(){
-        Assert.assertTrue(isElementPresent(getIdLocator(beliTopListingBtn)));
         Log.info("Verify Beli Button Top Listing");
+        Assert.assertTrue(isElementPresent(getIdLocator(beliTopListingBtnId))
+        ,"Beli Top LIsting not found");
+    }
+
+    public void clickDurasiDays(int durasiFiturHiglight) {
+        listDurasi.forEach( durations -> {
+            if (durations.getText().contains(Integer.toString(durasiFiturHiglight))) {
+                Log.info("Click Durasi Highlight Listing -> "+durations.getText());
+                durations.click();
+            }
+        });
     }
 
     public void clickDuration3Days(){
         Log.info("Click duration option 3 days");
-        clickElement(getIdLocator(opt3daysTopListing));
+        clickDurasiDays(3);
     }
 
     public void clickDuration7Days(){
         Log.info("Click duration option 7 days");
-        clickElement(getIdLocator(opt7daysTopListing));
+        clickDurasiDays(7);
     }
 
     public void clickDuration14Days(){
         Log.info("Click duration option 14 days");
-        clickElement(getIdLocator(opt14daysTopListing));
+        clickDurasiDays(14);
     }
 
     public void clickDuration28Days(){
         Log.info("Click duration option 28 days");
-        clickElement(getIdLocator(opt28daysTopListing));
+        clickDurasiDays(28);
     }
 
     public void clickBatalOnTopListing(){
         Log.info("Click batal button on top listing page");
-        clickElement(getIdLocator(batalTopListingBtn));
+        clickElement(getIdLocator(batalTopListingBtnId));
     }
 
     public void clickBeliOnTopListing(){
         Log.info("Click beli button on top listing page");
-        clickElement(getIdLocator(beliTopListingBtn));
+        clickElement(getIdLocator(beliTopListingBtnId));
     }
 
     public void verifyMsgSuccessPage(){
-        Assert.assertTrue(isElementPresent(getIdLocator(msgSuccesspage)));
         Log.info("Verify Msg Success Page");
+        Assert.assertTrue(isElementPresent(getIdLocator(msgSuccesspage)),
+                "Message Success After Success not Found");
     }
 
     public void clickTutupSuccessPage(){
@@ -118,8 +131,8 @@ public class PaidFeatureModule extends BasePage {
     }
 
     public void verifyTitleInsufPage(){
-        Assert.assertTrue(isElementPresent(getIdLocator(titleInsufficientPage)));
         Log.info("Verify title on insufficient notification page");
+        Assert.assertTrue(isElementPresent(getIdLocator(titleInsufficientPage)));
     }
 
     public void verifyMsgInsufPage(){

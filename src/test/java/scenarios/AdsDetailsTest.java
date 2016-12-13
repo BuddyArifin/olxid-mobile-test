@@ -120,7 +120,7 @@ public class AdsDetailsTest extends AndroidSetup {
         adsDetailsPage.verifyAllContentsofKirimLaporan();
         adsDetailsPage.chooseFirstOptionStatusLaporan();
         adsDetailsPage.inputDeskripsiLaporan("Olx Mantapppp !!!!, makasih Olx");
-//        adsDetailsPage.clickLaporkanIklan(); disable due, on production side
+        adsDetailsPage.clickLaporkanIklan(); // disable due, on production side
     }
 
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")

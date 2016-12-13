@@ -1,5 +1,8 @@
 package pages;
 
+import athena.DataBuilder;
+import athena.Sinon;
+import com.jayway.restassured.response.Response;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -35,14 +38,13 @@ public class LoginPage extends BasePage {
     public static final String imageView = "android.widget.ImageView";
     public static final String introTitleID = "com.app.tokobagus.betterb:id/intro_tv";
     public static final String textView = "android.widget.TextView";
+    public static final String androidPermissionAlert = "com.android.packageinstaller:id/permission_allow_button";
     AndroidDriver androidDriver;
     public static final String alertShake = "com.app.tokobagus.betterb:id/animation_description";
     public static final String imageOnBoarding = "com.app.tokobagus.betterb:id/intro_lyImage";
     public static final String onBoardingText = "com.app.tokobagus.betterb:id/intro_lyContent";
     public static final String imageOnBoardingPagination = "com.app.tokobagus.betterb:id/entrance_indicatorContainer";
     public static final String disclaimerTextContainers = "com.app.tokobagus.betterb:id/entrance_bottomSubContainer4";
-
-    LoginWithFBModule fb = new LoginWithFBModule(driver);
 
     @AndroidFindBys({
             @AndroidFindBy(id = paginationsID),
@@ -79,9 +81,8 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-//        isAutoAcept(getIdLocator(alertShake)); // handle marketing Pop Up
         removingAppiumSettings();
-        super.isAutoAcept(getIdLocator("com.android.packageinstaller:id/permission_allow_button"));
+        super.isAutoAcept(getIdLocator(androidPermissionAlert));
     }
 
     @Step("Verify All Contents of On Boarding Sliders")

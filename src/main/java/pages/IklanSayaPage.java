@@ -9,6 +9,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.HamburgerBarModule;
+import module.PaidFeatureModule;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,20 +72,26 @@ public class IklanSayaPage extends BasePage{
     public void initIklanSayaPage(){
         HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
         AdsDetailsPage adsDetailsPage = new AdsDetailsPage(driver);
+        PaidFeatureModule paidFeatureModule = new PaidFeatureModule(driver);
         if(isElementPresent(getTextLocator(iklanSayaTitle))){
             clickBackBtn();
         }else if(hamburgerBarModule.isHamburgerBar()){
             Assert.assertTrue(true,"Already in HamburgerBar");
         }else if(isElementPresent(getTextLocator(detailIklanTitle))){
-            clickBackBtn();
-            waitForVisibility(getTextLocator(iklanSayaTitle));
-            clickBackBtn();
+            getBackToMyDetailsAds();
         }else if(adsDetailsPage.deactivateReasonDisplayed()){
             adsDetailsPage.clickCancelDeactivate();
-            clickBackBtn();
-            waitForVisibility(getTextLocator(iklanSayaTitle));
-            clickBackBtn();
+            getBackToMyDetailsAds();
+        } else if (paidFeatureModule.isTopListingPopUpPresent()) {
+            paidFeatureModule.clickBatalOnTopListing();
+            getBackToMyDetailsAds();
         }
+    }
+
+    public void getBackToMyDetailsAds() {
+        clickBackBtn();
+        waitForVisibility(getTextLocator(iklanSayaTitle));
+        clickBackBtn();
     }
 
     @Step("Verify All Content In IklanSaya Page")
@@ -348,6 +355,7 @@ public class IklanSayaPage extends BasePage{
 
     public void clickNonAktifPanel() {
         clickPanel("Non-Aktif");
+        DataBuilder.getData(sinon.createAdsWithStatus("removed_by_user")); // prepare ads non active on panel
     }
 
     private void clickPanel(String panel) {

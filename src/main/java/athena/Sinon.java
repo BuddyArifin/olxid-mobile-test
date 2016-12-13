@@ -35,6 +35,16 @@ public class Sinon extends InstanceDriver{
     public Sinon(){}
 
     protected Response response;
+    protected static String user_id = "60028131";
+
+    public void setUser_id(String user_id_new) {
+        user_id = user_id.replace(getUser_id(), user_id_new);
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
 
     public Response getCities(){
         return response = RestAssured.given()
@@ -69,7 +79,7 @@ public class Sinon extends InstanceDriver{
 
     public Response createAds() {
         Map<String, String> params = new HashMap<>();
-        params.put("user_id", "60028131");
+        params.put("user_id", getUser_id());
         params.put("title", " Jual Helm Full Face [TEST] ");
         params.put("description", "Alasan jual, karena lagi testing");
 
@@ -79,6 +89,34 @@ public class Sinon extends InstanceDriver{
                 .post(Constants.base_uri + "trojan/createactivead/");
         response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
         DataBuilder.convertJsonToFile(response);
+        return response;
+    }
+
+    /**
+     * @param status must be registered as
+     * status blocked = Moderasi
+     * status removed_by_user, outdated = Tidak aktif
+     * status moderated, removed_by_moderator = Ditolak
+     * status active, disabled = active
+     */
+    public Response createAdsWithStatus(String status) {
+        Map<String, String> params = new HashMap<>();
+        params.put("status", status);
+
+        this.response = RestAssured.with()
+                .queryParameters(params)
+                .when()
+                .post(Constants.base_uri + "trojan/createadwithstatus/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
+        DataBuilder.convertJsonToFile(response);
+        return response;
+    }
+
+    public Response createUserWithBalance() {
+        this.response = RestAssured.with()
+                .when()
+                .post(Constants.base_uri + "trojan/createuserwithbalance/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
         return response;
     }
 
@@ -117,6 +155,19 @@ public class Sinon extends InstanceDriver{
     public void testCreateAds() throws IOException{
         Sinon sinon = new Sinon();
         sinon.createAds();
+    }
+
+    @Test
+    public void testCreateNonActiveAds() throws IOException {
+        Sinon sinon = new Sinon();
+        sinon.createAdsWithStatus("removed_by_user");
+    }
+    @Test
+    public void testCreateUserWithBalance() throws IOException {
+        Sinon sinon = new Sinon();
+        Response response = sinon.createUserWithBalance();
+        Log.debug(DataBuilder.getUserName(response));
+        Log.debug(DataBuilder.getPassword(response));
     }
 
 }
