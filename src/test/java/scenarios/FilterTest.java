@@ -249,7 +249,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihTransmisi("Manual");
         filterPage.pilihTahun("2013");
         listingPage = filterPage.clickSimpanButton();
-        // listingPage.verifyContentsOfListingPage(); open when bug is fixed
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As user i want to be able select sub-category Mobil Semua Di Mobil")
@@ -269,7 +269,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.inputMinPrice("1000");
         filterPage.inputMaxPrice("300000000");
         listingPage = filterPage.clickSimpanButton();
-        //listingPage.verifyContentsOfListingPage(); open when bugs is fixed
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As user i want to be able select sub-category Properti Rumah Dijual")
@@ -296,7 +296,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.pilihFasilitas("AC/Telephone/PAM/Microwave");
 //        filterPage.inputAlamatLokasi("Jl. Wijaya 1 no 15");
         listingPage = filterPage.clickSimpanButton();
-//        listingPage.verifyContentsOfListingPage(); open when bug is fixed
+        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As user i want to be able reset filter")
@@ -311,7 +311,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickRadioButtonTerdekatInUrutkanColumn();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
         filterPage.clickResetButton();
-        //filterPage.verifyAllContentOfFilterPage(); Turn On after bug is fixed
+        filterPage.verifyAllContentOfFilterPage();
     }
 
     @Stories("As user i want to be able back to Listing Page")
@@ -323,6 +323,6 @@ public class FilterTest extends AndroidSetup{
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
         filterPage.clickBackBtn();
-        //listingPage.verifyContentsOfListingPage(); Turn On after bug is fixed
+        listingPage.verifyContentsOfListingPage();
     }
 }

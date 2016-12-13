@@ -311,7 +311,7 @@ public class ProfilSayaModule extends BasePage{
         Log.info("Click Logout Dari OLX Button in Profil Saya Page");
         waitForVisibilityOf(getIdLocator(logOutDariOLXBtn));
         clickElement(getIdLocator(logOutDariOLXBtn));
-        closeAlertKonf();
+        clickOkOnAlert();
         return new LoginPage(driver);
     }
 

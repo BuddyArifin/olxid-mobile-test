@@ -72,7 +72,7 @@ public class LoginGplusTest extends AndroidSetup {
         LoginPage loginPage = loginWithGplusModule.clickLogOutGPlus();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         hamburgerBarModule.clickProfilSayaBtn();
-        hamburgerBarModule.clickOkAlert();
+        hamburgerBarModule.clickOkOnAlert();
         loginPage.verifyContentsOfLoginPage();
     }
 }

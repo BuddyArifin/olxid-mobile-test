@@ -4,6 +4,8 @@ import athena.Sinon;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -42,9 +44,21 @@ public class BasePage  {
     public static final String alertContent = "com.app.tokobagus.betterb:id/md_content";
     public static final String tapOkButton = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String tapBatalButton = "com.app.tokobagus.betterb:id/md_buttonDefaultNegative";
+    public static final String okKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
+    public static final String batalKonfirmasiPopUp = "com.app.tokobagus.betterb:id/md_buttonDefaultNegative";
     protected WebDriver driver;
 
+    // Layout Not Found Search
+    private static final String notfoundLayoutId = "com.app.tokobagus.betterb:id/layout_no_result";
+    private static final String imageView = "android.widget.ImageView";
+
     Sinon rdata;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = notfoundLayoutId),
+            @AndroidFindBy(className = imageView)
+    })
+    private AndroidElement notFoundContent;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -635,11 +649,32 @@ public class BasePage  {
         return false;
     }
 
-    public void closeAlertKonf() {
+    public void clickBatalOnAlert() {
         boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
         if (logoutKonfirmasi) {
-            Log.info("Click OK konfirmasi logout");
-            clickElement(getIdLocator(tapBatalButton));
+            Log.info("Click OK konfirmasi on Alert : "+ getTextAlert());
+            clickElement(getIdLocator(okKonfirmasiPopUp));
+        }
+    }
+
+    private String getTextAlert() {
+        return getStringText(getIdLocator(alertContent));
+    }
+
+    public LoginPage clickOkOnAlert() {
+        boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
+        if (logoutKonfirmasi) {
+            Log.info("Click OK konfirmasi on Alert : "+getTextAlert());
+            clickElement(getIdLocator(okKonfirmasiPopUp));
+        }
+        return new LoginPage(driver);
+    }
+
+    protected boolean isNotFoundSearchContentVisible() {
+        try {
+            return this.notFoundContent.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException e){
+            return false;
         }
     }
 }
