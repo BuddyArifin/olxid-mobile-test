@@ -46,7 +46,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
     @TestCaseId("TC_AdDetails_09_014")
-    @Test(priority = 3, dependsOnMethods = "verifyAllContentsofDetailsonSellerView")
+    @Test(priority = 3)
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
         iklanSayaPage.initIklanSayaPage();
@@ -56,7 +56,6 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         adsDetailsPage.clickNonActiveBtn();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.chooseDeactivateReason();
-//        adsDetailsPage.clickCancelDeactivate();
         adsDetailsPage.clickNonActiveBtn();
         adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
@@ -79,7 +78,6 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.clickTerjualorTersewaOpts();
         adsDetailsPage.clickNonActiveBtn();
-//        adsDetailsPage.clickCancelDeactivate();
         adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
         iklanSayaPage.clickOneOfAdsInAdsList();

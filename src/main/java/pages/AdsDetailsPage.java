@@ -24,7 +24,7 @@ public class AdsDetailsPage extends BasePage {
     protected static final String bannerInfo = "com.app.tokobagus.betterb:id/info_text";
     protected static final String bannerCloseBtn = "com.app.tokobagus.betterb:id/safety_info_close";
     protected static final String titleAds = "";
-    protected static final String tipsAds = "com.app.tokobagus.betterb:id/info_text";
+    protected static final String tipsAds = "com.app.tokobagus.betterb:id/safety_info_textt";
     protected static final String photoAds = "com.app.tokobagus.betterb:id/image";
     protected static final String photoPagination = "com.app.tokobagus.betterb:id/layout_pointer";
     protected static final String priceAds = "com.app.tokobagus.betterb:id/price";
@@ -66,7 +66,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String noResponse = "com.app.tokobagus.betterb:id/radiobutton_no_response";
     public static final String onVacation = "com.app.tokobagus.betterb:id/radiobutton_on_vacation";
     public static final String otherReason = "com.app.tokobagus.betterb:id/radiobutton_other";
-    
+
     // Seller View
     public static final String gunakanFiturHighlightId = "com.app.tokobagus.betterb:id/safety_info_more";
     public static final String tutupButtonId = "com.app.tokobagus.betterb:id/safety_info_close";
@@ -318,7 +318,6 @@ public class AdsDetailsPage extends BasePage {
         verifyShareBtn();
         verifyEditBtn();
         verifyLebihLanjut();
-        verifyTutupBtn();
         verifyTipsAds();
 //        verifyPhotoAds();
         verifyPriceAds();
@@ -345,6 +344,7 @@ public class AdsDetailsPage extends BasePage {
         Log.debug("Dismiss Tutorial");
         if (!checkTutorialsColors(getContentLocator(backBtn))) {
             clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
+            clickElement(getIdLocator(editAdsBtnId)); // bugs on apk version 258
         }
     }
 
