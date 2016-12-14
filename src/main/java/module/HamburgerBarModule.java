@@ -136,7 +136,7 @@ public class HamburgerBarModule extends BasePage {
     }
 
     public boolean isHamburgerBar(){
-        return isWaitElementPresent(getIdLocator(hamburgerBarLayout));
+        return isElementPresent(getIdLocator(hamburgerBarLayout));
     }
 
     public void clickDisiniLogin(){

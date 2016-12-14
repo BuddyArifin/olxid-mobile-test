@@ -329,7 +329,7 @@ public class AdsDetailsPage extends BasePage {
 //        verifyMoreInfoAds();
         verifyAvatarSeller();
         verifyMemberJoinDate();
-        verifyAdsLocations();
+//        verifyAdsLocations();
 //        verifyLihatIklanAndTestimoni();
     }
 
@@ -522,7 +522,7 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public boolean deactivateReasonDisplayed(){
-        return isWaitElementPresent(getIdLocator(radioGrupDeactivateReason));
+        return isElementPresent(getIdLocator(radioGrupDeactivateReason));
     }
 
     public void chooseDeactivateReason() {

@@ -54,6 +54,9 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         PaidFeatureModule paidFeature = adsDetailsPage.clickTopListing();
+        paidFeature.clickBatalOnTopListing();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        adsDetailsPage.clickTopListing();
         paidFeature.clickDuration3Days();
         paidFeature.clickBeliOnTopListing();
         paidFeature.verifyMsgSuccessPage();

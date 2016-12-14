@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import pages.AdsDetailsPage;
 import pages.BasePage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
@@ -105,9 +106,10 @@ public class PaidFeatureModule extends BasePage {
         clickDurasiDays(28);
     }
 
-    public void clickBatalOnTopListing(){
+    public AdsDetailsPage clickBatalOnTopListing(){
         Log.info("Click batal button on top listing page");
         clickElement(getIdLocator(batalTopListingBtnId));
+        return new AdsDetailsPage(driver);
     }
 
     public void clickBeliOnTopListing(){

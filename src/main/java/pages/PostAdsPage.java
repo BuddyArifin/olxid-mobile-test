@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
+import module.PaidFeatureModule;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -235,6 +236,7 @@ public class PostAdsPage extends BasePage {
     public void initialPostAdsTest(){
         Log.info("Back to Initial Post Ads Test");
         ListingPage listingPage = new ListingPage(driver);
+        PaidFeatureModule paidFeature = new PaidFeatureModule(driver);
         if (listingPage.isListingButton()){
             Assert.assertTrue(true,"Already in Home");
         }else{
@@ -248,6 +250,8 @@ public class PostAdsPage extends BasePage {
                 clickCloseBtnAtas();
                 waitForClickabilityOf(getContentLocator(closeBtnPFS2));
                 clickElement(getContentLocator(closeBtnPFS2));
+            } else if (isElementPresent(getIdLocator(popUpLayoutSuccessPost))) {
+                paidFeature.clickBatalOnTopListing();
             } else {
                 Assert.assertTrue(true,"Already in Home");
             }
@@ -1279,10 +1283,11 @@ public class PostAdsPage extends BasePage {
         Log.info("Verify Tutup Pop Up Confirmation Button");
     }
 
-    public void clickGunakanFiturTopListingButton()
+    public PaidFeatureModule clickGunakanFiturTopListingButton()
     {
         clickElement(getIdLocator(gunakanFiturTopListingBtn));
         Log.info("Click Gunakan Fitur Top Listing Button");
+        return new PaidFeatureModule(driver);
     }
 
     public ListingPage clickTutupPopUpConfirmationButton()
