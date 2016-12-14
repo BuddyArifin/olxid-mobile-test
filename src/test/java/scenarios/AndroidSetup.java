@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.SessionId;
@@ -15,12 +16,11 @@ import pages.InstanceDriver;
 import tracking.NetClient;
 import utils.Log;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class AndroidSetup extends InstanceDriver {
 
@@ -29,8 +29,11 @@ public class AndroidSetup extends InstanceDriver {
     private JsonObject jsonObject;
 
     public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
+        String apkname = getLatestApk();
+
         File appDir = new File(Constants.apkDir);
-        File app = new File(appDir, Constants.apkName);
+        //File app = new File(appDir, Constants.apkName);
+        File app = new File(appDir, apkname);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("device","Android");
 
@@ -104,5 +107,22 @@ public class AndroidSetup extends InstanceDriver {
             Log.info("Warning : File not found");
         }
         return jsonObject;
+    }
+
+    public String getLatestApk() throws Exception {
+        String appname = "";
+        File folder = new File(Constants.apkDir);
+        File[] listOfFiles = folder.listFiles();
+        Arrays.sort(listOfFiles, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                if(listOfFiles[i].getName().contains("app-release")){
+                    appname = listOfFiles[i].getName();
+                    break;
+                }
+            }
+        }
+        Log.info("APK Version : "+appname);
+        return appname;
     }
 }
