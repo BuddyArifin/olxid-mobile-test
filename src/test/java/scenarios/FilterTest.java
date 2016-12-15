@@ -72,6 +72,7 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickSearchField();
         listingPage = filterPage.clickSimpanButton();
         listingPage.verifyContentsOfListingPage();
+        // verify sort by keyword and terbaru
     }
 
     @Stories("As a user i want see listing by current location")
@@ -108,7 +109,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
     @TestCaseId("TC_FILTER_08_008")
-    @Test(priority = 3)
+    @Test(priority = 3, dependsOnMethods = "verifyAllContentInFilterPage")
     public void verifyListingAdsSortedByUrutkanColumn()
     {
         filterPage.initialFilterTest();
@@ -120,9 +121,10 @@ public class FilterTest extends AndroidSetup{
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickSearchField();
-        filterPage.clickRadioButtonTerdekatInUrutkanColumn();
+        filterPage.clickRadioButtonTermahalInUrutkanColumn();
         listingPage = filterPage.clickSimpanButton();
         listingPage.verifyContentsOfListingPage();
+        listingPage.verifyListSortByTermahal();
     }
 
     @Stories("As a user i want see listing by new or second condition")
@@ -308,10 +310,15 @@ public class FilterTest extends AndroidSetup{
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
         filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickRadioButtonTerdekatInUrutkanColumn();
+        filterPage.clickRadioButtonTermurahInUrutkanColumn();
         filterPage.verifyContentAdditionalFilterInSelectedSubCategory();
+        filterPage.clickSimpanButton();
+        listingPage.verifyContentsOfListingPage();
+        listingPage.verifyListSortByTermurah();
+        listingPage.clickFilterBtnPrm();
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
+
     }
 
     @Stories("As user i want to be able back to Listing Page")

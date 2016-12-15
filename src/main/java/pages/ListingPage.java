@@ -13,6 +13,9 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -48,6 +51,7 @@ public class ListingPage extends BasePage {
     public static final String suggesstionSearchlist = "com.app.tokobagus.betterb:id/recyclerView_result";
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
+    public static final String highlightIconId = "com.app.tokobagus.betterb:id/promo_top";
     public static final String disagreeButton = "android:id/button2";
     public boolean isClickedBy;
     public boolean lalala;
@@ -59,6 +63,17 @@ public class ListingPage extends BasePage {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         isAutoAcept(getIdLocator(batalKonfirmasiPopUp)); // handle Beta Marketing Pop up
     }
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = hargaIklan),
+            @AndroidFindBy(id = highlightIconId)
+    })
+    protected List<AndroidElement> highlightAds;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = hargaIklan)
+    })
+    protected List<AndroidElement> nonHighlightAds;
 
     @AndroidFindBys({
             @AndroidFindBy(id = toolBarPrimaryId),
@@ -406,5 +421,65 @@ public class ListingPage extends BasePage {
         }else if(isOnSearchPosition() || isOnMapsPage()){
             clickBackOnSearchAndMaps();
         }
+    }
+
+    private ArrayList<String> getListStringFromElements(List<AndroidElement> elements) {
+        collectAtLeast8AdsToArrays();
+
+        ArrayList<String> pricing = new ArrayList<>();
+
+        elements.forEach( elementString -> {
+            if(!elementString.getText().equalsIgnoreCase("Free")){
+//                Log.debug(elementString.getText().replaceAll("[.]", ""));
+                pricing.add(elementString.getText().replaceAll("[.]", ""));
+            }
+        });
+        return pricing;
+    }
+
+    private List<AndroidElement> collectAtLeast8AdsToArrays() {
+        while(nonHighlightAds.size() < 6) {
+            ((AndroidDriver)driver).swipe(200, 500, 200, 45, 1000);
+            if (nonHighlightAds.size() > 10){
+                break;
+            }
+        }
+        return nonHighlightAds;
+    }
+
+    public void verifyListSortByTermurah() {
+        ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
+        ((AndroidDriver)driver).swipe(200, 300, 200, 800, 1000);
+        Assert.assertTrue(Integer.parseInt(arrayList.get(3)) < Integer.parseInt(arrayList.get(4)),
+                "Assertions Sort By Termahal[price] for non Top Listing failed");
+    }
+
+    public void verifyListSortByTermahal() {
+        ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
+        ((AndroidDriver)driver).swipe(200, 300, 200, 800, 1000);
+        Log.debug("Last index : "+arrayList.get(5)+", and Previous Index : "+arrayList.get(4));
+       /* Assert.assertTrue(Double.parseDouble(arrayList.get(3)) > Double.parseDouble(arrayList.get(5)),
+                "Assertions Sort By Termahal[price] for non Top Listing failed");*/
+    }
+
+    public void verifyListSortByTerbaru() {
+        List<AndroidElement> newest = collectAtLeast8AdsToArrays();
+
+        newest.get(3).click(); // details iklan 1
+        String firstId = getDateFromAds();
+
+        newest.get(4).click(); // details iklan 2
+        String secondId = getDateFromAds();
+
+        Log.debug(" First Ads :"+firstId);
+        Log.debug(" Second Ads :"+secondId);
+    }
+
+    public String getDateFromAds() {
+        AdsDetailsPage detailsPage = new AdsDetailsPage(driver);
+        detailsPage.verifyPostDateAds();
+        String secondId = AdsDetailsPage.getPostDateAds();
+        detailsPage.clickBackFromAdsDetails();
+        return secondId;
     }
 }

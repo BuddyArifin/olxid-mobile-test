@@ -70,6 +70,7 @@ public class AdsDetailsPage extends BasePage {
 
     private static String idIklanSave = "";
     private static boolean isMapsDisplayed;
+    private static String dateAds;
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoPagination)
@@ -148,7 +149,8 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyPostDateAds(){
         Log.info("Verify Tanggal Pemasangan Iklan display");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(postDateAds)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(postDateAds)));
+        setPostDateAds(getStringText(getIdLocator(postDateAds)));
     }
     public void verifyConditionsAds(){
         Log.info("Verify Kondisi Barang pada Iklan display");
@@ -453,5 +455,13 @@ public class AdsDetailsPage extends BasePage {
         isWaitElementPresent(getIdLocator(favoriteBtn));
         isElementPresentAfterScrollDown(getIdLocator(idIklan));
         Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)), "Id Number of Ads is not match" );
+    }
+
+    public static String getPostDateAds() {
+        return dateAds;
+    }
+
+    public void setPostDateAds(String dateAdse) {
+        dateAds = dateAdse;
     }
 }
