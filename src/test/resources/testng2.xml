@@ -18,7 +18,7 @@
             <class name="scenarios.SaldoOlxTest"/>
         </classes>
     </test>
-    <test name="Post Ads OLXID" preserve-order="false">
+    <test name="Post Ads OLXID" preserve-order="false" enabled="false">
         <classes>
             <class name="scenarios.PostAdsTest"/>
         </classes>
