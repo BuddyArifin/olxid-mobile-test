@@ -109,7 +109,7 @@ public class FilterTest extends AndroidSetup{
     @Stories("As a user i want see listing by nearest, newest, cheaper, expensive")
     @Title("Verify Listing ads sorted by selected nearest, newest, cheaper, expensive")
     @TestCaseId("TC_FILTER_08_008")
-    @Test(priority = 3, dependsOnMethods = "verifyAllContentInFilterPage")
+    @Test(priority = 3, dependsOnMethods = "verifyAllContentInFilterPage" )
     public void verifyListingAdsSortedByUrutkanColumn()
     {
         filterPage.initialFilterTest();
@@ -227,6 +227,7 @@ public class FilterTest extends AndroidSetup{
         listingPage.clickFilterBtnPrm();
        // filterPage.inputKeywordSearchField("Jazz");
        // filterPage.clickCancelButtonSearchField();
+        filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
         filterPage.clickChooseCategoryField();
     }

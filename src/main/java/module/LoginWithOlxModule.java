@@ -1,6 +1,11 @@
 package module;
 
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
 import pages.CategoryPreferencesPage;
@@ -19,6 +24,8 @@ import java.util.Properties;
 public class LoginWithOlxModule extends BasePage {
     public static final String showHiddenPass = "com.app.tokobagus.betterb:id/text_input_password_toggle";
     public static final String okButtonErrorMessage = "com.app.tokobagus.betterb:id/snackbar_action";
+    public static final String forgotPasslayout = "com.app.tokobagus.betterb:id/profileForgotPass_layout";
+    public static final String textView = "android.widget.TextView";
     public static String titlePage = "Masuk dengan akun OLX";
     public static String emailField = "com.app.tokobagus.betterb:id/entranceLogin_txtEmail";
     public static String passField = "com.app.tokobagus.betterb:id/entranceLogin_txtPass";
@@ -45,7 +52,14 @@ public class LoginWithOlxModule extends BasePage {
 
     public LoginWithOlxModule(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
+
+    @AndroidFindAll({
+            @AndroidFindBy(id = forgotPasslayout),
+            @AndroidFindBy(className = textView)
+    })
+    protected AndroidElement incorrectErrorField;
 
     @Step("Verify Login With OLX Contents")
     public void verifyLoginOlxContents() {
@@ -80,7 +94,7 @@ public class LoginWithOlxModule extends BasePage {
     @Step("Verify Error Invalid Email")
     public void verifyErrorInvalidEmail() {
         Log.info("verify Error Invalid Email");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(incorrectErrorField.isDisplayed());
 //        Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(emailNotValidText),
 //                "Result are not same expected : "+emailNotValidText+" But, get error message : "+errorMessageId);
     }
