@@ -29,7 +29,7 @@ public class LoginOLXTest extends AndroidSetup {
     // login With OLX Login Page
 
     @Stories("A User I Want to See Content in Login Page")
-    @Title("Verify System Conten in Login Page Displayed")
+    @Title("Verify System Content in Login Page Displayed")
     @TestCaseId("TC_LOGIN_04_001")
     @Test(priority = 1)
     public void userAbleToContentOLXLogin() {

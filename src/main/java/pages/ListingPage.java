@@ -2,6 +2,7 @@ package pages;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -99,6 +100,7 @@ public class ListingPage extends BasePage {
 
     @AndroidFindBy(id = suggesstionSemuaDiKategory)
     protected AndroidElement semuaDiKategory;
+
 
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
@@ -424,13 +426,13 @@ public class ListingPage extends BasePage {
     }
 
     private ArrayList<String> getListStringFromElements(List<AndroidElement> elements) {
-        collectAtLeast8AdsToArrays();
+//        collectAtLeast8AdsToArrays();
 
         ArrayList<String> pricing = new ArrayList<>();
 
         elements.forEach( elementString -> {
             if(!elementString.getText().equalsIgnoreCase("Free")){
-//                Log.debug(elementString.getText().replaceAll("[.]", ""));
+                Log.debug(elementString.getText().replaceAll("[.]", ""));
                 pricing.add(elementString.getText().replaceAll("[.]", ""));
             }
         });
@@ -448,18 +450,23 @@ public class ListingPage extends BasePage {
     }
 
     public void verifyListSortByTermurah() {
+        Log.info("Verify Sort By Termurah");
         ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
-        ((AndroidDriver)driver).swipe(200, 300, 200, 800, 1000);
-        Assert.assertTrue(Integer.parseInt(arrayList.get(3)) < Integer.parseInt(arrayList.get(4)),
-                "Assertions Sort By Termahal[price] for non Top Listing failed");
+
+        boolean comparedResult = Integer.parseInt(arrayList.get(0)) <=  Integer.parseInt(arrayList.get(1)) ||
+                Integer.parseInt(arrayList.get(0)) <=  Integer.parseInt(arrayList.get(2));
+
+        Assert.assertTrue(comparedResult, "Assertions Sort By Termurah [price] for non Top Listing failed");
     }
 
     public void verifyListSortByTermahal() {
+        Log.info("Verify Sort By Termahal");
         ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
-        ((AndroidDriver)driver).swipe(200, 300, 200, 800, 1000);
-        Log.debug("Last index : "+arrayList.get(5)+", and Previous Index : "+arrayList.get(4));
-       /* Assert.assertTrue(Double.parseDouble(arrayList.get(3)) > Double.parseDouble(arrayList.get(5)),
-                "Assertions Sort By Termahal[price] for non Top Listing failed");*/
+
+        boolean comparedResult = Integer.parseInt(arrayList.get(0)) >=  Integer.parseInt(arrayList.get(1)) ||
+                Integer.parseInt(arrayList.get(0)) >=  Integer.parseInt(arrayList.get(2));
+
+        Assert.assertTrue(comparedResult, "Assertions Sort By Termahal[price] for non Top Listing failed");
     }
 
     public void verifyListSortByTerbaru() {
