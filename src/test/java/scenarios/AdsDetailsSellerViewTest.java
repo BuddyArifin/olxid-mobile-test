@@ -46,7 +46,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
     @TestCaseId("TC_AdDetails_09_014")
-    @Test(priority = 3, dependsOnMethods = "verifyAllContentsofDetailsonSellerView")
+    @Test(priority = 3)
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
         iklanSayaPage.initIklanSayaPage();
