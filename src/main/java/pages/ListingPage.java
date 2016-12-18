@@ -2,24 +2,27 @@ package pages;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import static pages.AdsDetailsPage.titleAds;
 
 /**
  * Created by buddyarifin on 8/24/16.
  */
-public class ListingPage extends BasePage{
+public class ListingPage extends BasePage {
 
     public static final String hamburgerBar = "Navigate up";
     public static final String titlePage = "OLX";
@@ -49,6 +52,7 @@ public class ListingPage extends BasePage{
     public static final String suggesstionSearchlist = "com.app.tokobagus.betterb:id/recyclerView_result";
     public static final String suggesstionSearchKeyword = "com.app.tokobagus.betterb:id/tvKeyword";
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
+    public static final String highlightIconId = "com.app.tokobagus.betterb:id/promo_top";
     public static final String disagreeButton = "android:id/button2";
     public boolean isClickedBy;
     public boolean lalala;
@@ -58,7 +62,19 @@ public class ListingPage extends BasePage{
     public ListingPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        isAutoAcept(getIdLocator(batalKonfirmasiPopUp)); // handle Beta Marketing Pop up
     }
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = hargaIklan),
+            @AndroidFindBy(id = highlightIconId)
+    })
+    protected List<AndroidElement> highlightAds;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = hargaIklan)
+    })
+    protected List<AndroidElement> nonHighlightAds;
 
     @AndroidFindBys({
             @AndroidFindBy(id = toolBarPrimaryId),
@@ -77,14 +93,19 @@ public class ListingPage extends BasePage{
     })
     protected List<AndroidElement> suggestList;
 
+    @AndroidFindBys({
+            @AndroidFindBy(id = gambarIklan)
+    })
+    public static List<AndroidElement> listAds;
+
     @AndroidFindBy(id = suggesstionSemuaDiKategory)
     protected AndroidElement semuaDiKategory;
+
 
     @Step("Verify All Contents of ListingPage")
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-        isAutoAcept(getIdLocator(permissionAllowAccessBtn));
         verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();
@@ -128,13 +149,21 @@ public class ListingPage extends BasePage{
     }
     public void verifyGambarIklan()
     {
-        //waitForClickabilityOf(getIdLocator(gambarIklan), 100);
-        // Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),"Image Listing Is Not Available"); // disabled until not found ads image or text, created
-        Log.info("Verify Gambar Iklan");
+        isWaitElementPresent(getIdLocator(gambarIklan));
+        if (!isNotFoundSearchContentVisible()) {
+            Log.info("Verify Gambar Iklan");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),
+                    "Image Listing Is Not Available");
+        }
     }
     public void verifyHargaIklan()
     {
-//        Assert.assertTrue(isElementPresent(getIdLocator(hargaIklan)),"Price Listing Is Not Available"); // disabled until not found ads image or text, created
+        isWaitElementPresent(getIdLocator(hargaIklan));
+        if (!isNotFoundSearchContentVisible()) {
+            Log.info("Verify Gambar Iklan");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(hargaIklan)),
+                    "Harga Listing Is Not Available");
+        }
         Log.info("Verify Harga Iklan");
     }
     public void verifyHomeBtnBtm()
@@ -332,6 +361,25 @@ public class ListingPage extends BasePage{
         verifyGpsCancelBtn();
     }
 
+    @Override
+    public boolean isAutoAcept(By by) {
+        try
+        {
+            waitForClickabilityOf(by, 20);
+            if (waitForVisibility(by)) {
+                clickElement(by);
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        catch (NoSuchElementException | TimeoutException e)
+        {
+            return true;
+        }
+    }
+
     public void verifyGpsAlertImage() {
         Log.info("Verify Logo of Alert Pop Up");
         Assert.assertTrue(isWaitElementPresent(getImageViewLocator(0)));
@@ -351,7 +399,10 @@ public class ListingPage extends BasePage{
 
     public void clickBackDevice(){ driver.navigate().back(); }
 
-    public void clickFavoritBtmBtn(){ clickElement(getIdLocator(favoritBtnBtmId));}
+    public FavoritePage clickFavoritBtmBtn(){
+        clickElement(getIdLocator(favoritBtnBtmId));
+        return new FavoritePage(driver);
+    }
 
     public boolean isOnFilterPage(){ return isWaitElementPresent(getTextLocator(filterTitle));}
 
@@ -372,5 +423,70 @@ public class ListingPage extends BasePage{
         }else if(isOnSearchPosition() || isOnMapsPage()){
             clickBackOnSearchAndMaps();
         }
+    }
+
+    private ArrayList<String> getListStringFromElements(List<AndroidElement> elements) {
+//        collectAtLeast8AdsToArrays();
+
+        ArrayList<String> pricing = new ArrayList<>();
+
+        elements.forEach( elementString -> {
+            if(!elementString.getText().equalsIgnoreCase("Free")){
+                Log.debug(elementString.getText().replaceAll("[.]", ""));
+                pricing.add(elementString.getText().replaceAll("[.]", ""));
+            }
+        });
+        return pricing;
+    }
+
+    private List<AndroidElement> collectAtLeast8AdsToArrays() {
+        while(nonHighlightAds.size() < 6) {
+            ((AndroidDriver)driver).swipe(200, 500, 200, 45, 1000);
+            if (nonHighlightAds.size() > 10){
+                break;
+            }
+        }
+        return nonHighlightAds;
+    }
+
+    public void verifyListSortByTermurah() {
+        Log.info("Verify Sort By Termurah");
+        ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
+
+        boolean comparedResult = Integer.parseInt(arrayList.get(0)) <=  Integer.parseInt(arrayList.get(1)) ||
+                Integer.parseInt(arrayList.get(0)) <=  Integer.parseInt(arrayList.get(2));
+
+        Assert.assertTrue(comparedResult, "Assertions Sort By Termurah [price] for non Top Listing failed");
+    }
+
+    public void verifyListSortByTermahal() {
+        Log.info("Verify Sort By Termahal");
+        ArrayList<String> arrayList = getListStringFromElements(nonHighlightAds);
+
+        boolean comparedResult = Integer.parseInt(arrayList.get(0)) >=  Integer.parseInt(arrayList.get(1)) ||
+                Integer.parseInt(arrayList.get(0)) >=  Integer.parseInt(arrayList.get(2));
+
+        Assert.assertTrue(comparedResult, "Assertions Sort By Termahal[price] for non Top Listing failed");
+    }
+
+    public void verifyListSortByTerbaru() {
+        List<AndroidElement> newest = collectAtLeast8AdsToArrays();
+
+        newest.get(3).click(); // details iklan 1
+        String firstId = getDateFromAds();
+
+        newest.get(4).click(); // details iklan 2
+        String secondId = getDateFromAds();
+
+        Log.debug(" First Ads :"+firstId);
+        Log.debug(" Second Ads :"+secondId);
+    }
+
+    public String getDateFromAds() {
+        AdsDetailsPage detailsPage = new AdsDetailsPage(driver);
+        detailsPage.verifyPostDateAds();
+        String secondId = AdsDetailsPage.getPostDateAds();
+        detailsPage.clickBackFromAdsDetails();
+        return secondId;
     }
 }

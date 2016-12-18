@@ -29,7 +29,7 @@ public class LoginOLXTest extends AndroidSetup {
     // login With OLX Login Page
 
     @Stories("A User I Want to See Content in Login Page")
-    @Title("Verify System Conten in Login Page Displayed")
+    @Title("Verify System Content in Login Page Displayed")
     @TestCaseId("TC_LOGIN_04_001")
     @Test(priority = 1)
     public void userAbleToContentOLXLogin() {
@@ -193,7 +193,7 @@ public class LoginOLXTest extends AndroidSetup {
         LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         hamburgerBarModule.clickProfilSayaBtn();
-        hamburgerBarModule.clickOkAlert();
+        hamburgerBarModule.clickOkOnAlert();
         loginPage.verifyContentsOfLoginPage();
     }
 

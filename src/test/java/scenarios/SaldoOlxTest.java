@@ -9,7 +9,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.ListingPage;
 import pages.LoginPage;
-import pages.PostAdsPage;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
@@ -106,7 +105,7 @@ public class SaldoOlxTest extends AndroidSetup {
         profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.verifyAllContentsInHamburgerBar();
         saldoOlxModule = hamburgerBarModule.clickSaldoOLXBtn();
-        saldoOlxModule.closeAlertKonf();
+        saldoOlxModule.clickOkOnAlert();
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginWithOlxModule= loginPage.clickLoginWithOlx();
         loginWithOlxModule.verifyLoginOlxContents();
