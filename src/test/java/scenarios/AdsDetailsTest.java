@@ -131,11 +131,7 @@ public class AdsDetailsTest extends AndroidSetup {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
         PesanPage pesan = adsDetailsPage.clickHubugiPenjual();
-        LoginPage loginPage = adsDetailsPage.verifyAlertAndTapOK();
-        LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
-        loginOlx.inputEmail("remote.googs@gmail.com");
-        loginOlx.inputPassword("remoteclient@789");
-        loginOlx.clickLoginWithOlxBtn();
+        adsDetailsPage.verifyAlertAndTapOK();
         pesan.verifyRedirectionHubPenjualtoPesan();
     }
 

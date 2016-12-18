@@ -33,7 +33,6 @@ public class AndroidSetup extends InstanceDriver {
         String apkname = getLatestApk();
 
         File appDir = new File(Constants.apkDir);
-        //File app = new File(appDir, Constants.apkName);
         File app = new File(appDir, apkname);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("device","Android");
@@ -97,7 +96,7 @@ public class AndroidSetup extends InstanceDriver {
         Arrays.sort(listOfFiles, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                if(listOfFiles[i].getName().contains("app-debug")){
+                if(listOfFiles[i].getName().contains("app-release")){
                     appname = listOfFiles[i].getName();
                     break;
                 }

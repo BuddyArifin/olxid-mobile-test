@@ -6,6 +6,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
+import module.LoginWithOlxModule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -352,11 +353,7 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void clickShareBtn() {
-        boolean displayed = false;
-        while (displayed == false){
-            displayed = isElementPresentAfterScrollUp(getIdLocator(bannerCloseBtn));
-            Log.info("displayed : "+displayed);
-        }
+        isElementPresentAfterScrollUp(getIdLocator(bannerCloseBtn));
         clickElement(getIdLocator(sharedBtn));
     }
 
@@ -405,6 +402,7 @@ public class AdsDetailsPage extends BasePage {
     public void clickLaporkanIklan() {
         Log.info("Click Laporkan Iklan");
         isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
+        swipePageBtmtToTop(); // make sure laporan iklan present but not visible
         clickElement(getIdLocator(laporkanIklan));
     }
     public FilterByMapsLocationModule clickAdsLocations() {
@@ -430,8 +428,17 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click OK Alert");
         if(isWaitElementPresent(getIdLocator(alertContent))) {
             clickElement(getIdLocator(tapOkButton));
+            loginToOlx();
         }
         return new LoginPage(driver);
+    }
+
+    private void loginToOlx() {
+        LoginPage loginPage = new LoginPage(driver);
+        LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
+        loginOlx.inputEmail("remote.googs@gmail.com");
+        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.clickLoginWithOlxBtn();
     }
 
     public void clickNonActiveBtn() {
@@ -478,15 +485,19 @@ public class AdsDetailsPage extends BasePage {
             clickBackFromAdsDetails();
             isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
+        } else if (isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
             Assert.assertTrue(true, "Already in Listing Page");
             clickElement(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))) {
+        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle)) ||
+                isElementPresent(getIdLocator(kirimLaporanBtn))) {
             driver.navigate().back();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
+            clickBackFromAdsDetails();
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(PesanPage.detailSendBtn))) {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         }
