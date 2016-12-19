@@ -33,7 +33,6 @@ public class AndroidSetup extends InstanceDriver {
         String apkname = getLatestApk();
 
         File appDir = new File(Constants.apkDir);
-        //File app = new File(appDir, Constants.apkName);
         File app = new File(appDir, apkname);
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("device","Android");

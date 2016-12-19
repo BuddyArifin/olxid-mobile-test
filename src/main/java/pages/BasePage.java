@@ -484,8 +484,8 @@ public class BasePage  {
     public Boolean isElementPresentAfterScrollUp(final By locator) {
         try{
             Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                    .withTimeout(10, TimeUnit.SECONDS)
-                    .pollingEvery(5, TimeUnit.SECONDS)
+                    .withTimeout(60, TimeUnit.SECONDS)
+                    .pollingEvery(2, TimeUnit.SECONDS)
                     .ignoring(NoSuchElementException.class);
             return wait.until(new Function<WebDriver, Boolean>() {
                 @Override
@@ -647,6 +647,14 @@ public class BasePage  {
         }
 
         return false;
+    }
+
+    public void closeAlertKonf() {
+        boolean logoutKonfirmasi = isWaitElementPresent(getIdLocator(alertContent));
+        if (logoutKonfirmasi) {
+            Log.info("Click OK konfirmasi logout");
+            clickElement(getIdLocator(tapBatalButton));
+        }
     }
 
     public void clickBatalOnAlert() {

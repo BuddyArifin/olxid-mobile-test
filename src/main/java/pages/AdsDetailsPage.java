@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import module.PaidFeatureModule;
+import module.LoginWithOlxModule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -84,9 +85,15 @@ public class AdsDetailsPage extends BasePage {
     public static final String copyIklanSbgIklanBaruId = "com.app.tokobagus.betterb:id/button_copy_ad";
     public static final String permissionsAndroid = "com.android.packageinstaller:id/permission_allow_button";
     public static final String topListingBtn = "com.app.tokobagus.betterb:id/safety_info_more";
+    public static String getIdIklanExpected() {
+        return idIklanExpected;
+    }
 
+    public static String idIklanExpected = null;
     private static String idIklanSave = "";
     private static boolean isMapsDisplayed;
+    private static String dateAds;
+
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoPagination)
@@ -183,7 +190,8 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyPostDateAds(){
         Log.info("Verify Tanggal Pemasangan Iklan display");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(postDateAds)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(postDateAds)));
+        setPostDateAds(getStringText(getIdLocator(postDateAds)));
     }
     public void verifyConditionsAds(){
         Log.info("Verify Kondisi Barang pada Iklan display");
@@ -354,11 +362,7 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void clickShareBtn() {
-        boolean displayed = false;
-        while (displayed == false){
-            displayed = isElementPresentAfterScrollUp(getIdLocator(bannerCloseBtn));
-            Log.info("displayed : "+displayed);
-        }
+        isElementPresentAfterScrollUp(getIdLocator(bannerCloseBtn));
         clickElement(getIdLocator(sharedBtn));
     }
 
@@ -407,6 +411,7 @@ public class AdsDetailsPage extends BasePage {
     public void clickLaporkanIklan() {
         Log.info("Click Laporkan Iklan");
         isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
+        swipePageBtmtToTop(); // make sure laporan iklan present but not visible
         clickElement(getIdLocator(laporkanIklan));
     }
     public FilterByMapsLocationModule clickAdsLocations() {
@@ -432,8 +437,17 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click OK Alert");
         if(isWaitElementPresent(getIdLocator(alertContent))) {
             clickElement(getIdLocator(tapOkButton));
+            loginToOlx();
         }
         return new LoginPage(driver);
+    }
+
+    private void loginToOlx() {
+        LoginPage loginPage = new LoginPage(driver);
+        LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
+        loginOlx.inputEmail("remote.googs@gmail.com");
+        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.clickLoginWithOlxBtn();
     }
 
     public void clickNonActiveBtn() {
@@ -478,23 +492,27 @@ public class AdsDetailsPage extends BasePage {
         ListingPage listing = new ListingPage(driver);
         if(isElementPresent(getIdLocator(sharedBtn))){ // on Details Page
             clickBackFromAdsDetails();
-            goToAdsDetailsPage(listing);
-        } else if (isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) { // on HomePage
+            isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
             Assert.assertTrue(true, "Already in Listing Page");
-            goToAdsDetailsPage(listing);
-        } else if(isElementPresent(getIdLocator(kirimLaporanBtn))) { // on Kirim Laporan
+            clickElement(getIdLocator(ListingPage.homeBtnBtmID));
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle)) ||
+                isElementPresent(getIdLocator(kirimLaporanBtn))) {
+            driver.navigate().back();
             clickBackFromAdsDetails();
-            isElementPresent(getIdLocator(sharedBtn));
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
             clickBackFromAdsDetails();
-            goToAdsDetailsPage(listing);
-        } else if (isElementPresent(getIdLocator(PesanPage.detailAttachmentIcon))) { // on Hub Penjual
+            goToAdsDetailsFromListing(listing);
+        } else if (isElementPresent(getIdLocator(PesanPage.detailSendBtn))) {
             clickBackFromAdsDetails();
-            goToAdsDetailsPage(listing);
+            goToAdsDetailsFromListing(listing);
         }
     }
 
-    private void goToAdsDetailsPage(ListingPage listing) {
-        isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
+    private void goToAdsDetailsFromListing(ListingPage listing) {
         listing.selectAdsFromListing();
         isWaitElementPresent(getIdLocator(favoriteBtn));
     }
@@ -563,6 +581,11 @@ public class AdsDetailsPage extends BasePage {
         sendKeysById(getIdLocator(deskripsiLaporanId), input);
     }
 
+    public void clickKirimLaporanBtn() {
+        Log.info("Click Kirim Laporan Button");
+        clickElement(getIdLocator(kirimLaporanBtn));
+    }
+
     private static String getIdIklanSave() {
         return idIklanSave;
     }
@@ -598,6 +621,15 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Copy Iklan Sebagai iKlan baru");
         clickElement(getIdLocator(copyIklanSbgIklanBaruId));
         isAutoAcept(getIdLocator(permissionsAndroid));
+        Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)), "Id Number of Ads is not match" );
         return new PostAdsPage(driver);
+    }
+
+    public static String getPostDateAds() {
+        return dateAds;
+    }
+
+    public void setPostDateAds(String dateAdse) {
+        dateAds = dateAdse;
     }
 }
