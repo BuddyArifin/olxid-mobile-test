@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile App OLXID [AVD]" verbose="3" parallel="tests" thread-count="2">
-    <!--<listeners>-->
-        <!--<listener class-name="listeners.RetryListeners" />-->
-    <!--</listeners>-->
+<suite name="Mobile App OLXID " verbose="3" parallel="tests" thread-count="2">
     
     <test name="Home Page OLXID" preserve-order="false" enabled="false">
         <classes>
