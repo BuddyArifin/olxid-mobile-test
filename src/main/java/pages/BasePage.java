@@ -581,6 +581,26 @@ public class BasePage  {
         return in;
     }
 
+    public BufferedImage convertImgFileToBufferedImage(String imagePath, String filename){
+        BufferedImage in = null;
+        try {
+            in = ImageIO.read(new File(imagePath + filename + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return in;
+    }
+
+    public void createPNGFile(BufferedImage bufferedImage, String filename, String imageDir) {
+        try{
+            new File(imageDir).mkdirs();
+            File captured = new File(imageDir + filename + ".png");
+            ImageIO.write(bufferedImage, "PNG", captured);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createPNGFile(BufferedImage bufferedImage, String filename){
         try{
             new File(imageDiffDir).mkdirs();

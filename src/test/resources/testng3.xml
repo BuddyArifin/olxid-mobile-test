@@ -23,12 +23,12 @@
             <class name="scenarios.LoginGplusTest"/>
         </classes>
     </test>
-    <test name="Profile Saya Sulley OLXID" preserve-order="false" enabled="false">
+    <test name="Profile Saya Sulley OLXID" preserve-order="false" >
         <classes>
             <class name="scenarios.ProfilSayaTest"/>
         </classes>
     </test>
-    <test name="Iklan Saya Sulley OLXID" preserve-order="false" enabled="false">
+    <test name="Iklan Saya Sulley OLXID" preserve-order="false" enabled="false" >
         <classes>
             <class name="scenarios.IklanSayaTest"/>
         </classes>

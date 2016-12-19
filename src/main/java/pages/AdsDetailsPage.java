@@ -243,8 +243,8 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
-        idIklanExpected = getStringText(getIdLocator(idIklan));
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(idIklan)));
+        idIklanExpected = getStringText(getIdLocator(idIklan));
         setIdIklanSave(getIdLocator(idIklan));
     }
 
@@ -409,6 +409,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Ads Location Button");
         if (getIsMapsDisplayed()) {
             isElementPresentAfterScrollDown(getIdLocator(adsLocation));
+            swipePageBtmtToTop(); // handle, which location present but not visible
             clickElement(getIdLocator(adsLocation));
         }
         return new FilterByMapsLocationModule(driver);
@@ -495,6 +496,7 @@ public class AdsDetailsPage extends BasePage {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
+            clickBackFromAdsDetails();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         } else if (isElementPresent(getIdLocator(PesanPage.detailSendBtn))) {

@@ -89,7 +89,7 @@ public class ProfilSayaTest extends AndroidSetup {
         profilSayaModule.takeShotNewAvatar();
         profilSayaModule.verifyOldNewAvatar();
         //capture from camera
-        profilSayaModule.takeShotOldAvatar();
+        /* profilSayaModule.takeShotOldAvatar();
         profilSayaModule.clickAvatar();
         profilSayaModule.verifyAllEditAvatarPopUpContents();
         profilSayaModule.clickUploadAvatarCamera();
@@ -97,7 +97,7 @@ public class ProfilSayaTest extends AndroidSetup {
         postAdsPage = profilSayaModule.acceptTakePicture();
         postAdsPage.clickSimpanBtn();
         profilSayaModule.takeShotNewAvatar();
-        profilSayaModule.verifyOldNewAvatar();
+        profilSayaModule.verifyOldNewAvatar(); */
     }
 
     @Stories("As a user i want to be able click \"Username\"")
@@ -170,7 +170,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able change password")
     @Title("Verify user able to change password")
     @TestCaseId("TC_PROFIL_13_009, TC_PROFIL_13_011, TC_PROFIL_13_012, TC_PROFIL_13_016, TC_PROFIL_13_017, TC_PROFIL_13_018, TC_PROFIL_13_019, TC_PROFIL_13_020, TC_PROFIL_13_022")
-    @Test(priority = 4)
+    @Test(priority = 4, enabled = false)
     public void verifyUserAbleToChangePassword() {
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();

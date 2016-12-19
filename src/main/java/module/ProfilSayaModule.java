@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.*;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
+import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import utils.Log;
 
 import java.io.*;
@@ -76,6 +78,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String loginPopupNotif = "com.app.tokobagus.betterb:id/md_content";
     public static final String loginBtnInLoginPopup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String propname = "changepass.properties";
+    private ImageDiff imageDiff;
 
     @AndroidFindBys({
             @AndroidFindBy(id = chkBoxTampilkanPassword)
@@ -417,7 +420,7 @@ public class ProfilSayaModule extends BasePage{
     //verify image
     public void takeShotOldAvatar(){
         try {
-            takeScreenShotInFile(oldavatarname);
+            createPNGFile(getSpesificScreenshot(getIdLocator(avatarProfilSaya)), "old_avatar", Constants.screenshotsDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -428,7 +431,7 @@ public class ProfilSayaModule extends BasePage{
         waitForVisibilityOf(getTextLocator(titleProfilSaya));
         WaitFor(2);
         try {
-            takeScreenShotInFile(newavatarname);
+            createPNGFile(getSpesificScreenshot(getIdLocator(avatarProfilSaya)), "new_avatar", Constants.screenshotsDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -436,9 +439,11 @@ public class ProfilSayaModule extends BasePage{
 
     public void verifyOldNewAvatar(){
         Log.info("Verify New Avatar in ProfilSaya Page");
-        try {
-            Assert.assertTrue(isImgNotEqual(new File(Constants.screenshotsDir+oldavatarname), new File(Constants.screenshotsDir+newavatarname)));
-        } catch (IOException e) {
+        try{
+            Assert.assertTrue(isImgNotEqual(new File(Constants.screenshotsDir+oldavatarname),
+                    new File(Constants.screenshotsDir+newavatarname)),
+                    "Image are same between new and old image");
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
