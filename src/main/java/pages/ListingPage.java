@@ -54,6 +54,7 @@ public class ListingPage extends BasePage {
     public static final String suggesstionSemuaDiKategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String highlightIconId = "com.app.tokobagus.betterb:id/promo_top";
     public static final String disagreeButton = "android:id/button2";
+    public static final String adsContainers = "com.app.tokobagus.betterb:id/holder_container";
     public boolean isClickedBy;
     public boolean lalala;
     public static final String filterTitle = "Filter";
@@ -488,5 +489,18 @@ public class ListingPage extends BasePage {
         String secondId = AdsDetailsPage.getPostDateAds();
         detailsPage.clickBackFromAdsDetails();
         return secondId;
+    }
+
+    public AdsDetailsPage clickSpesificAdsWithPrice(String price) {
+        List<WebElement> listAds = getListElements(getIdLocator(adsContainers));
+
+        for (int i =0  ; i < nonHighlightAds.size() ; i++){
+            if (nonHighlightAds.get(i).getText().equalsIgnoreCase(price)) {
+                listAds.get(i).click();
+                break;
+            }
+        }
+
+        return new AdsDetailsPage(driver);
     }
 }

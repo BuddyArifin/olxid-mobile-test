@@ -557,4 +557,13 @@ public class PesanPage extends BasePage{
         clickElement(getIdLocator(loginBtnInAlert));
     }
 
+    public void inputMessage(String pesanMessages) {
+        Log.info("Input message : "+pesanMessages);
+        sendKeysById(getIdLocator(detailChatField), pesanMessages);
+    }
+
+    public void clickSendButton() {
+        Log.info("Click Send Button on message");
+        clickElement(getIdLocator(detailSendBtn));
+    }
 }
