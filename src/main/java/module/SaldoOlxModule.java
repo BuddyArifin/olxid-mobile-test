@@ -67,6 +67,8 @@ public class SaldoOlxModule extends BasePage {
     public static final String noTransactionStatus = "com.app.tokobagus.betterb:id/rowTransaction_tvTransStatus";
     public static final String transactionPrice = "com.app.tokobagus.betterb:id/rowTransaction_tvPromoPrice";
     public static final String transactionHistory = "com.app.tokobagus.betterb:id/btn_show_transaction_history";
+    public static final String infoLebihLanjut = "com.app.tokobagus.betterb:id/safety_info_more";
+    public static final String PUSAT_BANTUAN = "Pusat Bantuan";
 
 
     @AndroidFindBys({
@@ -87,6 +89,7 @@ public class SaldoOlxModule extends BasePage {
         verifyBackbutton();
         verifytitleSaldo();
         verifyInfoBanner();
+        verifyLebihLanjutButton();
         verifyLebihLanjutBtn();
         verifySkipBanner();
         verifySaldoAmount();
@@ -189,6 +192,11 @@ public class SaldoOlxModule extends BasePage {
     {
         Assert.assertTrue(isElementPresent(getIdLocator(prevImageSlideBtn)),"Prev Image Slide Button Not Found");
         Log.info("Verify Previous Image Slide Button");
+    }
+    public void verifyLebihLanjutButton()
+    {
+        Log.info("Verify Lebih Lanjut Button");
+        Assert.assertTrue(isElementPresent(getIdLocator(lebihLanjutBtn)), "Lebih Lanjut Button Not Found");
     }
 
     public HamburgerBarModule clickBackButton()
@@ -387,5 +395,15 @@ public class SaldoOlxModule extends BasePage {
         HamburgerBarModule hamburgerBar;
         hamburgerBar = clickBackButton();
         isWaitElementPresent(getIdLocator(hamburgerBar.avatarSaya));
+    }
+
+    public void clickLebihLanjut() {
+        Log.info("Click Lebih Lanjut Button");
+        clickElement(getIdLocator(lebihLanjutBtn));
+    }
+
+    public void verifyInfoLebihLanjut() {
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
     }
 }

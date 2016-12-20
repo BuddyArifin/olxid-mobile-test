@@ -24,7 +24,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As a User I want See Content in Filter Page")
     @Title("Verify System Display Content in Filter Page")
-    @TestCaseId("TC_FILTER_08_002")
+    @TestCaseId("TC_FILTER_08_002, TC_LISTING_06_021")
     @Test(priority = 1)
     public void verifyAllContentInFilterPage()
     {
@@ -175,7 +175,7 @@ public class FilterTest extends AndroidSetup{
 
     @Stories("As user i want to see suggestion location")
     @Title("Verify System able to display suggestion as user input location")
-    @TestCaseId("TC_FILTER_08_012")
+    @TestCaseId("TC_FILTER_08_012, TC_FILTER_08_012")
     @Test(priority = 3)
     public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
     {   filterPage.initialFilterTest();

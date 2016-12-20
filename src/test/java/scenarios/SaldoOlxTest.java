@@ -52,12 +52,14 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As a user i want to be able close info banner")
     @Title("Verify User able to close info banner by click \"Tutup\" Button")
     @TestCaseId("TC_SALDO_12_011")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyUserAbleToCloseInfoBannerByClickTutupButton() {
         SaldoOlxModule saldoOlxModule = new SaldoOlxModule(driver);
         HamburgerBarModule hamburgerBarModule = saldoOlxModule.initSaldoOlxTest();
         hamburgerBarModule.clickSaldoOLXBtn();
-        saldoOlxModule.clickSkipBanner();
+        saldoOlxModule.verifyAllContentOfSaldoOlx();
+        saldoOlxModule.clickLebihLanjut();
+        saldoOlxModule.verifyInfoLebihLanjut();
     }
 
     @Stories("As A User i want to be able to Tap History Transactions button, below List Transaction History")

@@ -222,29 +222,6 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyContentPostingForm();
     }
 
-    /*@Stories("As a user i want to be able choose method to add photo")
-    @Title("Verify user able to choose option add photo from gallery")
-    @TestCaseId("TC_JUAL_11_017")
-    @Test(priority = 13, enabled = false)
-    public void verifyUserAbleToChooseOptionAddPhotoFromGallery()
-    {
-        postAdsPage.clickPlusAdditionalPhotos();
-        postAdsPage.verifyOptionAlert();
-        postAdsPage.clickGaleriFotoBtn();
-        postAdsPage.clickOneOfPictureGallery();
-        postAdsPage.clickSimpanBtn();
-    }
-
-    @Stories("As a user i want to be able cancel uploaded or taken photo")
-    @Title("Verify user able to cancel uploaded or taken photo")
-    @TestCaseId("TC_JUAL_11_018")
-    @Test(priority = 14, enabled = false)
-    public void verifyUserAbleToCancelUploadedOrTakenPhoto()
-    {
-        postAdsPage.clickCloseButtonXPhotoThumb();
-        postAdsPage.clickYaPositiveOrCameraBtn();
-    }*/
-
     @Stories("As a user i want to be able click and input title Ads")
     @Title("Verify user able to click and input title Ads in Judul Column")
     @TestCaseId("TC_JUAL_11_019")
