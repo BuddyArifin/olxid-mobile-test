@@ -170,4 +170,14 @@ public class Sinon extends InstanceDriver{
         Log.debug(DataBuilder.getPassword(response));
     }
 
+    @Test
+    public void testCreateUserWithPassword() throws IOException {
+        Sinon sinon = new Sinon();
+        Response response = sinon.postCreateUserWithPassword("xyz@haha.com");
+        Log.debug(DataBuilder.getUserName(response));
+        Log.debug(DataBuilder.getPassword(response));
+        setUser_id(DataBuilder.getUserId(response));
+        sinon.createAds();
+    }
+
 }
