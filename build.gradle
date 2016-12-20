@@ -41,7 +41,7 @@ dependencies {
     compile 'ru.yandex.qatools.ashot:ashot:1.5.2'
     compile 'com.jayway.restassured:rest-assured:2.9.0'
     compile 'com.jayway.restassured:json-schema-validator:2.9.0'
-    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.0.0'
+    compile 'com.jayway.jsonpath:json-path:2.0.0'
 }
 
 allure {

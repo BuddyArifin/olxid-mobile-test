@@ -43,8 +43,8 @@ public class ProfilSayaTest extends AndroidSetup {
         loginPage.verifyContentsOfLoginPage();
 
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("olxtester@gmail.com");
-        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("buddy.arifin@icloud.com");
+        loginWithOlxModule.inputPassword("nazgul_buddy");
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
     }
@@ -77,7 +77,7 @@ public class ProfilSayaTest extends AndroidSetup {
         profilSayaModule.verifyAllEditAvatarPopUpContents();
         //upload gallery
         profilSayaModule.clickUploadAvatarGalery();
-        postAdsPage = profilSayaModule.clickOneOfPictureGallery();
+        postAdsPage = profilSayaModule.chooseAppsToOpenPhotosonGallery();
         postAdsPage.clickSimpanBtn();
         profilSayaModule.takeShotNewAvatar();
         profilSayaModule.verifyOldNewAvatar();
