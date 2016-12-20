@@ -446,7 +446,7 @@ public class PostAdsTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
     }
 
-    /*@Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
+/*    @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
     @Title("Verify System able to display additional Input Field in \"Jasa & Lowongan\" Kategori")
     @TestCaseId("TC_JUAL_11_029, TC_JUAL_11_030")
     @Test(priority = 30, enabled = false)
@@ -480,105 +480,5 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyContentInPopUpSuccessPosting();
         listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
         listingPage.verifyContentsOfListingPage();
-    }
-
-    *//* Top Listing / Paid Features *//*
-
-    @Stories("As a user I want to be able to see Pilih Durasi Top Listing contents")
-    @Title("Verify system able to display Pilih Durasi Top Listing contents as a pop up after user click Gunakan Fitur Top Listing button")
-    @TestCaseId("TC_PAIDF_16_009")
-    @Test(priority = 31, enabled = false)
-    public void verifyTopListingContentsPA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.verifyTitleTopListing();
-        paidFeatureModule.verifyDurationOptOnTopListing();
-        paidFeatureModule.verifyBeliBtnOnTopListing();
-        paidFeatureModule.verifyBatalBtnOnTopListing();
-    }
-
-    @Stories("As a user I want to be able to select an option from Pilih Durasi Top Listing")
-    @Title("Verify system able to select an option from Pilih Durasi Top Listing")
-    @TestCaseId("TC_PAIDF_16_010")
-    @Test(priority = 32, enabled = false)
-    public void verifySelectDurationOptPA(){
-        paidFeatureModule.clickDuration3Days();
-        paidFeatureModule.clickDuration7Days();
-        paidFeatureModule.clickDuration14Days();
-        paidFeatureModule.clickDuration28Days();
-    }
-
-    @Stories("As a user I want to be able to click Batal on Pilih Durasi Top Listing")
-    @Title("Verify system able to redirect to previous page after click Batal on Pilih Durasi Top Listing")
-    @TestCaseId("TC_PAIDF_16_011")
-    @Test(priority = 33, enabled = false)
-    public void verifyPageAfterCancelSelectDurationPA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickBatalOnTopListing();
-        paidFeatureModule.verifyBatalBtnOnTopListing();
-    }
-
-    @Stories("As a user I want to be able to click Beli on Pilih Durasi Top Listing")
-    @Title("Verify system able to click Beli on Pilih Durasi Top Listing")
-    @TestCaseId("TC_PAIDF_16_012")
-    @Test(priority = 34, enabled = false)
-    public void verifyBuyTopListingPA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickDuration7Days();
-        paidFeatureModule.clickBeliOnTopListing();
-        paidFeatureModule.verifyMsgSuccessPage();
-    }
-
-    @Stories("As a user I want to be able to click Tutup on Success Message page")
-    @Title("Verify system able to click Tutup on Success Message page")
-    @TestCaseId("TC_PAIDF_16_013")
-    @Test(priority = 35, enabled = false)
-    public void verifyCloseSuccessMsgPagePA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickDuration7Days();
-        paidFeatureModule.clickBeliOnTopListing();
-        paidFeatureModule.verifyMsgSuccessPage();
-        paidFeatureModule.clickTutupSuccessPage();
-        paidFeatureModule.verifyPageAfterTutupSuccess();
-    }
-
-    @Stories("As a user I want to be able to see insufficient balance notification page contents after unsuccessfully purchase Top Listing")
-    @Title("Verify system will display insufficient balance notification page contents")
-    @TestCaseId("TC_PAIDF_16_014")
-    @Test(priority = 36, enabled = false)
-    public void verifyInsufBalNotifPageContentsPA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickDuration28Days();
-        paidFeatureModule.clickBeliOnTopListing();
-        paidFeatureModule.verifyMsgInsufPage();
-        paidFeatureModule.verifyTitleInsufPage();
-        paidFeatureModule.verifyIsiulangInsufPage();
-        paidFeatureModule.verifyBatalBtnInsufPage();
-    }
-
-    @Stories("As a user I want to be able to click Batal on Insufficient Balance Notification page")
-    @Title("Verify system will redirect to previous page after user click Batal")
-    @TestCaseId("TC_PAIDF_16_015")
-    @Test(priority = 37, enabled = false)
-    public void verifyPageAfterCancelInsufPagePA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickDuration28Days();
-        paidFeatureModule.clickBeliOnTopListing();
-        paidFeatureModule.verifyMsgInsufPage();
-        paidFeatureModule.clickBatalBtnInsufPage();
-        paidFeatureModule.verifyPageAfterBatalInsuf();
-    }
-
-    @Stories("As a user I want to be able to click Isi Ulang on Insufficient Balance Notification Page")
-    @Title("Verify system will redirect to Isi Ulang Saldo OLX page after user click Isi Ulang")
-    @TestCaseId("TC_PAIDF_16_016")
-    @Test(priority = 38, enabled = false)
-    public void verifyPageAfterReloadInsufPagePA(){
-        paidFeatureModule.clickTopListing();
-        paidFeatureModule.clickDuration28Days();
-        paidFeatureModule.clickBeliOnTopListing();
-        paidFeatureModule.verifyMsgInsufPage();
-        paidFeatureModule.clickIsiulangBtnInsufPage();
-        paidFeatureModule.verifyPageAfterIsiulangInsuf();
     }*/
-
 }
