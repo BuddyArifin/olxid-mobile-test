@@ -73,6 +73,7 @@ public class IklanSayaPage extends BasePage{
     public void initIklanSayaPage(){
         HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
         AdsDetailsPage adsDetailsPage = new AdsDetailsPage(driver);
+        EditIklanPage editIklanPage = new EditIklanPage(driver);
         if(isElementPresent(getTextLocator(iklanSayaTitle))){
             clickBackBtn();
         }else if(hamburgerBarModule.isHamburgerBar()){
@@ -83,6 +84,11 @@ public class IklanSayaPage extends BasePage{
             clickBackBtn();
         }else if(adsDetailsPage.deactivateReasonDisplayed()){
             adsDetailsPage.clickCancelDeactivate();
+            clickBackBtn();
+            waitForVisibility(getTextLocator(iklanSayaTitle));
+            clickBackBtn();
+        }else if(editIklanPage.editAdsTitleDisplayed()){
+            editIklanPage.clickBackBtn();
             clickBackBtn();
             waitForVisibility(getTextLocator(iklanSayaTitle));
             clickBackBtn();
