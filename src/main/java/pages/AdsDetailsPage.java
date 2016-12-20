@@ -24,8 +24,8 @@ public class AdsDetailsPage extends BasePage {
     public static final String backBtn = "Navigate up";
     protected static final String bannerInfo = "com.app.tokobagus.betterb:id/info_text";
     protected static final String bannerCloseBtn = "com.app.tokobagus.betterb:id/safety_info_close";
-    protected static final String titleAds = "";
-    protected static final String tipsAds = "com.app.tokobagus.betterb:id/info_text";
+    protected static final String titleAds = "Detail Iklan";
+    protected static final String tipsAds = "com.app.tokobagus.betterb:id/safety_info_text";
     protected static final String photoAds = "com.app.tokobagus.betterb:id/image";
     protected static final String photoPagination = "com.app.tokobagus.betterb:id/layout_pointer";
     protected static final String priceAds = "com.app.tokobagus.betterb:id/price";
@@ -59,14 +59,10 @@ public class AdsDetailsPage extends BasePage {
     // Share
     public static final String shareIcon = "android:id/icon";
     public static final String statusAdsDifavoritkan = "com.app.tokobagus.betterb:id/liked";
-    public static final String reasonDeactivatePopUp = "com.app.tokobagus.betterb:id/md_customViewFrame";
     public static final String radioGrupDeactivateReason = "com.app.tokobagus.betterb:id/recycler_view_reason_list";
     public static final String cancelDeactivate = "com.app.tokobagus.betterb:id/button_cancel";
-    public static final String soldOnOlx = "com.app.tokobagus.betterb:id/radiobutton_sold_on_olx";
-    public static final String soldOnOthersite = "com.app.tokobagus.betterb:id/radiobutton_sold_on_other_site";
-    public static final String noResponse = "com.app.tokobagus.betterb:id/radiobutton_no_response";
-    public static final String onVacation = "com.app.tokobagus.betterb:id/radiobutton_on_vacation";
-    public static final String otherReason = "com.app.tokobagus.betterb:id/radiobutton_other";
+
+    public static final String editAdsMenu = "com.app.tokobagus.betterb:id/menu_edit_ad";
 
     // Seller View
     public static final String gunakanFiturHighlightId = "com.app.tokobagus.betterb:id/safety_info_more";
@@ -148,7 +144,12 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyTipsAds(){
         Log.info("Verify Tips Transaksi Aman");
-        Assert.assertTrue(isElementPresent(getIdLocator(tipsAds)));
+        if(isElementPresent(getIdLocator(tipsAds))){
+            Assert.assertTrue(true);
+        }else if(isElementPresentAfterScrollUp(getIdLocator(tipsAds))){
+            Assert.assertTrue(true);
+        }
+        //Assert.assertTrue(isElementPresent(getIdLocator(tipsAds)));
     }
     public void verifyPhotoAds(){
         Log.info("Verify Ads Photo display");
@@ -322,7 +323,7 @@ public class AdsDetailsPage extends BasePage {
         verifyShareBtn();
         verifyEditBtn();
         verifyLebihLanjut();
-        verifyTutupBtn();
+//        verifyTutupBtn();
         verifyTipsAds();
 //        verifyPhotoAds();
         verifyPriceAds();
@@ -340,14 +341,14 @@ public class AdsDetailsPage extends BasePage {
 //        verifyLihatIklanAndTestimoni();
     }
 
-    protected void verifyEditBtn() {
-        Log.info("Verify Share Button display");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(editAdsBtnId)));
+    public void verifyEditBtn(){
+        Log.info("Verify Edit Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(editAdsMenu)));
     }
 
-    private void dismissTutorial() {
-        Log.debug("Dismiss Tutorial");
+    public void dismissTutorial() {
         if (!checkTutorialsColors(getContentLocator(backBtn))) {
+            Log.debug("Dismiss Tutorial");
             clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
         }
     }
@@ -373,6 +374,8 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Info Lebih Lanjut link Button");
         Assert.assertTrue(isElementPresentAfterScrollUp(getIdLocator(lebihLanjutBtn)));
         clickElement(getIdLocator(lebihLanjutBtn));
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
     }
     public void clickFavoriteBtn() {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
@@ -442,7 +445,13 @@ public class AdsDetailsPage extends BasePage {
 
     public void clickNonActiveBtn() {
         Log.info("Click Non Active Button");
-        clickElement(getIdLocator(nonActivatebtnId));
+        if(isElementPresent(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }else if(isElementPresentAfterScrollUp(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }else if(isElementPresentAfterScrollDown(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }
     }
 
     public void clickSudahTerjual() {
@@ -510,17 +519,8 @@ public class AdsDetailsPage extends BasePage {
 
     public void verifyDeactivateReason(){
         Log.info("Verify Deactivate Reason");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(reasonDeactivatePopUp)));
+        verifyNonAktifStatus();
         Assert.assertTrue(isWaitElementPresent(getIdLocator(radioGrupDeactivateReason)));
-        verifyDeactivateReasonList();
-    }
-
-    private void verifyDeactivateReasonList(){
-        Assert.assertTrue(isElementPresent(getIdLocator(soldOnOlx)));
-        Assert.assertTrue(isElementPresent(getIdLocator(soldOnOthersite)));
-        Assert.assertTrue(isElementPresent(getIdLocator(noResponse)));
-        Assert.assertTrue(isElementPresent(getIdLocator(onVacation)));
-        Assert.assertTrue(isElementPresent(getIdLocator(otherReason)));
     }
 
     public void clickCancelDeactivate(){
@@ -577,6 +577,12 @@ public class AdsDetailsPage extends BasePage {
         clickElement(getIdLocator(kirimLaporanBtn));
     }
 
+    public EditIklanPage clickEditIklanBtn(){
+        clickElement(getIdLocator(editAdsMenu));
+        Log.info("Click Edit Iklan button");
+        return new EditIklanPage(driver);
+    }
+
     private static String getIdIklanSave() {
         return idIklanSave;
     }
@@ -606,6 +612,10 @@ public class AdsDetailsPage extends BasePage {
 
     public void setPostDateAds(String dateAdse) {
         dateAds = dateAdse;
+    }
+
+    public boolean isadsdetail(){
+        return isWaitElementPresent(getTextLocator(titleAds));
     }
 
     public void verifyInfoLebihLanjut() {

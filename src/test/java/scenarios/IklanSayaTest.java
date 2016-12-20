@@ -19,7 +19,7 @@ import ru.yandex.qatools.allure.annotations.Title;
  * Created by NugrohoSantoso on 10/19/16.
  */
 @Listeners(ScreenshootsListener.class)
-@Features("Post Ads Test")
+@Features("Iklan Saya Test")
 public class IklanSayaTest extends AndroidSetup {
     LoginPage loginPage;
     LoginWithOlxModule loginWithOlxModule;
@@ -61,28 +61,28 @@ public class IklanSayaTest extends AndroidSetup {
         iklanSayaPage.verifyContentInActivePanel();
     }
 
-    @Stories("As a user i want to be able see content in \"Waiting\" Panel")
-    @Title("Verify system able to display content in \"Waiting\" panel")
+    @Stories("As a user i want to be able see content in \"Non Aktif\" Panel")
+    @Title("Verify system able to display content in \"Non Aktif\" panel")
     @TestCaseId("TC_MYADS_15_002")
     @Test(priority = 3)
-    public void verifyContentInWaitingPanel()
+    public void verifyContentInNonAktifPanel()
     {
         iklanSayaPage.initIklanSayaPage();
         hamburgerBarModule.clickIklanSayaBtn();
-        iklanSayaPage.clickWaitingPanel();
-        iklanSayaPage.verifyContentInWaitingPanel();
+        iklanSayaPage.clickNonAktifPanel();
+        iklanSayaPage.verifyContentInNonAktifPanel();
     }
 
-    @Stories("As a user i want to be able see content in \"Archive\" Panel")
-    @Title("Verify system able to display content in \"Archive\" panel")
+    @Stories("As a user i want to be able see content in \"Ditolak\" Panel")
+    @Title("Verify system able to display content in \"Ditolak\" panel")
     @TestCaseId("TC_MYADS_15_002")
     @Test(priority = 3)
-    public void verifyContentInArchivePanel()
+    public void verifyContentInDitolakPanel()
     {
         iklanSayaPage.initIklanSayaPage();
         hamburgerBarModule.clickIklanSayaBtn();
-        iklanSayaPage.clickArchivePanel();
-        iklanSayaPage.verifyContentInArchivePanel();
+        iklanSayaPage.clickDitolakPanel();
+        iklanSayaPage.verifyContentInDitolakPanel();
     }
 
     @Stories("As a user i want to be able see Additional content in \"Moderasi\" Panel")
@@ -100,7 +100,7 @@ public class IklanSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able see content in \"Promote\" Panel")
     @Title("Verify system able to display content in \"Promote\" panel")
     @TestCaseId("TC_MYADS_15_002")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyContentInPromotePanel()
     {
         iklanSayaPage.initIklanSayaPage();
@@ -119,15 +119,14 @@ public class IklanSayaTest extends AndroidSetup {
         iklanSayaPage = hamburgerBarModule.clickIklanSayaBtn();
         iklanSayaPage.clickActivePanel();
         iklanSayaPage.verifyScrollUpAndDown();
-        iklanSayaPage.clickWaitingPanel();
-        iklanSayaPage.verifyScrollUpAndDown();
-        iklanSayaPage.clickArchivePanel();
-        iklanSayaPage.verifyScrollUpAndDown();
         iklanSayaPage.clickModerasiPanel();
         iklanSayaPage.verifyScrollUpAndDown();
-        //disabled due to instabug location
-        /*iklanSayaPage.clickPromotePanel();
-        iklanSayaPage.verifyScrollUpAndDown();*/
+        iklanSayaPage.clickNonAktifPanel();
+        iklanSayaPage.verifyScrollUpAndDown();
+        iklanSayaPage.clickDitolakPanel();
+        iklanSayaPage.verifyScrollUpAndDown();
+        iklanSayaPage.clickPromotePanel();
+        iklanSayaPage.verifyScrollUpAndDown();
     }
 
     @Stories("As a user able to click one of ads in Aktif Panel")
@@ -155,6 +154,7 @@ public class IklanSayaTest extends AndroidSetup {
         hamburgerBarModule.clickIklanSayaBtn();
         iklanSayaPage.clickActivePanel();
         adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
         adsDetailsPage.clickNonActiveBtn();
         adsDetailsPage.verifyDeactivateReason();
         adsDetailsPage.clickCancelDeactivate();
@@ -171,19 +171,19 @@ public class IklanSayaTest extends AndroidSetup {
         loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.clickDisiniLogin();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("test.conf1a@gmail.com");
-        loginWithOlxModule.inputPassword("confluence1234");
+        loginWithOlxModule.inputEmailForChangePass();
+        loginWithOlxModule.inputPasswordForChangePass();
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
         profilSayaModule.clickBackButton();
         hamburgerBarModule.clickIklanSayaBtn();
         iklanSayaPage.clickActivePanel();
-        iklanSayaPage.verifyAmountOfAds("Active");
-        iklanSayaPage.clickWaitingPanel();
-        iklanSayaPage.verifyAmountOfAds("Waiting");
-        iklanSayaPage.clickArchivePanel();
-        iklanSayaPage.verifyAmountOfAds("Archive");
+        iklanSayaPage.verifyAmountOfAds("Aktif");
         iklanSayaPage.clickModerasiPanel();
-        iklanSayaPage.verifyAmountOfAds("Moderated");
+        iklanSayaPage.verifyAmountOfAds("Moderasi");
+        iklanSayaPage.clickNonAktifPanel();
+        iklanSayaPage.verifyAmountOfAds("NonAktif");
+        iklanSayaPage.clickDitolakPanel();
+        iklanSayaPage.verifyAmountOfAds("Ditolak");
     }
 }
