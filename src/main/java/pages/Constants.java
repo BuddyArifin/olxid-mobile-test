@@ -3,6 +3,7 @@ package pages;
 public class Constants {
   public static final String FILTER_TEST = "scenarios.FilterTest";
   public static final String POSTADS_TEST = "scenarios.PostAdsTest";
+  public static final String PAID_TEST = "PaidFeaturePostAdsTest";
   public static final String UNICODE_APP = "io.appium.android.ime";
   public static String screenshotsDir="Screenshots/";
   public static String apkDir="Resources/";

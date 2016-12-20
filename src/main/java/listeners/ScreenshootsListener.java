@@ -45,7 +45,8 @@ public class ScreenshootsListener extends TestListenerAdapter  {
         driver = setDriver(iTestResult);
 //        ((AndroidDriver)driver).removeApp("io.appium.settings");
         if (getTestClassName(iTestResult).equalsIgnoreCase(Constants.FILTER_TEST)
-                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.POSTADS_TEST)) {
+                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.POSTADS_TEST)
+                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.PAID_TEST)) {
             Log.debug("Removing Unicode App on Devices : "+getDeviceName());
             ((AndroidDriver)driver).removeApp(Constants.UNICODE_APP);
         }
