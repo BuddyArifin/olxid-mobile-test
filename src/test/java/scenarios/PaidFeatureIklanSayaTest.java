@@ -26,7 +26,7 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
 
     @Stories("As a user I want to be able to see Pilih Durasi Top Listing contents")
     @Title("Verify system able to display Pilih Durasi Top Listing contents as a pop up after user click Gunakan Fitur Top Listing button")
-    @TestCaseId("TC_PAIDF_16_001")
+    @TestCaseId("TC_PAIDF_16_001, TC_MYADS_15_010, TC_MYADS_15_011, TC_MYADS_15_012")
     @Test(priority = 1)
     public void verifyUserAbleToPilihDurasiAfterTapGunakanHighlightFeature() {
         LoginPage loginPage = new LoginPage(driver);
@@ -47,7 +47,7 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
 
     @Stories("As a user I want to be able to select an option from Pilih Durasi Top Listing")
     @Title("Verify system able to select an option from Pilih Durasi Top Listing")
-    @TestCaseId("TC_PAIDF_16_002, TC_PAIDF_16_003, TC_PAIDF_16_004")
+    @TestCaseId("TC_PAIDF_16_002, TC_PAIDF_16_003, TC_PAIDF_16_004, TC_MYADS_15_013, TC_MYADS_15_014, TC_MYADS_15_015")
     @Test(priority = 3)
     public void verifyUserAbleToSelectanOptionFromDurasiTopListing() {
         iklanSayaPage.initIklanSayaPage();

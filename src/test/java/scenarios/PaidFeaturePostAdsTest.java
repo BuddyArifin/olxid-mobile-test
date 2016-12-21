@@ -24,7 +24,7 @@ public class PaidFeaturePostAdsTest extends AndroidSetup {
 
     @Stories("As a user I want to be able to see Pilih Durasi Top Listing contents")
     @Title("Verify system able to display Pilih Durasi Top Listing contents as a pop up after user click Gunakan Fitur Top Listing button")
-    @TestCaseId("TC_PAIDF_16_009, TC_PAIDF_16_013")
+    @TestCaseId("TC_PAIDF_16_009, TC_PAIDF_16_013, TC_JUAL_11_039, TC_JUAL_11_040")
     @Test(priority = 1)
     public void verifyUserAbleToSeeTopListingAfterChooseHighlightonSuccessPostAds() {
         LoginPage loginPage = new LoginPage(driver);
