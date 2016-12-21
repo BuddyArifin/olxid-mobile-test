@@ -124,6 +124,7 @@ public class ListingTest extends AndroidSetup {
     public void userAbleToGoToPusatBantuan() {
         listingPage.initialListingPage();
         hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.verifyAvatarSaya();
         hamburgerBarModule.clickPusatBantuanBtn();
         hamburgerBarModule.verifyPusatBantuanContent();
         hamburgerBarModule.closeHamburgerBarDrawer();
@@ -137,6 +138,7 @@ public class ListingTest extends AndroidSetup {
     public void userAbleToGoToTentangOlx() {
         listingPage.initialListingPage();
         hamburgerBarModule = listingPage.clickHamburgerBar();
+        hamburgerBarModule.verifyAvatarSaya();
         hamburgerBarModule.clickTentangOLXBtn();
         hamburgerBarModule.verifyTentangOlxContent();
         hamburgerBarModule.closeHamburgerBarDrawer();
