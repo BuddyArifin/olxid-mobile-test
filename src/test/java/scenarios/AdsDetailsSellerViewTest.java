@@ -42,7 +42,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
 
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
-    @TestCaseId("TC_AdDetails_09_014")
+    @TestCaseId("TC_AdDetails_09_014, TC_MYADS_15_025, TC_MYADS_15_026, TC_MYADS_15_027,TC_MYADS_15_028")
     @Test(priority = 3)
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
@@ -64,7 +64,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
 
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
-    @TestCaseId("TC_AdDetails_09_014")
+    @TestCaseId("TC_AdDetails_09_014, TC_MYADS_15_020, TC_MYADS_15_021, TC_MYADS_15_022, TC_MYADS_15_023, TC_MYADS_15_024")
     @Test(priority = 3)
     public void verifyUserAbleToClickSetTerjualAds()
     {
