@@ -489,27 +489,50 @@ public class AdsDetailsPage extends BasePage {
     public void initAdsDetailsTest() {
         Log.info("Back to initiate Ads Details Page");
         ListingPage listing = new ListingPage(driver);
-        if(isElementPresent(getIdLocator(sharedBtn))){ // on Details Page
+        if(isCurrentPageOnAdsDetails()){
             clickBackFromAdsDetails();
-            isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
-            Assert.assertTrue(true, "Already in Listing Page");
+
+        } else if (isCurrentPageHomePageOrFavoriteTab()) {
             clickElement(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle)) ||
-                isElementPresent(getIdLocator(kirimLaporanBtn))) {
+
+        } else if (isCurrentPageMapsOrLaporkanIklan()) {
             driver.navigate().back();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
+
+        } else if (isCurrentPageOnLihatIklanLainnyaPage()) {
             clickBackFromAdsDetails();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(PesanPage.detailSendBtn))) {
+
+        } else if (isCurrentPageOnPesanPage()) {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         }
+    }
+
+    private boolean isCurrentPageOnAdsDetails() {
+        return isElementPresent(getIdLocator(sharedBtn));
+    }
+
+    private boolean isCurrentPageOnLihatIklanLainnyaPage() {
+        return isElementPresent(getIdLocator(ListingPage.gambarIklan));
+    }
+
+    private boolean isCurrentPageOnPesanPage() {
+        return isElementPresent(getIdLocator(PesanPage.detailSendBtn));
+    }
+
+    private boolean isCurrentPageHomePageOrFavoriteTab() {
+        return isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))
+                || isElementPresent(getTextLocator(FavoritePage.favoriteTitleText));
+    }
+
+    private boolean isCurrentPageMapsOrLaporkanIklan() {
+        return isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))
+                || isElementPresent(getIdLocator(kirimLaporanBtn));
     }
 
     private void goToAdsDetailsFromListing(ListingPage listing) {

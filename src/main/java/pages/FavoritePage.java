@@ -20,6 +20,7 @@ public class FavoritePage extends BasePage{
     public static final String filterButton = "com.app.tokobagus.betterb:id/filter_item";
     public static final String favoriteIconID = "com.app.tokobagus.betterb:id/btn_remove_favorite";
     public static final String searchIconID = "com.app.tokobagus.betterb:id/search_item";
+    public static final String favoriteTitleText = "Favorit";
 
     public FavoritePage(WebDriver driver) {
         super(driver);

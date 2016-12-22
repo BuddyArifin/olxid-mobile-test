@@ -18,7 +18,7 @@ import ru.yandex.qatools.allure.annotations.Title;
  * Created by NugrohoSantoso on 10/3/16.
  */
 @Listeners(ScreenshootsListener.class)
-@Features("HamburgerBar Feature")
+@Features("Profile Saya Feature")
 public class ProfilSayaTest extends AndroidSetup {
     LoginPage loginPage;
     LoginWithOlxModule loginWithOlxModule;
