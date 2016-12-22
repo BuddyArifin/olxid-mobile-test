@@ -41,19 +41,21 @@ public class IklanSayaPage extends BasePage{
     public static final String iklanSayaTitle = "Iklan Saya";
     public static final String moderasiPanel = "Moderasi";
     public static final String aktifPanel = "Aktif";
-    public static final String waitingPanel = "Waiting";
-    public static final String archivePanel = "Archive";
-    public static final String promotePanel = "Promote";
+    public static final String nonAktifPanel = "Non-Aktif";
+    public static final String ditolakPanel = "Ditolak";
+    public static final String promotePanel = "Promosi";
     public static final String sudahTerjualBtn = "com.app.tokobagus.betterb:id/button_set_sold";
     public static final String scrollMenu = "com.app.tokobagus.betterb:id/pager_tab_strip";
     public static final String linearLayout = "android.widget.LinearLayout";
     public static final String textView = "android.widget.TextView";
+    public static final String swipeRefreshLayout = "com.app.tokobagus.betterb:id/swipeRefreshLayout";
     public static final String adList = "com.app.tokobagus.betterb:id/recycler_view_ad_list";
     public static final String frameLayout = "android.widget.FrameLayout";
     public static final String textNoResult = "com.app.tokobagus.betterb:id/text_no_result";
     public static final String adsImg = "com.app.tokobagus.betterb:id/iv_ad_item_image";
     public static final String adsPrice = "com.app.tokobagus.betterb:id/tv_ad_item_price";
     public static final String detailIklanTitle = "Detail Iklan";
+    public static final String iconPostAds = "com.app.tokobagus.betterb:id/menu_post_ad";
 
     @AndroidFindBys({
             @AndroidFindBy(id = scrollMenu),
@@ -73,6 +75,8 @@ public class IklanSayaPage extends BasePage{
         HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
         AdsDetailsPage adsDetailsPage = new AdsDetailsPage(driver);
         PaidFeatureModule paidFeatureModule = new PaidFeatureModule(driver);
+        EditIklanPage editIklanPage = new EditIklanPage(driver);
+
         if(isElementPresent(getTextLocator(iklanSayaTitle))){
             clickBackBtn();
         }else if(hamburgerBarModule.isHamburgerBar()){
@@ -84,6 +88,9 @@ public class IklanSayaPage extends BasePage{
             getBackToMyDetailsAds();
         } else if (paidFeatureModule.isTopListingPopUpPresent()) {
             paidFeatureModule.clickBatalOnTopListing();
+            getBackToMyDetailsAds();
+        }else if(editIklanPage.editAdsTitleDisplayed()){
+            editIklanPage.clickBackBtn();
             getBackToMyDetailsAds();
         }
     }
@@ -97,23 +104,24 @@ public class IklanSayaPage extends BasePage{
     @Step("Verify All Content In IklanSaya Page")
     public void verifyAllContentInIklanSayaPage()
     {
+        verifyandSkipTutorialPostadsImage();
+        verifyBackBtn();
+        verifyIklanSayaTitle();
+        verifyImageAndPrice();
+        verifyAktifPanel();
+        clickActivePanel();
+        verifyAmountOfAds("Aktif");
+        verifyModerasiPanel();
+        clickModerasiPanel();
+        verifyAmountOfAds("Moderasi");
+        verifyNonAktifPanel();
+        clickNonAktifPanel();
+        verifyAmountOfAds("NonAktif");
+        verifyDitolakPanel();
+        clickDitolakPanel();
+        verifyAmountOfAds("Ditolak");
+        verifyPromotePanel();
         Log.info("Verify All Content In IklanSaya Page");
-        dismissTutorial();
-//        verifyBackBtn();
-//        verifyIklanSayaTitle();
-//        verifyImageAndPrice();
-//        verifyAktifPanel();
-//        verifyWaitingPanel();
-//        verifyArchivePanel();
-//        verifyModerasiPanel();
-//        verifyPromotePanel();
-    }
-
-    protected void dismissTutorial() {
-        Log.debug("Dismiss Tutorial");
-        if (!checkTutorialsColors(getContentLocator(backBtn))) {
-            clickBySize(getPointLocation(getIdLocator(postAdsIcon)));
-        }
     }
 
     public void verifyBackBtn()
@@ -157,15 +165,15 @@ public class IklanSayaPage extends BasePage{
         Assert.assertTrue(isElementPresent(getTextLocator(aktifPanel)));
     }
 
-    public void verifyWaitingPanel(){
-        Log.info("Verify Waiting Panel");
-        Assert.assertTrue(isElementPresent(getTextLocator(waitingPanel)));
+    public void verifyDitolakPanel(){
+        Log.info("Verify Ditolak Panel");
+        Assert.assertTrue(isElementPresent(getTextLocator(ditolakPanel)));
     }
 
-    public void verifyArchivePanel()
+    public void verifyNonAktifPanel()
     {
-        Log.info("Verify Archive Panel");
-        Assert.assertTrue(isElementPresent(getTextLocator(archivePanel)));
+        Log.info("Verify Non Aktif Panel");
+        Assert.assertTrue(isElementPresent(getTextLocator(nonAktifPanel)));
     }
 
     public void verifyPromotePanel()
@@ -180,40 +188,44 @@ public class IklanSayaPage extends BasePage{
         String panel1 = "";
         String panel2 = "";
         switch (key){
-            case "Active" : panel1 = aktifPanel; panel2 = waitingPanel;break;
-            case "Waiting" : panel1 = waitingPanel; panel2 = archivePanel;break;
-            case "Archive" : panel1 = archivePanel; panel2 = moderasiPanel;break;
-            case "Moderated" : panel1 = moderasiPanel; panel2 = promotePanel;break;
+            case "Aktif" : panel1 = aktifPanel; panel2 = moderasiPanel;break;
+            case "Moderasi" : panel1 = moderasiPanel; panel2 = nonAktifPanel;break;
+            case "NonAktif" : panel1 = nonAktifPanel; panel2 = ditolakPanel;break;
+            case "Ditolak" : panel1 = ditolakPanel; panel2 = promotePanel;break;
         }
         int size = tabMenuText.size();
         String text, text1;
-        int actAds = 0;
+        String actAds = "";
         try {
             for(int i=0; i<size; i++){
                 text = tabMenuText.get(i).getText();
                 if(text.equalsIgnoreCase(panel1)){
                     text1 = tabMenuText.get(i+1).getText();
                     if(text1.equalsIgnoreCase(panel2)){
-                        actAds = 0;
+                        actAds = "0";
                     }else {
-                        actAds = Integer.parseInt(text1);
+                        actAds = text1;
                     }
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        int countAds = adsInOnePage.size();
-        Log.info(String.valueOf(countAds));
-        if(countAds == actAds){
-            if(actAds == 0){
+
+        Log.info("amountInPanel : "+actAds);
+        /*int countAds = adsInOnePage.size();
+        if(actAds.contains("99")){
+            Log.info(key+" ads : "+actAds);
+            Assert.assertTrue(countAds > 99, "Amount of "+key+" ads : "+actAds);
+        }else if(Integer.parseInt(actAds) == countAds){
+            if(Integer.parseInt(actAds) == 0){
                 Log.info("There is no "+key+" ads");
                 Assert.assertTrue(isWaitElementPresent(getIdLocator(textNoResult)));
             }else {
                 Log.info(key+" ads : "+actAds);
                 Assert.assertTrue(true, "Amount of "+key+" ads : "+actAds);
             }
-        }
+        }*/
     }
 
     public void verifyImageAndPrice()
@@ -237,44 +249,39 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void clickBackBtn(){
-        Log.info("Click Back Button");
         clickElement(getContentLocator(backBtn));
+        Log.info("Click Back Button");
     }
 
     public void clickActivePanel(){
-        Log.info("Click Active Panel");
         clickElement(getTextLocator(aktifPanel));
+        Log.info("Click Active Panel");
     }
 
-    public void clickWaitingPanel(){
-        Log.info("Click Waiting Panel");
-        clickElement(getTextLocator(waitingPanel));
-    }
-
-    public void clickArchivePanel(){
-        Log.info("Click Archive Panel");
-        clickElement(getTextLocator(archivePanel));
+    public void clickDitolakPanel(){
+        clickElement(getTextLocator(ditolakPanel));
+        Log.info("Click Ditolak Panel");
     }
 
     public void clickModerasiPanel()
     {
-        Log.info("Click Moderasi Panel");
         if(isElementPresent(getTextLocator(promotePanel))){
             clickElement(getTextLocator(moderasiPanel));
         }else {
             swipeLeftForPanel();
             clickElement(getTextLocator(moderasiPanel));
         }
+        Log.info("Click Moderasi Panel");
     }
 
     public void clickPromotePanel(){
-        Log.info("Click Promote Panel");
         if(isElementPresent(getTextLocator(promotePanel))){
             clickElement(getTextLocator(promotePanel));
         }else {
             swipeLeftForPanel();
             clickElement(getTextLocator(promotePanel));
         }
+        Log.info("Click Promote Panel");
     }
 
     public void verifyContentInActivePanel(){
@@ -284,13 +291,13 @@ public class IklanSayaPage extends BasePage{
         verifySudahTerjualBtn();
     }
 
-    public void verifyContentInWaitingPanel(){
+    public void verifyContentInNonAktifPanel(){
         verifyIklanSayaTitle();
         verifyBackBtn();
         verifyImageAndPrice();
     }
 
-    public void verifyContentInArchivePanel(){
+    public void verifyContentInDitolakPanel(){
         verifyIklanSayaTitle();
         verifyBackBtn();
         verifyImageAndPrice();
@@ -338,9 +345,9 @@ public class IklanSayaPage extends BasePage{
 
     public void verifyButtonAdditionalAfterCheckBoxChecked()
     {
-        Log.info("Verify Button Additional Appear After CheckBox Checked");
         verifyBatalBtn();
         verifyNonAktifkanIklanBtn();
+        Log.info("Verify Button Additional Appear After CheckBox Checked");
     }
 
     public void clickNonAktifkanButton()
@@ -365,6 +372,12 @@ public class IklanSayaPage extends BasePage{
             if (actualString.getText().equalsIgnoreCase(panel)) {
                 actualString.click();
             }
+        }
+    }
+
+    public void verifyandSkipTutorialPostadsImage(){
+        if (!checkTutorialsColors(getIdLocator(iconPostAds))) {
+            clickBySize(getPointLocation(getIdLocator(iconPostAds)));
         }
     }
 }

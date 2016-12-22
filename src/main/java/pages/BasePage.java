@@ -180,6 +180,17 @@ public class BasePage  {
          return false;
      }
     }
+
+    protected boolean isWaitElementPresent(WebElement element){
+        try {
+            waitForVisibility(element);
+            return true;
+        } catch (NoSuchElementException | TimeoutException e){
+            return false;
+        } catch (WebDriverException e) {
+            return false;
+        }
+    }
     
     protected void clickElement(By by){
     	//waitForClickabilityOf(by);
@@ -499,7 +510,7 @@ public class BasePage  {
         }
     }
 
-    public Boolean isWaitListElementPresent(final AndroidElement element) {
+    public Boolean isWaitListElementPresent(final List<AndroidElement> element) {
         try{
             Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                     .withTimeout(10, TimeUnit.SECONDS)
@@ -508,7 +519,7 @@ public class BasePage  {
             return wait.until(new Function<WebDriver, Boolean>() {
                 @Override
                 public Boolean apply(WebDriver driver) {
-                    return element.isDisplayed();
+                    return element.iterator().next().isDisplayed();
                 }
             });
         }catch (WebDriverException e){
@@ -525,6 +536,18 @@ public class BasePage  {
             @Override
             public Boolean apply(WebDriver input) {
                 return driver.findElement(locator).isDisplayed();
+            }
+        });
+    }
+    public Boolean waitForVisibility(final WebElement element){
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(20, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver input) {
+                return element.isDisplayed();
             }
         });
     }
@@ -578,6 +601,26 @@ public class BasePage  {
             e.printStackTrace();
         }
         return in;
+    }
+
+    public BufferedImage convertImgFileToBufferedImage(String imagePath, String filename){
+        BufferedImage in = null;
+        try {
+            in = ImageIO.read(new File(imagePath + filename + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return in;
+    }
+
+    public void createPNGFile(BufferedImage bufferedImage, String filename, String imageDir) {
+        try{
+            new File(imageDir).mkdirs();
+            File captured = new File(imageDir + filename + ".png");
+            ImageIO.write(bufferedImage, "PNG", captured);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void createPNGFile(BufferedImage bufferedImage, String filename){

@@ -20,6 +20,7 @@ public class FavoritePage extends BasePage{
     public static final String filterButton = "com.app.tokobagus.betterb:id/filter_item";
     public static final String favoriteIconID = "com.app.tokobagus.betterb:id/btn_remove_favorite";
     public static final String searchIconID = "com.app.tokobagus.betterb:id/search_item";
+    public static final String favoriteTitleText = "Favorit";
 
     public FavoritePage(WebDriver driver) {
         super(driver);
@@ -46,8 +47,9 @@ public class FavoritePage extends BasePage{
 
     public void verifyListAds() {
         Log.info("Verify List Of Ads on Favorite");
+        isWaitListElementPresent(listAds);
         listAds.forEach( listAds -> {
-            Assert.assertTrue(listAds.isDisplayed());
+            Assert.assertTrue(waitForVisibility(listAds));
         });
     }
 
@@ -59,16 +61,21 @@ public class FavoritePage extends BasePage{
 
     public AdsDetailsPage clickFirstAds() {
         if (isListElementPresent(listAds)) {
-            listAds.get(0).click();
+            listAds.iterator().next().click();
         }
         return new AdsDetailsPage(driver);
     }
 
     public void resetFavoriteAds() {
-        favoriteIcon.forEach( favoriteIcon -> {
-            favoriteIcon.click();
-            if (isElementPresent(getIdLocator(alertContent)))
-            { clickElement(getIdLocator(okKonfirmasiPopUp)); }
-        });
+        Log.info("Remove Existing Favorite Ads");
+        for (AndroidElement element : favoriteIcon) {
+            favoriteIcon.get(0).click();
+
+                if (isElementPresent(getIdLocator(alertContent))) {
+                    clickElement(getIdLocator(okKonfirmasiPopUp));
+                }
+
+        }
+        Log.debug("Isi dari Favorite list : "+favoriteIcon.size());
     }
 }

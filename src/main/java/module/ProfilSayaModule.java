@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.*;
 import ru.yandex.qatools.allure.annotations.Step;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import utils.Log;
 
 import java.io.*;
@@ -70,12 +71,14 @@ public class ProfilSayaModule extends BasePage{
     public static final String noHandphoneText = "Nomor Handphone";
     public static final String imageViewClass = "android.widget.ImageView";
     public static final String logoutKonfirmasiTitleId = "com.app.tokobagus.betterb:id/md_titleFrame";
+    public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
     public String oldUsername = null;
     public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
     public static final String loginPopupNotif = "com.app.tokobagus.betterb:id/md_content";
     public static final String loginBtnInLoginPopup = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String propname = "changepass.properties";
+    private ImageDiff imageDiff;
 
     @AndroidFindBys({
             @AndroidFindBy(id = chkBoxTampilkanPassword)
@@ -99,6 +102,18 @@ public class ProfilSayaModule extends BasePage{
             @AndroidFindBy(className = imageViewClass)
     })
     protected List<AndroidElement> doneCancelButton;
+
+    @AndroidFindBys({
+            @AndroidFindBy(className = "android.widget.GridView"),
+            @AndroidFindBy(id = "android:id/text1")
+    })
+    public List<AndroidElement> appsPhotoOnPopUP;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = "android:id/list"),
+            @AndroidFindBy(id = "android:id/title")
+    })
+    public List<AndroidElement> appsPhotonOnHamburger;
 
     public ProfilSayaModule(WebDriver driver)
     {
@@ -417,7 +432,7 @@ public class ProfilSayaModule extends BasePage{
     //verify image
     public void takeShotOldAvatar(){
         try {
-            takeScreenShotInFile(oldavatarname);
+            createPNGFile(getSpesificScreenshot(getIdLocator(avatarProfilSaya)), "old_avatar", Constants.screenshotsDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -428,7 +443,7 @@ public class ProfilSayaModule extends BasePage{
         waitForVisibilityOf(getTextLocator(titleProfilSaya));
         WaitFor(2);
         try {
-            takeScreenShotInFile(newavatarname);
+            createPNGFile(getSpesificScreenshot(getIdLocator(avatarProfilSaya)), "new_avatar", Constants.screenshotsDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -436,9 +451,11 @@ public class ProfilSayaModule extends BasePage{
 
     public void verifyOldNewAvatar(){
         Log.info("Verify New Avatar in ProfilSaya Page");
-        try {
-            Assert.assertTrue(isImgNotEqual(new File(Constants.screenshotsDir+oldavatarname), new File(Constants.screenshotsDir+newavatarname)));
-        } catch (IOException e) {
+        try{
+            Assert.assertTrue(isImgNotEqual(new File(Constants.screenshotsDir+oldavatarname),
+                    new File(Constants.screenshotsDir+newavatarname)),
+                    "Image are same between new and old image");
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -552,4 +569,43 @@ public class ProfilSayaModule extends BasePage{
         }
         return new LoginPage(driver);
     }
+
+
+    public PostAdsPage chooseAppsToOpenPhotosonGallery() {
+        String pilihGambar = "Pilih gambar";
+
+        if (isElementPresent(getTextLocator(pilihGambar))){
+
+            usedDropBoxToUploadPicture(appsPhotoOnPopUP);
+
+        } else if (isElementPresent(getIdLocator(openFromHambugerGallery))) {
+
+            usedDropBoxToUploadPicture(appsPhotonOnHamburger);
+        }
+
+        searchAndClickTestPhoto();
+        return new PostAdsPage(driver);
+    }
+
+    private void usedDropBoxToUploadPicture(List<AndroidElement> list) {
+        for (int i = 0; i < list.size() ; i++) {
+
+            if (list.get(i).getText().equalsIgnoreCase("Dropbox")) {
+                list.get(i).click();
+                break;
+            }
+        }
+    }
+
+    private void searchAndClickTestPhoto() {
+        String titleDropBoxId = "com.dropbox.android:id/left_title";
+        String foldername = "Screenshots";
+        String filename = "test.png";
+
+        isWaitElementPresent(getIdLocator(titleDropBoxId));
+        clickElement(getTextLocator(foldername));
+        clickElement(getTextLocator(filename));
+
+    }
+
 }

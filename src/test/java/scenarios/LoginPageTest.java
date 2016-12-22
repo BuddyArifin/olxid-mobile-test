@@ -20,7 +20,7 @@ public class LoginPageTest extends AndroidSetup {
 
     @Stories("As a User I want to be able to see Boarding Contents")
     @Title("Verify users able to see all contents on Boarding Sliders")
-    @TestCaseId("TC_HOME_01_001, TC_HOME_01_002")
+    @TestCaseId("TC_HOME_01_001, TC_HOME_01_002, TC_HOME_01_009")
     @Test(priority = 1)
     public void verifyOnBoardingSlidersContents() {
         loginPage = new LoginPage(driver);
@@ -58,13 +58,5 @@ public class LoginPageTest extends AndroidSetup {
     public void verifyOnBoardingDisplayOnFirstInstallOnly() {
         loginPage.verifyOnBoardingOnlyOnFirstInstall();
         loginPage.verifyContentsOfLoginPage();
-    }
-
-    @Stories("As a User I Want to be able to Swipe/Scroll the Intro Image")
-    @Title("Verify User Able to Swipe/Scroll the Intro Images")
-    @TestCaseId("TC_HOME_01_009")
-    @Test(priority = 2, enabled = false)
-    public void userAbleToSwipeSlide() {
-        loginPage.verifySlidersContents();
     }
 }

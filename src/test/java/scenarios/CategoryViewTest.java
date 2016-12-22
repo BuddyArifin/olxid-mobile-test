@@ -18,7 +18,7 @@ import ru.yandex.qatools.allure.annotations.Title;
  * Created by buddyarifin on 10/10/16.
  */
 @Listeners(ScreenshootsListener.class)
-@Features("Kategori View Page")
+@Features("Category View Page")
 public class CategoryViewTest extends AndroidSetup {
     ListingPage listingPage;
     CategoryPreferencesPage category;

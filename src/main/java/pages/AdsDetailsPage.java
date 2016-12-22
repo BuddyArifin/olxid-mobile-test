@@ -25,7 +25,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String backBtn = "Navigate up";
     protected static final String bannerInfo = "com.app.tokobagus.betterb:id/info_text";
     protected static final String bannerCloseBtn = "com.app.tokobagus.betterb:id/safety_info_close";
-    protected static final String titleAds = "";
+    protected static final String titleAds = "Detail Iklan";
     protected static final String tipsAds = "com.app.tokobagus.betterb:id/safety_info_text";
     protected static final String photoAds = "com.app.tokobagus.betterb:id/image";
     protected static final String photoPagination = "com.app.tokobagus.betterb:id/layout_pointer";
@@ -60,14 +60,10 @@ public class AdsDetailsPage extends BasePage {
     // Share
     public static final String shareIcon = "android:id/icon";
     public static final String statusAdsDifavoritkan = "com.app.tokobagus.betterb:id/liked";
-    public static final String reasonDeactivatePopUp = "com.app.tokobagus.betterb:id/md_customViewFrame";
     public static final String radioGrupDeactivateReason = "com.app.tokobagus.betterb:id/recycler_view_reason_list";
     public static final String cancelDeactivate = "com.app.tokobagus.betterb:id/button_cancel";
-    public static final String soldOnOlx = "com.app.tokobagus.betterb:id/radiobutton_sold_on_olx";
-    public static final String soldOnOthersite = "com.app.tokobagus.betterb:id/radiobutton_sold_on_other_site";
-    public static final String noResponse = "com.app.tokobagus.betterb:id/radiobutton_no_response";
-    public static final String onVacation = "com.app.tokobagus.betterb:id/radiobutton_on_vacation";
-    public static final String otherReason = "com.app.tokobagus.betterb:id/radiobutton_other";
+
+    public static final String editAdsMenu = "com.app.tokobagus.betterb:id/menu_edit_ad";
 
     // Seller View
     public static final String gunakanFiturHighlightId = "com.app.tokobagus.betterb:id/safety_info_more";
@@ -151,7 +147,12 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyTipsAds(){
         Log.info("Verify Tips Transaksi Aman");
-        Assert.assertTrue(isElementPresent(getIdLocator(tipsAds)));
+        if(isElementPresent(getIdLocator(tipsAds))){
+            Assert.assertTrue(true);
+        }else if(isElementPresentAfterScrollUp(getIdLocator(tipsAds))){
+            Assert.assertTrue(true);
+        }
+        //Assert.assertTrue(isElementPresent(getIdLocator(tipsAds)));
     }
     public void verifyPhotoAds(){
         Log.info("Verify Ads Photo display");
@@ -247,6 +248,7 @@ public class AdsDetailsPage extends BasePage {
     public void verifyidIklanNumber(){
         Log.info("Verify Iklan ID number");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(idIklan)));
+        idIklanExpected = getStringText(getIdLocator(idIklan));
         setIdIklanSave(getIdLocator(idIklan));
     }
 
@@ -324,6 +326,7 @@ public class AdsDetailsPage extends BasePage {
         verifyShareBtn();
         verifyEditBtn();
         verifyLebihLanjut();
+//        verifyTutupBtn();
         verifyTipsAds();
 //        verifyPhotoAds();
         verifyPriceAds();
@@ -341,14 +344,14 @@ public class AdsDetailsPage extends BasePage {
 //        verifyLihatIklanAndTestimoni();
     }
 
-    protected void verifyEditBtn() {
-        Log.info("Verify Share Button display");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(editAdsBtnId)));
+    public void verifyEditBtn(){
+        Log.info("Verify Edit Button");
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(editAdsMenu)));
     }
 
-    private void dismissTutorial() {
-        Log.debug("Dismiss Tutorial");
+    public void dismissTutorial() {
         if (!checkTutorialsColors(getContentLocator(backBtn))) {
+            Log.debug("Dismiss Tutorial");
             clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
             clickElement(getIdLocator(editAdsBtnId)); // bugs on apk version 258
         }
@@ -418,6 +421,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Ads Location Button");
         if (getIsMapsDisplayed()) {
             isElementPresentAfterScrollDown(getIdLocator(adsLocation));
+            swipePageBtmtToTop(); // handle, which location present but not visible
             clickElement(getIdLocator(adsLocation));
         }
         return new FilterByMapsLocationModule(driver);
@@ -452,7 +456,13 @@ public class AdsDetailsPage extends BasePage {
 
     public void clickNonActiveBtn() {
         Log.info("Click Non Active Button");
-        clickElement(getIdLocator(nonActivatebtnId));
+        if(isElementPresent(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }else if(isElementPresentAfterScrollUp(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }else if(isElementPresentAfterScrollDown(getIdLocator(nonActivatebtnId))){
+            clickElement(getIdLocator(nonActivatebtnId));
+        }
     }
 
     public void clickSudahTerjual() {
@@ -490,26 +500,50 @@ public class AdsDetailsPage extends BasePage {
     public void initAdsDetailsTest() {
         Log.info("Back to initiate Ads Details Page");
         ListingPage listing = new ListingPage(driver);
-        if(isElementPresent(getIdLocator(sharedBtn))){ // on Details Page
+        if(isCurrentPageOnAdsDetails()){
             clickBackFromAdsDetails();
-            isWaitElementPresent(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))) {
-            Assert.assertTrue(true, "Already in Listing Page");
+
+        } else if (isCurrentPageHomePageOrFavoriteTab()) {
             clickElement(getIdLocator(ListingPage.homeBtnBtmID));
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle)) ||
-                isElementPresent(getIdLocator(kirimLaporanBtn))) {
+
+        } else if (isCurrentPageMapsOrLaporkanIklan()) {
             driver.navigate().back();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(ListingPage.gambarIklan))) {
+
+        } else if (isCurrentPageOnLihatIklanLainnyaPage()) {
+            clickBackFromAdsDetails();
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
-        } else if (isElementPresent(getIdLocator(PesanPage.detailSendBtn))) {
+
+        } else if (isCurrentPageOnPesanPage()) {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
         }
+    }
+
+    private boolean isCurrentPageOnAdsDetails() {
+        return isElementPresent(getIdLocator(sharedBtn));
+    }
+
+    private boolean isCurrentPageOnLihatIklanLainnyaPage() {
+        return isElementPresent(getIdLocator(ListingPage.gambarIklan));
+    }
+
+    private boolean isCurrentPageOnPesanPage() {
+        return isElementPresent(getIdLocator(PesanPage.detailSendBtn));
+    }
+
+    private boolean isCurrentPageHomePageOrFavoriteTab() {
+        return isElementPresent(getIdLocator(ListingPage.homeBtnBtmID))
+                || isElementPresent(getTextLocator(FavoritePage.favoriteTitleText));
+    }
+
+    private boolean isCurrentPageMapsOrLaporkanIklan() {
+        return isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))
+                || isElementPresent(getIdLocator(kirimLaporanBtn));
     }
 
     private void goToAdsDetailsFromListing(ListingPage listing) {
@@ -521,17 +555,8 @@ public class AdsDetailsPage extends BasePage {
     // Set Terjual or Non Active Ads
     public void verifyDeactivateReason(){
         Log.info("Verify Deactivate Reason");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(reasonDeactivatePopUp)));
+        verifyNonAktifStatus();
         Assert.assertTrue(isWaitElementPresent(getIdLocator(radioGrupDeactivateReason)));
-        verifyDeactivateReasonList();
-    }
-
-    private void verifyDeactivateReasonList(){
-        Assert.assertTrue(isElementPresent(getIdLocator(soldOnOlx)));
-        Assert.assertTrue(isElementPresent(getIdLocator(soldOnOthersite)));
-        Assert.assertTrue(isElementPresent(getIdLocator(noResponse)));
-        Assert.assertTrue(isElementPresent(getIdLocator(onVacation)));
-        Assert.assertTrue(isElementPresent(getIdLocator(otherReason)));
     }
 
     public void clickCancelDeactivate(){
@@ -586,6 +611,12 @@ public class AdsDetailsPage extends BasePage {
         clickElement(getIdLocator(kirimLaporanBtn));
     }
 
+    public EditIklanPage clickEditIklanBtn(){
+        clickElement(getIdLocator(editAdsMenu));
+        Log.info("Click Edit Iklan button");
+        return new EditIklanPage(driver);
+    }
+
     private static String getIdIklanSave() {
         return idIklanSave;
     }
@@ -605,7 +636,8 @@ public class AdsDetailsPage extends BasePage {
     // Favorite Sections
     public void verifyAdsAlreadyOnFavoriteList() {
         Log.info("Verify Ads already move to Favorite Tabs");
-        isWaitElementPresent(getIdLocator(favoriteBtn));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(favoriteBtn)),
+                "System not able to landing to Ads Details from Favorite Page");
         isElementPresentAfterScrollDown(getIdLocator(idIklan));
         Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)),
                 "Id Number of Ads is not match" );
@@ -631,5 +663,14 @@ public class AdsDetailsPage extends BasePage {
 
     public void setPostDateAds(String dateAdse) {
         dateAds = dateAdse;
+    }
+
+    public boolean isadsdetail(){
+        return isWaitElementPresent(getTextLocator(titleAds));
+    }
+
+    public void verifyInfoLebihLanjut() {
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        driver.navigate().back();
     }
 }
