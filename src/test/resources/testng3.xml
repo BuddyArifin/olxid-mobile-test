@@ -23,6 +23,11 @@
             <class name="scenarios.LoginGplusTest"/>
         </classes>
     </test>
+    <test name="Facebook Login Sulley OLXID" preserve-order="false" enabled="false">
+        <classes>
+            <class name="scenarios.LoginFBTest"/>
+        </classes>
+    </test>
     <test name="Profile Saya Sulley OLXID" preserve-order="false" >
         <classes>
             <class name="scenarios.ProfilSayaTest"/>

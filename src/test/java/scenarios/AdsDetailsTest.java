@@ -60,8 +60,8 @@ public class AdsDetailsTest extends AndroidSetup {
     @Test(priority = 3)
     public void verifyUserAbleToAccessTipsTransaksi() {
         adsDetailsPage = new AdsDetailsPage(driver);
-        adsDetailsPage.verifyBanner();
         adsDetailsPage.initAdsDetailsTest();
+        adsDetailsPage.verifyBanner();
         adsDetailsPage.clickInfoLebihLanjut();
         adsDetailsPage.verifyInfoLebihLanjut();
     }
