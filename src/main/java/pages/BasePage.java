@@ -181,6 +181,17 @@ public class BasePage  {
          return false;
      }
     }
+
+    protected boolean isWaitElementPresent(WebElement element){
+        try {
+            waitForVisibility(element);
+            return true;
+        } catch (NoSuchElementException | TimeoutException e){
+            return false;
+        } catch (WebDriverException e) {
+            return false;
+        }
+    }
     
     protected void clickElement(By by){
     	//waitForClickabilityOf(by);
@@ -500,7 +511,7 @@ public class BasePage  {
         }
     }
 
-    public Boolean isWaitListElementPresent(final AndroidElement element) {
+    public Boolean isWaitListElementPresent(final List<AndroidElement> element) {
         try{
             Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                     .withTimeout(10, TimeUnit.SECONDS)
@@ -509,7 +520,7 @@ public class BasePage  {
             return wait.until(new Function<WebDriver, Boolean>() {
                 @Override
                 public Boolean apply(WebDriver driver) {
-                    return element.isDisplayed();
+                    return element.iterator().next().isDisplayed();
                 }
             });
         }catch (WebDriverException e){
@@ -526,6 +537,18 @@ public class BasePage  {
             @Override
             public Boolean apply(WebDriver input) {
                 return driver.findElement(locator).isDisplayed();
+            }
+        });
+    }
+    public Boolean waitForVisibility(final WebElement element){
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(20, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver input) {
+                return element.isDisplayed();
             }
         });
     }

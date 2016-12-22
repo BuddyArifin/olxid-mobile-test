@@ -624,7 +624,8 @@ public class AdsDetailsPage extends BasePage {
 
     // Favorite Sections
     public void verifyAdsAlreadyOnFavoriteList() {
-        isWaitElementPresent(getIdLocator(favoriteBtn));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(favoriteBtn)),
+                "System not able to landing to Ads Details from Favorite Page");
         isElementPresentAfterScrollDown(getIdLocator(idIklan));
         Assert.assertEquals(getIdIklanSave(), getStringText(getIdLocator(idIklan)), "Id Number of Ads is not match" );
     }
