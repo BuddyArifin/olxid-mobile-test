@@ -7,6 +7,8 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -194,16 +196,26 @@ public class FilterByMapsLocationModule extends BasePage {
 
     public void slideRightSliderRadius()
     {
-        WebElement seek_bar = driver.findElement(getIdLocator(sliderRadius));
-        int start = seek_bar.getLocation().getX();
-        int end = seek_bar.getSize().getWidth();
-        int y = seek_bar.getLocation().getY();
-        TouchAction action = new TouchAction((MobileDriver) driver);
-        //Move it 40%
-        int moveTo=(int)(end*0.4);
-        action.longPress(start,y).moveTo(moveTo,y).release().perform();
-        locationText = getStringText(getIdLocator(addressTitle));
         Log.info("Slide Right Direction Slider Radius");
+        boolean isSliderVisible = isWaitElementPresent(getIdLocator(sliderRadius));
+
+        if (isSliderVisible) {
+            Point seek_bar = getPointLocation(getIdLocator(sliderRadius));
+            Dimension dimension_seekBar = getDimesionElement(getIdLocator(sliderRadius));
+
+            int start = seek_bar.getX();
+            int end = dimension_seekBar.getWidth();
+            int y = seek_bar.getY();
+
+            TouchAction action = new TouchAction((MobileDriver) driver);
+            //Move it 40%
+            int moveTo=(int)(end*0.4);
+            action.longPress(start,y).moveTo(moveTo,y).release().perform();
+            locationText = getStringText(getIdLocator(addressTitle));
+        }
+        else {
+            Assert.assertTrue(false, " Sliders not found/visible ");
+        }
     }
 
     public void clickSearchField() {

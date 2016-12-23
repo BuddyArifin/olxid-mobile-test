@@ -374,8 +374,6 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Info Lebih Lanjut link Button");
         Assert.assertTrue(isElementPresentAfterScrollUp(getIdLocator(lebihLanjutBtn)));
         clickElement(getIdLocator(lebihLanjutBtn));
-        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
-        driver.navigate().back();
     }
     public void clickFavoriteBtn() {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
@@ -643,7 +641,8 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void verifyInfoLebihLanjut() {
-        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)),
+                "Pusat Bantuan Not Displayed");
         driver.navigate().back();
     }
 }

@@ -594,6 +594,11 @@ public class BasePage  {
         return element.getLocation();
     }
 
+    public Dimension getDimesionElement(By by) {
+        WebElement element = driver.findElement(by);
+        return element.getSize();
+    }
+
     public BufferedImage convertImgFileToBufferedImage(String imagePath){
         BufferedImage in = null;
         try {
