@@ -519,10 +519,10 @@ public class BasePage  {
             return wait.until(new Function<WebDriver, Boolean>() {
                 @Override
                 public Boolean apply(WebDriver driver) {
-                    return element.iterator().next().isDisplayed();
+                    return element.get(0).isDisplayed();
                 }
             });
-        }catch (WebDriverException e){
+        }catch (WebDriverException | IndexOutOfBoundsException e){
             return false;
         }
     }
@@ -591,6 +591,11 @@ public class BasePage  {
     public Point getPointLocation(By by) {
         WebElement element = driver.findElement(by);
         return element.getLocation();
+    }
+
+    public Dimension getDimesionElement(By by) {
+        WebElement element = driver.findElement(by);
+        return element.getSize();
     }
 
     public BufferedImage convertImgFileToBufferedImage(String imagePath){

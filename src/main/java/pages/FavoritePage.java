@@ -21,6 +21,8 @@ public class FavoritePage extends BasePage{
     public static final String favoriteIconID = "com.app.tokobagus.betterb:id/btn_remove_favorite";
     public static final String searchIconID = "com.app.tokobagus.betterb:id/search_item";
     public static final String favoriteTitleText = "Favorit";
+    public static final String imageAds = "com.app.tokobagus.betterb:id/image_view";
+    public static final String adsList = "com.app.tokobagus.betterb:id/recycler_view_favad_list";
 
     public FavoritePage(WebDriver driver) {
         super(driver);
@@ -33,8 +35,8 @@ public class FavoritePage extends BasePage{
     public List<AndroidElement> favoriteIcon;
 
     @AndroidFindBys({
-            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/recycler_view_favad_list"),
-            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/ly_picture")
+            @AndroidFindBy(id = adsList),
+            @AndroidFindBy(id = imageAds)
     })
     public List<AndroidElement> listAds;
 
@@ -60,8 +62,9 @@ public class FavoritePage extends BasePage{
     }
 
     public AdsDetailsPage clickFirstAds() {
-        if (isListElementPresent(listAds)) {
-            listAds.iterator().next().click();
+        Log.info(" Click First Ads on Favorite page");
+        if (isWaitListElementPresent(listAds)) {
+            listAds.get(0).click();
         }
         return new AdsDetailsPage(driver);
     }

@@ -81,6 +81,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String copyIklanSbgIklanBaruId = "com.app.tokobagus.betterb:id/button_copy_ad";
     public static final String permissionsAndroid = "com.android.packageinstaller:id/permission_allow_button";
     public static final String topListingBtn = "com.app.tokobagus.betterb:id/safety_info_more";
+    public static final String textTopListing = "aktif";
     public static String getIdIklanExpected() {
         return idIklanExpected;
     }
@@ -138,8 +139,12 @@ public class AdsDetailsPage extends BasePage {
         Assert.assertTrue(isWaitElementPresent(getIdLocator(sharedBtn)));
     }
     public void verifyLebihLanjut(){
-        Log.info("Verify Lebih Lanjut Button display");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(lebihLanjutBtn)));
+        if(!getStringText(getIdLocator(lebihLanjutBtn)).contains(textTopListing)){
+            Log.info("Verify Lebih Lanjut Button display");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(lebihLanjutBtn)));
+        }else {
+            Assert.assertTrue(true, "This is top listing ads");
+        }
     }
     public void verifyTutupBtn(){
         Log.info("Verify Tutup Button display");
@@ -385,8 +390,6 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Click Info Lebih Lanjut link Button");
         Assert.assertTrue(isElementPresentAfterScrollUp(getIdLocator(lebihLanjutBtn)));
         clickElement(getIdLocator(lebihLanjutBtn));
-        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
-        driver.navigate().back();
     }
     public void clickFavoriteBtn() {
         Log.info("Click to Favorite Button, Add Ads to Favorite");
@@ -670,7 +673,8 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void verifyInfoLebihLanjut() {
-        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)),
+                "Pusat Bantuan Not Displayed");
         driver.navigate().back();
     }
 }

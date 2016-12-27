@@ -69,7 +69,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to add Ads to Favorite")
     @Title("Verify User able to add Ads to Favorite")
     @TestCaseId("TC_AdDetails_09_005")
-    @Test(priority = 3, dependsOnMethods = "verifyAllContentsOfAdsDetails")
+    @Test(priority = 3)
     public void verifyUserAbleToAddAdsToFavorite() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
