@@ -77,6 +77,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String radioButton = "android.widget.RadioButton";
     public static final String deskripsiLaporanId = "com.app.tokobagus.betterb:id/edtInformation";
     public static final String kirimLaporanBtn = "com.app.tokobagus.betterb:id/btnSendReport";
+    public static final String textTopListing = "aktif";
 
     public static String getIdIklanExpected() {
         return idIklanExpected;
@@ -135,8 +136,12 @@ public class AdsDetailsPage extends BasePage {
         Assert.assertTrue(isWaitElementPresent(getIdLocator(sharedBtn)));
     }
     public void verifyLebihLanjut(){
-        Log.info("Verify Lebih Lanjut Button display");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(lebihLanjutBtn)));
+        if(!getStringText(getIdLocator(lebihLanjutBtn)).contains(textTopListing)){
+            Log.info("Verify Lebih Lanjut Button display");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(lebihLanjutBtn)));
+        }else {
+            Assert.assertTrue(true, "This is top listing ads");
+        }
     }
     public void verifyTutupBtn(){
         Log.info("Verify Tutup Button display");
