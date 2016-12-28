@@ -3,9 +3,9 @@
 
 <suite name="Mobile OLXID" verbose="3">
 
-    <listeners>
+    <!--<listeners>
         <listener class-name="listeners.RetryListeners" />
-    </listeners>
+    </listeners>-->
     <suite-files>
         <suite-file path="testng3.xml" />
         <suite-file path="testng2.xml" />
