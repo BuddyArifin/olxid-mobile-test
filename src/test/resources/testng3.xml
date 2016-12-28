@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Mobile App OLXID " verbose="3" parallel="tests" thread-count="2">
+<suite name="Mobile App OLXID " verbose="3" parallel="tests" thread-count="3">
     
     <test name="Home Page OLXID" preserve-order="false" enabled="false">
         <classes>
@@ -33,12 +33,12 @@
             <class name="scenarios.ProfilSayaTest"/>
         </classes>
     </test>
-    <test name="Iklan Saya Sulley OLXID" preserve-order="false" >
+    <test name="Iklan Saya Sulley OLXID" preserve-order="false" enabled="false">
         <classes>
             <class name="scenarios.IklanSayaTest"/>
         </classes>
     </test>
-    <test name="Ads Details Seller view OLXID" preserve-order="false">
+    <test name="Ads Details Seller view OLXID" preserve-order="false" enabled="false">
         <classes>
             <class name="scenarios.AdsDetailsSellerViewTest"/>
         </classes>
