@@ -3,6 +3,7 @@ package scenarios;
 import listeners.ScreenshootsListener;
 import module.HamburgerBarModule;
 import module.LoginWithOlxModule;
+import module.ProfilSayaModule;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
@@ -29,8 +30,8 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
         LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
-        loginOlx.inputEmail("olxtester@gmail.com");
-        loginOlx.inputPassword("testing");
+        loginOlx.inputEmail("1482149220.3562@olx-trojan.com");
+        loginOlx.inputPassword("test123");
         loginOlx.clickLoginWithOlxBtn();
         ListingPage listingPage = loginOlx.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
@@ -318,6 +319,35 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         editIklanPage.verifyConfirmDeleteImagePopUpContents();
         editIklanPage.confirmNoDeleteImageIklan();
         editIklanPage.verifyEditIklanPageContents();
+    }
+
+    @Stories("As a user I will be able to change ads product condition as Baru or Bekas")
+    @Title("Verify user able to change ads product condition as Baru or Bekas")
+    @TestCaseId("TC_AdDetails_09_031, TC_MYADS_15_046")
+    @Test(priority = 4)
+    public void verifyChangeKondisi(){
+        iklanSayaPage.initIklanSayaPage();
+        ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
+        profilSayaModule.verifyAllContentInProfilSayaPage();
+        LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        hamburgerBar.clickDisiniLogin();
+        LoginWithOlxModule loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.inputEmail("1482307492.3114@olx-trojan.com");
+        loginWithOlxModule.inputPassword("test123");
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        profilSayaModule.verifyAllContentInProfilSayaPage();
+        profilSayaModule.clickBackButton();
+        iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
+        AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        EditIklanPage editIklanPage = adsDetailsPage.clickEditIklanBtn();
+        editIklanPage.verifyEditImageIklan();
+        editIklanPage.verifyAdsKondisi();
+        editIklanPage.clickSelectKondisi();
+        editIklanPage.verifyKondisiSelectionOpt();
+        editIklanPage.clickKondisiSelectionBekas();
+        editIklanPage.clickEditSimpanBtn();
+        editIklanPage.clickTutupOnSuccessAlert();
     }
 
 

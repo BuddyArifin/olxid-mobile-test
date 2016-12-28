@@ -470,7 +470,13 @@ public class AdsDetailsPage extends BasePage {
 
     public void clickSudahTerjual() {
         Log.info("Click Sudah Terjual Button");
-        clickElement(getIdLocator(setTerjualbtnId));
+        if(isElementPresent(getIdLocator(setTerjualbtnId))){
+            clickElement(getIdLocator(setTerjualbtnId));
+        }else if(isElementPresentAfterScrollUp(getIdLocator(setTerjualbtnId))){
+            clickElement(getIdLocator(setTerjualbtnId));
+        }else if(isElementPresentAfterScrollDown(getIdLocator(setTerjualbtnId))){
+            clickElement(getIdLocator(setTerjualbtnId));
+        }
     }
 
     @Override

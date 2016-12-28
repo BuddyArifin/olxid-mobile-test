@@ -38,8 +38,8 @@ public class IklanSayaTest extends AndroidSetup {
         loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("olxtester@gmail.com");
-        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("1482149220.3562@olx-trojan.com");
+        loginWithOlxModule.inputPassword("test123");
         loginWithOlxModule.clickLoginWithOlxBtn();
         listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
@@ -171,8 +171,8 @@ public class IklanSayaTest extends AndroidSetup {
         loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBarModule.clickDisiniLogin();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmailForChangePass();
-        loginWithOlxModule.inputPasswordForChangePass();
+        loginWithOlxModule.inputEmail("1482910393.936@olx-trojan.com");
+        loginWithOlxModule.inputPassword("test123");
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
         profilSayaModule.clickBackButton();

@@ -46,32 +46,19 @@ public class EditIklanPage extends BasePage {
     public static final String adsDetailTitle = "Detail Iklan";
     public static final String snackBar = "com.app.tokobagus.betterb:id/snackbar_text";
     public static final String snackBarOk = "com.app.tokobagus.betterb:id/snackbar_action";
+    public static final String kondisiBarang = "kondisi";
+    public static final String btnselectKondisi = "com.app.tokobagus.betterb:id/btnSelection";
+    public static final String titleKondisiPopup = "com.app.tokobagus.betterb:id/md_title";
+    public static final String contentSelectionKondisiPopup = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
+    public static final String kondisiBaru = "Baru";
+    public static final String kondisiBekas = "Bekas";
+    public static final String btnCamera = "com.app.tokobagus.betterb:id/btnCamera";
+    public static final String btnGallery = "com.app.tokobagus.betterb:id/btnGallery";
+    public static final String imgFromGallery = "com.android.documentsui:id/icon_mime";
+    public static final String saveImgFromGallery = "com.app.tokobagus.betterb:id/btnSave";
 
     public boolean editAdsTitleDisplayed(){
         return isElementPresent(getTextLocator(editAdsTitle));
-    }
-
-    public void initEditIklanPage(){
-        HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
-        IklanSayaPage iklanSayaPage = new IklanSayaPage(driver);
-        AdsDetailsPage adsDetailsPage = new AdsDetailsPage(driver);
-        if(isElementPresent(getTextLocator(editAdsTitle))){
-            /*clickBackBtn();
-            hamburgerBarModule.verifyIklanSayaBtn();
-            iklanSayaPage = hamburgerBarModule.clickIklanSayaBtn();
-            adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-            adsDetailsPage.clickEditIklanBtn();*/
-            clickBackBtn();
-            boolean title = adsDetailsPage.isadsdetail();
-            if(title){
-                clickBackBtn();
-                Log.info("Iklan saya page");
-            }
-        }else if(isElementPresent(getTextLocator(adsDetailTitle))){
-            Log.info("Here");
-            clickBackBtn();
-            //adsDetailsPage.isadsdetail();
-        }
     }
 
     public void verifyEditAdsTitle(){
@@ -88,7 +75,49 @@ public class EditIklanPage extends BasePage {
         Log.info("Verify edit image iklan");
         Assert.assertTrue(isWaitElementPresent(getIdLocator(editImageItemContainer)));
         Assert.assertTrue(isElementPresent(getIdLocator(editImageIklan)));
-        Assert.assertTrue(isElementPresent(getIdLocator(editDelImageBtn)));
+        boolean editDelBtn = isElementPresent(getIdLocator(editDelImageBtn));
+        if(!editDelBtn){
+            uploadImageIfNotexist();
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(editDelImageBtn)));
+        }
+    }
+
+    private void uploadImageIfNotexist(){
+        clickAddImage();
+        verifyAddImageSelection();
+        clickImageGallery();
+        chooseAnImageFromGallery();
+        clickSaveImgGallery();
+    }
+
+    public void clickAddImage(){
+        clickElement(getIdLocator(editImageIklan));
+        Log.info("Click add image iklan");
+    }
+
+    public void verifyAddImageSelection(){
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(btnCamera)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(btnGallery)));
+    }
+
+    public void clickImageCamera(){
+        clickElement(getIdLocator(btnCamera));
+        Log.info("Click image camera");
+    }
+
+    public void clickImageGallery(){
+        clickElement(getIdLocator(btnGallery));
+        Log.info("Click image gallery");
+    }
+
+    public void chooseAnImageFromGallery(){
+        clickElement(getIdLocator(imgFromGallery));
+        Log.info("Click one image from gallery");
+    }
+
+    public void clickSaveImgGallery(){
+        clickElement(getIdLocator(saveImgFromGallery));
+        Log.info("Click simpan image upload from gallery");
     }
 
     public void verifyEditJudulIklan(){
@@ -138,7 +167,7 @@ public class EditIklanPage extends BasePage {
     public void verifyEditIklanPageContents(){
         verifyEditAdsTitle();
         verifyBackBtn();
-        //verifyEditImageIklan();
+        verifyEditImageIklan();
         verifyEditJudulIklan();
         verifyEditLokasiIklan();
         verifyKategoriIklan();
@@ -316,5 +345,43 @@ public class EditIklanPage extends BasePage {
     public void clickTutupOnSuccessAlert(){
         clickElement(getIdLocator(tutupOnSuccessAlert));
         Log.info("Click tutup on success alert");
+    }
+
+    //KONDISI
+
+    public void verifyAdsKondisi(){
+        Log.info("Verify ads kondisi");
+        if(isElementPresent(getTextLocator(kondisiBarang))){
+            Assert.assertTrue(true);
+        }else if(isElementPresentAfterScrollDown(getTextLocator(kondisiBarang))){
+            Assert.assertTrue(true);
+        }else if(isElementPresentAfterScrollUp(getTextLocator(kondisiBarang))){
+            Assert.assertTrue(true);
+        }
+        //Assert.assertTrue(isElementPresent(getTextLocator(kondisiBarang)));
+        Assert.assertTrue(isElementPresent(getIdLocator(btnselectKondisi)));
+    }
+
+    public void clickSelectKondisi(){
+        clickElement(getIdLocator(btnselectKondisi));
+        Log.info("Click select kondisi");
+    }
+
+    public void verifyKondisiSelectionOpt(){
+        Log.info("Verify kondisi selection option");
+        Assert.assertTrue(isElementPresent(getIdLocator(titleKondisiPopup)));
+        Assert.assertTrue(isElementPresent(getIdLocator(contentSelectionKondisiPopup)));
+        Assert.assertTrue(isElementPresent(getTextLocator(kondisiBaru)));
+        Assert.assertTrue(isElementPresent(getTextLocator(kondisiBekas)));
+    }
+
+    public void clickKondisiSelectionBaru(){
+        clickElement(getTextLocator(kondisiBaru));
+        Log.info("Click kondisi baru");
+    }
+
+    public void clickKondisiSelectionBekas(){
+        clickElement(getTextLocator(kondisiBekas));
+        Log.info("Click kondisi bekas");
     }
 }
