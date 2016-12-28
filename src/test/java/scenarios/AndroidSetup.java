@@ -96,7 +96,7 @@ public class AndroidSetup extends InstanceDriver {
         Arrays.sort(listOfFiles, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                if(listOfFiles[i].getName().contains("app-debug")){
+                if(listOfFiles[i].getName().contains("app-uat")){
                     appname = listOfFiles[i].getName();
                     break;
                 }

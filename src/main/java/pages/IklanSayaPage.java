@@ -34,7 +34,6 @@ public class IklanSayaPage extends BasePage{
     {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-        DataBuilder.getData(sinon.createAds()); // Creating Iklan, prevent empty iklan saya
     }
 
     public static final String backBtn = "Navigate up";
@@ -104,7 +103,7 @@ public class IklanSayaPage extends BasePage{
     @Step("Verify All Content In IklanSaya Page")
     public void verifyAllContentInIklanSayaPage()
     {
-        verifyandSkipTutorialPostadsImage();
+//        verifyandSkipTutorialPostadsImage();
         verifyBackBtn();
         verifyIklanSayaTitle();
         verifyImageAndPrice();
@@ -376,7 +375,7 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void verifyandSkipTutorialPostadsImage(){
-        if (!checkTutorialsColors(getIdLocator(iconPostAds))) {
+        if (!checkTutorialsColors(getIdLocator(backBtn))) {
             clickBySize(getPointLocation(getIdLocator(iconPostAds)));
         }
     }

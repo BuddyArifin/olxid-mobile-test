@@ -63,7 +63,7 @@ public class ListingPage extends BasePage {
     public ListingPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-        isAutoAcept(getIdLocator(batalKonfirmasiPopUp)); // handle Beta Marketing Pop up
+        /*isAutoAcept(getIdLocator(batalKonfirmasiPopUp));*/ // handle Beta Marketing Pop up
     }
 
     @AndroidFindBys({
@@ -107,7 +107,7 @@ public class ListingPage extends BasePage {
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-        verifyandSkipTutorialElements();
+//        verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();
         verifySearchBtnPrm();
@@ -153,9 +153,11 @@ public class ListingPage extends BasePage {
         Log.info("Verify Gambar Iklan");
         isWaitElementPresent(getIdLocator(gambarIklan));
         if (!isNotFoundSearchContentVisible()) {
-            Log.info("Verify Gambar Iklan");
+            Log.info("Verify Gambar Iklan on listing visible");
             Assert.assertTrue(isWaitElementPresent(getIdLocator(gambarIklan)),
                     "Image Listing Is Not Available");
+        } else {
+            Log.info("Keyword yang Anda Cari tidak diketemukan");
         }
     }
     public void verifyHargaIklan()
@@ -367,7 +369,7 @@ public class ListingPage extends BasePage {
     public boolean isAutoAcept(By by) {
         try
         {
-            waitForClickabilityOf(by, 20);
+            waitForVisibility(by);
             if (waitForVisibility(by)) {
                 clickElement(by);
                 return true;
@@ -396,7 +398,7 @@ public class ListingPage extends BasePage {
     }
 
     public boolean isListingButton(){
-        return isWaitElementPresent(getIdLocator(homeBtnBtmID));
+        return isElementPresent(getIdLocator(homeBtnBtmID));
     }
 
     public void clickBackDevice(){ driver.navigate().back(); }

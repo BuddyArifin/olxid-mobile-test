@@ -142,7 +142,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyAllContentInLocationPage()
     {
         isWaitElementPresent(getIdLocator(sliderRadius));
-        dismissTutorial();
+//        dismissTutorial();
         verifySearchField();
         verifyMyCurrentLocationBtn();
         verifyCurrentLocationAddress();

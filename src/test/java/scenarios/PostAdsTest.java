@@ -61,8 +61,7 @@ public class PostAdsTest extends AndroidSetup {
         loginPage = postAdsPage.clickLoginBtnInLoginPopup();
         loginPage.verifyOlxBtn();
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("olxtester@gmail.com");
-        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.loginWithNewUser();
         loginWithOlxModule.clickLoginWithOlxBtn();
         postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();

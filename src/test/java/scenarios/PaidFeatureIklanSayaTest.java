@@ -38,7 +38,8 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
         hamburgerBar = listingPage.clickHamburgerBar();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
-        iklanSayaPage.verifyAllContentInIklanSayaPage();
+        iklanSayaPage.verifyAktifPanel();
+        iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
         PaidFeatureModule paidFeature = adsDetailsPage.clickTopListing();
@@ -53,6 +54,7 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
         PaidFeatureModule paidFeature = adsDetailsPage.clickTopListing();
         paidFeature.clickBatalOnTopListing();
         adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
@@ -61,9 +63,4 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
         paidFeature.clickBeliOnTopListing();
         paidFeature.verifyMsgSuccessPage();
     }
-
-
-
-
-
 }

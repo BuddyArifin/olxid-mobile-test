@@ -34,7 +34,7 @@ public class AdsDetailsTest extends AndroidSetup {
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
         listingPage.verifyContentsOfListingPage();
         listingPage.clickSearchBtnPrm();
-        listingPage.inputSearchKeyword("Supra x 125");
+        listingPage.inputSearchKeyword("Panamera");
         listingPage.verifySuggestionList();
         listingPage.clickSuggestions();
         listingPage.verifyContentsOfListingPage();
@@ -76,8 +76,8 @@ public class AdsDetailsTest extends AndroidSetup {
         adsDetailsPage.clickFavoriteBtn();
         loginPage = adsDetailsPage.clickOkOnAlert();
         LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
-        loginOlx.inputEmail("remote.googs@gmail.com");
-        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.inputEmail("whoami@olx.co.id");
+        loginOlx.inputPassword("test123");
         loginOlx.clickLoginWithOlxBtn();
         adsDetailsPage.clickBackFromAdsDetails();
         FavoritePage favoritePage = listingPage.clickFavoritBtmBtn();
@@ -121,7 +121,8 @@ public class AdsDetailsTest extends AndroidSetup {
         adsDetailsPage.verifyAllContentsofKirimLaporan();
         adsDetailsPage.chooseFirstOptionStatusLaporan();
         adsDetailsPage.inputDeskripsiLaporan("Olx Mantapppp !!!!, makasih Olx");
-        adsDetailsPage.clickLaporkanIklan(); // disable due, on production side
+        adsDetailsPage.clickKirimLaporanBtn(); // disable due, on production side
+        // verify kirim laporan success
     }
 
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")

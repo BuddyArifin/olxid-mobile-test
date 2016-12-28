@@ -47,6 +47,7 @@ public class AdsDetailsPage extends BasePage {
     protected static final String idIklan = "com.app.tokobagus.betterb:id/ad_id";
     protected static final String lihatIklanAndTestimoni = "Lihat iklan lainnya";
     protected static final String laporkanIklan = "com.app.tokobagus.betterb:id/report";
+    protected static final String kirimLaporkanIklan = "com.app.tokobagus.betterb:id/btnSendReport";
     protected static final String hubungiPenjual = "com.app.tokobagus.betterb:id/contact";
     public static final String sharedBtn = "com.app.tokobagus.betterb:id/menu_share";
     public static final String lebihLanjutBtn = "com.app.tokobagus.betterb:id/safety_info_more";
@@ -326,7 +327,7 @@ public class AdsDetailsPage extends BasePage {
 
     @Step("Verify All Contents of Details Page [Seller View]")
     public void verifyAllContentsAdsDetailFromMyAds(){
-        dismissTutorial();
+//        dismissTutorial();
         verifyTitleAds();
         verifyShareBtn();
         verifyEditBtn();
@@ -419,6 +420,11 @@ public class AdsDetailsPage extends BasePage {
         isElementPresentAfterScrollDown(getIdLocator(laporkanIklan));
         swipePageBtmtToTop(); // make sure laporan iklan present but not visible
         clickElement(getIdLocator(laporkanIklan));
+    }
+
+    public void clickKirimLaporkanIklan() {
+        Log.info("Click Kirim Laporkan Iklan setelah memilih alasan");
+        clickElement(getIdLocator(kirimLaporkanIklan));
     }
     public FilterByMapsLocationModule clickAdsLocations() {
         Log.info("Click Ads Location Button");

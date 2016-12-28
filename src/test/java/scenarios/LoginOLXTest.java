@@ -156,9 +156,9 @@ public class LoginOLXTest extends AndroidSetup {
         loginWithOlxModule.initOlxLoginTest();
         loginWithOlxModule.clickForgotPassOlx();
         loginWithOlxModule.verifyForgotPassContent();
-        loginWithOlxModule.inputEmailForgotPass("olxtester@gmail.com");
+        loginWithOlxModule.inputEmailForgotPass("whoami@olx.co.id");
         loginWithOlxModule.clickKirimForgotPass();
-        loginWithOlxModule.verifyForgotPassNotifSuccess("Link Terkirim", "olxtester@gmail.com");
+        loginWithOlxModule.verifyForgotPassNotifSuccess("Link Terkirim", "whoami@olx.co.id");
         loginWithOlxModule.clickTutupForgotPassNotif();
         loginWithOlxModule.verifyLoginOlxContents();
         //need to verify email
@@ -175,8 +175,8 @@ public class LoginOLXTest extends AndroidSetup {
     public void userAbleToLoginWithValidCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
         loginOlx.initOlxLoginTest();
-        loginOlx.inputEmail("buddy.arifin@icloud.com");
-        loginOlx.inputPassword("nazgul_buddy");
+        loginOlx.inputEmail("whoami@olx.co.id");
+        loginOlx.inputPassword("test123");
         loginOlx.clickLoginWithOlxBtn();
         listingPage = loginOlx.verifyListingPage();
         listingPage.verifyContentsOfListingPage();

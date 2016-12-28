@@ -43,8 +43,8 @@ public class ProfilSayaTest extends AndroidSetup {
         loginPage.verifyContentsOfLoginPage();
 
         loginWithOlxModule = loginPage.clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("buddy.arifin@icloud.com");
-        loginWithOlxModule.inputPassword("nazgul_buddy");
+        loginWithOlxModule.inputEmail("whoami@olx.co.id");
+        loginWithOlxModule.inputPassword("test123");
         loginWithOlxModule.clickLoginWithOlxBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
     }

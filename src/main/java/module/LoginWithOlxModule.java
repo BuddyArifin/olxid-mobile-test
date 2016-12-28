@@ -315,5 +315,19 @@ public class LoginWithOlxModule extends BasePage {
         inputEmail(email);
         inputPassword(pass);
         sinon.setUser_id(user_id);
+        sinon.createAds();
+    }
+
+    // Login with new Users only
+    public void loginWithNewUser() {
+        Sinon sinon = new Sinon();
+        Response response = sinon.postCreateUserWithPassword();
+        String email = DataBuilder.getUserName(response);
+        String pass = DataBuilder.getPassword(response);
+        String user_id = DataBuilder.getUserId(response);
+        inputEmail(email);
+        inputPassword(pass);
+        sinon.setUser_id(user_id);
+        sinon.createAds();
     }
 }

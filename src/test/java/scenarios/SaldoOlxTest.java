@@ -28,8 +28,8 @@ public class SaldoOlxTest extends AndroidSetup {
     public void verifyAllContentsSaldoOlxPage() {
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginWithOlxModule = loginPage.clickSkipOnBoardingSliders().clickLoginWithOlx();
-        loginWithOlxModule.inputEmail("olxtester@gmail.com");
-        loginWithOlxModule.inputPassword("testing");
+        loginWithOlxModule.inputEmail("ferga.dipa@olx.co.id");
+        loginWithOlxModule.inputPassword("testing123");
         loginWithOlxModule.clickLoginWithOlxBtn();
         ListingPage listingPage = loginWithOlxModule.verifyListingPage();
         listingPage.verifyContentsOfListingPage();
@@ -111,8 +111,8 @@ public class SaldoOlxTest extends AndroidSetup {
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginWithOlxModule= loginPage.clickLoginWithOlx();
         loginWithOlxModule.verifyLoginOlxContents();
-        loginWithOlxModule.inputEmail("buddy.arifin@icloud.com");
-        loginWithOlxModule.inputPassword("nazgul_buddy");
+        loginWithOlxModule.inputEmail("whoami@olx.co.id");
+        loginWithOlxModule.inputPassword("test123");
         loginWithOlxModule.clickLoginWithOlxBtn();
         saldoOlxModule.clickNextInfoImageBanner();
         saldoOlxModule.clickPrevInfoImageBanner();

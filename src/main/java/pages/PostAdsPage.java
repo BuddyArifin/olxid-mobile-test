@@ -259,23 +259,23 @@ public class PostAdsPage extends BasePage {
     }
 
     public boolean isPostAdsPage(){
-        return isWaitElementPresent(getTextLocator(jualTitle));
+        return isElementPresent(getTextLocator(jualTitle));
     }
 
     public boolean isCameraPage(){
-        return isWaitElementPresent(getIdLocator(shutterBtn));
+        return isElementPresent(getIdLocator(shutterBtn));
     }
 
     public boolean isCameraAdditionalPage(){
-        return isWaitElementPresent(getIdLocator(cropBtnAtas));
+        return isElementPresent(getIdLocator(cropBtnAtas));
     }
 
     @Step("Verify Content in Camera Page")
     public void verifyContentInCameraPage()
     {
         customCamera = true;
-        //verifyCloseBtn();
-        dismissTutorial();
+//        verifyCloseBtn();
+//        dismissTutorial();
         verifyShutterBtn();
         verifyGaleriBtn();
         Log.info("Verify Content in Camera Page");
@@ -1327,7 +1327,7 @@ public class PostAdsPage extends BasePage {
         @Override
         public void verifyAllContentInLocationPage() {
             verifySearchField();
-            dismissTutorial();
+//            dismissTutorial();
             verifyMyCurrentLocationBtn();
             verifyCurrentLocationAddress();
             verifyCariDiLokasiIniBtn();

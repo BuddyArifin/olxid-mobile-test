@@ -6,8 +6,8 @@ public class Constants {
   public static final String PAID_TEST = "PaidFeaturePostAdsTest";
   public static final String UNICODE_APP = "io.appium.android.ime";
   public static String screenshotsDir="Screenshots/";
-  public static String apkDir="Resources/";
-//  public static String apkDir="/Applications/Dropbox/ptTokobagus";
+//  public static String apkDir="Resources/";
+  public static String apkDir="/Applications/Dropbox/ptTokobagus";
   public static String hubIP="http://localhost:4444/wd/hub";
   public static String hubIPJenkins="http://172.16.80.72:4444/wd/hub";
   public static String apkName="app-debug-7.0.1.156.apk";

@@ -77,6 +77,13 @@ public class Sinon extends InstanceDriver{
                 .post(Constants.base_uri + "trojan/createuserwithpassword/?email="+email);
     }
 
+    public Response postCreateUserWithPassword(){
+        this.response = RestAssured.given().when()
+                .post(Constants.base_uri + "trojan/createuserwithpassword/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
+        return response;
+    }
+
     public Response createAds() {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", getUser_id());
@@ -173,11 +180,19 @@ public class Sinon extends InstanceDriver{
     @Test
     public void testCreateUserWithPassword() throws IOException {
         Sinon sinon = new Sinon();
-        Response response = sinon.postCreateUserWithPassword("xyz@haha.com");
+        Response response = sinon.postCreateUserWithPassword("whoami@olx.co.id");
         Log.debug(DataBuilder.getUserName(response));
         Log.debug(DataBuilder.getPassword(response));
         setUser_id(DataBuilder.getUserId(response));
         sinon.createAds();
+    }
+
+    @Test
+    public void testCreateRandomUser() throws IOException {
+        Sinon sinon = new Sinon();
+        Response response = sinon.postCreateUserWithPassword();
+        Log.debug(DataBuilder.getUserName(response));
+        Log.debug(DataBuilder.getPassword(response));
     }
 
 }
