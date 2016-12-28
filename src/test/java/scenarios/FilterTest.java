@@ -208,10 +208,7 @@ public class FilterTest extends AndroidSetup{
         listingPage.clickFilterBtnPrm();
         mapsFilter = filterPage.clickLocationButton();
         mapsFilter.verifyAllContentInLocationPage();
-        mapsFilter.inputKeywordInSearchFields("Menara");
-        mapsFilter.clickSearchField();
-        mapsFilter.verifySuggestions();
-        mapsFilter.chooseSuggestion(0);
+        mapsFilter.clickMyCurrentLocationBtn();
         mapsFilter.slideRightSliderRadius();
         mapsFilter.clickCariDiLokasiIniBtn();
         filterPage.clickSimpanButton();

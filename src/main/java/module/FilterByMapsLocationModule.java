@@ -155,7 +155,8 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifySuggestions() {
         Log.debug("Available Suggestions ["+suggestionFoundList.size()+"] :");
         isWaitElementPresent(getIdLocator(autoSuggest));
-        Assert.assertTrue(isListElementPresent(suggestionFoundList));
+        Assert.assertTrue(isListElementPresent(suggestionFoundList),
+                "Suggestion After input keyword not displayed");
     }
 
     public void chooseSuggestion(int index) {
