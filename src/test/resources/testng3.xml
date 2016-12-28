@@ -18,7 +18,7 @@
             <class name="scenarios.CategoryViewTest"/>
         </classes>
     </test>
-    <test name="Google Login Sulley OLXID" preserve-order="false">
+    <test name="Google Login Sulley OLXID" preserve-order="false" enabled="false">
         <classes>
             <class name="scenarios.LoginGplusTest"/>
         </classes>
