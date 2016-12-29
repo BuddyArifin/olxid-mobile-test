@@ -89,7 +89,6 @@ public class IklanSayaPage extends BasePage{
             paidFeatureModule.clickBatalOnTopListing();
             getBackToMyDetailsAds();
         }else if(editIklanPage.editAdsTitleDisplayed()){
-            editIklanPage.clickBackBtn();
             getBackToMyDetailsAds();
         }
     }
@@ -97,13 +96,14 @@ public class IklanSayaPage extends BasePage{
     public void getBackToMyDetailsAds() {
         clickBackBtn();
         waitForVisibility(getTextLocator(iklanSayaTitle));
-        clickBackBtn();
+//        clickBackBtn();
     }
 
     @Step("Verify All Content In IklanSaya Page")
     public void verifyAllContentInIklanSayaPage()
     {
 //        verifyandSkipTutorialPostadsImage();
+
         verifyBackBtn();
         verifyIklanSayaTitle();
         verifyImageAndPrice();
@@ -230,8 +230,8 @@ public class IklanSayaPage extends BasePage{
     public void verifyImageAndPrice()
     {
         Log.info("Verify Image And Price");
-        Assert.assertTrue(isElementPresent(getIdLocator(adsImg)));
-        Assert.assertTrue(isElementPresent(getIdLocator(adsPrice)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(adsImg)), "Images on List Ads, not displayed");
+        Assert.assertTrue(isElementPresent(getIdLocator(adsPrice)), "Prices on List Ads, not displayed");
     }
     public void verifyNonAktifkanIklanBtn()
     {
@@ -275,6 +275,7 @@ public class IklanSayaPage extends BasePage{
 
     public void clickPromotePanel(){
         if(isElementPresent(getTextLocator(promotePanel))){
+            swipeLeftForPanel();
             clickElement(getTextLocator(promotePanel));
         }else {
             swipeLeftForPanel();
@@ -360,7 +361,7 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void clickNonAktifPanel() {
-        clickPanel("Non-Aktif");
+        clickElement(getTextLocator(nonAktifPanel));
         DataBuilder.getData(sinon.createAdsWithStatus("removed_by_user")); // prepare ads non active on panel
     }
 

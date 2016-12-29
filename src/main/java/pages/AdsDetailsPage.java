@@ -1,5 +1,6 @@
 package pages;
 
+import athena.Sinon;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -276,7 +277,7 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifyNonActiveBtn() {
         Log.info("Verify Non Active Button");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(nonActivatebtnId)));
+        Assert.assertTrue(isElementPresent(getIdLocator(nonActivatebtnId)));
     }
 
     public void verifyStatusLaporan() {
@@ -328,19 +329,20 @@ public class AdsDetailsPage extends BasePage {
     @Step("Verify All Contents of Details Page [Seller View]")
     public void verifyAllContentsAdsDetailFromMyAds(){
 //        dismissTutorial();
+        verifyAdsAvailableOnActive();
         verifyTitleAds();
         verifyShareBtn();
         verifyEditBtn();
-        verifyLebihLanjut();
+//        verifyLebihLanjut();
+        verifySudahTerjualBtn();
+        verifyNonActiveBtn();
+        verifyidIklanNumber();
 //        verifyTutupBtn();
         verifyTipsAds();
 //        verifyPhotoAds();
         verifyPriceAds();
         verifyStatusAds();
         verifyStatusAdsFave();
-        verifySudahTerjualBtn();
-        verifyNonActiveBtn();
-        verifyidIklanNumber();
 //        verifyPostYearsAds();
 //        verifyTransactionAds();
 //        verifyMoreInfoAds();
@@ -348,6 +350,24 @@ public class AdsDetailsPage extends BasePage {
         verifyMemberJoinDate();
 //        verifyAdsLocations();
 //        verifyLihatIklanAndTestimoni();
+    }
+
+    private void verifyAdsAvailableOnActive() {
+        if (!isAdsonActivePanelExist()) {
+            createAdswithSpesificUserId("61474857");
+            createAdswithSpesificUserId("60028131");
+        }
+    }
+
+    private void createAdswithSpesificUserId(String user_id) {
+        Log.debug(" Send Request to Sinon --> Create Ads ");
+        Sinon sinon = new Sinon();
+        sinon.setUser_id(user_id);
+        sinon.createAds();
+    }
+
+    private boolean isAdsonActivePanelExist() {
+        return isElementPresent(getIdLocator(IklanSayaPage.adsImg));
     }
 
     public void verifyEditBtn(){
@@ -458,8 +478,8 @@ public class AdsDetailsPage extends BasePage {
     private void loginToOlx() {
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginOlx = loginPage.clickLoginWithOlx();
-        loginOlx.inputEmail("remote.googs@gmail.com");
-        loginOlx.inputPassword("remoteclient@789");
+        loginOlx.inputEmail("whoami@olx.co.id");
+        loginOlx.inputPassword("test123");
         loginOlx.clickLoginWithOlxBtn();
     }
 
@@ -636,8 +656,9 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public EditIklanPage clickEditIklanBtn(){
-        clickElement(getIdLocator(editAdsMenu));
         Log.info("Click Edit Iklan button");
+        clickElement(getIdLocator(editAdsMenu));
+        isAutoAcept(getIdLocator(permissionsAndroid));
         return new EditIklanPage(driver);
     }
 

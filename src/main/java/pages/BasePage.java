@@ -135,7 +135,7 @@ public class BasePage  {
 			}else{
 				return false;
 			}
-		} catch (NoSuchElementException e) {
+		} catch (NoSuchElementException | TimeoutException e) {
 			return false;
 		}
 	}

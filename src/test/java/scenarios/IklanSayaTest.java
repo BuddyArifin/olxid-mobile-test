@@ -19,7 +19,7 @@ import ru.yandex.qatools.allure.annotations.Title;
  * Created by NugrohoSantoso on 10/19/16.
  */
 @Listeners(ScreenshootsListener.class)
-@Features("Iklan Saya Test")
+@Features("Iklan Saya Feature")
 public class IklanSayaTest extends AndroidSetup {
     LoginPage loginPage;
     LoginWithOlxModule loginWithOlxModule;
@@ -127,38 +127,6 @@ public class IklanSayaTest extends AndroidSetup {
         iklanSayaPage.verifyScrollUpAndDown();
         iklanSayaPage.clickPromotePanel();
         iklanSayaPage.verifyScrollUpAndDown();
-    }
-
-    @Stories("As a user able to click one of ads in Aktif Panel")
-    @Title("Verify user able to click one of ads in Aktif Panel")
-    @TestCaseId("TC_MYADS_15_007, TC_MYADS_15_008, TC_MYADS_15_009")
-    @Test(priority = 3)
-    public void verifyUserAbleToClickOneAdsInActivePanel()
-    {
-        iklanSayaPage.initIklanSayaPage();
-        hamburgerBarModule.clickIklanSayaBtn();
-        iklanSayaPage.clickActivePanel();
-        adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
-        adsDetailsPage.clickBackFromAdsDetails();
-        iklanSayaPage.verifyAllContentInIklanSayaPage();
-    }
-
-    @Stories("As a user i want to be able click \"Non Aktif\" ads")
-    @Title("Verify user able to click \"Non Aktif\" ads")
-    @TestCaseId("TC_MYADS_15_025, TC_MYADS_15_026, TC_MYADS_15_027")
-    @Test(priority = 3)
-    public void verifyUserAbleToClickNonAktifkanIklan()
-    {
-        iklanSayaPage.initIklanSayaPage();
-        hamburgerBarModule.clickIklanSayaBtn();
-        iklanSayaPage.clickActivePanel();
-        adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
-        adsDetailsPage.clickNonActiveBtn();
-        adsDetailsPage.verifyDeactivateReason();
-        adsDetailsPage.clickCancelDeactivate();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
     }
 
     @Stories("As a user I want to see notification for each tabs if there's no content in it")
