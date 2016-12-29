@@ -540,6 +540,7 @@ public class AdsDetailsPage extends BasePage {
         } else if (isCurrentPageonAlert()) {
             clickElement(getIdLocator(tapBatalButton));
             clickBackFromAdsDetails();
+            goToAdsDetailsFromListing(listing);
         }
     }
 
