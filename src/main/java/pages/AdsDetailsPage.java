@@ -536,6 +536,10 @@ public class AdsDetailsPage extends BasePage {
         } else if (isCurrentPageOnPesanPage()) {
             clickBackFromAdsDetails();
             goToAdsDetailsFromListing(listing);
+
+        } else if (isCurrentPageonAlert()) {
+            clickElement(getIdLocator(tapBatalButton));
+            clickBackFromAdsDetails();
         }
     }
 
@@ -559,6 +563,10 @@ public class AdsDetailsPage extends BasePage {
     private boolean isCurrentPageMapsOrLaporkanIklan() {
         return isElementPresent(getIdLocator(FilterByMapsLocationModule.addressTitle))
                 || isElementPresent(getIdLocator(kirimLaporanBtn));
+    }
+
+    private boolean isCurrentPageonAlert() {
+        return isElementPresent(getIdLocator(alertContent));
     }
 
     private void goToAdsDetailsFromListing(ListingPage listing) {
