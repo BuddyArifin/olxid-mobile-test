@@ -54,8 +54,9 @@ public class EditIklanPage extends BasePage {
     public static final String kondisiBekas = "Bekas";
     public static final String btnCamera = "com.app.tokobagus.betterb:id/btnCamera";
     public static final String btnGallery = "com.app.tokobagus.betterb:id/btnGallery";
-    public static final String imgFromGallery = "com.android.documentsui:id/icon_mime";
+    public static final String imgFromGallery = "com.android.documentsui:id/icon_thumb";
     public static final String saveImgFromGallery = "com.app.tokobagus.betterb:id/btnSave";
+    public static final String androidPermissionAlert = "com.android.packageinstaller:id/permission_allow_button";
 
     public boolean editAdsTitleDisplayed(){
         return isElementPresent(getTextLocator(editAdsTitle));
@@ -165,6 +166,7 @@ public class EditIklanPage extends BasePage {
     }
 
     public void verifyEditIklanPageContents(){
+        isAutoAcept(getIdLocator(androidPermissionAlert));
         verifyEditAdsTitle();
         verifyBackBtn();
         verifyEditImageIklan();

@@ -253,7 +253,12 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void clickActivePanel(){
-        clickElement(getTextLocator(aktifPanel));
+        if(isElementPresent(getTextLocator(aktifPanel))){
+            clickElement(getTextLocator(aktifPanel));
+        }else {
+            swipeRightForPanel();
+            clickElement(getTextLocator(aktifPanel));
+        }
         Log.info("Click Active Panel");
     }
 

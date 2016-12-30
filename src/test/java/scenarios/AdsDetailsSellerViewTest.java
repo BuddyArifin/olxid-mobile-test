@@ -39,6 +39,9 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         hamburgerBar.verifyAllContentsInHamburgerBar();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         iklanSayaPage.verifyAllContentInIklanSayaPage();
+        iklanSayaPage.clickActivePanel();
+        AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
     }
 
     @Stories("As A User I want to be able to diactivate Ads")
@@ -71,7 +74,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        adsDetailsPage.verifySudahTerjualBtn();
         adsDetailsPage.clickSudahTerjual();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.clickTerjualorTersewaOpts();
@@ -113,7 +116,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        adsDetailsPage.verifyEditBtn();
         EditIklanPage editIklanPage = adsDetailsPage.clickEditIklanBtn();
         editIklanPage.verifyEditIklanPageContents();
     }
@@ -339,7 +342,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         profilSayaModule.clickBackButton();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        adsDetailsPage.verifyEditBtn();
         EditIklanPage editIklanPage = adsDetailsPage.clickEditIklanBtn();
         editIklanPage.verifyEditImageIklan();
         editIklanPage.verifyAdsKondisi();
