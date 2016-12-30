@@ -3,7 +3,7 @@
 
 <suite name="Mobile App OLXID " verbose="3" parallel="tests" thread-count="3">
     
-    <test name="Home Page OLXID" preserve-order="false" enabled="false">
+    <test name="Home Page OLXID" preserve-order="false" >
         <classes>
             <class name="scenarios.LoginPageTest"/>
         </classes>
@@ -33,7 +33,7 @@
             <class name="scenarios.ProfilSayaTest"/>
         </classes>
     </test>
-    <test name="Iklan Saya Sulley OLXID" preserve-order="false" enabled="false">
+    <test name="Iklan Saya Sulley OLXID" preserve-order="false" >
         <classes>
             <class name="scenarios.IklanSayaTest"/>
         </classes>
