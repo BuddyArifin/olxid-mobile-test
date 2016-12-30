@@ -99,6 +99,27 @@ public class Sinon extends InstanceDriver{
         return response;
     }
 
+    public Response createActiveAdsWithLoc() {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", getUser_id());
+        params.put("title", " Jual Rumah Mewah Di Nusa Dua Bali [TEST] ");
+        params.put("description", "Alasan jual, karena lagi testing");
+        params.put("region_id", "2");
+        params.put("city_id", "225");
+        params.put("map_zoom", "12");
+        params.put("map_lat", "-8.67317239");
+        params.put("map_lon", "115.16244616");
+        params.put("map_radius", "0");
+
+        this.response = RestAssured.with()
+                .queryParameters(params)
+                .when()
+                .post(Constants.base_uri + "trojan/createactivead/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
+        DataBuilder.convertJsonToFile(response);
+        return response;
+    }
+
     /**
      * @param status must be registered as
      * status blocked = Moderasi
@@ -108,6 +129,9 @@ public class Sinon extends InstanceDriver{
      */
     public Response createAdsWithStatus(String status) {
         Map<String, String> params = new HashMap<>();
+        params.put("user_id", getUser_id());
+        params.put("title", " Jual Sepatu Basket Nike [TEST] ");
+        params.put("description", "Alasan jual, karena lagi testing");
         params.put("status", status);
 
         this.response = RestAssured.with()
@@ -125,6 +149,24 @@ public class Sinon extends InstanceDriver{
                 .post(Constants.base_uri + "trojan/createuserwithbalance/");
         response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
         return response;
+    }
+
+    public Response acceptModerationAds(String adId){
+        Map<String, String> params = new HashMap<>();
+        params.put("ad_id", adId);
+
+        this.response = RestAssured.with()
+                .queryParameters(params)
+                .when()
+                .post(Constants.base_uri + "trojan/acceptmoderation/");
+        response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
+        return response;
+    }
+
+    @Test
+    public void testAcceptModerationAds(){
+        Sinon sinon = new Sinon();
+        sinon.acceptModerationAds("293587307");
     }
 
     @Test
@@ -193,6 +235,18 @@ public class Sinon extends InstanceDriver{
         Response response = sinon.postCreateUserWithPassword();
         Log.debug(DataBuilder.getUserName(response));
         Log.debug(DataBuilder.getPassword(response));
+    }
+
+    @Test
+    public void testCreateModeratedAds() throws IOException {
+        Sinon sinon = new Sinon();
+        sinon.createAdsWithStatus("blocked");
+    }
+
+    @Test
+    public void testCreateActiveAdsWithLoc() throws IOException{
+        Sinon sinon = new Sinon();
+        sinon.createActiveAdsWithLoc();
     }
 
 }
