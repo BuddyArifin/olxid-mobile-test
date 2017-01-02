@@ -299,7 +299,8 @@ public class FilterPage extends BasePage {
 
     public ListingPage clickBackBtn() {
         Log.info("Click Back Button");
-        clickElement(getIdLocator(backButtonId));
+        isWaitElementPresent(getIdLocator(resetBtn));
+        backBtnTopPrm.get(0).click();
         return new ListingPage(driver);
     }
 
