@@ -62,6 +62,7 @@ public class FilterPage extends BasePage {
     public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
     public static final String imageButtonBack = "android.widget.ImageButton";
     public static final String filterButtonID = "com.app.tokobagus.betterb:id/filter_item";
+    public static final String backButtonId = "com.app.tokobagus.betterb:id/imageView_arrow_back";
     public boolean isOldVersionDevices = false;
 
     private FilterByMapsLocationModule filterByMapsLocationModule;
@@ -298,7 +299,7 @@ public class FilterPage extends BasePage {
 
     public ListingPage clickBackBtn() {
         Log.info("Click Back Button");
-        backBtnTopPrm.get(0).click();
+        clickElement(getIdLocator(backButtonId));
         return new ListingPage(driver);
     }
 
