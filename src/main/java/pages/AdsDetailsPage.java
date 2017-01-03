@@ -1,6 +1,5 @@
 package pages;
 
-import athena.Sinon;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -92,7 +91,6 @@ public class AdsDetailsPage extends BasePage {
     private static String idIklanSave = "";
     private static boolean isMapsDisplayed;
     private static String dateAds;
-
 
     @AndroidFindBys({
             @AndroidFindBy(id = photoPagination)
@@ -280,7 +278,6 @@ public class AdsDetailsPage extends BasePage {
         }else if(isElementPresentAfterScrollUp(getIdLocator(setTerjualbtnId))){
             Assert.assertTrue(true);
         }
-        //Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(setTerjualbtnId)));
     }
     public void verifyNonActiveBtn() {
         Log.info("Verify Non Active Button");
@@ -343,13 +340,11 @@ public class AdsDetailsPage extends BasePage {
     @Step("Verify All Contents of Details Page [Seller View]")
     public void verifyAllContentsAdsDetailFromMyAds(){
 //        dismissTutorial();
-//        verifyAdsAvailableOnActive();
         verifyTitleAds();
         verifyShareBtn();
         verifyEditBtn();
 //        verifyLebihLanjut();
-        verifySudahTerjualBtn();
-        verifyNonActiveBtn();
+        verifyDeactivateAdsBtn();
         verifyidIklanNumber();
 //        verifyTutupBtn();
         verifyTipsAds();
@@ -366,23 +361,9 @@ public class AdsDetailsPage extends BasePage {
 //        verifyLihatIklanAndTestimoni();
     }
 
-    private void verifyAdsAvailableOnActive() {
-        if (!isAdsonActivePanelExist()) {
-            createAdswithSpesificUserId("61474857");
-            createAdswithSpesificUserId("60028131");
-        }
-    }
-
-    private void createAdswithSpesificUserId(String user_id) {
-        Log.debug(" Send Request to Sinon --> Create Ads ");
-        Sinon sinon = new Sinon();
-        sinon.setUser_id(user_id);
-        sinon.createActiveAdsWithLoc();
-        //sinon.createAds();
-    }
-
-    private boolean isAdsonActivePanelExist() {
-        return isElementPresent(getIdLocator(IklanSayaPage.adsImg));
+    private void verifyDeactivateAdsBtn() {
+        verifySudahTerjualBtn();
+        verifyNonActiveBtn();
     }
 
     public void verifyEditBtn(){
@@ -660,7 +641,6 @@ public class AdsDetailsPage extends BasePage {
 
     public void clickTerjualorTersewaOpts() {
         Log.info("Choose SUdah Terjual or Tersewa di OLX");
-        Log.info("size radio reason list : "+radioReasonList.size());
         radioReasonList.get(0).click();
     }
 

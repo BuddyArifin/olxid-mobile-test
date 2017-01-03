@@ -1,8 +1,6 @@
 package pages;
 
-import athena.DataBuilder;
 import athena.Sinon;
-import com.jayway.jsonpath.DocumentContext;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -293,25 +291,6 @@ public class IklanSayaPage extends BasePage{
         Log.info("Click Promote Panel");
     }
 
-    private void verifyAdsAvailableOnActive() {
-        if (!isAdsonActivePanelExist()) {
-            createAdswithSpesificUserId("61474857");
-            createAdswithSpesificUserId("60028131");
-        }
-    }
-
-    private void createAdswithSpesificUserId(String user_id) {
-        Log.debug(" Send Request to Sinon --> Create Ads ");
-        Sinon sinon = new Sinon();
-        sinon.setUser_id(user_id);
-        sinon.createActiveAdsWithLoc();
-        //sinon.createAds();
-    }
-
-    private boolean isAdsonActivePanelExist() {
-        return isElementPresent(getIdLocator(adsImg));
-    }
-
     public void verifyContentInActivePanel(){
         verifyIklanSayaTitle();
         verifyBackBtn();
@@ -424,10 +403,10 @@ public class IklanSayaPage extends BasePage{
         Log.debug(" Send Request to Sinon --> Create Ads ");
         Sinon sinon = new Sinon();
         sinon.setUser_id(user_id);
-        sinon.createAds();
+        sinon.createActiveAdsWithLoc();
     }
 
     private boolean isAdsonActivePanelExist() {
-        return isElementPresent(getIdLocator(IklanSayaPage.adsImg));
+        return isElementPresent(getIdLocator(adsImg));
     }
 }

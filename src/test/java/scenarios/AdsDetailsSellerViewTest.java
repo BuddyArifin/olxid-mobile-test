@@ -1,7 +1,6 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
-import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
 import module.LoginWithOlxModule;
 import module.ProfilSayaModule;
@@ -62,19 +61,17 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         profilSayaModule.verifyBackBtnProfilSayaPage();
         profilSayaModule.clickBackButton();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
-        iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyNonActiveBtn();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
         adsDetailsPage.clickNonActiveBtn();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.chooseDeactivateReason();
         adsDetailsPage.clickNonActiveBtn();
-        adsDetailsPage.verifyCopySbgIklanBaruButton();
-        /*adsDetailsPage.clickBackFromAdsDetails();
+        adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
         iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifyStatusAds();
-        adsDetailsPage.verifyAdsMoveToNonActivePanels();*/
+        adsDetailsPage.verifyAdsMoveToNonActivePanels();
     }
 
     @Stories("As A User I want to be able to diactivate Ads")
@@ -96,16 +93,15 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifySudahTerjualBtn();
+        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
         adsDetailsPage.clickSudahTerjual();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.clickTerjualorTersewaOpts();
         adsDetailsPage.clickNonActiveBtn();
-        adsDetailsPage.verifyCopySbgIklanBaruButton();
-        /*adsDetailsPage.clickBackFromAdsDetails();
+        adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
         iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAdsMoveToNonActivePanels();*/
+        adsDetailsPage.verifyAdsMoveToNonActivePanels();
     }
 
     @Stories("As A User I want to be able to Duplicate Deactivate Ads to New")

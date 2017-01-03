@@ -1,13 +1,17 @@
 package pages;
 
-import io.appium.java_client.android.AndroidDriver;
-import module.HamburgerBarModule;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 import utils.Log;
+
+import java.util.List;
 
 /**
  * Created by sekarayu on 12/6/16.
@@ -16,6 +20,7 @@ public class EditIklanPage extends BasePage {
 
     public EditIklanPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
     public static final String editAdsTitle = "Edit Iklan";
@@ -57,6 +62,21 @@ public class EditIklanPage extends BasePage {
     public static final String imgFromGallery = "com.android.documentsui:id/icon_thumb";
     public static final String saveImgFromGallery = "com.app.tokobagus.betterb:id/btnSave";
     public static final String androidPermissionAlert = "com.android.packageinstaller:id/permission_allow_button";
+    public static final String shutterBtn = "com.android.camera:id/shutter_button";
+    public static final String saveCapturedImgBtn = "com.android.camera:id/btn_done";
+    public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
+
+    @AndroidFindBys({
+            @AndroidFindBy(className = "android.widget.GridView"),
+            @AndroidFindBy(id = "android:id/text1")
+    })
+    public List<AndroidElement> appsPhotoOnPopUP;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = "android:id/list"),
+            @AndroidFindBy(id = "android:id/title")
+    })
+    public List<AndroidElement> appsPhotonOnHamburger;
 
     public boolean editAdsTitleDisplayed(){
         return isElementPresent(getTextLocator(editAdsTitle));
@@ -72,23 +92,55 @@ public class EditIklanPage extends BasePage {
         Assert.assertTrue(isElementPresent(getContentLocator(backBtn)));
     }
 
+    public void uploadImageIfNotexist() {
+        String pilihGambar = "Pilih gambar";
+
+        if (isElementPresent(getTextLocator(pilihGambar))){
+
+            usedDropBoxToUploadPicture(appsPhotoOnPopUP);
+
+        } else if (isElementPresent(getIdLocator(openFromHambugerGallery))) {
+
+            usedDropBoxToUploadPicture(appsPhotonOnHamburger);
+        }
+
+        searchAndClickTestPhoto();
+    }
+
+    private void usedDropBoxToUploadPicture(List<AndroidElement> list) {
+        for (int i = 0; i < list.size() ; i++) {
+
+            if (list.get(i).getText().equalsIgnoreCase("Dropbox")) {
+                list.get(i).click();
+                break;
+            }
+        }
+    }
+
+    private void searchAndClickTestPhoto() {
+        String titleDropBoxId = "com.dropbox.android:id/left_title";
+        String foldername = "Screenshots";
+        String filename = "test.png";
+
+        isWaitElementPresent(getIdLocator(titleDropBoxId));
+        clickElement(getTextLocator(foldername));
+        clickElement(getTextLocator(filename));
+
+    }
+
     public void verifyEditImageIklan(){
         Log.info("Verify edit image iklan");
         Assert.assertTrue(isWaitElementPresent(getIdLocator(editImageItemContainer)));
         Assert.assertTrue(isElementPresent(getIdLocator(editImageIklan)));
         boolean editDelBtn = isElementPresent(getIdLocator(editDelImageBtn));
         if(!editDelBtn){
+            clickAddImage();
+            verifyAddImageSelection();
+            clickImageGallery();
             uploadImageIfNotexist();
+            clickSaveImgGallery();
             Assert.assertTrue(isWaitElementPresent(getIdLocator(editDelImageBtn)));
         }
-    }
-
-    private void uploadImageIfNotexist(){
-        clickAddImage();
-        verifyAddImageSelection();
-        clickImageGallery();
-        chooseAnImageFromGallery();
-        clickSaveImgGallery();
     }
 
     public void clickAddImage(){
@@ -104,6 +156,16 @@ public class EditIklanPage extends BasePage {
     public void clickImageCamera(){
         clickElement(getIdLocator(btnCamera));
         Log.info("Click image camera");
+    }
+
+    public void clickShutterCameraEdit(){
+        clickElement(getIdLocator(shutterBtn));
+        Log.info("Click shutter camera");
+    }
+
+    public void clickSaveCapturedImg(){
+        clickElement(getIdLocator(saveCapturedImgBtn));
+        Log.info("Click save captured image from camera");
     }
 
     public void clickImageGallery(){
@@ -353,11 +415,11 @@ public class EditIklanPage extends BasePage {
 
     public void verifyAdsKondisi(){
         Log.info("Verify ads kondisi");
-        if(isElementPresent(getTextLocator(kondisiBarang))){
+        if(isElementPresent(getIdLocator(btnselectKondisi))){
             Assert.assertTrue(true);
-        }else if(isElementPresentAfterScrollDown(getTextLocator(kondisiBarang))){
+        }else if(isElementPresentAfterScrollDown(getIdLocator(btnselectKondisi))){
             Assert.assertTrue(true);
-        }else if(isElementPresentAfterScrollUp(getTextLocator(kondisiBarang))){
+        }else if(isElementPresentAfterScrollUp(getIdLocator(btnselectKondisi))){
             Assert.assertTrue(true);
         }
         //Assert.assertTrue(isElementPresent(getTextLocator(kondisiBarang)));
