@@ -52,17 +52,19 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     {
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
+        iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
+        adsDetailsPage.verifyNonActiveBtn();
         adsDetailsPage.clickNonActiveBtn();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.chooseDeactivateReason();
         adsDetailsPage.clickNonActiveBtn();
-        adsDetailsPage.clickBackFromAdsDetails();
+        adsDetailsPage.verifyCopySbgIklanBaruButton();
+        /*adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
         iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifyStatusAds();
-        adsDetailsPage.verifyAdsMoveToNonActivePanels();
+        adsDetailsPage.verifyAdsMoveToNonActivePanels();*/
     }
 
     @Stories("As A User I want to be able to diactivate Ads")
@@ -73,16 +75,18 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     {
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
+        iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifySudahTerjualBtn();
         adsDetailsPage.clickSudahTerjual();
         adsDetailsPage.verifyNonAktifStatus();
         adsDetailsPage.clickTerjualorTersewaOpts();
         adsDetailsPage.clickNonActiveBtn();
-        adsDetailsPage.clickBackFromAdsDetails();
+        adsDetailsPage.verifyCopySbgIklanBaruButton();
+        /*adsDetailsPage.clickBackFromAdsDetails();
         iklanSayaPage.clickNonAktifPanel();
         iklanSayaPage.clickOneOfAdsInAdsList();
-        adsDetailsPage.verifyAdsMoveToNonActivePanels();
+        adsDetailsPage.verifyAdsMoveToNonActivePanels();*/
     }
 
     @Stories("As A User I want to be able to Duplicate Deactivate Ads to New")
@@ -330,6 +334,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Test(priority = 4)
     public void verifyChangeKondisi(){
         iklanSayaPage.initIklanSayaPage();
+        iklanSayaPage.clickBackBtn();
         ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
         profilSayaModule.verifyAllContentInProfilSayaPage();
         LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();

@@ -259,6 +259,7 @@ public class IklanSayaPage extends BasePage{
             swipeRightForPanel();
             clickElement(getTextLocator(aktifPanel));
         }
+        verifyAdsAvailableOnActive();
         Log.info("Click Active Panel");
     }
 
@@ -287,6 +288,25 @@ public class IklanSayaPage extends BasePage{
             clickElement(getTextLocator(promotePanel));
         }
         Log.info("Click Promote Panel");
+    }
+
+    private void verifyAdsAvailableOnActive() {
+        if (!isAdsonActivePanelExist()) {
+            createAdswithSpesificUserId("61474857");
+            createAdswithSpesificUserId("60028131");
+        }
+    }
+
+    private void createAdswithSpesificUserId(String user_id) {
+        Log.debug(" Send Request to Sinon --> Create Ads ");
+        Sinon sinon = new Sinon();
+        sinon.setUser_id(user_id);
+        sinon.createActiveAdsWithLoc();
+        //sinon.createAds();
+    }
+
+    private boolean isAdsonActivePanelExist() {
+        return isElementPresent(getIdLocator(adsImg));
     }
 
     public void verifyContentInActivePanel(){
