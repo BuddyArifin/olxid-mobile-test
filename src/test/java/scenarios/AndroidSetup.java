@@ -48,7 +48,7 @@ public class AndroidSetup extends InstanceDriver {
         
         //No Reset Apps
         capabilities.setCapability("noReset", false);
-        capabilities.setCapability("fullReset", true);
+        capabilities.setCapability("fullReset", false);
 
         //No Keyboard Layout
         capabilities.setCapability("unicodeKeyboard", "true");
