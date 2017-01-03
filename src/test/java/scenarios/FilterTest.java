@@ -186,6 +186,7 @@ public class FilterTest extends AndroidSetup{
         mapsFilter.clickSearchField();
         mapsFilter.verifySuggestions();
         mapsFilter.chooseSuggestion(0);
+        mapsFilter.clickCariDiLokasiIniBtn();
     }
 
     @Stories("As user i want to be able select location")

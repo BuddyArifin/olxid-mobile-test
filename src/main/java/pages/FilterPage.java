@@ -169,7 +169,7 @@ public class FilterPage extends BasePage {
                 clickElement(getContentLocator(backBtn));
             }else if (mapsFilter.isMapsFilterPage()) {
                 mapsFilter.clickBackButtonFromMaps();
-                clickBackBtn();
+                clickElement(getContentLocator(backBtn));
             }
              else{
                 Assert.assertTrue(true,"Already in Home Screen");
@@ -299,7 +299,6 @@ public class FilterPage extends BasePage {
 
     public ListingPage clickBackBtn() {
         Log.info("Click Back Button");
-        isWaitElementPresent(getIdLocator(resetBtn));
         backBtnTopPrm.get(0).click();
         return new ListingPage(driver);
     }
