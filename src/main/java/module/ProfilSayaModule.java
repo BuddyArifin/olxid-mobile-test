@@ -126,19 +126,23 @@ public class ProfilSayaModule extends BasePage{
         HamburgerBarModule hamburgerBarModule = new HamburgerBarModule(driver);
         if (hamburgerBarModule.isHamburgerBar()){
             Assert.assertTrue(true,"Already in HamburgerBar");
-        }else if (isProfilSayaPage()){
+        }else if (isCurrentPageOnProfileSaya()){
             clickElement(getContentLocator(backBtn));
         }else if(isChangePassPage()){
             Log.info("in Change Pass Page");
             clickBackDevice();
             waitForVisibility(getContentLocator(backBtn));
             clickBackDevice();
-        }else{
+        } else if(isGalleryExternalExist()) {
+            clickBackDevice();
+            clickElement(getContentLocator(backBtn));
+        }
+        else{
             Assert.assertTrue(true,"Already in HamburgerBar");
         }
     }
 
-    public boolean isProfilSayaPage(){
+    public boolean isCurrentPageOnProfileSaya(){
         return isWaitElementPresent(getIdLocator(gantiPasswordBtn));
     }
 
@@ -572,19 +576,27 @@ public class ProfilSayaModule extends BasePage{
 
 
     public PostAdsPage chooseAppsToOpenPhotosonGallery() {
-        String pilihGambar = "Pilih sumber gambar";
 
-        if (isElementPresent(getTextLocator(pilihGambar))){
+        if (isAppUsingExternalGallery()){
 
             usedDropBoxToUploadPicture(appsPhotoOnPopUP);
 
-        } else if (isElementPresent(getIdLocator(openFromHambugerGallery))) {
+        } else if (isAppUsingDefaultGallery()) {
 
             usedDropBoxToUploadPicture(appsPhotonOnHamburger);
         }
 
         searchAndClickTestPhoto();
         return new PostAdsPage(driver);
+    }
+
+    private boolean isAppUsingExternalGallery() {
+        String pilihGambar = "Pilih sumber gambar";
+        return isElementPresent(getTextLocator(pilihGambar));
+    }
+
+    private boolean isAppUsingDefaultGallery() {
+        return isElementPresent(getIdLocator(openFromHambugerGallery));
     }
 
     private void usedDropBoxToUploadPicture(List<AndroidElement> list) {
@@ -608,4 +620,7 @@ public class ProfilSayaModule extends BasePage{
 
     }
 
+    public boolean isGalleryExternalExist() {
+        return isAppUsingExternalGallery() || isAppUsingDefaultGallery();
+    }
 }

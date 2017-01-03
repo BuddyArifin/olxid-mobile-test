@@ -99,7 +99,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As a user i want to be able swipe infobanner")
     @Title("Verify user able to swipe info banner")
     @TestCaseId("TC_SALDO_12_003")
-    @Test(priority = 10)
+    @Test(priority = 10, enabled = false)
     public void verifyUserAbleToSwipeInfoBanner() {
         SaldoOlxModule saldoOlxModule = new SaldoOlxModule(driver);
         HamburgerBarModule hamburgerBarModule = saldoOlxModule.initSaldoOlxTest();

@@ -153,7 +153,7 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void verifySuggestions() {
-        Log.debug("Available Suggestions ["+suggestionFoundList.size()+"] :");
+        Log.info("Available Suggestions ["+suggestionFoundList.size()+"] :");
         isWaitElementPresent(getIdLocator(autoSuggest));
         Assert.assertTrue(isListElementPresent(suggestionFoundList),
                 "Suggestion After input keyword not displayed");
@@ -161,7 +161,7 @@ public class FilterByMapsLocationModule extends BasePage {
 
     public void chooseSuggestion(int index) {
         Assert.assertTrue(isListElementPresent(suggestionAddressList));
-        Log.debug("User choose : "+suggestionFoundList.get(index).getText());
+        Log.info("User choose : "+suggestionFoundList.get(index).getText());
         suggestionFoundList.get(index).click();
         WaitFor(1);
     }
