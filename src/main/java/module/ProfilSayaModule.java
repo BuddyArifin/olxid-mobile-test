@@ -572,7 +572,7 @@ public class ProfilSayaModule extends BasePage{
 
 
     public PostAdsPage chooseAppsToOpenPhotosonGallery() {
-        String pilihGambar = "Pilih gambar";
+        String pilihGambar = "Pilih sumber gambar";
 
         if (isElementPresent(getTextLocator(pilihGambar))){
 

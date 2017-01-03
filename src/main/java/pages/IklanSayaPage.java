@@ -80,6 +80,9 @@ public class IklanSayaPage extends BasePage{
             clickBackBtn();
         }else if(hamburgerBarModule.isHamburgerBar()){
             Assert.assertTrue(true,"Already in HamburgerBar");
+        }else if ( isCurrentpageOnDetailsInactiveAds() ) {
+            clickBackBtn();
+            getBackToMyDetailsAds();
         }else if(isElementPresent(getTextLocator(detailIklanTitle))){
             getBackToMyDetailsAds();
         }else if(adsDetailsPage.deactivateReasonDisplayed()){
@@ -367,7 +370,7 @@ public class IklanSayaPage extends BasePage{
 
     public void clickNonAktifPanel() {
         clickElement(getTextLocator(nonAktifPanel));
-        DataBuilder.getData(sinon.createAdsWithStatus("removed_by_user")); // prepare ads non active on panel
+        swipePageTopToBtm();
     }
 
     private void clickPanel(String panel) {
@@ -384,5 +387,27 @@ public class IklanSayaPage extends BasePage{
         if (!checkTutorialsColors(getIdLocator(backBtn))) {
             clickBySize(getPointLocation(getIdLocator(iconPostAds)));
         }
+    }
+
+    public boolean isCurrentpageOnDetailsInactiveAds() {
+        return isElementPresent(getIdLocator(AdsDetailsPage.copyIklanSbgIklanBaruId));
+    }
+
+    private void verifyAdsAvailableOnActive() {
+        if (!isAdsonActivePanelExist()) {
+            createAdswithSpesificUserId("61474857");
+            createAdswithSpesificUserId("60028131");
+        }
+    }
+
+    private void createAdswithSpesificUserId(String user_id) {
+        Log.debug(" Send Request to Sinon --> Create Ads ");
+        Sinon sinon = new Sinon();
+        sinon.setUser_id(user_id);
+        sinon.createAds();
+    }
+
+    private boolean isAdsonActivePanelExist() {
+        return isElementPresent(getIdLocator(IklanSayaPage.adsImg));
     }
 }

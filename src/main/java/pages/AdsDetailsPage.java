@@ -273,7 +273,12 @@ public class AdsDetailsPage extends BasePage {
     }
     public void verifySudahTerjualBtn() {
         Log.info("Verify Sudah Terjual Button");
-        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(setTerjualbtnId)));
+        boolean display = isElementPresent(getIdLocator(setTerjualbtnId))
+                ? isElementPresentAfterScrollUp(getIdLocator(setTerjualbtnId))
+                : false;
+
+        Assert.assertTrue(display, "Verify Terjual Button not display");
+
     }
     public void verifyNonActiveBtn() {
         Log.info("Verify Non Active Button");
@@ -334,8 +339,7 @@ public class AdsDetailsPage extends BasePage {
         verifyShareBtn();
         verifyEditBtn();
 //        verifyLebihLanjut();
-        verifySudahTerjualBtn();
-        verifyNonActiveBtn();
+        verifyDeactivateAdsBtn();
         verifyidIklanNumber();
 //        verifyTutupBtn();
         verifyTipsAds();
@@ -350,6 +354,11 @@ public class AdsDetailsPage extends BasePage {
         verifyMemberJoinDate();
 //        verifyAdsLocations();
 //        verifyLihatIklanAndTestimoni();
+    }
+
+    private void verifyDeactivateAdsBtn() {
+        verifySudahTerjualBtn();
+        verifyNonActiveBtn();
     }
 
     private void verifyAdsAvailableOnActive() {

@@ -1,6 +1,7 @@
 package scenarios;
 
 import listeners.ScreenshootsListener;
+import module.FilterByMapsLocationModule;
 import module.HamburgerBarModule;
 import module.LoginWithOlxModule;
 import module.ProfilSayaModule;
@@ -47,10 +48,19 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
     @TestCaseId("TC_AdDetails_09_014, TC_MYADS_15_025, TC_MYADS_15_026, TC_MYADS_15_027,TC_MYADS_15_028")
-    @Test(priority = 3)
+    @Test(priority = 5)
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
         iklanSayaPage.initIklanSayaPage();
+        ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
+        profilSayaModule.verifyAllContentInProfilSayaPage();
+        LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        hamburgerBar.clickDisiniLogin();
+        LoginWithOlxModule loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.loginWithNewUser();
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        profilSayaModule.verifyBackBtnProfilSayaPage();
+        profilSayaModule.clickBackButton();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifyAllContentsAdsDetailFromMyAds();
@@ -68,11 +78,21 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As A User I want to be able to diactivate Ads")
     @Title("Verify User able to diactivated, by clicking \"Non Aktifkan\"")
     @TestCaseId("TC_AdDetails_09_014, TC_MYADS_15_020, TC_MYADS_15_021, TC_MYADS_15_022, TC_MYADS_15_023, TC_MYADS_15_024")
-    @Test(priority = 3)
+    @Test(priority = 5)
     public void verifyUserAbleToClickSetTerjualAds()
     {
         iklanSayaPage.initIklanSayaPage();
+        ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
+        profilSayaModule.verifyAllContentInProfilSayaPage();
+        LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
+        hamburgerBar.clickDisiniLogin();
+        LoginWithOlxModule loginWithOlxModule = loginPage.clickLoginWithOlx();
+        loginWithOlxModule.loginWithNewUser();
+        loginWithOlxModule.clickLoginWithOlxBtn();
+        profilSayaModule.verifyBackBtnProfilSayaPage();
+        profilSayaModule.clickBackButton();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
+        iklanSayaPage.clickActivePanel();
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         adsDetailsPage.verifySudahTerjualBtn();
         adsDetailsPage.clickSudahTerjual();
@@ -109,7 +129,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
 
     @Stories("As A User i want to be able to See All Contents of Edit Iklan page")
     @Title("Verify User able to See All Contents of Edit Iklan page")
-    @TestCaseId("TC_AdDetails_09_015")
+    @TestCaseId("TC_AdDetails_09_015, TC_MYADS_15_007, TC_MYADS_15_008, TC_MYADS_15_009")
     @Test(priority = 3)
     public void verifyAllContentInEditIklanPage()
     {
@@ -137,7 +157,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As a user I will not be able to edit ads with blank image")
     @Title("Verify user not able to edit ads with blank image")
     @TestCaseId("TC_AdDetails_09_017")
-    @Test(priority = 3, enabled = false)
+    @Test(priority = 3)
     public void verifyImageBlank(){
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
