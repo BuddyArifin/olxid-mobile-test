@@ -626,6 +626,7 @@ public class FilterPage extends BasePage {
 
         @Override
         public FilterPage clickCariDiLokasiIniBtn() {
+            Log.info("Click Cari Di Lokasi Ini Button");
             clickElement(getIdLocator(cariDiLokasiIniBtn));
             return new FilterPage(driver);
         }
