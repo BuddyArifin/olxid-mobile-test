@@ -72,6 +72,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String imageViewClass = "android.widget.ImageView";
     public static final String logoutKonfirmasiTitleId = "com.app.tokobagus.betterb:id/md_titleFrame";
     public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
+    public static final String externalAppGridView = "android.widget.GridView";
     public String oldUsername = null;
     public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
@@ -104,7 +105,7 @@ public class ProfilSayaModule extends BasePage{
     protected List<AndroidElement> doneCancelButton;
 
     @AndroidFindBys({
-            @AndroidFindBy(className = "android.widget.GridView"),
+            @AndroidFindBy(className = externalAppGridView),
             @AndroidFindBy(id = "android:id/text1")
     })
     public List<AndroidElement> appsPhotoOnPopUP;
@@ -578,11 +579,11 @@ public class ProfilSayaModule extends BasePage{
     public PostAdsPage chooseAppsToOpenPhotosonGallery() {
 
         if (isAppUsingExternalGallery()){
-
+            Log.info("Upload Picture  -> using External Gallery App ");
             usedDropBoxToUploadPicture(appsPhotoOnPopUP);
 
         } else if (isAppUsingDefaultGallery()) {
-
+            Log.info("Upload Picture  -> using Default Gallery App ");
             usedDropBoxToUploadPicture(appsPhotonOnHamburger);
         }
 
@@ -591,8 +592,7 @@ public class ProfilSayaModule extends BasePage{
     }
 
     private boolean isAppUsingExternalGallery() {
-        String pilihGambar = "Pilih sumber gambar";
-        return isElementPresent(getTextLocator(pilihGambar));
+        return isElementPresent(By.className(externalAppGridView));
     }
 
     private boolean isAppUsingDefaultGallery() {
