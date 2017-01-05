@@ -65,6 +65,7 @@ public class EditIklanPage extends BasePage {
     public static final String shutterBtn = "com.android.camera:id/shutter_button";
     public static final String saveCapturedImgBtn = "com.android.camera:id/btn_done";
     public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
+    public static final String popUpMinOneImage = "com.app.tokobagus.betterb:id/md_titleFrame";
 
     @AndroidFindBys({
             @AndroidFindBy(className = "android.widget.GridView"),
@@ -252,8 +253,21 @@ public class EditIklanPage extends BasePage {
         Log.info("Click delete image iklan");
     }
 
+    public void verifyImageMoreThanOne(){
+        clickElement(getIdLocator(confDelImgYes));
+        driver.findElements(getIdLocator(editImageItemContainer)).get(1).click();
+        verifyAddImageSelection();
+        clickImageGallery();
+        uploadImageIfNotexist();
+        clickSaveImgGallery();
+        clickDeleteImageIklan();
+    }
+
     public void verifyConfirmDeleteImagePopUpContents(){
         Log.info("Verify confirm delete image pop up contents");
+        if(isElementPresent(getIdLocator(popUpMinOneImage))){
+            verifyImageMoreThanOne();
+        }
         Assert.assertTrue(isElementPresent(getIdLocator(popupConfirmDelImage)));
         Assert.assertTrue(isElementPresent(getIdLocator(confDelImgNo)));
         Assert.assertTrue(isElementPresent(getIdLocator(confDelImgYes)));
