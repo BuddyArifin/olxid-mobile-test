@@ -32,6 +32,7 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public static final String backBtn = "com.app.tokobagus.betterb:id/imageView_arrow_back";
+    public static final String cobaKembaliBtnMaps = "com.app.tokobagus.betterb:id/btnRetryGetLocation";
     public static final String searchField = "com.app.tokobagus.betterb:id/searchEditText_input";
     public static final String autoSuggest = "com.app.tokobagus.betterb:id/primaryText";
     public static final String autoSuggestFound = "com.app.tokobagus.betterb:id/secondaryText";
@@ -72,12 +73,14 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifySearchField()
     {
         Log.info("Verify Search Fields");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(searchField)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(searchField)),
+                "Search Field Maps Not found");
     }
     public void verifyMyCurrentLocationBtn()
     {
         Log.info("Verify My Current Location Button");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(myCurrentLocationBtn)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(myCurrentLocationBtn)),
+                "Current Location Button Not found");
     }
     public void verifyClearSearchBtn()
     {
@@ -92,12 +95,14 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifySliderRadius()
     {
         Log.info("Verify Slider Radius");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(sliderRadius)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(sliderRadius)),
+                "Slider Radius Maps Not found");
     }
     public void verifyCariDiLokasiIniBtn()
     {
         Log.info("Verify Cari Di Lokasi Ini Button");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(cariDiLokasiIniBtn)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(cariDiLokasiIniBtn)),
+                "Button 'Cari Di Lokasi ini' not found");
     }
     public void verifyGoogleBaloon()
     {
@@ -107,34 +112,40 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyCurrentLocationAddress()
     {
         Log.info("Verify Current Location Address");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(addressTitle)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(addressTitle)),
+                "Address Title Maps Not found");
     }
     public void verifyJarakIklanTitle() {
         Log.info("Verify Jarak Iklan Maximum Text");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(jarakIklanMax)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(jarakIklanMax)),
+                "Jarak Iklan Title Maps Not found");
     }
 
     public void verifyGpsNonActiveAlertTitle()
     {
-        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertTitle)));
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertTitle)),
+                "GPS title Alert Maps Not found");
         Log.info("Verify GPS non Active Title");
     }
 
     public void verifyGpsNonActiveAlertDesc()
     {
-        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertDesc)));
+        Assert.assertTrue(isElementPresent(getTextLocator(gpsAlertDesc)),
+                "GPS Descriptions Maps Not found");
         Log.info("Verify GPS non Active Desc");
     }
 
     public void verifyGpsActiveBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(gpsActiveBtn)));
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsActiveBtn)),
+                "GPS Active Button Maps Not found");
         Log.info("Verify GPS Activeted Button");
     }
 
     public void verifyGpsCancelBtn()
     {
-        Assert.assertTrue(isElementPresent(getIdLocator(gpsCancelPopup)));
+        Assert.assertTrue(isElementPresent(getIdLocator(gpsCancelPopup)),
+                "GPS Cancel Button Maps Not found");
         Log.info("Verify GPS Activeted Button");
     }
 

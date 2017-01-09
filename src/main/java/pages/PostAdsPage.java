@@ -239,19 +239,22 @@ public class PostAdsPage extends BasePage {
         PaidFeatureModule paidFeature = new PaidFeatureModule(driver);
         if (listingPage.isListingButton()){
             Assert.assertTrue(true,"Already in Home");
-        }else{
+        } else{
             if (isPostAdsPage()){
                 clickElement(getContentLocator(closeBtnPFS2));
-            }else if(isCameraPage()){
+            } else if(isCameraPage()){
                 clickBackDevice();
                 waitForClickabilityOf(getContentLocator(closeBtnPFS2));
                 clickElement(getContentLocator(closeBtnPFS2));
-            }else if(isCameraAdditionalPage()){
+            } else if(isCameraAdditionalPage()){
                 clickCloseBtnAtas();
                 waitForClickabilityOf(getContentLocator(closeBtnPFS2));
                 clickElement(getContentLocator(closeBtnPFS2));
             } else if (isElementPresent(getIdLocator(popUpLayoutSuccessPost))) {
                 paidFeature.clickBatalOnTopListing();
+            } else if (isCurrentPageonMaps()) {
+                Maps maps = new Maps(driver);
+                maps.clickBackButtonFromMaps();
             } else {
                 Assert.assertTrue(true,"Already in Home");
             }
@@ -268,6 +271,11 @@ public class PostAdsPage extends BasePage {
 
     public boolean isCameraAdditionalPage(){
         return isElementPresent(getIdLocator(cropBtnAtas));
+    }
+
+    public boolean isCurrentPageonMaps() {
+        return isElementPresent(getIdLocator(FilterByMapsLocationModule.cobaKembaliBtnMaps))
+                || isElementPresent(getIdLocator(Maps.myCurrentLocationBtn));
     }
 
     @Step("Verify Content in Camera Page")
