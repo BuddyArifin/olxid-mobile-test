@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Mobile App OLXID " verbose="3" parallel="tests" thread-count="3">
+    <test name="Ads Details Seller [01] view OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+
+    <test name="Ads Details Seller [02] view OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+
+    <test name="Ads Details Seller [03] view OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+</suite>
