@@ -153,7 +153,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public void verifyAllContentInLocationPage()
     {
         isWaitElementPresent(getIdLocator(sliderRadius));
-//        dismissTutorial();
+        dismissTutorial();
         verifySearchField();
         verifyMyCurrentLocationBtn();
         verifyCurrentLocationAddress();
@@ -309,11 +309,13 @@ public class FilterByMapsLocationModule extends BasePage {
     }
 
     public void dismissTutorial() {
-        isWaitElementPresent(getIdLocator(sliderRadius));
-        if (!checkTutorialsColors(getIdLocator(searchField))) {
-            clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
-            clickBySize(getPointLocation(getIdLocator(sliderRadius)));
-            Log.info("Dismiss This Tutorial");
+        if (isEnvTestProduction()) {
+            isWaitElementPresent(getIdLocator(sliderRadius));
+            if (!checkTutorialsColors(getIdLocator(searchField))) {
+                clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
+                clickBySize(getPointLocation(getIdLocator(sliderRadius)));
+                Log.info("Dismiss This Tutorial");
+            }
         }
     }
 

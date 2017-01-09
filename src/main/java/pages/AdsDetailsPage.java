@@ -339,7 +339,7 @@ public class AdsDetailsPage extends BasePage {
 
     @Step("Verify All Contents of Details Page [Seller View]")
     public void verifyAllContentsAdsDetailFromMyAds(){
-//        dismissTutorial();
+        dismissTutorial();
         verifyTitleAds();
         verifyShareBtn();
         verifyEditBtn();
@@ -372,10 +372,12 @@ public class AdsDetailsPage extends BasePage {
     }
 
     public void dismissTutorial() {
-        if (!checkTutorialsColors(getContentLocator(backBtn))) {
-            Log.debug("Dismiss Tutorial");
-            clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
-            clickElement(getIdLocator(editAdsBtnId)); // bugs on apk version 258
+        if (isEnvTestProduction()) {
+            if (!checkTutorialsColors(getContentLocator(backBtn))) {
+                Log.debug("Dismiss Tutorial");
+                clickBySize(getPointLocation(getIdLocator(editAdsBtnId)));
+                clickElement(getIdLocator(editAdsBtnId)); // bugs on apk version 258
+            }
         }
     }
 

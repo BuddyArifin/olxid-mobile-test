@@ -107,7 +107,7 @@ public class ListingPage extends BasePage {
     public void verifyContentsOfListingPage()
     {
         Log.info("Verify All Contents of ListingPage");
-//        verifyandSkipTutorialElements();
+        verifyandSkipTutorialElements();
         verifyHamburgerBar();
 //        verifyTitlePage();
         verifySearchBtnPrm();
@@ -390,10 +390,12 @@ public class ListingPage extends BasePage {
     }
 
     public void verifyandSkipTutorialElements(){
-        if (!checkTutorialsColors(getIdLocator(jarakDariKamuBtnID))) {
-            clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
-            clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
-            clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
+        if (isEnvTestProduction()) {
+            if (!checkTutorialsColors(getIdLocator(jarakDariKamuBtnID))) {
+                clickBySize(getPointLocation(getIdLocator(filterBtnPrmID)));
+                clickBySize(getPointLocation(getIdLocator(jarakDariKamuBtnID)));
+                clickBySize(getPointLocation(getIdLocator(jualBtnBtmID)));
+            }
         }
     }
 

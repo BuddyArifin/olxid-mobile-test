@@ -24,7 +24,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want be able to see all Contents of Saldo Olx")
     @Title("Verify User able to see All Contents of Saldo Olx")
     @TestCaseId("TC_SALDO_12_001")
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "smoke.test")
     public void verifyAllContentsSaldoOlxPage() {
         LoginPage loginPage = new LoginPage(driver);
         LoginWithOlxModule loginWithOlxModule = loginPage.clickSkipOnBoardingSliders().clickLoginWithOlx();
@@ -65,7 +65,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User i want to be able to Tap History Transactions button, below List Transaction History")
     @Title("Verify User able to see Transaction History by Tapping History Transactions")
     @TestCaseId("TC_SALDO_12_004")
-    @Test(priority = 3)
+    @Test(priority = 3, groups = "smoke.test")
     public void verifyUserAbleToSeeTransactionHistoryByTappingHistoryTransactions() {
         SaldoOlxModule saldoOlxModule = new SaldoOlxModule(driver);
         HamburgerBarModule hamburgerBarModule = saldoOlxModule.initSaldoOlxTest();
@@ -121,7 +121,7 @@ public class SaldoOlxTest extends AndroidSetup {
     @Stories("As A User I want to be able redirect to Isi Ulang Saldo OLX Page, after tapping ISI ULANG SALDO Button")
     @Title("Verify User able to redirect to ISI Ulang OLX Page, after tapping ISI ULANG SALDO Button")
     @TestCaseId("TC_SALDO_12_007, TC_SALDO_12_008, TC_SALDO_12_009, TC_SALDO_12_010, TC_SALDO_12_011")
-    @Test(priority = 11)
+    @Test(priority = 11, groups = "smoke.test")
     public void verifyUserAbleToRedirectToIsiUlangOLXPageAfterClickIsiUlangSaldoButton() {
         SaldoOlxModule saldoOlxModule = new SaldoOlxModule(driver);
         HamburgerBarModule hamburgerBarModule = saldoOlxModule.initSaldoOlxTest();

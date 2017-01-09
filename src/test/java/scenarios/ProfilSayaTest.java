@@ -30,7 +30,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i am not able to access Profil Saya Page")
     @Title("Verify user not able to access Profil Saya Page without Login")
     @TestCaseId("TC_PROFILE_13_001, TC_PROFIL_13_002")
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "smoke.test")
     public void verifyUserNotAbleToAccessProfilSayaPage() {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();
@@ -63,7 +63,7 @@ public class ProfilSayaTest extends AndroidSetup {
     @Stories("As a user i want to be able click My Avatar")
     @Title("Verify user able to click My Avatar")
     @TestCaseId("TC_PROFIL_13_004, TC_PROFIL_13_005, TC_PROFIL_13_006")
-    @Test(priority = 3)
+    @Test(priority = 3, groups = "smoke.test")
     public void verifyUserAbleToClickMyAvatar() {
         profilSayaModule.initialProfilSayaTest();
         hamburgerBarModule.clickProfilSayaBtn();

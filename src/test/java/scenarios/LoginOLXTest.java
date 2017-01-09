@@ -31,7 +31,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("A User I Want to See Content in Login Page")
     @Title("Verify System Content in Login Page Displayed")
     @TestCaseId("TC_LOGIN_04_001")
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "smoke.test")
     public void userAbleToContentOLXLogin() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.clickSkipOnBoardingSliders();
@@ -171,7 +171,7 @@ public class LoginOLXTest extends AndroidSetup {
     @Stories("As A User I want able to Login")
     @Title("Verify User Able to Login with OLX Account")
     @TestCaseId("TC_LOGIN_04_005")
-    @Test(priority = 12)
+    @Test(priority = 12, groups = "smoke.test")
     public void userAbleToLoginWithValidCredentials() {
         LoginWithOlxModule loginOlx = new LoginWithOlxModule(driver);
         loginOlx.initOlxLoginTest();

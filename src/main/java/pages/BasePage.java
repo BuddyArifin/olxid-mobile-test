@@ -733,4 +733,8 @@ public class BasePage  {
             return false;
         }
     }
+
+    protected boolean isEnvTestProduction() {
+        return InstanceDriver.getEnvironmentTest().equalsIgnoreCase("release");
+    }
 }

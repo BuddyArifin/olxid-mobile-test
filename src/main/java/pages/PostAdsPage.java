@@ -255,6 +255,7 @@ public class PostAdsPage extends BasePage {
             } else if (isCurrentPageonMaps()) {
                 Maps maps = new Maps(driver);
                 maps.clickBackButtonFromMaps();
+                clickElement(getContentLocator(closeBtnPFS2));
             } else {
                 Assert.assertTrue(true,"Already in Home");
             }
@@ -283,7 +284,7 @@ public class PostAdsPage extends BasePage {
     {
         customCamera = true;
 //        verifyCloseBtn();
-//        dismissTutorial();
+        dismissTutorial();
         verifyShutterBtn();
         verifyGaleriBtn();
         Log.info("Verify Content in Camera Page");
@@ -1305,8 +1306,10 @@ public class PostAdsPage extends BasePage {
 
     public void dismissTutorial() {
         Log.info("Dismiss tutorial");
-        if (!checkTutorialsColors(getIdLocator(galleryIcon))) {
-            clickBySize(getPointLocation(getIdLocator(shutterBtn)));
+        if (isEnvTestProduction()) {
+            if (!checkTutorialsColors(getIdLocator(galleryIcon))) {
+                clickBySize(getPointLocation(getIdLocator(shutterBtn)));
+            }
         }
     }
 
@@ -1335,7 +1338,7 @@ public class PostAdsPage extends BasePage {
         @Override
         public void verifyAllContentInLocationPage() {
             verifySearchField();
-//            dismissTutorial();
+            dismissTutorial();
             verifyMyCurrentLocationBtn();
             verifyCurrentLocationAddress();
             verifyCariDiLokasiIniBtn();
@@ -1344,9 +1347,11 @@ public class PostAdsPage extends BasePage {
 
         @Override
         public void dismissTutorial() {
-            if (!checkTutorialsColors(getIdLocator(searchField))) {
-                clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
-                Log.info("Dismiss This Tutorial");
+            if (isEnvTestProduction()) {
+                if (!checkTutorialsColors(getIdLocator(searchField))) {
+                    clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
+                    Log.info("Dismiss This Tutorial");
+                }
             }
         }
 

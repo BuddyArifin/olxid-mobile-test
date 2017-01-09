@@ -28,7 +28,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to see Overall item on detail listing page")
     @Title("Verify User able to see Overall items of details ads")
     @TestCaseId("TC_AdDetails_09_001, TC_AdDetails_09_006")
-    @Test(priority = 1)
+    @Test(priority = 1, groups = "smoke.test")
     public void verifyAllContentsOfAdsDetails() {
         loginPage = new LoginPage(driver);
         listingPage = loginPage.clickSkipOnBoardingSliders().skipLogin();

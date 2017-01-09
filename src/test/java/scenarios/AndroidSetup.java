@@ -29,8 +29,8 @@ public class AndroidSetup extends InstanceDriver {
     public BasePage basePage;
     private JsonObject jsonObject;
 
-    public void prepareAndroidForAppium(String udid) throws MalformedURLException, Exception {
-        String apkname = getLatestApk();
+    public void prepareAndroidForAppium(String env) throws MalformedURLException, Exception {
+        String apkname = getLatestApk(env);
 
         File appDir = new File(Constants.apkDir);
         File app = new File(appDir, apkname);
@@ -63,7 +63,7 @@ public class AndroidSetup extends InstanceDriver {
         //set location for maps - based on Menara Sentraya
         Location location = new Location(-6.2454429, 106.8026181, 0.0);
         driver.setLocation(location);
-        Log.debug("SESSION CREATED : "+driver.getSessionId().toString()+" "+udid+" ");
+        Log.debug("SESSION CREATED : "+driver.getSessionId().toString()+" "+env+" ");
     }
 
     private void checkEligibleRun() throws Exception {
@@ -76,32 +76,33 @@ public class AndroidSetup extends InstanceDriver {
         }
     }
 
-    @Parameters({"udid"})
-    @BeforeClass
-    public void setUp(@Optional String udid, ITestContext ctx) throws Exception{
-        prepareAndroidForAppium(udid);
+    @Parameters({"env"})
+    @BeforeClass(groups = "smoke.test")
+    public void setUp(@Optional("uat") String env, ITestContext ctx) throws Exception{
+        prepareAndroidForAppium(env);
         ctx.setAttribute("WebDriver", this.driver);
         checkEligibleRun();
     }
 
-    @AfterClass
+    @AfterClass(groups = "smoke.test")
     public void tearDown() throws Exception {
         driver.quit();
     }
 
-    public String getLatestApk() throws Exception {
+    public String getLatestApk(String env) throws Exception {
         String appname = "";
         File folder = new File(Constants.apkDir);
         File[] listOfFiles = folder.listFiles();
         Arrays.sort(listOfFiles, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
-                if(listOfFiles[i].getName().contains("app-uat")){
+                if(listOfFiles[i].getName().contains("app-"+env)){
                     appname = listOfFiles[i].getName();
                     break;
                 }
             }
         }
+        setEnvironmentTest(env);
         Log.info("APK Version : "+appname);
         return appname;
     }

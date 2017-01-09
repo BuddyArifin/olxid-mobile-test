@@ -26,7 +26,10 @@ dependencies {
     agent "org.aspectj:aspectjweaver:${aspectjVersion}"
     compile 'io.appium:java-client:3.3.0'
     compile 'com.google.code.gson:gson:2.7'
-    compile 'org.seleniumhq.selenium:selenium-server:2.52.0'
+    compile 'com.jayway.restassured:rest-assured:2.9.0'
+    compile 'com.jayway.restassured:json-schema-validator:2.9.0'
+    compile 'com.jayway.jsonpath:json-path:2.0.0'
+    compile 'org.seleniumhq.selenium:selenium-server:2.53.0'
     compile 'org.apache.httpcomponents:httpclient:4.5.2'
     compile 'org.hamcrest:hamcrest-all:1.3'
     compile 'commons-net:commons-net:3.3'
@@ -39,9 +42,6 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.android.tools.ddms:ddmlib:25.2.0'
     compile 'ru.yandex.qatools.ashot:ashot:1.5.2'
-    compile 'com.jayway.restassured:rest-assured:2.9.0'
-    compile 'com.jayway.restassured:json-schema-validator:2.9.0'
-    compile 'com.jayway.jsonpath:json-path:2.0.0'
 }
 
 allure {
@@ -56,7 +56,7 @@ allure {
     clean = true
 }
 
-test {
+task smoketest(type: Test) {
     testLogging {
         showStandardStreams true
         exceptionFormat "short"
@@ -66,7 +66,23 @@ test {
             exceptionFormat "short"
         }
     }
-    description = "Running Test from suite TestNG xml"
+    description = "Running Smoke Test from suites TestNG xml"
+    useTestNG {
+        suites "src/test/resources/smoketest/smoketest.xml"
+    }
+}
+
+task regression(type: Test) {
+    testLogging {
+        showStandardStreams true
+        exceptionFormat "short"
+
+        info {
+            events "started", "skipped", "failed"
+            exceptionFormat "short"
+        }
+    }
+    description = "Running Regression Test from suite TestNG xml"
     useTestNG {
         suites "src/test/resources/testng.xml"
     }

@@ -103,7 +103,7 @@ public class IklanSayaPage extends BasePage{
     @Step("Verify All Content In IklanSaya Page")
     public void verifyAllContentInIklanSayaPage()
     {
-//        verifyandSkipTutorialPostadsImage();
+        verifyandSkipTutorialPostadsImage();
 
         verifyBackBtn();
         verifyIklanSayaTitle();
@@ -383,8 +383,10 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void verifyandSkipTutorialPostadsImage(){
-        if (!checkTutorialsColors(getIdLocator(backBtn))) {
-            clickBySize(getPointLocation(getIdLocator(iconPostAds)));
+        if (isEnvTestProduction()) {
+            if (!checkTutorialsColors(getIdLocator(backBtn))) {
+                clickBySize(getPointLocation(getIdLocator(iconPostAds)));
+            }
         }
     }
 
