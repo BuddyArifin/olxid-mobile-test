@@ -3,9 +3,9 @@
 
 <suite name="Mobile SMOKE TEST OLXID" verbose="3" parallel="tests" thread-count="3">
 
-    <listeners>
-        <listener class-name="listeners.RetryListeners" />
-    </listeners>
+    <!--<listeners>-->
+        <!--<listener class-name="listeners.RetryListeners" />-->
+    <!--</listeners>-->
 
     <test name="Login Page OLXID" preserve-order="false">
         <groups>
