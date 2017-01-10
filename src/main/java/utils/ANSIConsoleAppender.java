@@ -54,7 +54,6 @@ public class ANSIConsoleAppender extends ConsoleAppender {
     {
         this.qw.write(getColour(event.getLevel()));
         super.subAppend(event);
-        this.qw.write(END_COLOUR);
 
         if(this.immediateFlush)
         {

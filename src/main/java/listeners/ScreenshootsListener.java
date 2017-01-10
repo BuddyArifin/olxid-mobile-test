@@ -29,12 +29,12 @@ public class ScreenshootsListener extends TestListenerAdapter  {
         driver = ((InstanceDriver)obj).driver;
         base = new BasePage(driver);
         try {
-            Log.debug("***** Error "+getTestTitle(testResult)+" test has failed on devices ==> ["+getDeviceName()+"] *****");
+            Log.error("***** Error "+getTestTitle(testResult)+" test has failed on devices ==> ["+getDeviceName()+"] *****");
             base.getAttachment("FailedOn_"+getTestClassName(testResult)+testResult.getMethod().getMethodName()+".png");
 //            request.goToTracker(testResult, this.array);
-            Log.debug("FailedOn_"+ getTestClassName(testResult)+testResult.getMethod().getMethodName()+".png");
+            Log.error("FailedOn_"+ getTestClassName(testResult)+testResult.getMethod().getMethodName()+".png");
         } catch (Exception e){
-            Log.debug("-->Unable to screen capture, for test "+getTestTitle(testResult));
+            Log.error("-->Unable to screen capture, for test "+getTestTitle(testResult));
             e.printStackTrace();
         }
     }

@@ -23,16 +23,13 @@ public class Log {
     /**
      * Method to display errors in log.
      *
-     * @param className  name of class in which error occurred.
-     * @param methodName name of method in which error occurred.
-     * @param exception  stack trace of exception
+     * @param message message to be displayed
      */
-    public static void logError(String className, String methodName, String exception) {
-        LOGGER.setLevel(Level.INFO);
-        LOGGER.info("ClassName :" + className);
-        LOGGER.info("MethodName :" + methodName);
-        LOGGER.info("Exception :" + exception);
-        LOGGER.info("-----------------------------------------------------------------------------------");
+    public static void error(String message) {
+        ansiConsoleAppender.setName("Console");
+        LOGGER.addAppender(ansiConsoleAppender);
+        LOGGER.setLevel(Level.ERROR);
+        LOGGER.error(message);
     }
 
     /**
@@ -43,14 +40,14 @@ public class Log {
 
     @Step("{0}")
     public static void info(String message) {
-        screenshotsRule.setName("Console");
+        ansiConsoleAppender.setName("Console");
         LOGGER.addAppender(ansiConsoleAppender);
         LOGGER.setLevel(Level.INFO);
         LOGGER.info(message);
     }
 
     public static void debug(String message) {
-        screenshotsRule.setName("Console");
+        ansiConsoleAppender.setName("Console");
         LOGGER.addAppender(ansiConsoleAppender);
         LOGGER.setLevel(Level.DEBUG);
         LOGGER.debug(message);

@@ -63,7 +63,6 @@ public class AndroidSetup extends InstanceDriver {
         //set location for maps - based on Menara Sentraya
         Location location = new Location(-6.2454429, 106.8026181, 0.0);
         driver.setLocation(location);
-        Log.debug("SESSION CREATED : "+driver.getSessionId().toString()+" "+env+" ");
     }
 
     private void checkEligibleRun() throws Exception {
