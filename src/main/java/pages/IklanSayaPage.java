@@ -368,7 +368,7 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void clickNonAktifPanel() {
-        clickPanel(nonAktifPanel);
+        clickPanel("Non-Aktif");
         swipePageTopToBtm();
     }
 
