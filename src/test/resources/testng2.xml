@@ -28,12 +28,12 @@
             <class name="scenarios.ListingTest"/>
         </classes>
     </test>
-    <test name="Top Listing [Iklan Saya] View OLXID" preserve-order="false" enabled="false">
+    <test name="Top Listing [Iklan Saya] View OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.PaidFeatureIklanSayaTest"/>
         </classes>
     </test>
-    <test name="Top Listing [Post Ads] View OLXID" preserve-order="false" enabled="false">
+    <test name="Top Listing [Post Ads] View OLXID" preserve-order="false">
         <classes>
             <class name="scenarios.PaidFeaturePostAdsTest"/>
         </classes>
