@@ -51,8 +51,9 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     public void verifyUserAbleToClickNonAktifkanIklan()
     {
         iklanSayaPage.initIklanSayaPage();
+        iklanSayaPage.clickBackBtn();
         ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
-        profilSayaModule.verifyAllContentInProfilSayaPage();
+        profilSayaModule.verifyLogoutDariOLXButtonProfilSayaPage();
         LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBar.clickDisiniLogin();
         LoginWithOlxModule loginWithOlxModule = loginPage.clickLoginWithOlx();
@@ -81,8 +82,9 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     public void verifyUserAbleToClickSetTerjualAds()
     {
         iklanSayaPage.initIklanSayaPage();
+        iklanSayaPage.clickBackBtn();
         ProfilSayaModule profilSayaModule = hamburgerBar.clickProfilSayaBtn();
-        profilSayaModule.verifyAllContentInProfilSayaPage();
+        profilSayaModule.verifyLogoutDariOLXButtonProfilSayaPage();
         LoginPage loginPage = profilSayaModule.clickLogoutDariOLXBtnProfilSayaPage();
         hamburgerBar.clickDisiniLogin();
         LoginWithOlxModule loginWithOlxModule = loginPage.clickLoginWithOlx();

@@ -368,7 +368,7 @@ public class IklanSayaPage extends BasePage{
     }
 
     public void clickNonAktifPanel() {
-        clickElement(getTextLocator(nonAktifPanel));
+        clickPanel(nonAktifPanel);
         swipePageTopToBtm();
     }
 
@@ -378,6 +378,7 @@ public class IklanSayaPage extends BasePage{
             WebElement actualString = panelString.next();
             if (actualString.getText().equalsIgnoreCase(panel)) {
                 actualString.click();
+                Log.info("Click "+actualString.getText()+" Panel");
             }
         }
     }

@@ -104,6 +104,7 @@ public class Sinon extends InstanceDriver{
         params.put("user_id", getUser_id());
         params.put("title", " Jual Rumah Mewah Di Nusa Dua Bali [TEST] ");
         params.put("description", "Alasan jual, karena lagi testing");
+        params.put("category_id", "5158");
         params.put("region_id", "2");
         params.put("city_id", "225");
         params.put("map_zoom", "12");
