@@ -592,10 +592,12 @@ public class ProfilSayaModule extends BasePage{
     }
 
     private boolean isAppUsingExternalGallery() {
+        WaitFor(3); // make sure applications not slow response
         return isElementPresent(By.className(externalAppGridView));
     }
 
     private boolean isAppUsingDefaultGallery() {
+        WaitFor(3); // make sure applications not slow response
         return isElementPresent(getIdLocator(openFromHambugerGallery));
     }
 
