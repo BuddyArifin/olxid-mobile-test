@@ -215,7 +215,7 @@ public class BasePage  {
 
     protected void sendKeysById(By locator, String keys){
         WebElement element = driver.findElement(locator);
-        element.clear();
+        //element.clear();
         element.sendKeys(keys);
         AndroidDriver driver = (AndroidDriver) this.driver;
         if (!driver.isAppInstalled(Constants.UNICODE_APP)) {
