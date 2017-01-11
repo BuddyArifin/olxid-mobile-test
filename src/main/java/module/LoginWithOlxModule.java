@@ -31,7 +31,7 @@ public class LoginWithOlxModule extends BasePage {
     public static final String forgotPasslayout = "com.app.tokobagus.betterb:id/profileForgotPass_layout";
     public static final String textView = "android.widget.TextView";
     public static String titlePage = "Masuk dengan akun OLX";
-    public static String emailField = "com.app.tokobagus.betterb:id/entranceLogin_txtEmail";
+    public static final String emailField = "com.app.tokobagus.betterb:id/entranceLogin_txtEmail";
     public static String passField = "com.app.tokobagus.betterb:id/entranceLogin_txtPass";
     public static String showPass = "";
     public static String loginOlxBtn = "com.app.tokobagus.betterb:id/entranceLogin_btnLogin";
@@ -54,6 +54,8 @@ public class LoginWithOlxModule extends BasePage {
     public static String blankEmailForgotPassErrorText = "Email harus diisi";
     public static final String propname = "changepass.properties";
 
+    public static final String linearlayout = "android.widget.LinearLayout";
+
     public LoginWithOlxModule(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -64,6 +66,13 @@ public class LoginWithOlxModule extends BasePage {
             @AndroidFindBy(className = textView)
     })
     protected AndroidElement incorrectErrorField;
+
+    @AndroidFindAll({
+            @AndroidFindBy(id = emailField),
+            @AndroidFindBy(className = linearlayout),
+            @AndroidFindBy(className = textView)
+    })
+    protected AndroidElement emailAlert;
 
     @Step("Verify Login With OLX Contents")
     public void verifyLoginOlxContents() {
@@ -105,8 +114,8 @@ public class LoginWithOlxModule extends BasePage {
 
     public void verifyErrorBlankEmail() {
         Log.info("Verify Blank email error message");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
-        //Assert.assertTrue(getStringText(getIdLocator(errorMessageId)).equalsIgnoreCase(emailBlankErrorText));
+        //Assert.assertTrue(isWaitElementPresent(getIdLocator(errorMessageId)));
+        Assert.assertTrue(emailAlert.isDisplayed());
     }
 
     public void verifyErrorBlankPassword() {
