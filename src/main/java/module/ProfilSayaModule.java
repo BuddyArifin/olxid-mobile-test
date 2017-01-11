@@ -73,6 +73,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String logoutKonfirmasiTitleId = "com.app.tokobagus.betterb:id/md_titleFrame";
     public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
     public static final String externalAppGridView = "android.widget.GridView";
+    public static final String openFromPopUpGalleryGrid = "android:id/resolver_list";
     public String oldUsername = null;
     public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
@@ -592,12 +593,10 @@ public class ProfilSayaModule extends BasePage{
     }
 
     private boolean isAppUsingExternalGallery() {
-        WaitFor(3); // make sure applications not slow response
-        return isElementPresent(By.className(externalAppGridView));
+        return isElementPresent(getIdLocator(openFromPopUpGalleryGrid));
     }
 
     private boolean isAppUsingDefaultGallery() {
-        WaitFor(3); // make sure applications not slow response
         return isElementPresent(getIdLocator(openFromHambugerGallery));
     }
 
