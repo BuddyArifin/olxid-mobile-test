@@ -135,11 +135,10 @@ public class ProfilSayaModule extends BasePage{
             clickBackDevice();
             waitForVisibility(getContentLocator(backBtn));
             clickBackDevice();
-        } else if(isGalleryExternalExist()) {
+        } else if(isGalleryExternalExist() || isPopUpEditAvataronActiveDisplay()) {
             clickBackDevice();
             clickElement(getContentLocator(backBtn));
-        }
-        else{
+        } else{
             Assert.assertTrue(true,"Already in HamburgerBar");
         }
     }
@@ -624,5 +623,9 @@ public class ProfilSayaModule extends BasePage{
 
     public boolean isGalleryExternalExist() {
         return isAppUsingExternalGallery() || isAppUsingDefaultGallery();
+    }
+
+    public boolean isPopUpEditAvataronActiveDisplay() {
+        return isElementPresent(getIdLocator(btnGallery));
     }
 }
