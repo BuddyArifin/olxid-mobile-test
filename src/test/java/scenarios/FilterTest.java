@@ -42,6 +42,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyButtonXExist()
     {   filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.verifySuggestionList();
@@ -56,6 +57,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickCancelButtonSearchField();
     }
@@ -67,6 +69,7 @@ public class FilterTest extends AndroidSetup{
     public void verifyListingAdsSortedByInputtedKeyword()
     {   filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickSearchField();
@@ -117,8 +120,6 @@ public class FilterTest extends AndroidSetup{
         //filterPage.clickCancelButtonSearchField();
         filterPage.clickResetButton();
         filterPage.verifyAllContentOfFilterPage();
-        filterPage.inputKeywordSearchField("Jazz");
-        filterPage.clickSearchField();
         filterPage.inputKeywordSearchField("Jazz");
         filterPage.clickSearchField();
         filterPage.clickRadioButtonTermahalInUrutkanColumn();
@@ -180,6 +181,7 @@ public class FilterTest extends AndroidSetup{
     public void verifySystemAbleToDisplaySuggestionAsUserInputLocation()
     {   filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         mapsFilter = filterPage.clickLocationButton();
         mapsFilter.verifyAllContentInLocationPage();
         mapsFilter.inputKeywordInSearchFields("Menara");
@@ -308,6 +310,7 @@ public class FilterTest extends AndroidSetup{
     {
         filterPage.initialFilterTest();
         listingPage.clickFilterBtnPrm();
+        filterPage.clickResetButton();
         filterPage.inputKeywordSearchField("samsung galaxy");
         filterPage.clickSearchField();
         filterPage.clickRadioButtonTermurahInUrutkanColumn();
