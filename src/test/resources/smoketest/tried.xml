@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Mobile SMOKE TEST OLXID" verbose="3" parallel="tests" thread-count="3">
+
+    <!--<listeners>-->
+        <!--<listener class-name="listeners.RetryListeners" />-->
+    <!--</listeners>-->
+
+    <test name="Ads Details Seller View [01] OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+    <test name="Ads Details Seller View [02] OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+    <test name="Ads Details Seller View [03] OLXID" preserve-order="false">
+        <classes>
+            <class name="scenarios.AdsDetailsSellerViewTest"/>
+        </classes>
+    </test>
+</suite>
