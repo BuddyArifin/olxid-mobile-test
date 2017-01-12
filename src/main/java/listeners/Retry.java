@@ -2,6 +2,9 @@ package listeners;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
+import ru.yandex.qatools.allure.Allure;
+import ru.yandex.qatools.allure.events.ClearStepStorageEvent;
+import ru.yandex.qatools.allure.events.RemoveAttachmentsEvent;
 import ru.yandex.qatools.allure.utils.AnnotationManager;
 import utils.Log;
 
@@ -18,6 +21,8 @@ public class Retry implements IRetryAnalyzer {
         if (retryCount < maxRetryCount) {
             AnnotationManager testAnnotationAllure = new AnnotationManager(result.getMethod().getConstructorOrMethod()
                     .getMethod().getAnnotations());
+            Allure.LIFECYCLE.fire(new RemoveAttachmentsEvent(".*"));
+            Allure.LIFECYCLE.fire(new ClearStepStorageEvent());
             Log.debug("######  Retry failed tc-scenarios : " + testAnnotationAllure.getTitle() + " ######");
             retryCount++;
             return true;
