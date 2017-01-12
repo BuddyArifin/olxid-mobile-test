@@ -16,6 +16,7 @@
                     <exclude name="verifyChangeKondisi" />
                     <exclude name="verifyUserAbleToClickSetTerjualAds" />
                     <exclude name="verifyUserAbleToClickNonAktifkanIklan" />
+                    <exclude name="verifyTitleInvalidChars" />
                 </methods>
             </class>
         </classes>
@@ -29,6 +30,7 @@
                     <exclude name="verifyChangeKondisi" />
                     <exclude name="verifyUserAbleToClickSetTerjualAds" />
                     <exclude name="verifyUserAbleToClickNonAktifkanIklan" />
+                    <exclude name="verifyTitleInvalidChars" />
                 </methods>
             </class>
         </classes>
@@ -42,6 +44,7 @@
                     <exclude name="verifyChangeKondisi" />
                     <exclude name="verifyUserAbleToClickSetTerjualAds" />
                     <exclude name="verifyUserAbleToClickNonAktifkanIklan" />
+                    <exclude name="verifyTitleInvalidChars" />
                 </methods>
             </class>
         </classes>
