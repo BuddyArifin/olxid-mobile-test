@@ -10,12 +10,25 @@
     </test>
     <test name="Filter OLXID" preserve-order="false">
         <classes>
-            <class name="scenarios.FilterTest"/>
+            <class name="scenarios.FilterTest">
+                <methods>
+                    <exclude name="verifyListingAdsSortedByInputtedPriceRange" />
+                    <exclude name="verifyListingAdsSortedByConditionColumn" />
+                    <exclude name="verifyAlertDisplayWhenGPSOff" />
+                    <exclude name="verifyUserAbletoSkipPopUpActivating" />
+                    <exclude name="verifyUserAbleToChooseAktivasiGPS" />
+                    <exclude name="verifyUserAbleToSelectLocationSuggestion" />
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Saldo OLXID" preserve-order="false">
         <classes>
-            <class name="scenarios.SaldoOlxTest"/>
+            <class name="scenarios.SaldoOlxTest">
+                <methods>
+                    <exclude name="verifyUserAbleToSwipeInfoBanner" />
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Post Ads OLXID" preserve-order="false" >

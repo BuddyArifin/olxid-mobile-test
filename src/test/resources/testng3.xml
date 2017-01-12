@@ -5,7 +5,11 @@
     
     <test name="Home Page OLXID" preserve-order="false" >
         <classes>
-            <class name="scenarios.LoginPageTest"/>
+            <class name="scenarios.LoginPageTest">
+                <methods>
+                    <exclude name="verifyOnBoardingDisplayOnFirstInstallOnly" />
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Login with OLX Account OLXID" preserve-order="false">
@@ -38,9 +42,21 @@
             <class name="scenarios.IklanSayaTest"/>
         </classes>
     </test>
-    <test name="Ads Details Seller view OLXID" preserve-order="false" enabled="false">
+    <test name="Ads Details Seller view OLXID" preserve-order="false" >
         <classes>
-            <class name="scenarios.AdsDetailsSellerViewTest"/>
+            <class name="scenarios.AdsDetailsSellerViewTest">
+                <methods>
+                    <exclude name="verifyTitleLessMinimum" />
+                    <exclude name="verifyDescMax" />
+                    <exclude name="verifyChangeKondisi" />
+                    <exclude name="verifyUserAbleToClickSetTerjualAds" />
+                    <exclude name="verifyUserAbleToClickNonAktifkanIklan" />
+                    <exclude name="verifyTitleInvalidChars" />
+                    <exclude name="verifyPriceInvalid" />
+                    <exclude name="verifyPriceBlank" />
+                    <exclude name="verifyUserAbleToDuplicateDeactivateAdsToNewActiveAds" />
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
