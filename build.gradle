@@ -68,7 +68,7 @@ task smoketest(type: Test) {
     }
     description = "Running Smoke Test from suites TestNG xml"
     useTestNG {
-        suites "src/test/resources/smoketest/smoketest.xml"
+        suites "src/test/resources/smoketest/tried.xml"
     }
 }
 
