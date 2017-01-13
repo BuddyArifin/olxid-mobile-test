@@ -62,5 +62,8 @@ public class PaidFeatureIklanSayaTest extends AndroidSetup {
         paidFeature.clickDuration3Days();
         paidFeature.clickBeliOnTopListing();
         paidFeature.verifyMsgSuccessPage();
+        adsDetailsPage.clickBackFromAdsDetails();
+        iklanSayaPage.clickOneOfAdsInAdsList();
+        paidFeature.verifyJangkaWaktuAktifPromosi();
     }
 }

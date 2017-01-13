@@ -118,7 +118,7 @@ public class PaidFeatureModule extends BasePage {
     }
 
     public void verifyMsgSuccessPage(){
-        Log.info("Verify Msg Success Page");
+        Log.info("Verify Msg Success Page : "+getStringText(getIdLocator(msgSuccesspage)));
         Assert.assertTrue(isElementPresent(getIdLocator(msgSuccesspage)),
                 "Message Success After Success not Found");
     }
@@ -168,5 +168,11 @@ public class PaidFeatureModule extends BasePage {
 
     public void verifyPageAfterIsiulangInsuf(){
         //verify if redirected page is correct (go to isi ulang saldo olx page)
+    }
+
+    public void verifyJangkaWaktuAktifPromosi() {
+        Log.info("Verify Msg Jangka Waktu Promosi : "+getStringText(getIdLocator(msgSuccesspage)));
+        Assert.assertTrue(isElementPresent(getIdLocator(msgSuccesspage)),
+                "Message Jangka Waktu Top Listing not Found");
     }
 }

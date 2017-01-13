@@ -1,11 +1,9 @@
 package athena;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.ResponseSpecBuilder;
+import com.jayway.restassured.config.HttpClientConfig;
+import com.jayway.restassured.config.RestAssuredConfig;
 import com.jayway.restassured.response.Response;
 import org.testng.annotations.Test;
 import pages.Constants;
@@ -21,6 +19,10 @@ import java.util.Map;
  */
 
 public class Sinon extends InstanceDriver{
+
+    public static final String CONN_MANAGER_TIMEOUT = "CONN_MANAGER_TIMEOUT";
+    public static final String CONNECTION_TIMEOUT = "CONNECTION_TIMEOUT";
+
     /**
      * Needed Operation
      * 1. Create Active Ads √
@@ -43,6 +45,19 @@ public class Sinon extends InstanceDriver{
 
     public String getUser_id() {
         return user_id;
+    }
+
+    /**
+     * Rest Assured Config, to Increase Timout.
+     * Prevent, Connection slow
+     * */
+    public RestAssuredConfig getCustomConfig() {
+        Map<String, Integer> param = new HashMap<>();
+        param.put(CONN_MANAGER_TIMEOUT, 60);
+        param.put(CONNECTION_TIMEOUT, 60);
+
+        return RestAssured.config()
+                .httpClient(HttpClientConfig.httpClientConfig().addParams(param));
     }
 
 
@@ -92,7 +107,7 @@ public class Sinon extends InstanceDriver{
 
         this.response = RestAssured.with()
                 .queryParameters(params)
-                .when()
+                .when().config(getCustomConfig())
                 .post(Constants.base_uri + "trojan/createactivead/");
         response.then().assertThat().spec(new ResponseSpecBuilder().expectStatusCode(200).build());
         DataBuilder.convertJsonToFile(response);
