@@ -23,11 +23,13 @@
         </classes>
     </test>
     <test name="Google Login Sulley OLXID" preserve-order="false" enabled="false">
+        <parameter name="env" value="release" />
         <classes>
             <class name="scenarios.LoginGplusTest"/>
         </classes>
     </test>
     <test name="Facebook Login Sulley OLXID" preserve-order="false" enabled="false">
+        <parameter name="env" value="release" />
         <classes>
             <class name="scenarios.LoginFBTest"/>
         </classes>
@@ -48,6 +50,7 @@
                 <methods>
                     <exclude name="verifyTitleLessMinimum" />
                     <exclude name="verifyDescMax" />
+                    <exclude name="verifyDescMaxLower" />
                     <exclude name="verifyChangeKondisi" />
                     <exclude name="verifyUserAbleToClickSetTerjualAds" />
                     <exclude name="verifyUserAbleToClickNonAktifkanIklan" />

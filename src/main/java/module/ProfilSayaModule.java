@@ -74,6 +74,7 @@ public class ProfilSayaModule extends BasePage{
     public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
     public static final String externalAppGridView = "android.widget.GridView";
     public static final String openFromPopUpGalleryGrid = "android:id/resolver_list";
+    public static final String nomorHanphoneId = "com.app.tokobagus.betterb:id/profileView_txtViewHandphone";
     public String oldUsername = null;
     public static final String permissionAllowAccessBtn = "com.android.packageinstaller:id/permission_allow_button";
     public static final String snackbarOkBtn = "com.app.tokobagus.betterb:id/snackbar_action";
@@ -181,7 +182,7 @@ public class ProfilSayaModule extends BasePage{
     public void verifyNomorTeleponTextProfilSayaPage()
     {
         Log.info("Verify Text Nomor Handphone in ProfilSaya Page");
-        Assert.assertTrue(isElementPresent(getTextLocator(noHandphoneText)));
+        Assert.assertTrue(isElementPresent(getIdLocator(nomorHanphoneId)));
     }
     public void verifyEditNomorHpBtnProfilSayaPage()
     {
