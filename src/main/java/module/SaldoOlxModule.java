@@ -28,6 +28,7 @@ public class SaldoOlxModule extends BasePage {
 
 
     public static final String historyTransactionTitle = "Riwayat Transaksi";
+    public static final String pusatBantuanHeader = "com.app.tokobagus.betterb:id/action_bar";
 
     public SaldoOlxModule(WebDriver driver) {
         super(driver);
@@ -385,7 +386,9 @@ public class SaldoOlxModule extends BasePage {
         } else if (isElementPresent(getTextLocator(topUpTitle))) {
             clickBackBtn();
             backToHamburgerBar();
-        } else {
+        } else if (isCurrentPageOnPusatBantuan()) {
+            driver.navigate().back();
+        }else {
             Assert.assertTrue(true, "Already on Opened Hamburger Bar");
         }
         return new HamburgerBarModule(driver);
@@ -406,5 +409,9 @@ public class SaldoOlxModule extends BasePage {
         Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)),
                 "Pusat Bantuan Web View Not Found/Displayed");
         driver.navigate().back();
+    }
+
+    public boolean isCurrentPageOnPusatBantuan() {
+        return isElementPresent(getIdLocator(pusatBantuanHeader));
     }
 }
