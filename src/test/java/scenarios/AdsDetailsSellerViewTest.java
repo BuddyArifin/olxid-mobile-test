@@ -275,6 +275,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         editIklanPage.verifyEditImageIklan();
         editIklanPage.verifyOpsionalInfo();
         editIklanPage.inputNewIklanDesc("");
+        editIklanPage.inputNomorHandphone("085718893452");
         editIklanPage.clickEditSimpanBtn();
         editIklanPage.verifySuccessAlert();
         editIklanPage.clickTutupOnSuccessAlert();
@@ -308,6 +309,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         editIklanPage.verifyEditImageIklan();
         editIklanPage.verifyOpsionalInfo();
         editIklanPage.inputNewIklanDesc("Testing");
+        editIklanPage.inputNomorHandphone("085718893452");
         editIklanPage.clickEditSimpanBtn();
         editIklanPage.verifyInvalidDesc();
     }

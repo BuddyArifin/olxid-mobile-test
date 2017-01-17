@@ -17,7 +17,7 @@ import java.util.List;
  * Created by sekarayu on 12/6/16.
  */
 public class EditIklanPage extends BasePage {
-    
+
     public EditIklanPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -487,5 +487,11 @@ public class EditIklanPage extends BasePage {
     public void clickKondisiSelectionBekas(){
         clickElement(getTextLocator(kondisiBekas));
         Log.info("Click kondisi bekas");
+    }
+
+    public void inputNomorHandphone(String noTelp) {
+        Log.info("Input Nomor Handphone");
+        isElementPresentAfterScrollDown(getIdLocator(PostAdsPage.nomorHpId));
+        sendKeysById(getIdLocator(PostAdsPage.nomorHpId), noTelp);
     }
 }
