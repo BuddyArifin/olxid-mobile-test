@@ -490,11 +490,12 @@ public class EditIklanPage extends BasePage {
         Log.info("Click kondisi bekas");
     }
 
+    @AndroidFindBy(id = nomorHpId)
+    private AndroidElement nomorHandphoneField;
+
     public void inputNomorHandphone(String noTelp) {
         Log.info("Input Nomor Handphone");
         isElementPresentAfterScrollDown(getIdLocator(nomorHpId));
-        if (getStringText(getIdLocator(nomorHpId)).isEmpty()) {
-            sendKeysById(getIdLocator(nomorHpId), noTelp);
-        }
+        nomorHandphoneField.replaceValue(noTelp);
     }
 }
