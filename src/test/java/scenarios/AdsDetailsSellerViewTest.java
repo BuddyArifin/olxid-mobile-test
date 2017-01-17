@@ -273,9 +273,8 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         EditIklanPage editIklanPage = adsDetailsPage.clickEditIklanBtn();
         editIklanPage.verifyEditImageIklan();
-        editIklanPage.verifyOpsionalInfo();
+        editIklanPage.inputNomorHandphone("+6285718893452");
         editIklanPage.inputNewIklanDesc("");
-        editIklanPage.inputNomorHandphone("085718893452");
         editIklanPage.clickEditSimpanBtn();
         editIklanPage.verifySuccessAlert();
         editIklanPage.clickTutupOnSuccessAlert();
@@ -307,9 +306,9 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
         AdsDetailsPage adsDetailsPage = iklanSayaPage.clickOneOfAdsInAdsList();
         EditIklanPage editIklanPage = adsDetailsPage.clickEditIklanBtn();
         editIklanPage.verifyEditImageIklan();
+        editIklanPage.inputNomorHandphone("+6285718893452");
         editIklanPage.verifyOpsionalInfo();
         editIklanPage.inputNewIklanDesc("Testing");
-        editIklanPage.inputNomorHandphone("085718893452");
         editIklanPage.clickEditSimpanBtn();
         editIklanPage.verifyInvalidDesc();
     }

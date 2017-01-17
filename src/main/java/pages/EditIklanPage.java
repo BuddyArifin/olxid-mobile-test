@@ -66,6 +66,7 @@ public class EditIklanPage extends BasePage {
     public static final String saveCapturedImgBtn = "com.android.camera:id/btn_done";
     public static final String openFromHambugerGallery = "com.android.documentsui:id/roots_toolbar";
     public static final String popUpMinOneImage = "com.app.tokobagus.betterb:id/md_titleFrame";
+    public static final String nomorHpId = "com.app.tokobagus.betterb:id/edtPhone";
 
     @AndroidFindBys({
             @AndroidFindBy(className = "android.widget.GridView"),
@@ -352,10 +353,10 @@ public class EditIklanPage extends BasePage {
     public void inputNewIklanDesc(String desc){
         boolean description = isElementPresentAfterScrollDown(getIdLocator(editDescIklan));
         if(description){
-            if(isElementPresentAfterScrollDown(getIdLocator(clearDescBtn))){
-                clickClearDesc();
+            if(getStringText(getIdLocator(editDescIklan)).isEmpty()){
                 sendKeysById(getIdLocator(editDescIklan), desc);
-            }else {
+            }else if (isElementPresentAfterScrollDown(getIdLocator(clearDescBtn))) {
+                clickClearDesc();
                 sendKeysById(getIdLocator(editDescIklan), desc);
             }
         }
@@ -491,7 +492,9 @@ public class EditIklanPage extends BasePage {
 
     public void inputNomorHandphone(String noTelp) {
         Log.info("Input Nomor Handphone");
-        isElementPresentAfterScrollDown(getIdLocator(PostAdsPage.nomorHpId));
-        sendKeysById(getIdLocator(PostAdsPage.nomorHpId), noTelp);
+        isElementPresentAfterScrollDown(getIdLocator(nomorHpId));
+        if (getStringText(getIdLocator(nomorHpId)).isEmpty()) {
+            sendKeysById(getIdLocator(nomorHpId), noTelp);
+        }
     }
 }

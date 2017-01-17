@@ -1,6 +1,7 @@
 package listeners;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.ArrayUtils;
 import org.openqa.grid.web.Hub;
 import org.openqa.selenium.WebDriver;
 import org.testng.*;
@@ -22,6 +23,8 @@ public class ScreenshootsListener extends TestListenerAdapter  {
     private Object obj;
     private Annotation[] annotations;
     private Hub hub;
+    private String[] includedTest = {Constants.FILTER_TEST, Constants.POSTADS_TEST,
+            Constants.PAID_TEST};
 
     @Override
     public void onTestFailure(ITestResult testResult){
@@ -44,9 +47,7 @@ public class ScreenshootsListener extends TestListenerAdapter  {
         Log.debug("Running Test --> "+getTestTitle(iTestResult));
         driver = setDriver(iTestResult);
 //        ((AndroidDriver)driver).removeApp("io.appium.settings");
-        if (getTestClassName(iTestResult).equalsIgnoreCase(Constants.FILTER_TEST)
-                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.POSTADS_TEST)
-                || getTestClassName(iTestResult).equalsIgnoreCase(Constants.PAID_TEST)) {
+        if (ArrayUtils.contains(includedTest, getTestClassName(iTestResult))) {
             Log.debug("Removing Unicode App on Devices : "+getDeviceName());
             ((AndroidDriver)driver).removeApp(Constants.UNICODE_APP);
         }
