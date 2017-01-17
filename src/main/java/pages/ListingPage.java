@@ -369,12 +369,16 @@ public class ListingPage extends BasePage {
     public boolean isAutoAcept(By by) {
         try
         {
-            waitForVisibility(by);
-            if (waitForVisibility(by)) {
-                clickElement(by);
-                return true;
-            }
-            else {
+            if (isDevicesMarshmallow()) {
+                waitForVisibility(by);
+                if (waitForVisibility(by)) {
+                    clickElement(by);
+                    return true;
+                }
+                else {
+                    return true;
+                }
+            }else {
                 return true;
             }
         }

@@ -52,6 +52,7 @@ public class PaidFeaturePostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
         postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
         postAdsPage.verifyNoLimitCharacterDescription();
@@ -85,6 +86,7 @@ public class PaidFeaturePostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
         postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
         postAdsPage.verifyNoLimitCharacterDescription();

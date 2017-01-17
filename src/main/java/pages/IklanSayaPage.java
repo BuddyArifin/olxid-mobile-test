@@ -73,6 +73,7 @@ public class IklanSayaPage extends BasePage{
         AdsDetailsPage adsDetailsPage = new AdsDetailsPage(driver);
         PaidFeatureModule paidFeatureModule = new PaidFeatureModule(driver);
         EditIklanPage editIklanPage = new EditIklanPage(driver);
+        PostAdsPage postAdsPage = new PostAdsPage(driver);
 
         if(isElementPresent(getTextLocator(iklanSayaTitle))){
             clickBackBtn();
@@ -90,6 +91,9 @@ public class IklanSayaPage extends BasePage{
             paidFeatureModule.clickBatalOnTopListing();
             getBackToMyDetailsAds();
         }else if(editIklanPage.editAdsTitleDisplayed()){
+            getBackToMyDetailsAds();
+        } else if (isCurrentPageOnEditPhotos()) {
+            postAdsPage.clickCloseBtnAtas();
             getBackToMyDetailsAds();
         }
     }
@@ -411,5 +415,9 @@ public class IklanSayaPage extends BasePage{
 
     private boolean isAdsonActivePanelExist() {
         return isElementPresent(getIdLocator(adsImg));
+    }
+
+    public boolean isCurrentPageOnEditPhotos() {
+        return isElementPresent(getIdLocator(PostAdsPage.simpanBtn));
     }
 }

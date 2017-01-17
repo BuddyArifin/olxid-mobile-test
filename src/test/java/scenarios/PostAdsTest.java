@@ -53,6 +53,7 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
         postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
         postAdsPage.verifyNoLimitCharacterDescription();
@@ -66,7 +67,6 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         listingPage = postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user i want to be able to take photo")
@@ -340,13 +340,13 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionKategori();
         postAdsPage.clickKategoriAds();
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.clickDetilTambahanDeskripsiExpandDock();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Xiaomi Layar 5.5 inci, kondisi 99% bagus");
         postAdsPage.verifyNoLimitCharacterDescription();
         postAdsPage.clickPasangIklanButton();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
     }
 
     /*@Stories("As a user i want to be able click \"Gunakan Fitur Top Listing\"")
@@ -399,6 +399,7 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputMobilDanMotorCategory();
         postAdsPage.inputAdditionalInputFieldTahun();
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.clickDetilTambahDanDeskripsi();
         postAdsPage.inputDetilTambahanDanDeskripsi("Dijual Mobil Audi TT Tahun 2015");
         postAdsPage.verifyNoLimitCharacterDescription();
@@ -406,7 +407,6 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
     }
 
     @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")
@@ -433,6 +433,7 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.clickKategoriAds();
         postAdsPage.verifySuggestionHargaAndInputHarga("1000000000");
         postAdsPage.verifyAdditionalInputFieldPropertiCategory();
+        postAdsPage.inputNomorHandphone("085718893452");
         postAdsPage.inputAdditionalFieldLuasTanah("200");
         postAdsPage.inputAdditionalFieldLuasBangunan("200");
         postAdsPage.clickDetilTambahDanDeskripsi();
@@ -442,7 +443,6 @@ public class PostAdsTest extends AndroidSetup {
         postAdsPage.verifyPopUpSuccesPostingAdsAppear();
         postAdsPage.verifyContentInPopUpSuccessPosting();
         postAdsPage.clickTutupPopUpConfirmationButton();
-        listingPage.verifyContentsOfListingPage();
     }
 
 /*    @Stories("As a user able to see additional input field as user choose \"Mobil\", \"Motor\", \"Properti\", \"Jasa & Lowongan\" Kategori")

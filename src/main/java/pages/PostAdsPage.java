@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class PostAdsPage extends BasePage {
     public static final String textFieldAdditionalId = "com.app.tokobagus.betterb:id/edtInput";
     public static final String textTitleAdditionalId = "com.app.tokobagus.betterb:id/inputLayout";
+    public static final String nomorHpId = "com.app.tokobagus.betterb:id/edtPhone";
 
     public PostAdsPage(WebDriver driver)
     {
@@ -1327,6 +1328,12 @@ public class PostAdsPage extends BasePage {
         Log.info("Upload using camera");
         verifyKameraIcon();
         clickElement(getIdLocator(cameraIconId));
+    }
+
+    public void inputNomorHandphone(String noTelp) {
+        Log.info("Input Nomor Handphone");
+        isElementPresentAfterScrollDown(getIdLocator(nomorHpId));
+        sendKeysById(getIdLocator(nomorHpId), noTelp);
     }
 
     public class Maps extends FilterByMapsLocationModule

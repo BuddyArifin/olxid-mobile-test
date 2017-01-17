@@ -147,7 +147,7 @@ public class BasePage  {
     {
         try
         {
-            if (getVersionDevices().startsWith("6")) {
+            if (isDevicesMarshmallow()) {
                 waitForVisibility(by);
                 clickElement(by);
                 if (waitForVisibility(by))
@@ -169,7 +169,11 @@ public class BasePage  {
             return true;
         }
     }
-    
+
+    public boolean isDevicesMarshmallow() {
+        return getVersionDevices().startsWith("6");
+    }
+
     protected boolean isWaitElementPresent(By by){
      try {
     	 waitForVisibilityOf(by);

@@ -17,7 +17,7 @@ import java.util.List;
  * Created by sekarayu on 12/6/16.
  */
 public class EditIklanPage extends BasePage {
-
+    
     public EditIklanPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -78,6 +78,12 @@ public class EditIklanPage extends BasePage {
             @AndroidFindBy(id = "android:id/title")
     })
     public List<AndroidElement> appsPhotonOnHamburger;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = editImageItemContainer),
+            @AndroidFindBy(id = editDelImageBtn)
+    })
+    private List<AndroidElement> imageIklan;
 
     public boolean editAdsTitleDisplayed(){
         return isElementPresent(getTextLocator(editAdsTitle));
@@ -267,12 +273,20 @@ public class EditIklanPage extends BasePage {
 
     public void verifyImageMoreThanOne(){
         clickElement(getIdLocator(confDelImgYes));
-        driver.findElements(getIdLocator(editImageItemContainer)).get(1).click();
+        clickOnEmptyBoxImages();
         verifyAddImageSelection();
         clickImageGallery();
         uploadImageIfNotexist();
         clickSaveImgGallery();
         clickDeleteImageIklan();
+    }
+
+    private void clickOnEmptyBoxImages() {
+        int emptyBoxIndex = imageIklan.size();
+        if (emptyBoxIndex > 0 ) {
+            driver.findElements(getIdLocator(editImageItemContainer))
+                    .get(emptyBoxIndex).click();
+        }
     }
 
     public void verifyConfirmDeleteImagePopUpContents(){
