@@ -403,7 +403,8 @@ public class SaldoOlxModule extends BasePage {
     }
 
     public void verifyInfoLebihLanjut() {
-        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)));
+        Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)),
+                "Pusat Bantuan Web View Not Found/Displayed");
         driver.navigate().back();
     }
 }

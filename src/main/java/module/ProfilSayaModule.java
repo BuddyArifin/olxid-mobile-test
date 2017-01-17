@@ -267,6 +267,7 @@ public class ProfilSayaModule extends BasePage{
     }
     public void clickEditUsername() {
         Log.info("Click Edit Username Button");
+        isWaitElementPresent(getIdLocator(usernameProfilSaya));
         oldUsername = getStringText(getIdLocator(usernameProfilSaya));
         clickElement(getIdLocator(editUsernameProfileBtn));
     }

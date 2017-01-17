@@ -19,6 +19,9 @@ import pages.ListingPage;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -53,6 +56,12 @@ public class FilterByMapsLocationModule extends BasePage {
     public String locationText = "";
     public boolean isClickedBy;
 
+    /**
+     * Pilih Kota Maps, Locator
+     * */
+    public static final String pilihKotaBtnId = "com.app.tokobagus.betterb:id/tvSelectCity";
+    public static final String regionTitleId = "com.app.tokobagus.betterb:id/tvRegionTitle";
+
     @AndroidFindBys({
             @AndroidFindBy(id = listView),
             @AndroidFindBy(id = autoSuggest)
@@ -64,6 +73,11 @@ public class FilterByMapsLocationModule extends BasePage {
             @AndroidFindBy(id = autoSuggestFound)
     })
     private List<AndroidElement> suggestionAddressList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = regionTitleId)
+    })
+    private List<AndroidElement> listKotaAll;
 
     public void verifyBackBtn()
     {
@@ -336,5 +350,28 @@ public class FilterByMapsLocationModule extends BasePage {
             clickBySize(getPointLocation(getIdLocator(myCurrentLocationBtn)));
             clickBySize(getPointLocation(getIdLocator(sliderRadius)));
         }
+    }
+
+    public void clickPilihKota() {
+        Log.info("Click Pilih Kota Tab");
+        clickElement(getIdLocator(pilihKotaBtnId));
+    }
+
+    public void chooseCityList(String city) {
+        Log.info("Choose Kota");
+        List<String> listKota = new ArrayList<>(Arrays.asList(city.split("/")));
+        Collections.sort(listKota);
+
+        listKota.forEach( kota -> {
+            selectCityByKeyword(kota);
+        });
+    }
+
+    public void selectCityByKeyword(String keywords) {
+        listKotaAll.forEach(listKotaAll -> {
+            if (listKotaAll.getText().equalsIgnoreCase(keywords)){
+                listKotaAll.click();
+            }
+        });
     }
 }
