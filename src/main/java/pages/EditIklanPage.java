@@ -497,5 +497,6 @@ public class EditIklanPage extends BasePage {
         Log.info("Input Nomor Handphone");
         isElementPresentAfterScrollDown(getIdLocator(nomorHpId));
         nomorHandphoneField.replaceValue(noTelp);
+        hideSoftKeyboard();
     }
 }

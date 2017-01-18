@@ -1330,10 +1330,14 @@ public class PostAdsPage extends BasePage {
         clickElement(getIdLocator(cameraIconId));
     }
 
+    @AndroidFindBy(id = nomorHpId)
+    private AndroidElement nomorHandphoneField;
+
     public void inputNomorHandphone(String noTelp) {
         Log.info("Input Nomor Handphone");
         isElementPresentAfterScrollDown(getIdLocator(nomorHpId));
-        sendKeysById(getIdLocator(nomorHpId), noTelp);
+        nomorHandphoneField.replaceValue(noTelp);
+        hideSoftKeyboard();
     }
 
     public class Maps extends FilterByMapsLocationModule

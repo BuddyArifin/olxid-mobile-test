@@ -83,6 +83,9 @@ public class AdsDetailsPage extends BasePage {
     public static final String permissionsAndroid = "com.android.packageinstaller:id/permission_allow_button";
     public static final String topListingBtn = "com.app.tokobagus.betterb:id/safety_info_more";
     public static final String textTopListing = "aktif";
+    public static final String hubungiByChatId = "com.app.tokobagus.betterb:id/chat";
+    public static final String hubungiByCallId = "com.app.tokobagus.betterb:id/call";
+
     public static String getIdIklanExpected() {
         return idIklanExpected;
     }
@@ -269,6 +272,16 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Hubungi penjual Button");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiPenjual)));
     }
+
+    public void verifyHubungiPenjualByChatorTelp() {
+        Log.info("Verify Button Chat and Call");
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiByChatId)),
+                "Chat Button Not displayed / Not Found");
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiByCallId)),
+                "Call Button Not Displayed / Not Founds");
+
+    }
+
     public void verifySudahTerjualBtn() {
         Log.info("Verify Sudah Terjual Button");
         if(isElementPresent(getIdLocator(setTerjualbtnId))){
@@ -334,7 +347,8 @@ public class AdsDetailsPage extends BasePage {
         verifyAdsLocations();
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
-        verifyHubungiPenjual();
+//        verifyHubungiPenjual();
+        verifyHubungiPenjualByChatorTelp();
     }
 
     @Step("Verify All Contents of Details Page [Seller View]")
@@ -724,5 +738,14 @@ public class AdsDetailsPage extends BasePage {
         Assert.assertTrue(isWaitElementPresent(getAndroidViewTextLocator(PUSAT_BANTUAN)),
                 "Pusat Bantuan Not Displayed");
         driver.navigate().back();
+    }
+
+    public void clickCallButton() {
+        Log.info(" Click Button Call");
+        clickElement(getIdLocator(hubungiByCallId));
+    }
+    public void clickChatButton() {
+        Log.info(" Click Button Call");
+        clickElement(getIdLocator(hubungiByChatId));
     }
 }

@@ -65,12 +65,4 @@ public class LoginFBTest extends AndroidSetup {
     @TestCaseId("TC_LBF_02_005")
     @Test(priority = 5)
     public void userAbleToLogoutAfterSuccessFBLogin() {}
-
-    @Stories("As A User i want be able to Logout FB")
-    @Title("Logout Fb account")
-    @Test(priority = 99)
-    public void logoutFBAccount() {
-        LoginWithFBModule fb = new LoginWithFBModule(driver);
-        fb.removeLoginApps_logout();
-    }
 }

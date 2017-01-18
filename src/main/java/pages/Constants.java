@@ -5,7 +5,8 @@ public class Constants {
   public static final String POSTADS_TEST = "scenarios.PostAdsTest";
   public static final String PAID_TEST = "PaidFeaturePostAdsTest";
   public static final String UNICODE_APP = "io.appium.android.ime";
-  public static String screenshotsDir="Screenshots/";
+    public static final String POSTADSTEST = "scenarios.PaidFeaturePostAdsTest";
+    public static String screenshotsDir="Screenshots/";
 //  public static String apkDir="Resources/";
 public static String apkDir="/Applications/Dropbox/ptTokobagus";
   public static String hubIP="http://localhost:4444/wd/hub";

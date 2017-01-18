@@ -132,9 +132,8 @@ public class AdsDetailsTest extends AndroidSetup {
     public void verifyUserAbleToHubungiPenjual() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
-        PesanPage pesan = adsDetailsPage.clickHubugiPenjual();
-        adsDetailsPage.verifyAlertAndTapOK();
-        pesan.verifyRedirectionHubPenjualtoPesan();
+        adsDetailsPage.clickCallButton();
+        // verify native call displayed
     }
 
 }

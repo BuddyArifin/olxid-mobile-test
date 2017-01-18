@@ -18,13 +18,14 @@ import java.util.Iterator;
  * Created by buddyarifin on 6/14/16.
  */
 public class ScreenshootsListener extends TestListenerAdapter  {
+
     private BasePage base;
     private WebDriver driver;
     private Object obj;
     private Annotation[] annotations;
     private Hub hub;
     private String[] includedTest = {Constants.FILTER_TEST, Constants.POSTADS_TEST,
-            Constants.PAID_TEST};
+            Constants.PAID_TEST, Constants.POSTADSTEST};
 
     @Override
     public void onTestFailure(ITestResult testResult){
