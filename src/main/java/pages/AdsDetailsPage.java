@@ -744,8 +744,17 @@ public class AdsDetailsPage extends BasePage {
         Log.info(" Click Button Call");
         clickElement(getIdLocator(hubungiByCallId));
     }
-    public void clickChatButton() {
-        Log.info(" Click Button Call");
+    public PesanPage clickChatButton() {
+        Log.info(" Click Button Chat");
         clickElement(getIdLocator(hubungiByChatId));
+        return new PesanPage(driver);
+    }
+
+    public void verifyPhoneCallLaunch() {
+        WaitFor(6);
+        String activity = ((AndroidDriver)driver).currentActivity();
+        Log.debug(activity);
+        Assert.assertTrue(!activity.contains(Constants.appPackage),
+                "Activity Phone Launch not success");
     }
 }

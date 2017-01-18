@@ -77,7 +77,7 @@
             <class name="scenarios.FilterTest"/>
         </classes>
     </test>
-    <test name="Post Ads OLXID" preserve-order="false" enabled="false">
+    <test name="Post Ads OLXID" preserve-order="false">
         <groups>
             <run>
                 <include name="smoke.test" />
@@ -97,7 +97,7 @@
             <class name="scenarios.PaidFeatureIklanSayaTest"/>
         </classes>
     </test>
-    <test name="Paid Feature [Post Ads] - TOP LISTING OLXID" preserve-order="false" enabled="false">
+    <test name="Paid Feature [Post Ads] - TOP LISTING OLXID" preserve-order="false">
         <groups>
             <run>
                 <include name="smoke.test" />
