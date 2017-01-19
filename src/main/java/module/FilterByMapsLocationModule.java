@@ -194,6 +194,7 @@ public class FilterByMapsLocationModule extends BasePage {
     public void inputKeywordInSearchFields(String input)
     {
         sendKeysById(getIdLocator(searchField), input);
+        locationText = input;
         Log.info("Input Keyword in Search Fields");
     }
 
@@ -237,7 +238,6 @@ public class FilterByMapsLocationModule extends BasePage {
             //Move it 40%
             int moveTo=(int)(end*0.4);
             action.longPress(start,y).moveTo(moveTo,y).release().perform();
-            locationText = getStringText(getIdLocator(addressTitle));
         }
         else {
             Assert.assertTrue(false, " Sliders not found/visible ");
