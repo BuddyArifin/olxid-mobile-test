@@ -132,7 +132,7 @@ public class AdsDetailsTest extends AndroidSetup {
     public void verifyUserAbleToHubungiPenjual() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();
-        adsDetailsPage.verifyHubungiPenjualByChatorTelp();
+        adsDetailsPage.verifyHubungiPenjualByChatSMSTelp();
         adsDetailsPage.clickCallButton();
         adsDetailsPage.verifyPhoneCallLaunch();
     }
