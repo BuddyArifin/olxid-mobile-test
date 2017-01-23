@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import pages.AdsDetailsPage;
 import pages.BasePage;
 import pages.FilterPage;
 import pages.ListingPage;
@@ -126,9 +127,11 @@ public class FilterByMapsLocationModule extends BasePage {
     }
     public void verifyCurrentLocationAddress()
     {
-        Log.info("Verify Current Location Address");
-        Assert.assertTrue(isWaitElementPresent(getIdLocator(addressTitle)),
-                "Address Title Maps Not found");
+        if (AdsDetailsPage.getIsMapsDisplayed()) {
+            Log.info("Verify Current Location Address");
+            Assert.assertTrue(isWaitElementPresent(getIdLocator(addressTitle)),
+                    "Address Title Maps Not found");
+        }
     }
     public void verifyJarakIklanTitle() {
         Log.info("Verify Jarak Iklan Maximum Text");

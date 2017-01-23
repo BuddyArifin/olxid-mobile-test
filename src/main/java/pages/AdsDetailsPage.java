@@ -273,7 +273,7 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Hubungi penjual Button");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiPenjual)));
     }
-    
+
     public void verifyHubungiPenjualByChatSMSTelp() {
         Log.info("Verify Button Chat and Call");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiByChatId)),
@@ -462,8 +462,8 @@ public class AdsDetailsPage extends BasePage {
         clickElement(getIdLocator(kirimLaporkanIklan));
     }
     public FilterByMapsLocationModule clickAdsLocations() {
-        Log.info("Click Ads Location Button");
         if (getIsMapsDisplayed()) {
+            Log.info("Click Ads Location Button");
             isElementPresentAfterScrollDown(getIdLocator(adsLocation));
             swipePageBtmtToTop(); // handle, which location present but not visible
             clickElement(getIdLocator(adsLocation));

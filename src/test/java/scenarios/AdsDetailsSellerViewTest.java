@@ -283,7 +283,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As a user I will not be able to edit ads description with more than max characters and use too many capital letters")
     @Title("Verify user not able to edit ads description with more than max characters and use too many capital letters")
     @TestCaseId("TC_AdDetails_09_029")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyDescMax(){
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
@@ -299,7 +299,7 @@ public class AdsDetailsSellerViewTest extends AndroidSetup {
     @Stories("As a user I will not be able to edit ads description with less than minimum characters")
     @Title("Verify user not able to edit ads description with less than min characters")
     @TestCaseId("TC_AdDetails_09_030")
-    @Test(priority = 3)
+    @Test(priority = 3, enabled = false)
     public void verifyDescLessMin(){
         iklanSayaPage.initIklanSayaPage();
         iklanSayaPage = hamburgerBar.clickIklanSayaBtn();
