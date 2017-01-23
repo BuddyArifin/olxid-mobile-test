@@ -85,6 +85,7 @@ public class AdsDetailsPage extends BasePage {
     public static final String textTopListing = "aktif";
     public static final String hubungiByChatId = "com.app.tokobagus.betterb:id/chat";
     public static final String hubungiByCallId = "com.app.tokobagus.betterb:id/call";
+    public static final String hubungiPenjugalBySmsId = "com.app.tokobagus.betterb:id/sms";
 
     public static String getIdIklanExpected() {
         return idIklanExpected;
@@ -272,13 +273,15 @@ public class AdsDetailsPage extends BasePage {
         Log.info("Verify Hubungi penjual Button");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiPenjual)));
     }
-
-    public void verifyHubungiPenjualByChatorTelp() {
+    
+    public void verifyHubungiPenjualByChatSMSTelp() {
         Log.info("Verify Button Chat and Call");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiByChatId)),
                 "Chat Button Not displayed / Not Found");
         Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiByCallId)),
                 "Call Button Not Displayed / Not Founds");
+        Assert.assertTrue(isElementPresentAfterScrollDown(getIdLocator(hubungiPenjugalBySmsId)),
+                "Sms Button Not Displayed / Not Founds");
 
     }
 
@@ -348,7 +351,7 @@ public class AdsDetailsPage extends BasePage {
         verifyLihatIklanAndTestimoni();
         verifyLaporkanIklan();
 //        verifyHubungiPenjual();
-        verifyHubungiPenjualByChatorTelp();
+        verifyHubungiPenjualByChatSMSTelp();
     }
 
     @Step("Verify All Contents of Details Page [Seller View]")

@@ -128,7 +128,7 @@ public class AdsDetailsTest extends AndroidSetup {
     @Stories("As A User I want be able to Hubungi Penjual below Ads Details")
     @Title("Verify User abel to Hubungi Penjual")
     @TestCaseId("TC_AdDetails_09_011")
-    @Test(priority = 4)
+    @Test(priority = 99)
     public void verifyUserAbleToHubungiPenjual() {
         adsDetailsPage = new AdsDetailsPage(driver);
         adsDetailsPage.initAdsDetailsTest();

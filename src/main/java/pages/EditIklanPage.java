@@ -443,7 +443,7 @@ public class EditIklanPage extends BasePage {
 
     public void verifySuccessAlert(){
         Log.info("Verify success alert");
-        Assert.assertTrue(isElementPresent(getIdLocator(successAlert)));
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(successAlert)));
         Assert.assertTrue(isElementPresent(getIdLocator(tutupOnSuccessAlert)));
     }
 
