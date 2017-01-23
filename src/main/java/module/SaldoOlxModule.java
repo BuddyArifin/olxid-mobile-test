@@ -3,6 +3,7 @@ package module;
 import com.google.common.base.Function;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -387,7 +388,7 @@ public class SaldoOlxModule extends BasePage {
             clickBackBtn();
             backToHamburgerBar();
         } else if (isCurrentPageOnPusatBantuan()) {
-            driver.navigate().back();
+            ((AndroidDriver)driver).pressKeyCode(AndroidKeyCode.BACK);
         }else {
             Assert.assertTrue(true, "Already on Opened Hamburger Bar");
         }
