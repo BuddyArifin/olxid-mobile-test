@@ -119,7 +119,7 @@ public class PaidFeatureModule extends BasePage {
 
     public void verifyMsgSuccessPage(){
         Log.info("Verify Msg Success Page : "+getStringText(getIdLocator(msgSuccesspage)));
-        Assert.assertTrue(isElementPresent(getIdLocator(msgSuccesspage)),
+        Assert.assertTrue(isWaitElementPresent(getIdLocator(msgSuccesspage)),
                 "Message Success After Success not Found");
     }
 

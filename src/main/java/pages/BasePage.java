@@ -93,6 +93,10 @@ public class BasePage  {
         }
     }
 
+    protected AndroidDriver getAndroidDriver() {
+        return ((AndroidDriver)driver);
+    }
+
     /**
      * This below method has made to verify that size ListELement for WebView is not Empty
      */

@@ -11,6 +11,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.BasePage;
@@ -166,6 +167,8 @@ public class FilterByMapsLocationModule extends BasePage {
     @Step("Verify System Display Content in Filter Page")
     public void verifyAllContentInLocationPage()
     {
+        Location location = new Location(-6.2454429, 106.8026181, 0.0);
+        getAndroidDriver().setLocation(location);// force location
         isWaitElementPresent(getIdLocator(sliderRadius));
         dismissTutorial();
         verifySearchField();
