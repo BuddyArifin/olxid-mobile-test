@@ -153,6 +153,13 @@ public class LoginWithOlxModule extends BasePage {
     public void clickLoginWithOlxBtn() {
         Log.info("verify Click Login With OLXButton");
         clickElement(getIdLocator(loginOlxBtn));
+
+        // retrying, conn time out
+        if (isElementPresent(getIdLocator(okButtonErrorMessage))) {
+
+            Log.warn("First Login are failed, retrying to able login");
+            clickElement(getIdLocator(loginOlxBtn));
+        }
     }
 
     @Step("Verify Set Category Preferences")

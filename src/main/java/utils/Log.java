@@ -52,4 +52,11 @@ public class Log {
         LOGGER.setLevel(Level.DEBUG);
         LOGGER.debug(message);
     }
+
+    public static void warn(String message) {
+        ansiConsoleAppender.setName("Console");
+        LOGGER.addAppender(ansiConsoleAppender);
+        LOGGER.setLevel(Level.WARN);
+        LOGGER.warn(message);
+    }
 }
