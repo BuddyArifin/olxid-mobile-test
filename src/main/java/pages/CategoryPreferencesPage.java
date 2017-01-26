@@ -7,6 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -30,6 +31,7 @@ public class CategoryPreferencesPage extends BasePage {
     protected static final String checkIconID = "com.app.tokobagus.betterb:id/imgCheckbox";
     protected static final String errorMsgBarID = "com.app.tokobagus.betterb:id/snackbar_text";
     protected static final String okErrorMSG = "com.app.tokobagus.betterb:id/snackbar_action";
+    protected static final String containerList = "com.app.tokobagus.betterb:id/rvCategory";
     public static String categoryChoosing;
 
     public CategoryPreferencesPage(WebDriver driver) {
@@ -49,6 +51,12 @@ public class CategoryPreferencesPage extends BasePage {
             @AndroidFindBy(id = checkIconID)
     })
     protected List<AndroidElement> checkedList;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = containerList),
+            @AndroidFindBy(id = categoryTitle)
+    })
+    protected List<AndroidElement> subCategory;
 
     @Step("Verify All Contents of Category View")
     public void verifyAllContentsOfCategoryPage() {
@@ -142,10 +150,20 @@ public class CategoryPreferencesPage extends BasePage {
         return categoryList.get(index).findElementById(categoryTitle).getText();
     }
 
+    private void selectFirstSubCategory() {
+        if ( !subCategory.isEmpty() ) {
+            Log.info("Selected SUb Category : "+subCategory.get(0).getText());
+            subCategory.get(0).click();
+        }
+    }
+
     public void selectCategory(int index) {
         categoryChoosing = getCategoryTitle(index);
+
         Log.info("Select Category "+getCategoryTitle(index));
         categoryList.get(index).findElementById(categoryTitle).click();
+
+        selectFirstSubCategory();
     }
 
     public void selectedMoreThan3Category() {
