@@ -155,7 +155,7 @@ public class LoginWithOlxModule extends BasePage {
         clickElement(getIdLocator(loginOlxBtn));
 
         // retrying, conn time out
-        if (isElementPresent(getIdLocator(okButtonErrorMessage))) {
+        if (isWaitElementPresent(getIdLocator(okButtonErrorMessage))) {
 
             Log.warn("First Login are failed, retrying to able login");
             clickElement(getIdLocator(loginOlxBtn));
