@@ -7,10 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -372,6 +369,7 @@ public class FilterPage extends BasePage {
 //        Log.info("Click Reset Button");
 //
         isWaitElementPresent(getIdLocator(resetBtn));
+        hideSoftKeyboard();
         isElementPresentAfterScrollDown(getIdLocator(resetBtn));
         clickElement(getIdLocator(resetBtn));
         Log.info("Click Reset Button");
@@ -616,6 +614,31 @@ public class FilterPage extends BasePage {
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public Boolean isElementPresentAfterScrollDown(final By locator) {
+        try {
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                    .withTimeout(80, TimeUnit.SECONDS)
+                    .pollingEvery(2, TimeUnit.SECONDS)
+                    .ignoring(NoSuchElementException.class);
+            return wait.until(new Function<WebDriver, Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver) {
+                    AndroidDriver androidDriver = (AndroidDriver) driver;
+
+                    int height = driver.manage().window().getSize().getHeight();
+                    Double start = height - (height * 0.7);
+
+                    androidDriver.swipe(200, start.intValue(), 200, 45, 1000);
+
+                    return isElementPresent(locator);
+                }
+            });
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
         }
     }
 
