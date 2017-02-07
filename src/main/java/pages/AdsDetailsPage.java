@@ -2,9 +2,11 @@ package pages;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import javafx.scene.input.KeyCode;
 import module.FilterByMapsLocationModule;
 import module.PaidFeatureModule;
 import module.LoginWithOlxModule;
@@ -759,5 +761,7 @@ public class AdsDetailsPage extends BasePage {
         Log.debug(activity);
         Assert.assertTrue(!activity.contains(Constants.appPackage),
                 "Activity Phone Launch not success");
+        getAndroidDriver().pressKeyCode(AndroidKeyCode.BACK);
+        //prevent if stuck on native android phone
     }
 }
