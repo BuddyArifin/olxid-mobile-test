@@ -53,6 +53,7 @@ public class IklanSayaPage extends BasePage{
     public static final String adsPrice = "com.app.tokobagus.betterb:id/tv_ad_item_price";
     public static final String detailIklanTitle = "Detail Iklan";
     public static final String iconPostAds = "com.app.tokobagus.betterb:id/menu_post_ad";
+    public static final String beliKuotaBtn = "com.app.tokobagus.betterb:id/myAds_btnPaywall";
 
     @AndroidFindBys({
             @AndroidFindBy(id = scrollMenu),
@@ -419,5 +420,15 @@ public class IklanSayaPage extends BasePage{
 
     public boolean isCurrentPageOnEditPhotos() {
         return isElementPresent(getIdLocator(PostAdsPage.simpanBtn));
+    }
+
+    public void verifyBeliKuotaBtn(){
+        Assert.assertTrue(isElementPresent(getIdLocator(beliKuotaBtn)));
+        Log.info("Verify beli kuota button");
+    }
+
+    public BeliKuotaPage clickBeliKuotaBtn(){
+        clickElement(getIdLocator(beliKuotaBtn));
+        return new BeliKuotaPage(driver);
     }
 }

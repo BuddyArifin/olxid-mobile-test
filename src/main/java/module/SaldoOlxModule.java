@@ -415,4 +415,17 @@ public class SaldoOlxModule extends BasePage {
     public boolean isCurrentPageOnPusatBantuan() {
         return isElementPresent(getIdLocator(pusatBantuanHeader));
     }
+
+    public void verifyIsiSaldoContentFromBeliKuota(){
+        verifyBackbutton();
+        verifytitleSaldo();
+        verifyInfoBanner();
+        verifyLebihLanjutButton();
+        verifyLebihLanjutBtn();
+        verifyIsiUlangSaldoBtn();
+    }
+
+    public boolean isOnSaldoPage(){
+        return isElementPresent(getIdLocator(isiUlangSaldoBtn));
+    }
 }

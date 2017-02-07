@@ -117,14 +117,14 @@ public class Sinon extends InstanceDriver{
     public Response createActiveAdsWithLoc() {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", getUser_id());
-        params.put("title", " Jual Rumah Mewah Di Nusa Dua Bali [TEST] ");
+        params.put("title", " Jual Rumah Mewah Pondok Indah [TEST] ");
         params.put("description", "Alasan jual, karena lagi testing");
         params.put("category_id", "5158");
-        params.put("region_id", "2");
-        params.put("city_id", "225");
+        params.put("region_id", "7");
+        params.put("city_id", "29");
         params.put("map_zoom", "12");
-        params.put("map_lat", "-8.67317239");
-        params.put("map_lon", "115.16244616");
+        params.put("map_lat", "-6.20312635");
+        params.put("map_lon", "106.82766438");
         params.put("map_radius", "0");
 
         this.response = RestAssured.with()
@@ -182,7 +182,7 @@ public class Sinon extends InstanceDriver{
     @Test
     public void testAcceptModerationAds(){
         Sinon sinon = new Sinon();
-        sinon.acceptModerationAds("293587307");
+        sinon.acceptModerationAds("293591233");
     }
 
     @Test
