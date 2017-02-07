@@ -8,6 +8,7 @@ import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import module.FilterByMapsLocationModule;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -15,10 +16,7 @@ import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 import utils.Log;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,8 +35,8 @@ public class FilterPage extends BasePage {
     public static final String chooseCategory = "com.app.tokobagus.betterb:id/tvCategoryName";
     public static final String resetBtn = "com.app.tokobagus.betterb:id/btnReset";
     public static final String cariBtn = "com.app.tokobagus.betterb:id/btnSearch";
-    public static final String minPrice = "com.app.tokobagus.betterb:id/edtMinPrice";
-    public static final String maxPrice = "com.app.tokobagus.betterb:id/edtMaxPrice";
+    public static final String minPrice = "com.app.tokobagus.betterb:id/edtMinValue";
+    public static final String maxPrice = "com.app.tokobagus.betterb:id/edtMaxValue";
     public static final String luasTanahLayout = "Luas tanah";
     public static final String luasBangunanLayout = "Luas bangunan";
     public static final String lantaiLayout = "Lantai";
@@ -52,9 +50,9 @@ public class FilterPage extends BasePage {
     public static final String textViewParamsTitle = "com.app.tokobagus.betterb:id/tvTitle";
     public static final String linearLayoutDropDownSelection = "android.widget.LinearLayout";
     public static final String textViewClass = "TextInputLayout";
-    public static final String textViewLayout = "com.app.tokobagus.betterb:id/btnSelection";
+    public static final String btnSelections = "com.app.tokobagus.betterb:id/btnSelection";
     public static final String recycleViewLayout = "com.app.tokobagus.betterb:id/md_contentRecyclerView";
-    public static final String textViewCheckBoxId = "com.app.tokobagus.betterb:id/tvOptionName";
+    public static final String textViewCheckBoxId = "com.app.tokobagus.betterb:id/imgSelectBox";
     public static final String pilihBtn = "com.app.tokobagus.betterb:id/md_buttonDefaultPositive";
     public static final String actionBar = "com.app.tokobagus.betterb:id/action_bar";
     public static final String imageButtonBack = "android.widget.ImageButton";
@@ -68,8 +66,6 @@ public class FilterPage extends BasePage {
         super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
-
-    ;
 
     @AndroidFindBys({
             @AndroidFindBy(id = actionBar),
@@ -110,7 +106,7 @@ public class FilterPage extends BasePage {
 
     @AndroidFindBys({
             @AndroidFindBy(id = linearLayoutCategoryParams),
-            @AndroidFindBy(id = textViewLayout)
+            @AndroidFindBy(id = btnSelections)
     })
     protected List<AndroidElement> dropDownListElement;
 
@@ -153,7 +149,25 @@ public class FilterPage extends BasePage {
             @AndroidFindBy(id = recycleViewLayout),
             @AndroidFindBy(id = textViewCheckBoxId)
     })
+    protected List<AndroidElement> checkBoxListElement;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = recycleViewLayout),
+            @AndroidFindBy(id = "com.app.tokobagus.betterb:id/tvOptionName")
+    })
     protected List<AndroidElement> textViewCheckBoxTitle;
+
+    @AndroidFindBys({
+            @AndroidFindBy(id = linearLayoutCategoryParams),
+            @AndroidFindBy(id = minPrice)
+    })
+    private List<AndroidElement> minPrices;
+
+    @AndroidFindBys({
+            @AndroidFindBy(className = linearLayoutDropDownSelection),
+            @AndroidFindBy(id = textViewParamsTitle)
+    })
+    private List<AndroidElement> textParamsLayout;
 
     public void initialFilterTest(){
         Log.info("Back to Initial Filter Test");
@@ -261,13 +275,43 @@ public class FilterPage extends BasePage {
      * 2. Click the Index of a ListElement
      */
     public void verifyListElementMethodAndClickElement(String layoutClass, List<AndroidElement> parentElements, List<AndroidElement> childElements, String comparisonWord) {
+
         isWaitElementPresent(getIdLocator(layoutClass));
         String elementValueText = "";
+
         Log.info("Category Available [" + parentElements.size() + "]: ");
         for (int i = 0; i < parentElements.size(); i++) {
+
             elementValueText = childElements.get(i).getText();
+
             if (parentElements.size() >= 2 && elementValueText.equalsIgnoreCase(comparisonWord)) {
                 parentElements.get(i).click();
+                Log.info("Click Element Index : " + i + ", ValueText : " + elementValueText);
+                break;
+            }
+        }
+    }
+
+    public void clickDropDown(String comparisonWord) {
+        super.isElementPresentAfterScrollDown(getIdLocator(linearLayoutCategoryParams));
+
+        List<AndroidElement> parentElements = dropDownListElement;
+        List<AndroidElement> childElements = textViewDropDownTitle;
+        int margin = 0;
+
+        if (childElements.size() > parentElements.size()) {
+            margin = childElements.size() - parentElements.size();
+        }
+
+        String elementValueText = "";
+
+        Log.info("Category Available [" + childElements.size() + "]: ");
+        for (int i = 0; i < childElements.size(); i++) {
+
+            elementValueText = childElements.get(i).getText();
+
+            if (elementValueText.equalsIgnoreCase(comparisonWord)) {
+                parentElements.get(i-margin).click();
                 Log.info("Click Element Index : " + i + ", ValueText : " + elementValueText);
                 break;
             }
@@ -361,13 +405,6 @@ public class FilterPage extends BasePage {
     }
 
     public void clickResetButton() {
-//        waitForClickabilityOf(getTextLocator("Filter"));
-//        swipePageBtmtToTop();
-//        swipePageBtmtToTop();
-//        swipePageBtmtToTop();
-//        clickElement(getIdLocator(resetBtn));
-//        Log.info("Click Reset Button");
-//
         isWaitElementPresent(getIdLocator(resetBtn));
         hideSoftKeyboard();
         isElementPresentAfterScrollDown(getIdLocator(resetBtn));
@@ -381,35 +418,6 @@ public class FilterPage extends BasePage {
         clickElement(getIdLocator(cariBtn));
         Log.info("Click Simpan Button");
         return new ListingPage(driver);
-    }
-
-    public void clickSemuaDiMobilCategory() {
-        String mobil = "Mobil";
-        String semuaDiMobil = "Semua di Mobil";
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, semuaDiMobil);
-        Log.info("Click Semua Di Mobil Sub-Category");
-    }
-
-    public void clickMobilBekasHondaCategory() {
-        String mobil = "Mobil";
-        String mobilBekas = "Mobil Bekas";
-        String landRover = "Honda";
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
-        ((AndroidDriver) driver).scrollToExact(landRover);
-        clickElement(getTextLocator(landRover));
-        Log.info("Click Mobil Bekas Honda Sub-Category");
-    }
-
-    public void clickPropertiRumahDijualCategory() {
-        String properti = "Properti";
-        String rumah = "Rumah";
-        String dijual = "Dijual";
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, properti);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, rumah);
-        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, dijual);
-        Log.info("Click Properti Rumah Di Jual Sub-Category");
     }
 
     @Step("Verify Content Additional Filter in Selected Sub-Category")
@@ -450,6 +458,7 @@ public class FilterPage extends BasePage {
     /**
      * Adopt method from BasePage
      */
+    @Deprecated
     public Boolean isElementPresentAfterScroll(final String locator) {
         String classname;
         if (isOldVersionDevices) {
@@ -474,7 +483,8 @@ public class FilterPage extends BasePage {
     /**
      * This below method has made to input Keyword in ListElement with class TextInputLayout at AdditionalFilter
      */
-    public void inputMethod(String comparisonWord, String inputText) {
+    @Deprecated
+    public void inputXMethod(String comparisonWord, String inputText) {
         List<WebElement> parentElement = isTextInputLayoutDisplays();
         List<AndroidElement> childElement2 = isTextEditLayoutDisplays();
         AndroidDriver driver = (AndroidDriver) this.driver;
@@ -494,75 +504,148 @@ public class FilterPage extends BasePage {
         Log.info("Input " + parentValueText + " : " + inputText);
     }
 
+
+
+    private void clickAndSetValueOnIndex(String inputText, int i) {
+        minPrices.get(i).click();
+        minPrices.get(i).sendKeys(inputText);
+        hideSoftKeyboard();
+    }
+
+    private void inputMethod(String comparison, String text) {
+        boolean isMatchTitleHeader;
+
+        for (int i = 0; i < textParamsLayout.size(); i++) {
+
+            AndroidElement textFieldTitle = textParamsLayout.get(i);
+            isMatchTitleHeader = textFieldTitle.getText().equalsIgnoreCase(comparison);
+
+            if (isMatchTitleHeader) {
+
+                clickAndSetValueOnIndex(text, i);
+                break;
+            }
+
+        }
+    }
+
+    /**
+     * Category Sections
+     * */
+    public void clickSemuaDiMobilCategory() {
+        String mobil = "Mobil";
+        String semuaDiMobil = "Semua di Mobil";
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, semuaDiMobil);
+        Log.info("Click Semua Di Mobil Sub-Category");
+    }
+
+    public void clickMobilBekasHondaCategory() {
+        String mobil = "Mobil";
+        String mobilBekas = "Mobil Bekas";
+        String landRover = "Honda";
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, mobil);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, mobilBekas);
+        ((AndroidDriver) driver).scrollToExact(landRover);
+        clickElement(getTextLocator(landRover));
+        Log.info("Click Mobil Bekas Honda Sub-Category");
+    }
+
+    public void clickPropertiRumahDijualCategory() {
+        String properti = "Properti";
+        String rumah = "Rumah";
+        String dijual = "Dijual";
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement0, subCategoryTitle, properti);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement1, subCategoryTitle, rumah);
+        verifyListElementMethodAndClickElement(recycleViewCategory, categoryElement2, subCategoryTitle, dijual);
+        Log.info("Click Properti Rumah Di Jual Sub-Category");
+    }
+
+    /**
+     * Input Text Field Sections
+     * */
     public void inputLuasTanah(String keyword) {
+        isElementPresentAfterScrollDown(getTextLocator(luasBangunanLayout));
         inputMethod(luasTanahLayout, keyword);
     }
 
     public void inputLuasBangunan(String keyword) {
-        isElementPresentAfterScrollDown(getContentDescLocator(luasBangunanLayout));
         inputMethod(luasBangunanLayout, keyword);
     }
 
     public void inputLantai(String keyword) {
-        isElementPresentAfterScrollDown(getContentDescLocator(lantaiLayout));
         inputMethod(lantaiLayout, keyword);
     }
 
     public void inputAlamatLokasi(String keyword) {
-        isElementPresentAfterScrollDown(getContentDescLocator(alamatLokasiLayout));
+        isElementPresentAfterScrollDown(getTextLocator(alamatLokasiLayout));
         inputMethod(alamatLokasiLayout, keyword);
     }
+
+
+    /**
+     * Drop Down Sections
+     * */
 
     public void pilihTipeKendaraan(String inputText) {
         swipePageBtmtToTop();
         String tipeKendaraanLayout = "Tipe kendaraan";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tipeKendaraanLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+
+        clickDropDown(tipeKendaraanLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihTransmisi(String inputText) {
         String transmisiLayout = "Transmisi";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, transmisiLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(transmisiLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihTahun(String inputText) {
+        swipePageBtmtToTop();
         String tahunLayout = "Tahun";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, tahunLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(tahunLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihKamarTidur(String inputText) {
         swipePageBtmtToTop();
         String kamarTidurLayout = "Kamar tidur";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarTidurLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(kamarTidurLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihKamarMandi(String inputText) {
         swipePageBtmtToTop();
         String kamarMandiLayout = "Kamar mandi";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, kamarMandiLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(kamarMandiLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
     public void pilihSertifikasi(String inputText) {
         String sertifikasiLayout = "Sertifikasi";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, sertifikasiLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(sertifikasiLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
 
     public void pilihFasilitas(String inputText) {
         String fasilitasLayout = "Fasilitas";
-        verifyListElementMethodAndClickElement(linearLayoutCategoryParams, dropDownListElement, textViewDropDownTitle, fasilitasLayout);
-        clickCheckBoxElement(inputText, recycleViewLayout, textViewCheckBoxTitle);
+        clickDropDown(fasilitasLayout);
+
+        clickCheckBoxElement(inputText);
         clickElement(getIdLocator(pilihBtn));
     }
 
@@ -578,7 +661,7 @@ public class FilterPage extends BasePage {
     /**
      * This below method has made for swipe from bottom to top your Active Layout
      */
-    public void swipeActiveLayoutBtmToTop(String activeLayoutId) {
+    private void swipeActiveLayoutBtmToTop(String activeLayoutId) {
         WebElement activeLayout = driver.findElement(getIdLocator(activeLayoutId));
         int upperHeight = activeLayout.getLocation().getY();
         int middleHeight = activeLayout.getSize().getHeight() / 2;
@@ -593,24 +676,36 @@ public class FilterPage extends BasePage {
      * This below method has made that can click several selection checkbox with several selection inputText
      * the method can scroll automatically if needed
      */
-    public void clickCheckBoxElement(String inputText, String activeLayoutId, List<AndroidElement> childElement) {
+    private void clickCheckBoxElement(String inputText) {
+        List<AndroidElement> childElement = textViewCheckBoxTitle;
+
         List<String> listString = new ArrayList<String>(Arrays.asList(inputText.split("/")));
         Collections.sort(listString);
         String parentElementValue = "";
         String splitTextPart = "";
+
         for (int i = 0; i < childElement.size(); i++) {
             parentElementValue = childElement.get(i).getText();
+
             if (listString.size() == 0) {
                 break;
-            } else {
+            }
+            else {
+
                 for (int j = 0; j < listString.size(); j++) {
+
                     splitTextPart = listString.get(j);
+
                     if (parentElementValue.equalsIgnoreCase(splitTextPart)) {
+
                         listString.remove(splitTextPart);
                         childElement.get(i).click();
+
                     } else if (i == childElement.size() - 1 && listString.size() > 0) {
-                        swipeActiveLayoutBtmToTop(activeLayoutId);
+
+                        swipeActiveLayoutBtmToTop(recycleViewLayout);
                         i = 0;
+
                     }
                 }
             }
