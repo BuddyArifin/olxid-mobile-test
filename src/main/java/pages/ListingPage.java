@@ -2,6 +2,7 @@ package pages;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
@@ -266,6 +267,7 @@ public class ListingPage extends BasePage {
     public FilterByMapsLocationModule clickJarakDariKamuBtn()
     {
         Log.info("Click Jarak Dari Kamu Button");
+        isWaitElementPresent(getIdLocator(jarakDariKamuBtnID));
         clickElement(getIdLocator(jarakDariKamuBtnID));
         return new FilterByMapsLocationModule(driver);
     }
@@ -511,5 +513,9 @@ public class ListingPage extends BasePage {
         }
 
         return new AdsDetailsPage(driver);
+    }
+
+    public void clickEnterKeyboard() {
+        getAndroidDriver().pressKeyCode(AndroidKeyCode.ENTER);
     }
 }

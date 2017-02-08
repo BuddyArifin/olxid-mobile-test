@@ -88,8 +88,7 @@ public class ListingTest extends AndroidSetup {
         listingPage.initialListingPage();
         listingPage.clickSearchBtnPrm();
         listingPage.inputSearchKeyword("Jazz");
-        listingPage.verifySuggestionList();
-        listingPage.clickSuggestions();
+        listingPage.clickEnterKeyboard();
         listingPage.verifyContentsOfListingPage();
     }
 

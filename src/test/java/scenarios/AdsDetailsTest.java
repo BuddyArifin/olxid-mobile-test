@@ -35,8 +35,7 @@ public class AdsDetailsTest extends AndroidSetup {
         listingPage.verifyContentsOfListingPage();
         listingPage.clickSearchBtnPrm();
         listingPage.inputSearchKeyword("Panamera");
-        listingPage.verifySuggestionList();
-        listingPage.clickSuggestions();
+        listingPage.clickEnterKeyboard();
         listingPage.verifyContentsOfListingPage();
         adsDetailsPage = listingPage.selectAdsFromListing();
         adsDetailsPage.verifyAllContensAdsDetails();
