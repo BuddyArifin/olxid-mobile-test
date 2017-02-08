@@ -62,4 +62,9 @@
             </class>
         </classes>
     </test>
+    <test name="Paywall Sulley OLXID" preserve-order="false" >
+        <classes>
+            <class name="scenarios.BeliKuotaTest"/>
+        </classes>
+    </test>
 </suite>
