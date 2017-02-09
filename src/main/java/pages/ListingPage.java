@@ -433,6 +433,7 @@ public class ListingPage extends BasePage {
         }else if(isOnFilterPage()){
             clickBackDevice();
         }else if(isOnSearchPosition() || isOnMapsPage()){
+            hideSoftKeyboard();
             clickBackOnSearchAndMaps();
         }
     }

@@ -117,7 +117,7 @@ public class ListingTest extends AndroidSetup {
     }
 
     @Stories("As A User i want to able Click Pusat Bantuan")
-    @Title("Verify User able to click PusatBantuan Button")
+    @Title("Verify User able to click Pusat Bantuan Button")
     @TestCaseId("TC_LISTING_06_036")
     @Test(priority = 11)
     public void userAbleToGoToPusatBantuan() {
@@ -131,7 +131,7 @@ public class ListingTest extends AndroidSetup {
     }
 
     @Stories("As A User i want to able Click Pusat Bantuan")
-    @Title("Verify User able to click PusatBantuan Button")
+    @Title("Verify User able to click Tentang Olx Button")
     @TestCaseId("TC_LISTING_06_036")
     @Test(priority = 12)
     public void userAbleToGoToTentangOlx() {
@@ -155,9 +155,9 @@ public class ListingTest extends AndroidSetup {
         filterByMapsLocationModule = filterPage.clickLocationButton();
         filterByMapsLocationModule.verifyAllContentInLocationPage();
         filterByMapsLocationModule.inputKeywordInSearchFields("Menara");
+        listingPage.clickEnterKeyboard();
         filterByMapsLocationModule.verifySuggestions();
         filterByMapsLocationModule.chooseSuggestion(1);
-
         filterByMapsLocationModule.slideRightSliderRadius();
         filterByMapsLocationModule.clickCariDiLokasiIniBtn();
         filterPage.clickSimpanButton();

@@ -201,6 +201,12 @@ public class FilterByMapsLocationModule extends BasePage {
     {
         sendKeysById(getIdLocator(searchField), input);
         locationText = input;
+
+        /*
+        TODO = Prevent suggestion not shown - still search the best way
+        */
+        sendKeysById(getIdLocator(searchField), input);
+        locationText = input;
         Log.info("Input Keyword in Search Fields");
     }
 
