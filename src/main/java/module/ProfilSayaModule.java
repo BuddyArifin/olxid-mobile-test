@@ -110,13 +110,19 @@ public class ProfilSayaModule extends BasePage{
             @AndroidFindBy(className = externalAppGridView),
             @AndroidFindBy(id = "android:id/text1")
     })
-    public List<AndroidElement> appsPhotoOnPopUP;
+    private List<AndroidElement> appsPhotoOnPopUP;
+
+    @AndroidFindBys({
+            @AndroidFindBy(className = externalAppGridView),
+            @AndroidFindBy(id = "android:id/title_default")
+    })
+    private List<AndroidElement> appsPhotoOnPopUPGalaxyNote;
 
     @AndroidFindBys({
             @AndroidFindBy(id = "android:id/list"),
             @AndroidFindBy(id = "android:id/title")
     })
-    public List<AndroidElement> appsPhotonOnHamburger;
+    private List<AndroidElement> appsPhotonOnHamburger;
 
     public ProfilSayaModule(WebDriver driver)
     {
@@ -594,7 +600,7 @@ public class ProfilSayaModule extends BasePage{
     }
 
     private boolean isAppUsingExternalGallery() {
-        return isElementPresent(getIdLocator(openFromPopUpGalleryGrid));
+        return isElementPresent(By.className(externalAppGridView));
     }
 
     private boolean isAppUsingDefaultGallery() {
